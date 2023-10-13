@@ -2,12 +2,4 @@
     <string name="app_name">EarlyBirdy</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="저장하기">저장하기</string>
-    <string name="회원가입">회원가입</string>
-    <string name="비밀번호재입력">비밀번호를 재입력하세요.</string>
-    <string name="비밀번호입력">비밀번호를 입력하세요.</string>
-    <string name="이메일입력">이메일을 입력하세요.</string>
-    <string name="닉네임수정">닉네임 수정</string>
-    <string name="닉네임입력">닉네임을 입력하세요.</string>
-    <string name="이메일수정">이메일 수정</string>
 </resources>

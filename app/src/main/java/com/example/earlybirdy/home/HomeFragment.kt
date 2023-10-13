@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.earlybirdy.databinding.FragmentHomeBinding
+import com.example.earlybirdy.my_page.MyPageFragment
 
 class HomeFragment : Fragment() {
 
@@ -23,6 +24,10 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
+    }
+
+    companion object {
+        fun newInstance() = HomeFragment()
     }
 
 }
