@@ -19,7 +19,7 @@
             android:name=".setting.SettingActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".create_plan.CreatePlanActivity"
             android:exported="false" />
         <activity
             android:name=".alarm.AlarmActivity"
@@ -31,7 +31,7 @@
             android:name=".signup.SignupActivity"
             android:exported="false" />
         <activity
-            android:name=".create_plan.CreatePlanActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
