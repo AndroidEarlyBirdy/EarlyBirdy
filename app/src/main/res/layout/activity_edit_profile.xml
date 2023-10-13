@@ -14,12 +14,12 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/img_back"
+            android:id="@+id/img_profile_back"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:src="@drawable/ic_back"
+            android:src="@drawable/ic_profile_back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,25 +31,25 @@
             android:layout_marginEnd="16dp"
             android:background="@color/black"
             android:clickable="true"
+            android:focusable="true"
             android:onClick="onSaveButtonClick"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:focusable="true">
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/tv_edit_save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:focusable="true"
-            android:text="저장하기"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/cl_profile_save"
-            app:layout_constraintStart_toStartOf="@+id/cl_profile_save"
-            app:layout_constraintEnd_toEndOf="@+id/cl_profile_save"
-            app:layout_constraintTop_toTopOf="@+id/cl_profile_save" />
+            <TextView
+                android:id="@+id/tv_edit_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:text="저장하기"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/cl_profile_save"
+                app:layout_constraintEnd_toEndOf="@+id/cl_profile_save"
+                app:layout_constraintStart_toStartOf="@+id/cl_profile_save"
+                app:layout_constraintTop_toTopOf="@+id/cl_profile_save" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -60,23 +60,23 @@
             android:layout_margin="50dp"
             android:padding="1dp"
             android:src="@drawable/img_profile_sample"
-            app:strokeWidth="3dp"
-            app:strokeColor="@color/white"
-            app:shapeAppearanceOverlay="@style/circle"
-            app:layout_constraintTop_toTopOf="@+id/cl_profile_top"
             app:layout_constraintBottom_toBottomOf="@id/cl_profile_top"
-            app:layout_constraintStart_toStartOf="@id/cl_profile_top"
             app:layout_constraintEnd_toEndOf="@id/cl_profile_top"
-            />
+            app:layout_constraintStart_toStartOf="@id/cl_profile_top"
+            app:layout_constraintTop_toTopOf="@+id/cl_profile_top"
+            app:shapeAppearanceOverlay="@style/circle"
+            app:strokeColor="@color/white"
+            app:strokeWidth="3dp" />
+
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginEnd="15dp"
-            android:src="@drawable/img_profile_camera"
             android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/img_profile_camera"
             app:layout_constraintBottom_toBottomOf="@+id/img_proflile_profile"
-            app:layout_constraintEnd_toEndOf="@+id/img_proflile_profile"
-            android:focusable="true" />
+            app:layout_constraintEnd_toEndOf="@+id/img_proflile_profile" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -90,91 +90,110 @@
         android:text="프로필 수정"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/cl_profile_top"
         app:layout_constraintStart_toStartOf="parent"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/cl_profile_top" />
+
     <View
         android:id="@+id/line_profile_center"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="16dp"
         android:background="@color/black"
-        app:layout_constraintTop_toBottomOf="@+id/tv_edit_profile"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_edit_profile" />
 
     <TextView
         android:id="@+id/tv_profile_nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
-        android:textSize="16sp"
+        android:layout_marginTop="26dp"
         android:text="닉네임 수정"
-        app:layout_constraintTop_toBottomOf="@id/line_profile_center"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        />
+        app:layout_constraintTop_toBottomOf="@id/line_profile_center" />
 
-    <EditText
-        android:id="@+id/et_profile_nickname"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_profile_nickname"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="닉네임 입력"
+        app:layout_constraintBottom_toBottomOf="@id/tv_profile_nickname"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_profile_nickname"
+        app:layout_constraintTop_toTopOf="@id/tv_profile_nickname">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/et_profile_nickname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tv_profile_nickname"
-        app:layout_constraintBottom_toBottomOf="@id/tv_profile_nickname"
-        app:layout_constraintStart_toEndOf="@+id/tv_profile_nickname"/>
+        android:hint="이메일 입력" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/tv_profile_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
         android:layout_marginStart="16dp"
-        android:textSize="16sp"
+        android:layout_marginTop="41dp"
         android:text="이메일 수정"
-        app:layout_constraintTop_toBottomOf="@id/tv_profile_nickname"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        />
+        app:layout_constraintTop_toBottomOf="@id/tv_profile_nickname" />
 
-    <EditText
-        android:id="@+id/et_profile_email"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_profile_email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="이메일 입력"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tv_profile_email"
         app:layout_constraintBottom_toBottomOf="@id/tv_profile_email"
-        app:layout_constraintStart_toEndOf="@+id/tv_profile_email"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_profile_email"
+        app:layout_constraintTop_toTopOf="@id/tv_profile_email">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_profile_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:hint="이메일 입력" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/tv_profile_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="41dp"
         android:layout_marginEnd="19dp"
         android:text="비밀번호"
         android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@id/et_profile_password"
+        app:layout_constraintEnd_toStartOf="@+id/til_profile_password"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_profile_email" />
 
-    <EditText
-        android:id="@+id/et_profile_password"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_profile_password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="비밀번호 입력"
-        android:inputType="textPassword"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tv_profile_password"
         app:layout_constraintBottom_toBottomOf="@id/tv_profile_password"
-        app:layout_constraintStart_toEndOf="@+id/tv_profile_password"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_profile_password"
+        app:layout_constraintTop_toTopOf="@id/tv_profile_password">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_profile_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:hint="이메일 입력" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <ImageView
         android:id="@+id/img_profile_password_eye"
@@ -182,38 +201,43 @@
         android:layout_height="30dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="5dp"
-        android:src="@drawable/img_profile_eye"
         android:clickable="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tv_profile_password"
+        android:focusable="true"
+        android:src="@drawable/img_profile_eye"
         app:layout_constraintBottom_toBottomOf="@id/tv_profile_password"
-        android:focusable="true" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_profile_password" />
 
 
     <TextView
         android:id="@+id/tv_profile_password_check"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="41dp"
         android:layout_marginStart="16dp"
-        android:textSize="16sp"
         android:text="비밀번호 확인"
-        app:layout_constraintTop_toBottomOf="@id/tv_profile_password"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        />
+        app:layout_constraintTop_toBottomOf="@id/tv_profile_password" />
 
-    <EditText
-        android:id="@+id/et_profile_password_check"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_profile_password_check"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="비밀번호 재입력"
-        android:inputType="textPassword"
-        android:layout_marginStart="1dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tv_profile_password_check"
         app:layout_constraintBottom_toBottomOf="@id/tv_profile_password_check"
-        app:layout_constraintStart_toEndOf="@+id/tv_profile_password_check"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_profile_password_check"
+        app:layout_constraintTop_toTopOf="@id/tv_profile_password_check">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_profile_password_check"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="16dp"
+            android:hint="이메일 입력" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <ImageView
         android:id="@+id/img_profile_password_check_eye"
@@ -221,25 +245,20 @@
         android:layout_height="30dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="5dp"
-        android:src="@drawable/img_profile_eye"
         android:clickable="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tv_profile_password_check"
+        android:focusable="true"
+        android:src="@drawable/img_profile_eye"
         app:layout_constraintBottom_toBottomOf="@id/tv_profile_password_check"
-        android:focusable="true" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_profile_password_check" />
 
     <TextView
         android:id="@+id/tv_check_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@+id/et_profile_password_check"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-
-
-
-
+        app:layout_constraintTop_toBottomOf="@+id/til_profile_password_check"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
