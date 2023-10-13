@@ -53,7 +53,14 @@ class SignupActivity : AppCompatActivity() {
         //val passwordCheck = binding.titPasswordCheck.text.toString()
 
         // 빈칸 확인
-        if (nickname.isNotBlank() && email.isNotBlank() && password.isNotBlank()) {
+        //if (nickname.isNotBlank() && email.isNotBlank() && password.isNotBlank()) {
+        if (nickname.isEmpty()) {
+            binding.tilNickname.error = "닉네임을 입력해주세요"
+        } else if (email.isEmpty()) {
+            binding.tilEmail.error = "이메일을 입력해주세요"
+        } else if (password.isEmpty()) {
+            binding.tilPassword.error = "비밀번호를 입력해주세요"
+        } else {
             // auth 회원가입
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
@@ -72,9 +79,11 @@ class SignupActivity : AppCompatActivity() {
                         finish()
                     }
                 }
-        } else {
-            // If sign in fails, display a message to the user.
-            showToast(this, "빈칸을 다 채우세요")
         }
+
+//        } else {
+//            // If sign in fails, display a message to the user.
+//            showToast(this, "빈칸을 다 채우세요")
+//        }
     }
 }

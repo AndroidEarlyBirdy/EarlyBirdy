@@ -49,7 +49,11 @@ class SigninActivity : AppCompatActivity() {
         val email = binding.titEmail.text.toString()
         val password = binding.titPassword.text.toString()
 
-        if (email.isNotBlank() && password.isNotBlank()) {
+        if (email.isEmpty()) {
+            binding.tilEmail.error = "이메일을 입력해주세요"
+        } else if (password.isEmpty()) {
+            binding.tilPassword.error = "비밀번호를 입력해주세요"
+        } else {
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
@@ -60,8 +64,6 @@ class SigninActivity : AppCompatActivity() {
                         showToast(this, "로그인 실패!")
                     }
                 }
-        } else {
-            showToast(this, "이메일 및 비밀번호를 입력해주세요")
         }
     }
 }
