@@ -6,4 +6,207 @@
     android:layout_height="match_parent"
     tools:context=".edit_profile.EditProfileActivity">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_profile_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/ic_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/저장하기"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/img_proflile_profile"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_margin="50dp"
+            android:padding="1dp"
+            android:src="@drawable/img_profile_sample"
+            app:strokeWidth="3dp"
+            app:strokeColor="@color/white"
+            app:shapeAppearanceOverlay="@style/circle"
+            app:layout_constraintTop_toTopOf="@+id/cl_profile_top"
+            app:layout_constraintBottom_toBottomOf="@id/cl_profile_top"
+            app:layout_constraintStart_toStartOf="@id/cl_profile_top"
+            app:layout_constraintEnd_toEndOf="@id/cl_profile_top"
+            />
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="15dp"
+            android:src="@drawable/img_profile_camera"
+            android:clickable="true"
+            app:layout_constraintBottom_toBottomOf="@+id/img_proflile_profile"
+            app:layout_constraintEnd_toEndOf="@+id/img_proflile_profile"
+            android:focusable="true" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tv_edit_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="프로필 수정"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/cl_profile_top"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+    <View
+        android:id="@+id/line_profile_center"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/tv_edit_profile"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_profile_nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:textSize="16sp"
+        android:text="@string/닉네임수정"
+        app:layout_constraintTop_toBottomOf="@id/line_profile_center"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <EditText
+        android:id="@+id/et_profile_nickname"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/닉네임입력"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_profile_nickname"
+        app:layout_constraintBottom_toBottomOf="@id/tv_profile_nickname"
+        app:layout_constraintStart_toEndOf="@+id/tv_profile_nickname"/>
+
+    <TextView
+        android:id="@+id/tv_profile_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:layout_marginStart="16dp"
+        android:textSize="16sp"
+        android:text="@string/이메일수정"
+        app:layout_constraintTop_toBottomOf="@id/tv_profile_nickname"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <EditText
+        android:id="@+id/et_profile_email"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/이메일입력"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_profile_email"
+        app:layout_constraintBottom_toBottomOf="@id/tv_profile_email"
+        app:layout_constraintStart_toEndOf="@+id/tv_profile_email"/>
+
+    <TextView
+        android:id="@+id/tv_profile_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="19dp"
+        android:text="비밀번호"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@id/et_profile_password"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_profile_email" />
+
+    <EditText
+        android:id="@+id/et_profile_password"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/비밀번호입력"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_profile_password"
+        app:layout_constraintBottom_toBottomOf="@id/tv_profile_password"
+        app:layout_constraintStart_toEndOf="@+id/tv_profile_password"/>
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="5dp"
+        android:src="@drawable/img_profile_eye"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_profile_password"
+        app:layout_constraintBottom_toBottomOf="@id/tv_profile_password"/>
+
+
+    <TextView
+        android:id="@+id/tv_profile_password_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:layout_marginStart="16dp"
+        android:textSize="16sp"
+        android:text="비밀번호 확인"
+        app:layout_constraintTop_toBottomOf="@id/tv_profile_password"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <EditText
+        android:id="@+id/et_profile_password_check"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/비밀번호재입력"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_profile_password_check"
+        app:layout_constraintBottom_toBottomOf="@id/tv_profile_password_check"
+        app:layout_constraintStart_toEndOf="@+id/tv_profile_password_check"/>
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="5dp"
+        android:src="@drawable/img_profile_eye"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_profile_password_check"
+        app:layout_constraintBottom_toBottomOf="@id/tv_profile_password_check"/>
+
+
+
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
