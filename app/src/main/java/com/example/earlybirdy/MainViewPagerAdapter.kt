@@ -33,6 +33,7 @@ class MainViewPagerAdapter(fragmentActivity: FragmentActivity) : FragmentStateAd
     }
 
     override fun createFragment(position: Int): Fragment {
+        //기본 프래그먼트를 설정
         return fragment_list[position].fragment
     }
 }
