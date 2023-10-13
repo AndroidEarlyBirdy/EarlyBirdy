@@ -66,7 +66,9 @@
         android:layout_marginTop="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_password">
+        app:layout_constraintTop_toBottomOf="@+id/tv_password"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="#FFBF24">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tit_password"
@@ -120,11 +122,11 @@
         android:id="@+id/tv_finish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginBottom="15dp"
         android:text="나가기"
         android:textColor="#ABABAB"
         android:textStyle="bold"
-        android:layout_marginBottom="15dp"
-        android:layout_marginStart="80dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/tv_btn_signup"
         app:layout_constraintStart_toStartOf="parent" />
@@ -133,11 +135,11 @@
         android:id="@+id/tv_btn_signup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="80dp"
+        android:layout_marginBottom="15dp"
         android:text="회원가입"
         android:textColor="#ABABAB"
         android:textStyle="bold"
-        android:layout_marginBottom="15dp"
-        android:layout_marginEnd="80dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tv_finish" />
