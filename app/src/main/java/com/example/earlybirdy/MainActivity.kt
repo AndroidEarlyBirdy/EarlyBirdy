@@ -4,10 +4,14 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.earlybirdy.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
 
 
 class MainActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityMainBinding
+
     private val viewPagerAdapter: MainViewPagerAdapter by lazy {
         MainViewPagerAdapter(this@MainActivity)
     }
@@ -41,29 +45,4 @@ class MainActivity : AppCompatActivity() {
         // 기본 프래그먼트로 HomeFragment 설정
         binding.vpMain.setCurrentItem(1, false)
     }
-
-//    private fun login() {
-//        val tvTest = findViewById<TextView>(R.id.tv_test)
-//        val currentUser = auth.currentUser
-//        if (currentUser != null) {
-//            showToast(this, "로그인 중 = ${currentUser.email}")
-//            tvTest.setText("${currentUser.uid}")
-//        } else {
-//            navigateToSigninActivity(this)
-//        }
-//    }
-//
-//    private fun logOut() {
-//        val tvTest = findViewById<TextView>(R.id.tv_test)
-//        val currentUser = auth.currentUser
-//        if (currentUser != null) {
-//            auth.signOut()
-//            showToast(this, "로그아웃 성공!")
-//            navigateToSigninActivity(this)
-//        } else {
-//            showToast(this, "로그인을 먼저 해주세요")
-//            tvTest.setText("${currentUser?.uid}")
-//            navigateToSigninActivity(this)
-//        }
-//    }
 }

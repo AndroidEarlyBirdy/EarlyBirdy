@@ -24,13 +24,13 @@
             android:name=".alarm.AlarmActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".signin.SigninActivity"
             android:exported="false" />
         <activity
             android:name=".signup.SignupActivity"
             android:exported="false" />
         <activity
-            android:name=".signin.SigninActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -25,6 +25,10 @@ class SigninActivity : AppCompatActivity() {
             signIn()
         }
 
+        binding.btnSigninGoogle.setOnClickListener {
+            navigateToMainActivity(this)
+        }
+
         // 나가기 = 앱 종료
         binding.tvFinish.setOnClickListener {
             //val intent = Intent(Intent.ACTION_VIEW, Uri.parse("${}"))
