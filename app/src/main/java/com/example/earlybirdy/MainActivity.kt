@@ -3,11 +3,15 @@ package com.example.earlybirdy
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.earlybirdy.databinding.ActivityMainBinding
-import com.example.earlybirdy.home.HomeFragment
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+
 
 class MainActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityMainBinding
+
     private val viewPagerAdapter: MainViewPagerAdapter by lazy {
         MainViewPagerAdapter(this@MainActivity)
     }
