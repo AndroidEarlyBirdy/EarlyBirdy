@@ -25,4 +25,8 @@ class MyPageFragment : Fragment() {
         super.onDestroyView()
     }
 
+    companion object {
+        fun newInstance() = MyPageFragment()
+    }
+
 }
