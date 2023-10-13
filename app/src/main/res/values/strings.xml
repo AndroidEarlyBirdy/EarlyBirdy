@@ -2,4 +2,7 @@
     <string name="app_name">EarlyBirdy</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tab_board">Board</string>
+    <string name="tab_home">Home</string>
+    <string name="tab_mypage">Mypage</string>
 </resources>

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.earlybirdy.R
 import com.example.earlybirdy.databinding.FragmentBoardBinding
+import com.example.earlybirdy.my_page.MyPageFragment
 
 class BoardFragment : Fragment() {
 
@@ -24,5 +25,9 @@ class BoardFragment : Fragment() {
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
+    }
+
+    companion object {
+        fun newInstance() = BoardFragment()
     }
 }
