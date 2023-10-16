@@ -37,18 +37,20 @@ class BoardFragment : Fragment() {
         val currentUser = auth.currentUser
         if(currentUser != null) {
             binding.tvTestUid.setText("${currentUser.uid}")
+
+            binding.btnSignoutTest.setOnClickListener {
+                signOut()
+            }
+        }else{
+            binding.btnSigninTest.setOnClickListener {
+                signin()
+            }
         }
         binding.btnTest.setOnClickListener {
             navigateToSigninActivity(this.requireActivity())
         }
 
-        binding.btnSigninTest.setOnClickListener {
-            signin()
-        }
 
-        binding.btnSignoutTest.setOnClickListener {
-            signOut()
-        }
         binding.btnEditprofileTest.setOnClickListener {
             navigateToEditProfileActivity(this.requireActivity())
         }

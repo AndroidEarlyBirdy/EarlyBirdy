@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.earlybirdy.databinding.ActivitySigninBinding
 import com.example.earlybirdy.util.navigateToMainActivity
-import com.example.earlybirdy.util.navigateToResetPasswordActivity
+import com.example.earlybirdy.util.navigateToSendEmailActivity
 import com.example.earlybirdy.util.navigateToSignupActivity
 import com.example.earlybirdy.util.showToast
 import com.google.firebase.auth.FirebaseAuth
@@ -21,10 +21,14 @@ class SigninActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
-        binding.tvBtnResetPassword.setOnClickListener {
-            navigateToResetPasswordActivity(this)
+        val user = auth.currentUser
+        if (user != null){
+            showToast(this, "이미 로그인 중입니다.")
+        }else{
+            binding.tvBtnResetPassword.setOnClickListener {
+                navigateToSendEmailActivity(this)
+            }
         }
-
         //로그인
         binding.btnSignin.setOnClickListener {
             onStart()
@@ -51,8 +55,8 @@ class SigninActivity : AppCompatActivity() {
     //로그인 함수
     public override fun onStart() {
         super.onStart()
-        val currentUser = auth.currentUser
-        if (currentUser != null) { // 로그인 여부 체크
+        val user = auth.currentUser
+        if (user != null) { // 로그인 여부 체크
             navigateToMainActivity(this)
         } else {
             val email = binding.titEmail.text.toString()
