@@ -7,6 +7,7 @@ import com.example.earlybirdy.create_plan.CreatePlanActivity
 import com.example.earlybirdy.edit_profile.EditProfileActivity
 import com.example.earlybirdy.main.MainActivity
 import com.example.earlybirdy.resetpassword.ResetPasswordActivity
+import com.example.earlybirdy.sendemail.SendEmailActivity
 import com.example.earlybirdy.signin.SigninActivity
 import com.example.earlybirdy.signup.SignupActivity
 
@@ -39,8 +40,8 @@ fun navigateToCreatePlanActivity(context: Context) {
 }
 
 // 비밀번호 재설정 액티비티로 이동 함수
-fun navigateToResetPasswordActivity(context: Context) {
-    val intent = Intent(context, ResetPasswordActivity::class.java)
+fun navigateToSendEmailActivity(context: Context) {
+    val intent = Intent(context, SendEmailActivity::class.java)
     context.startActivity(intent)
 }
 

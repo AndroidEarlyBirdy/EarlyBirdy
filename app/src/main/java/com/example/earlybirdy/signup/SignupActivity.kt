@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.widget.ImageView
 import androidx.core.widget.addTextChangedListener
 import com.example.earlybirdy.databinding.ActivitySignupBinding
@@ -15,12 +16,12 @@ import com.example.earlybirdy.util.navigateToMainActivity
 import com.example.earlybirdy.util.navigateToSigninActivity
 import com.example.earlybirdy.util.showToast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.ktx.storage
 
 class SignupActivity : AppCompatActivity() {
 
@@ -29,7 +30,7 @@ class SignupActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
     val db = Firebase.firestore
-    val storage = Firebase.storage
+    //val storage = Firebase.storage
 
     private lateinit var selectImgUri: Uri
     private val IMAGE_PICKER_REQUEST_CODE = 123
@@ -124,8 +125,9 @@ class SignupActivity : AppCompatActivity() {
                             finish()
                         }
                     }.addOnFailureListener {
-                        if (email.equals(auth.currentUser!!.email.toString())) {
-                            binding.tilEmail.error = "이미 회원가입 된 이메일 입니다."
+                        Log.e("email", "이메일 중복 테스트", it)
+                        if (it is FirebaseAuthUserCollisionException){
+
                         }
                     }
             }

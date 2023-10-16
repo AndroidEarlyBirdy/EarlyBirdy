@@ -17,6 +17,9 @@
         android:theme="@style/Theme.EarlyBirdy"
         tools:targetApi="31">
         <activity
+            android:name=".sendemail.SendEmailActivity"
+            android:exported="false" />
+        <activity
             android:name=".resetpassword.ResetPasswordActivity"
             android:exported="false" />
         <activity
