@@ -22,7 +22,7 @@ class SigninActivity : AppCompatActivity() {
 
         //로그인
         binding.btnSignin.setOnClickListener {
-            signIn()
+            onStart()
         }
 
         binding.btnSigninGoogle.setOnClickListener {
@@ -45,25 +45,32 @@ class SigninActivity : AppCompatActivity() {
     }
 
     //로그인 함수
-    private fun signIn() {
-        val email = binding.titEmail.text.toString()
-        val password = binding.titPassword.text.toString()
-
-        if (email.isEmpty()) {
-            binding.tilEmail.error = "이메일을 입력해주세요"
-        } else if (password.isEmpty()) {
-            binding.tilPassword.error = "비밀번호를 입력해주세요"
+    public override fun onStart() {
+        super.onStart()
+        // Check if user is signed in (non-null) and update UI accordingly.
+        val currentUser = auth.currentUser
+        if (currentUser != null) {
+            navigateToMainActivity(this)
         } else {
-            auth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this) { task ->
-                    if (task.isSuccessful) {
-                        showToast(this, "로그인 성공")
-                        navigateToMainActivity(this)
-                        finish()
-                    } else {
-                        showToast(this, "로그인 실패!")
+            val email = binding.titEmail.text.toString()
+            val password = binding.titPassword.text.toString()
+
+            if (email.isEmpty()) {
+                binding.tilEmail.error = "이메일을 입력해주세요"
+            } else if (password.isEmpty()) {
+                binding.tilPassword.error = "비밀번호를 입력해주세요"
+            } else {
+                auth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this) { task ->
+                        if (task.isSuccessful) {
+                            showToast(this, "로그인 성공")
+                            navigateToMainActivity(this)
+                            finish()
+                        } else {
+                            showToast(this, "로그인 실패!")
+                        }
                     }
-                }
+            }
         }
     }
 }

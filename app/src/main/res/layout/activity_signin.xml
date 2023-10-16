@@ -35,8 +35,6 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_email">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -64,8 +62,6 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_password"
         app:passwordToggleEnabled="true"
         app:passwordToggleTint="#FFBF24">
@@ -82,7 +78,7 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_signin"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="30dp"
         android:background="@drawable/btn_sign_background"
@@ -90,8 +86,6 @@
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/til_password" />
 
     <ImageView
@@ -103,8 +97,6 @@
         android:padding="0dp"
         android:scaleType="centerCrop"
         android:src="@drawable/bg_line"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_signin" />
 
     <Button
@@ -114,8 +106,6 @@
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="16dp"
         android:text="구글로 로그인 임시"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_line" />
 
     <TextView
