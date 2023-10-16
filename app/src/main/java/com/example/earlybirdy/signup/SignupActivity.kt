@@ -13,6 +13,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 
 class SignupActivity : AppCompatActivity() {
 
@@ -21,6 +22,7 @@ class SignupActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
     val db = Firebase.firestore
+    val storage = Firebase.storage
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +31,13 @@ class SignupActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         database = Firebase.database.reference
 
+
 //        binding.tilPassword.editText.addTextChangedListener()
+
+        // 프로필 사진 등록
+        binding.ivProfile.setOnClickListener {
+
+        }
 
         // 회원가입
         binding.btnSignup.setOnClickListener {
@@ -61,11 +69,11 @@ class SignupActivity : AppCompatActivity() {
             val passwordCheck = binding.titPasswordCheck.text.toString()
 
             // 빈칸 확인
-            if (nickname.isEmpty()) {
+            if (nickname.isBlank()) {
                 binding.tilNickname.error = "닉네임을 입력해주세요"
-            } else if (email.isEmpty()) {
+            } else if (email.isBlank()) {
                 binding.tilEmail.error = "이메일을 입력해주세요"
-            } else if (password.isEmpty()) {
+            } else if (password.isBlank()) {
                 binding.tilPassword.error = "비밀번호를 입력해주세요"
             } else {
                 if (password == passwordCheck) { // 비밀번호 확인
@@ -88,11 +96,19 @@ class SignupActivity : AppCompatActivity() {
                                 navigateToMainActivity(this)
                                 finish()
                             } else { // 이미 있는 이메일, 닉네임 정보 예외처리
-                                updateUI(null)
+//                                val user = auth.currentUser
+//                                updateUI(null)
+//                                if (user?.email == email) {
+//                                    binding.tilEmail.error = "중복된 이메일 입니다"
+//                                }
                             }
                         }
 //                            .addOnFailureListener {
-//                            when
+//                            val user = auth.currentUser
+//                            updateUI(null)
+//                            if (user?.email == email) {
+//                                binding.tilEmail.error = "중복된 이메일 입니다"
+//                            }
 //                        }
                 } else {
                     binding.tilPasswordCheck.error = "같은 비밀번호를 입력해주세요"
@@ -104,4 +120,12 @@ class SignupActivity : AppCompatActivity() {
 
     private fun updateUI(user: FirebaseUser?) {
     }
+
+//    private fun profileUpload(){
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
+//            checkPermission(Manifest.permission.READ_MEDIA_IMAGES)
+//        }else{
+//            checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+//        }
+//    }
 }
