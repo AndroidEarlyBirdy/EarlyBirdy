@@ -3,7 +3,6 @@ package com.example.earlybirdy.create_plan
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.earlybirdy.R
 import com.example.earlybirdy.data.Todo
 import com.example.earlybirdy.databinding.ActivityCreatePlanBinding
 
@@ -29,5 +28,9 @@ class CreatePlanActivity : AppCompatActivity() {
     private fun initView() = with(binding) {
         recyclerViewTodo.adapter = listAdapter
         recyclerViewTodo.layoutManager= LinearLayoutManager(parent, LinearLayoutManager.VERTICAL, false)
+
+        binding.ivAddTodo.setOnClickListener {
+            CreatePlanDialog(this@CreatePlanActivity).show()
+        }
     }
 }
