@@ -13,7 +13,6 @@ class CreatePlanDialog (
     context: Context,
 ) : Dialog(context) {
     private lateinit var binding: ActivityCreatePlanDialogBinding
-    private val listAdapter = CreatePlanAdapter()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCreatePlanDialogBinding.inflate(layoutInflater)
@@ -28,16 +27,11 @@ class CreatePlanDialog (
             if(binding.etCreatePlanDialog.text.isNullOrBlank()) {
                 Toast.makeText(context,"오늘의 계획을 입력하세요.",Toast.LENGTH_SHORT).show()
             } else {
-                addTodayPlan()
                 dismiss()
             }
         }
         binding.btnCreatePlanDialogCancel.setOnClickListener {
             dismiss()
         }
-    }
-    private fun addTodayPlan() {
-        val todayPlan: MutableList<Todo> = mutableListOf(Todo("",binding.etCreatePlanDialog.text.toString(),false))
-        listAdapter.addItems(todayPlan)
     }
 }

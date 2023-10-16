@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import com.example.earlybirdy.R
 import com.example.earlybirdy.databinding.FragmentBoardBinding
 import com.example.earlybirdy.my_page.MyPageFragment
+import com.example.earlybirdy.util.navigateToCreatePlanActivity
+import com.example.earlybirdy.util.navigateToEditProfileActivity
 import com.example.earlybirdy.util.navigateToSigninActivity
 import com.example.earlybirdy.util.showToast
 import com.google.firebase.auth.FirebaseAuth
@@ -46,6 +48,13 @@ class BoardFragment : Fragment() {
 
         binding.btnSignoutTest.setOnClickListener {
             signOut()
+        }
+        binding.btnEditprofileTest.setOnClickListener {
+            navigateToEditProfileActivity(this.requireActivity())
+        }
+
+        binding.btnCreateplanTest.setOnClickListener{
+            navigateToCreatePlanActivity(this.requireActivity())
         }
 
         return binding.root
