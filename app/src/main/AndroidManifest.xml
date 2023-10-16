@@ -30,6 +30,9 @@
             android:name=".signup.SignupActivity"
             android:exported="false" />
         <activity
+            android:name=".SplahActivity.SplashActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

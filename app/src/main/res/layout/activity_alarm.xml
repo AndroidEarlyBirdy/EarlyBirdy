@@ -167,8 +167,7 @@
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="@+id/imageView"
             app:layout_constraintTop_toTopOf="@+id/imageView"
-            app:layout_gravity="right"
-            tools:gravity="right" />
+            />
 
         <Switch
             android:id="@+id/switch_alarm"
@@ -178,8 +177,7 @@
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="@+id/imageView2"
             app:layout_constraintTop_toTopOf="@+id/imageView2"
-            app:layout_gravity="right"
-            tools:gravity="right" />
+            />
 
         <Switch
             android:id="@+id/switch_vibrate"
@@ -189,8 +187,7 @@
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="@+id/imageView3"
             app:layout_constraintTop_toTopOf="@+id/imageView3"
-            app:layout_gravity="right"
-            tools:gravity="right" />
+            />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
