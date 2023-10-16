@@ -1,11 +1,10 @@
-package com.example.earlybirdy
+package com.example.earlybirdy.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.earlybirdy.R
 import com.example.earlybirdy.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayoutMediator
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
 
 
 class MainActivity : AppCompatActivity() {
@@ -22,11 +21,23 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         initView()
+        setTabLayout()
 
-        val tabLayout = binding.tlMain
+    }
+
+    private fun initView() = with(binding) {
+        vpMain.adapter = viewPagerAdapter
+        vpMain.isUserInputEnabled=false
+
+        // 기본 프래그먼트로 HomeFragment 설정
+        binding.vpMain.setCurrentItem(1, false)
+    }
+
+    private fun setTabLayout() = with(binding){
+        val tabLayout = tlMain
 
         // TabLayout과 ViewPager2 연결
-        TabLayoutMediator(tabLayout, binding.vpMain) { tab, position ->
+        TabLayoutMediator(tabLayout, vpMain) { tab, position ->
             tab.setText(viewPagerAdapter.getTitle(position))
 
             // 아이콘 변경
@@ -36,13 +47,5 @@ class MainActivity : AppCompatActivity() {
                 2 -> tab.setIcon(R.drawable.ic_mypage)
             }
         }.attach()
-    }
-
-    private fun initView() = with(binding) {
-        vpMain.adapter = viewPagerAdapter
-        vpMain.isUserInputEnabled=false
-
-        // 기본 프래그먼트로 HomeFragment 설정
-        binding.vpMain.setCurrentItem(1, false)
     }
 }
