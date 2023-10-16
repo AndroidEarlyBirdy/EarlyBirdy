@@ -34,10 +34,10 @@
             android:name=".signup.SignupActivity"
             android:exported="false" />
         <activity
-            android:name=".SplahActivity.SplashActivity"
+            android:name=".main.SplashActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
