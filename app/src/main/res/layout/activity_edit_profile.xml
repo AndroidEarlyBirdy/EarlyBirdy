@@ -128,7 +128,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:hint="이메일 입력" />
+        android:hint="닉네임을 입력해주세요" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -158,7 +158,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:hint="이메일 입력" />
+            android:hint="이메일을 입력해주세요" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -182,7 +182,9 @@
         app:layout_constraintBottom_toBottomOf="@id/tv_profile_password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tv_profile_password"
-        app:layout_constraintTop_toTopOf="@id/tv_profile_password">
+        app:layout_constraintTop_toTopOf="@id/tv_profile_password"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="#FFBF24">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_profile_password"
@@ -190,23 +192,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:hint="이메일 입력" />
+            android:inputType="textPassword"
+            android:hint="비밀번호를 입력해주세요"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
-
-    <ImageView
-        android:id="@+id/img_profile_password_eye"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="5dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:src="@drawable/img_profile_eye"
-        app:layout_constraintBottom_toBottomOf="@id/tv_profile_password"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tv_profile_password" />
 
 
     <TextView
@@ -227,7 +217,9 @@
         app:layout_constraintBottom_toBottomOf="@id/tv_profile_password_check"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tv_profile_password_check"
-        app:layout_constraintTop_toTopOf="@id/tv_profile_password_check">
+        app:layout_constraintTop_toTopOf="@id/tv_profile_password_check"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="#FFBF24">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_profile_password_check"
@@ -235,22 +227,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
             android:layout_marginEnd="16dp"
-            android:hint="이메일 입력" />
+            android:inputType="textPassword"
+            android:hint="비밀번호를 다시 입력해주세요" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <ImageView
-        android:id="@+id/img_profile_password_check_eye"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="5dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:src="@drawable/img_profile_eye"
-        app:layout_constraintBottom_toBottomOf="@id/tv_profile_password_check"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tv_profile_password_check" />
 
     <TextView
         android:id="@+id/tv_check_view"
