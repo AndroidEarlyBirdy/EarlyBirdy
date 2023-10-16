@@ -1,4 +1,4 @@
-package com.example.earlybirdy
+package com.example.earlybirdy.main
 
 import androidx.fragment.app.Fragment
 

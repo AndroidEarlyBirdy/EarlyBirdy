@@ -6,5 +6,6 @@
     <color name="icon2">#FFBF24</color>
 
     <color name="togglebtn_color">#FFBF24</color>
+    <color name="setting_round">#C8C8C8</color>
 
 </resources>
