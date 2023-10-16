@@ -51,6 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="5dp"
+        android:maxLength="15"
         android:text="비밀번호"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -70,7 +71,7 @@
             android:id="@+id/tit_password"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="비밀번호를 입력하세요"
+            android:hint="15자 이하의 비밀번호를 입력하세요"
             android:inputType="textPassword"
             android:textColor="#CC999999" />
     </com.google.android.material.textfield.TextInputLayout>
