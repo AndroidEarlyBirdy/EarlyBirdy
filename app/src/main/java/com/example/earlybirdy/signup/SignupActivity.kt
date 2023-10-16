@@ -29,6 +29,8 @@ class SignupActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         database = Firebase.database.reference
 
+//        binding.tilPassword.editText.addTextChangedListener()
+
         // 회원가입
         binding.btnSignup.setOnClickListener {
             onStart()
@@ -47,19 +49,18 @@ class SignupActivity : AppCompatActivity() {
     // 회원가입 함수
     public override fun onStart() {
         super.onStart()
-        // Check if user is signed in (non-null) and update UI accordingly.
         val user = auth.currentUser
-        if (user != null) {
+        user?.reload() // 최신 유저 정보 갱신
+        if (user != null) { // 로그인 여부 체크
             navigateToMainActivity(this)
         } else {
-            val profile = binding.ivProfile.toString()
+            val profile = binding.ivProfile.toString() // 이미지 객체 정보
             val nickname = binding.titNickname.text.toString()
             val email = binding.titEmail.text.toString()
             val password = binding.titPassword.text.toString()
-            //val passwordCheck = binding.titPasswordCheck.text.toString()
+            val passwordCheck = binding.titPasswordCheck.text.toString()
 
             // 빈칸 확인
-            //if (nickname.isNotBlank() && email.isNotBlank() && password.isNotBlank()) {
             if (nickname.isEmpty()) {
                 binding.tilNickname.error = "닉네임을 입력해주세요"
             } else if (email.isEmpty()) {
@@ -67,32 +68,36 @@ class SignupActivity : AppCompatActivity() {
             } else if (password.isEmpty()) {
                 binding.tilPassword.error = "비밀번호를 입력해주세요"
             } else {
-                // auth 회원가입
-                auth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this) { task ->
-                        if (task.isSuccessful) {
-                            val user = auth.currentUser
-                            updateUI(user)
-                            // firestore DB에 저장
-                            val userDto = UserDto(/*user!!.uid,*/profile, nickname, email, password)
-                            db.collection("UserDto").document(user!!.uid)
-                                .set(userDto)
-                                .addOnSuccessListener { documentReference ->
-                                }
-                                .addOnFailureListener { e ->
-                                }
-                            showToast(this, "회원가입 성공 & 자동로그인")
-                            navigateToMainActivity(this)
-                            finish()
-                        } else { // 이미 있는 이메일 정보 예외처리
-                            updateUI(null)
-//                        try {
-//                            task.getResult()
-//                        }catch (Exception e){
-//
-//                        }
+                if (password == passwordCheck) { // 비밀번호 확인
+                    // auth 회원가입
+                    auth.createUserWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(this) { task ->
+                            if (task.isSuccessful) {
+                                val user = auth.currentUser
+                                updateUI(user)
+                                // firestore DB에 저장
+                                val userDto =
+                                    UserDto(/*user!!.uid,*/profile, nickname, email, password)
+                                db.collection("UserDto").document(user!!.uid)
+                                    .set(userDto)
+                                    .addOnSuccessListener { documentReference ->
+                                    }
+                                    .addOnFailureListener { e ->
+                                    }
+                                showToast(this, "회원가입 성공 & 자동로그인")
+                                navigateToMainActivity(this)
+                                finish()
+                            } else { // 이미 있는 이메일, 닉네임 정보 예외처리
+                                updateUI(null)
+                            }
                         }
-                    }
+//                            .addOnFailureListener {
+//                            when
+//                        }
+                } else {
+                    binding.tilPasswordCheck.error = "같은 비밀번호를 입력해주세요"
+                }
+
             }
         }
     }
