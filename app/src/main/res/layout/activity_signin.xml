@@ -51,6 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="5dp"
+        android:maxLength="15"
         android:text="비밀번호"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -70,23 +71,35 @@
             android:id="@+id/tit_password"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="비밀번호를 입력하세요"
+            android:hint="15자 이하의 비밀번호를 입력하세요"
             android:inputType="textPassword"
             android:textColor="#CC999999" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/tv_btn_reset_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="비밀번호를 잊으셨나요?"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="16dp"
+        android:textColor="#FF4646"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/til_password" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_signin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/btn_sign_background"
         android:text="로그인"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/til_password" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_btn_reset_password" />
 
     <ImageView
         android:id="@+id/iv_line"

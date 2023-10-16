@@ -6,6 +6,7 @@ import android.widget.Toast
 import com.example.earlybirdy.create_plan.CreatePlanActivity
 import com.example.earlybirdy.edit_profile.EditProfileActivity
 import com.example.earlybirdy.main.MainActivity
+import com.example.earlybirdy.resetpassword.ResetPasswordActivity
 import com.example.earlybirdy.signin.SigninActivity
 import com.example.earlybirdy.signup.SignupActivity
 
@@ -34,6 +35,12 @@ fun navigateToEditProfileActivity(context: Context) {
 // 오늘의목표 액티비티로 이동 함수
 fun navigateToCreatePlanActivity(context: Context) {
     val intent = Intent(context, CreatePlanActivity::class.java)
+    context.startActivity(intent)
+}
+
+// 비밀번호 재설정 액티비티로 이동 함수
+fun navigateToResetPasswordActivity(context: Context) {
+    val intent = Intent(context, ResetPasswordActivity::class.java)
     context.startActivity(intent)
 }
 
