@@ -3,6 +3,8 @@ package com.example.earlybirdy.util
 import android.content.Context
 import android.content.Intent
 import android.widget.Toast
+import com.example.earlybirdy.create_plan.CreatePlanActivity
+import com.example.earlybirdy.edit_profile.EditProfileActivity
 import com.example.earlybirdy.main.MainActivity
 import com.example.earlybirdy.resetpassword.ResetPasswordActivity
 import com.example.earlybirdy.signin.SigninActivity
@@ -23,6 +25,16 @@ fun navigateToSigninActivity(context: Context) {
 // 회원가입 액티비티로 이동 함수
 fun navigateToSignupActivity(context: Context) {
     val intent = Intent(context, SignupActivity::class.java)
+    context.startActivity(intent)
+}
+// 개인정보 수정 액티비티로 이동 함수
+fun navigateToEditProfileActivity(context: Context) {
+    val intent = Intent(context, EditProfileActivity::class.java)
+    context.startActivity(intent)
+}
+// 오늘의목표 액티비티로 이동 함수
+fun navigateToCreatePlanActivity(context: Context) {
+    val intent = Intent(context, CreatePlanActivity::class.java)
     context.startActivity(intent)
 }
 
