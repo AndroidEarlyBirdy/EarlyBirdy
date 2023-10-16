@@ -3,7 +3,7 @@ package com.example.earlybirdy.util
 import android.content.Context
 import android.content.Intent
 import android.widget.Toast
-import com.example.earlybirdy.MainActivity
+import com.example.earlybirdy.main.MainActivity
 import com.example.earlybirdy.signin.SigninActivity
 import com.example.earlybirdy.signup.SignupActivity
 

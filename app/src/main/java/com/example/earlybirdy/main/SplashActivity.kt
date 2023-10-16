@@ -1,10 +1,9 @@
-package com.example.earlybirdy.SplahActivity
+package com.example.earlybirdy.main
 
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
-import com.example.earlybirdy.MainActivity
 import com.example.earlybirdy.R
 
 class SplashActivity : AppCompatActivity() {
@@ -18,13 +17,10 @@ class SplashActivity : AppCompatActivity() {
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
             startActivity(intent)
             finish()
-        },DURATION)
+        }, DURATION)
     }
     companion object{
         private const val DURATION : Long = 3000
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-    }
 }
