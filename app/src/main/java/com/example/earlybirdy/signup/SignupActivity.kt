@@ -101,6 +101,8 @@ class SignupActivity : AppCompatActivity() {
                 binding.tilEmail.error = "이메일을 입력해주세요"
             } else if (password.isBlank()) {
                 binding.tilPassword.error = "비밀번호를 입력해주세요"
+            } else if(!password.equals(passwordCheck)){
+                binding.tilPasswordCheck.error = "일치하지 않습니다"
             } else {
                 // auth 회원가입
                 auth.createUserWithEmailAndPassword(email, password)
@@ -122,8 +124,8 @@ class SignupActivity : AppCompatActivity() {
                             finish()
                         }
                     }.addOnFailureListener {
-                        if (email.equals(auth.currentUser!!.email)) {
-                            showToast(this, "이미 회원가입 된 이메일 입니다.ㅅ")
+                        if (email.equals(auth.currentUser!!.email.toString())) {
+                            binding.tilEmail.error = "이미 회원가입 된 이메일 입니다."
                         }
                     }
             }

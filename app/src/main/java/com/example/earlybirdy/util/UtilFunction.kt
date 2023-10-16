@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.widget.Toast
 import com.example.earlybirdy.main.MainActivity
+import com.example.earlybirdy.resetpassword.ResetPasswordActivity
 import com.example.earlybirdy.signin.SigninActivity
 import com.example.earlybirdy.signup.SignupActivity
 
@@ -22,6 +23,12 @@ fun navigateToSigninActivity(context: Context) {
 // 회원가입 액티비티로 이동 함수
 fun navigateToSignupActivity(context: Context) {
     val intent = Intent(context, SignupActivity::class.java)
+    context.startActivity(intent)
+}
+
+// 비밀번호 재설정 액티비티로 이동 함수
+fun navigateToResetPasswordActivity(context: Context) {
+    val intent = Intent(context, ResetPasswordActivity::class.java)
     context.startActivity(intent)
 }
 

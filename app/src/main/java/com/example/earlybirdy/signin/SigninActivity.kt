@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.earlybirdy.databinding.ActivitySigninBinding
 import com.example.earlybirdy.util.navigateToMainActivity
+import com.example.earlybirdy.util.navigateToResetPasswordActivity
 import com.example.earlybirdy.util.navigateToSignupActivity
 import com.example.earlybirdy.util.showToast
 import com.google.firebase.auth.FirebaseAuth
@@ -19,6 +20,10 @@ class SigninActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         auth = FirebaseAuth.getInstance()
+
+        binding.tvBtnResetPassword.setOnClickListener {
+            navigateToResetPasswordActivity(this)
+        }
 
         //로그인
         binding.btnSignin.setOnClickListener {
