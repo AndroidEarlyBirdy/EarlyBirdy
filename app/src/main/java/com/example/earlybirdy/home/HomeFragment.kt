@@ -34,7 +34,7 @@ class HomeFragment : Fragment() {
     private fun loatTimeDate() {
         val pref: SharedPreferences = requireContext().getSharedPreferences("alarmTime", Context.MODE_PRIVATE)
 
-        binding.tvAlarm.text = "${pref.getInt("hour", 0).toString()} : ${pref.getInt("min", 0).toString()}"
+        binding.tvAlarm.text = "${pref.getInt("hour", 0).toString()} : ${pref.getInt("min", 0).toString()} AM"
     }
 
     override fun onDestroyView() {

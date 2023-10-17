@@ -77,6 +77,7 @@ class AlarmActivity : AppCompatActivity() {
     }
 
     private fun setNotification() {
+        val pref = getSharedPreferences("alarmTime",0)
         val manager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         val builder: NotificationCompat.Builder
 
@@ -106,14 +107,14 @@ class AlarmActivity : AppCompatActivity() {
             builder = NotificationCompat.Builder(this)
         }
 
-//        val bitmap = BitmapFactory.decodeResource(resources,R.drawable.contactdetailfragment_phonecall)
+        val bitmap = BitmapFactory.decodeResource(resources,R.drawable.ic_logo)
         val intent = Intent(this,MainActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         val pendingIntent = PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
         builder.run{
             setSmallIcon(R.mipmap.ic_launcher)
             setWhen(System.currentTimeMillis())
-            setContentTitle("EarlyBirdy")
+            setContentTitle("${pref.getInt("hour", 0).toString()} : ${pref.getInt("min", 0).toString()}")
             setContentText("일어나세요 용사여!")
 //            setLargeIcon(bitmap)
             addAction(R.mipmap.ic_launcher,"Action",pendingIntent)
