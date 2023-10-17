@@ -3,6 +3,7 @@ package com.example.earlybirdy.util
 import android.content.Context
 import android.content.Intent
 import android.widget.Toast
+import com.example.earlybirdy.alarm.AlarmActivity
 import com.example.earlybirdy.create_plan.CreatePlanActivity
 import com.example.earlybirdy.edit_profile.EditProfileActivity
 import com.example.earlybirdy.main.MainActivity
@@ -42,6 +43,12 @@ fun navigateToCreatePlanActivity(context: Context) {
 // 비밀번호 재설정 액티비티로 이동 함수
 fun navigateToSendEmailActivity(context: Context) {
     val intent = Intent(context, SendEmailActivity::class.java)
+    context.startActivity(intent)
+}
+
+// 알람 액티비티로 이동 함수
+fun navigateToAlarmActivity(context: Context) {
+    val intent = Intent(context, AlarmActivity::class.java)
     context.startActivity(intent)
 }
 
