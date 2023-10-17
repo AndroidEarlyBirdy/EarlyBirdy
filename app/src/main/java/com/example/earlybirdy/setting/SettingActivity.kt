@@ -14,6 +14,11 @@ class SettingActivity : AppCompatActivity() {
         binding = ActivitySettingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        initView()
+
+    }
+
+    fun initView() {
         binding.btnUserSupport.setOnClickListener {
             navigateToDetail("고객 지원", "고객 지원 내용")
         }
@@ -25,8 +30,6 @@ class SettingActivity : AppCompatActivity() {
         binding.btnGenralCondition.setOnClickListener {
 
         }
-
-
     }
 
     private fun navigateToDetail(title: String, content: String) {
@@ -37,7 +40,7 @@ class SettingActivity : AppCompatActivity() {
 
     }
 
-    }
+}
 
 
 
