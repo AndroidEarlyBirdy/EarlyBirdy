@@ -27,6 +27,7 @@ class SigninActivity : AppCompatActivity() {
         }else{
             binding.tvBtnResetPassword.setOnClickListener {
                 navigateToSendEmailActivity(this)
+                finish()
             }
         }
         //로그인
@@ -49,6 +50,7 @@ class SigninActivity : AppCompatActivity() {
         binding.tvBtnSignup.setOnClickListener {
             //val intent = Intent(Intent.ACTION_VIEW, Uri.parse("${}"))
             navigateToSignupActivity(this)
+            finish()
         }
     }
 

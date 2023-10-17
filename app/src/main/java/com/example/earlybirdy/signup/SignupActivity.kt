@@ -78,6 +78,7 @@ class SignupActivity : AppCompatActivity() {
         // 로그인 페이지로 이동
         binding.tvBtnSignin.setOnClickListener {
             navigateToSigninActivity(this)
+            finish()
         }
     }
 

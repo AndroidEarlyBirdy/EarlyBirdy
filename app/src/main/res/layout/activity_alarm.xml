@@ -10,7 +10,7 @@
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+        android:id="@+id/cl_toolbar"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         app:layout_constraintTop_toTopOf="parent">
@@ -57,14 +57,14 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout2"
+        android:id="@+id/cl_timepicker"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:background="#F9F9F9"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+        app:layout_constraintTop_toBottomOf="@+id/cl_toolbar">
 
         <TimePicker
             android:layout_width="wrap_content"
@@ -81,7 +81,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/cl_timepicker"
         tools:layout_editor_absoluteX="0dp">
 
         <ImageView
@@ -89,14 +89,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/imageView2"
+            app:layout_constraintBottom_toTopOf="@+id/iv_set_alarm"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_listitem" />
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/iv_set_alarm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -107,7 +107,7 @@
             app:srcCompat="@drawable/ic_listitem" />
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/iv_set_vibe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -116,7 +116,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.493"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
+            app:layout_constraintTop_toBottomOf="@+id/iv_set_alarm"
             app:srcCompat="@drawable/ic_listitem" />
 
         <TextView
@@ -133,7 +133,7 @@
             app:layout_constraintTop_toTopOf="@+id/imageView" />
 
         <TextView
-            android:id="@+id/tv_title2"
+            android:id="@+id/tv_title_alarm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="29dp"
@@ -142,11 +142,11 @@
             android:textColor="@color/icon1"
             android:textSize="18dp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/imageView2"
-            app:layout_constraintTop_toTopOf="@+id/imageView2" />
+            app:layout_constraintStart_toStartOf="@+id/iv_set_alarm"
+            app:layout_constraintTop_toTopOf="@+id/iv_set_alarm" />
 
         <TextView
-            android:id="@+id/tv_title3"
+            android:id="@+id/tv_title_vibe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="29dp"
@@ -155,8 +155,8 @@
             android:textColor="@color/icon1"
             android:textSize="18dp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/imageView3"
-            app:layout_constraintTop_toTopOf="@+id/imageView3" />
+            app:layout_constraintStart_toStartOf="@+id/iv_set_vibe"
+            app:layout_constraintTop_toTopOf="@+id/iv_set_vibe" />
 
         <Switch
             android:id="@+id/switch_setup"
@@ -174,18 +174,18 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="@+id/imageView2"
-            app:layout_constraintTop_toTopOf="@+id/imageView2"
+            app:layout_constraintEnd_toEndOf="@+id/iv_set_alarm"
+            app:layout_constraintTop_toTopOf="@+id/iv_set_alarm"
             />
 
         <Switch
-            android:id="@+id/switch_vibrate"
+            android:id="@+id/switch_vibe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="@+id/imageView3"
-            app:layout_constraintTop_toTopOf="@+id/imageView3"
+            app:layout_constraintEnd_toEndOf="@+id/iv_set_vibe"
+            app:layout_constraintTop_toTopOf="@+id/iv_set_vibe"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

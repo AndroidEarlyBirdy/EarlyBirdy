@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.earlybirdy.databinding.FragmentHomeBinding
 import com.example.earlybirdy.my_page.MyPageFragment
+import com.example.earlybirdy.util.navigateToAlarmActivity
 
 class HomeFragment : Fragment() {
 
@@ -18,6 +19,10 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        binding.ivGoAlarm.setOnClickListener {
+            navigateToAlarmActivity(this.requireActivity())
+        }
         return binding.root
     }
 
