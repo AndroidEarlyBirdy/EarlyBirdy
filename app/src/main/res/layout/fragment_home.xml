@@ -68,7 +68,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
-        android:text="8:00 AM"
+        android:text="알람 시간을 설정하세요"
         android:textColor="#80000000"
         android:textSize="18sp"
         android:textStyle="bold"
