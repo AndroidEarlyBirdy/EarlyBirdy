@@ -12,13 +12,14 @@ import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.DayViewDecorator
 import com.prolificinteractive.materialcalendarview.DayViewFacade
 
-class CreatePlanActivity : AppCompatActivity() {
+class CreatePlanActivity : AppCompatActivity(),CreatePlanDialog.DialogListener {
 
     private val listAdapter = CreatePlanAdapter()
     private val testList = mutableListOf(
         Todo(CalendarDay.from(2023,10,17),"test",false),
         Todo(CalendarDay.from(2023,10,16),"test2",true),
         Todo(CalendarDay.from(2023,10,20), "test3", false))
+    private var selectedDay : CalendarDay = CalendarDay.today()
 
     private lateinit var binding : ActivityCreatePlanBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,15 +53,18 @@ class CreatePlanActivity : AppCompatActivity() {
                     listAdapter.addItem(todo)
                 }
             }
+            //Dialog에 전달할 날짜 데이터
+            selectedDay = date
         }
     }
 
-    private fun initView() = with(binding) {
-        recyclerViewTodo.adapter = listAdapter
-        recyclerViewTodo.layoutManager= LinearLayoutManager(parent, LinearLayoutManager.VERTICAL, false)
+    private fun initView() = with(binding){
+        binding.recyclerViewTodo.adapter = listAdapter
+        binding.recyclerViewTodo.layoutManager= LinearLayoutManager(parent, LinearLayoutManager.VERTICAL, false)
 
+        //Dialog 생성
         binding.ivAddTodo.setOnClickListener {
-            CreatePlanDialog(this@CreatePlanActivity).show()
+            CreatePlanDialog(this@CreatePlanActivity,selectedDay,this@CreatePlanActivity).show()
         }
     }
 
@@ -79,5 +83,9 @@ class CreatePlanActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    override fun onDialogSaveClicked(todo: Todo) {
+        listAdapter.addItem(todo)
     }
 }
