@@ -20,6 +20,15 @@ class MyPageFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setCalendar()
+    }
+
+    private fun setCalendar() {
+
+    }
+
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
