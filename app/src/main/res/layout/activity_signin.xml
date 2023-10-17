@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="80dp"
-        android:text="EarlyBirdy"
+        android:text="@string/signin_logo"
         android:textSize="36sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="50dp"
-        android:text="이메일"
+        android:text="@string/signin_email"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_title" />
@@ -41,7 +41,7 @@
             android:id="@+id/tit_email"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="이메일을 입력하세요"
+            android:hint="@string/signin_enter_email"
             android:textColor="#CC999999" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -52,7 +52,7 @@
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="5dp"
         android:maxLength="15"
-        android:text="비밀번호"
+        android:text="@string/signin_pw"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/til_email" />
@@ -71,7 +71,7 @@
             android:id="@+id/tit_password"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="15자 이하의 비밀번호를 입력하세요"
+            android:hint="@string/signin_under15pw"
             android:inputType="textPassword"
             android:textColor="#CC999999" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -80,7 +80,7 @@
         android:id="@+id/tv_btn_reset_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="비밀번호를 잊으셨나요?"
+        android:text="@string/signin_findpw"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="16dp"
         android:textColor="#FF4646"
@@ -95,7 +95,7 @@
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/btn_sign_background"
-        android:text="로그인"
+        android:text="@string/signin_login"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -118,7 +118,7 @@
         android:layout_height="50dp"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="16dp"
-        android:text="구글로 로그인 임시"
+        android:text="@string/signin_googlelogin"
         app:layout_constraintTop_toBottomOf="@+id/iv_line" />
 
     <TextView
@@ -127,7 +127,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"
         android:layout_marginBottom="15dp"
-        android:text="나가기"
+        android:text="@string/signin_out"
         android:textColor="#ABABAB"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -140,7 +140,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="80dp"
         android:layout_marginBottom="15dp"
-        android:text="회원가입"
+        android:text="@string/signin_signup"
         android:textColor="#ABABAB"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
