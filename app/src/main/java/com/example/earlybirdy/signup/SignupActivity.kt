@@ -42,10 +42,14 @@ class SignupActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         database = Firebase.database.reference
 
-//        // 프로필 사진 등록
-//        binding.ivProfile.setOnClickListener {
-//            openAlbum()
-//        }
+        // 프로필 사진 등록
+        binding.ivProfile.setOnClickListener {
+            val signupDialog = SignupDialog(this@SignupActivity)
+            signupDialog.show()
+            signupDialog.setOnSaveClickListener { selectedImageId ->
+                binding.ivProfile.setImageResource(selectedImageId)
+            }
+        }
 
         // 비밀번호 확인 함수
         binding.titPasswordCheck.addTextChangedListener(object : TextWatcher {
