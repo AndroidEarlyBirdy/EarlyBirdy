@@ -5,10 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".setting.SettingActivity">
+    tools:context=".setting.SettingDetailActivity">
 
     <ImageView
-        android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@drawable/bg_gr3"
@@ -28,7 +27,7 @@
         android:id="@+id/tv_item_Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="설정"
+        android:text="설정항목"
         android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -39,6 +38,7 @@
 
     <ImageView
         android:id="@+id/btn_back"
+        android:clickable="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -56,7 +56,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_item_Title">
 
         <TextView
-            android:id="@+id/btn_user_support"
+            android:id="@+id/tv_detial"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
@@ -64,66 +64,10 @@
             android:background="@drawable/btn_setting"
             android:paddingHorizontal="40dp"
             android:paddingVertical="16dp"
-            android:text="고객 지원"
+            android:text="내용"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/btn_open_license"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="40dp"
-            android:background="@drawable/btn_setting"
-            android:paddingHorizontal="40dp"
-            android:paddingVertical="16dp"
-            android:text="오픈 라이선스"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@+id/btn_user_support" />
-
-        <TextView
-            android:id="@+id/btn_genral_condition"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="40dp"
-            android:background="@drawable/btn_setting"
-            android:paddingHorizontal="40dp"
-            android:paddingVertical="16dp"
-            android:text="약관"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@+id/btn_open_license" />
-
-        <TextView
-            android:id="@+id/btn_logout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="40dp"
-            android:background="@drawable/btn_setting"
-            android:paddingHorizontal="40dp"
-            android:paddingVertical="16dp"
-            android:text="로그아웃"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@+id/btn_genral_condition" />
-
-        <TextView
-            android:id="@+id/btn_delete_account"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="40dp"
-            android:background="@drawable/btn_setting"
-            android:paddingHorizontal="40dp"
-            android:paddingVertical="16dp"
-            android:text="회원탈퇴"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@+id/btn_logout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
