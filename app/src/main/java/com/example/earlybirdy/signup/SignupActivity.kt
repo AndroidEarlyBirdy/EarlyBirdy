@@ -30,6 +30,7 @@ class SignupActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
     val db = Firebase.firestore
+    val signupDialog = SignupDialog(this@SignupActivity)
     //val storage = Firebase.storage
 
     private lateinit var selectImgUri: Uri
@@ -42,10 +43,10 @@ class SignupActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         database = Firebase.database.reference
 
-//        // 프로필 사진 등록
-//        binding.ivProfile.setOnClickListener {
-//            openAlbum()
-//        }
+        // 프로필 사진 등록
+        binding.ivProfile.setOnClickListener {
+            SignupDialog(this@SignupActivity).show()
+        }
 
         // 비밀번호 확인 함수
         binding.titPasswordCheck.addTextChangedListener(object : TextWatcher {
