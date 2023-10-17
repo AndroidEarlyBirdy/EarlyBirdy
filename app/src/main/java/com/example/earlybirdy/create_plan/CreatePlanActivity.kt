@@ -12,16 +12,17 @@ import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.DayViewDecorator
 import com.prolificinteractive.materialcalendarview.DayViewFacade
 
-class CreatePlanActivity : AppCompatActivity(),CreatePlanDialog.DialogListener {
+class CreatePlanActivity : AppCompatActivity(), CreatePlanDialog.DialogListener {
 
     private val listAdapter = CreatePlanAdapter()
     private val testList = mutableListOf(
-        Todo(CalendarDay.from(2023,10,17),"test",false),
-        Todo(CalendarDay.from(2023,10,16),"test2",true),
-        Todo(CalendarDay.from(2023,10,20), "test3", false))
-    private var selectedDay : CalendarDay = CalendarDay.today()
+        Todo(CalendarDay.from(2023, 10, 17), "test", false),
+        Todo(CalendarDay.from(2023, 10, 16), "test2", true),
+        Todo(CalendarDay.from(2023, 10, 20), "test3", false)
+    )
+    private var selectedDay: CalendarDay = CalendarDay.today()
 
-    private lateinit var binding : ActivityCreatePlanBinding
+    private lateinit var binding: ActivityCreatePlanBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCreatePlanBinding.inflate(layoutInflater)
@@ -30,6 +31,7 @@ class CreatePlanActivity : AppCompatActivity(),CreatePlanDialog.DialogListener {
         initView()
         setCalendar()
     }
+
     //달력 세팅
     private fun setCalendar() = with(binding) {
 
@@ -58,18 +60,19 @@ class CreatePlanActivity : AppCompatActivity(),CreatePlanDialog.DialogListener {
         }
     }
 
-    private fun initView() = with(binding){
+    private fun initView() = with(binding) {
         binding.recyclerViewTodo.adapter = listAdapter
-        binding.recyclerViewTodo.layoutManager= LinearLayoutManager(parent, LinearLayoutManager.VERTICAL, false)
+        binding.recyclerViewTodo.layoutManager =
+            LinearLayoutManager(parent, LinearLayoutManager.VERTICAL, false)
 
         //Dialog 생성
         binding.ivAddTodo.setOnClickListener {
-            CreatePlanDialog(this@CreatePlanActivity,selectedDay,this@CreatePlanActivity).show()
+            CreatePlanDialog(this@CreatePlanActivity, selectedDay, this@CreatePlanActivity).show()
         }
     }
 
     //오늘 날짜를 Custom
-    class Decorator(context : Context) : DayViewDecorator {
+    class Decorator(context: Context) : DayViewDecorator {
 
         @SuppressLint("UseCompatLoadingForDrawables")
         private val drawable = context.getDrawable(R.drawable.bg_calendar_today)
