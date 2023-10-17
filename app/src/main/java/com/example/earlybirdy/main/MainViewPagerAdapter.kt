@@ -6,6 +6,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.earlybirdy.R
 import com.example.earlybirdy.board.BoardFragment
 import com.example.earlybirdy.home.HomeFragment
+
 import com.example.earlybirdy.my_page.MyPageFragment
 
 
