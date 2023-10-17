@@ -14,17 +14,28 @@ import com.example.earlybirdy.create_plan.CreatePlanActivity
 import com.example.earlybirdy.databinding.FragmentHomeBinding
 import com.example.earlybirdy.util.navigateToAlarmActivity
 import com.example.earlybirdy.main.MainActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+import java.util.UUID
 
 @Suppress("UNREACHABLE_CODE")
 class HomeFragment : Fragment() {
+
+
+    //파이어스토어
+    var auth: FirebaseAuth? = null
+    var firestore: FirebaseFirestore? = null
+    var user: FirebaseUser? = null
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val dateFormat = SimpleDateFormat("h:mm a", Locale.US)
 
+    var attendindex : String? = null
     private lateinit var homeViewModel: HomeViewModel
 
     override fun onCreateView(
@@ -32,7 +43,11 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        return binding.root
+
+        //파이어스토어
+        auth = FirebaseAuth.getInstance()
+        user = auth!!.currentUser
+        firestore = FirebaseFirestore.getInstance()
 
         loatTimeDate()
 
@@ -44,6 +59,8 @@ class HomeFragment : Fragment() {
             val intent = Intent(requireContext(), CreatePlanActivity::class.java)
             startActivity(intent)
         }
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -65,6 +82,21 @@ class HomeFragment : Fragment() {
             // sharedData에 데이터 저장
             val data = calculateProgress(alarmMinutes, currentMinutes)
             homeViewModel.setSharedData(data)
+
+            val nowTime = System.currentTimeMillis()
+            val timeformatter = SimpleDateFormat("yyyy.MM.dd")
+            val dateTime = timeformatter.format(nowTime)
+            attendindex = UUID.randomUUID().toString()
+
+            //db에 저장
+            firestore?.collection("UserDto")?.document("0d30iSuXD1WqNDILKC0I6e1YiuO2")
+                ?.collection("Attendance")?.document("$attendindex")
+                ?.set(
+                    hashMapOf(
+                        "AttendanceId" to attendindex,
+                        "Date" to dateTime.toString()
+                    )
+                )
         }
     }
 
