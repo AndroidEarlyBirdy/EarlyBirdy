@@ -38,18 +38,22 @@ class SignupDialog (
 
         binding.ivSignupDialog1.setOnClickListener{
             selectedImageId = R.drawable.img_profile_sample
+            binding.ivSignupDialogSelect.setImageResource(selectedImageId)
         }
 
         binding.ivSignupDialog2.setOnClickListener{
             selectedImageId = R.drawable.ic_insignia2
+            binding.ivSignupDialogSelect.setImageResource(selectedImageId)
         }
 
         binding.ivSignupDialog3.setOnClickListener{
             selectedImageId = R.drawable.ic_insignia3
+            binding.ivSignupDialogSelect.setImageResource(selectedImageId)
         }
 
         binding.ivSignupDialog4.setOnClickListener{
             selectedImageId = R.drawable.ic_insignia4
+            binding.ivSignupDialogSelect.setImageResource(selectedImageId)
         }
 
         binding.btnSignupDialogSave.setOnClickListener {

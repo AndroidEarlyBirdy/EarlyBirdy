@@ -9,6 +9,17 @@
     android:layout_width="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_signup_dialog_select"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:src="@drawable/img_profile_sample"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:shapeAppearanceOverlay="@style/circle"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
     <ImageView
         android:id="@+id/iv_signup_dialog1"
         android:layout_width="110dp"
@@ -16,7 +27,7 @@
         android:src="@drawable/img_profile_sample"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_signup_dialog_select"
         app:layout_constraintStart_toStartOf="parent"/>
 
     <ImageView
@@ -28,7 +39,7 @@
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/iv_signup_dialog1"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/iv_signup_dialog_select"/>
 
     <ImageView
         android:id="@+id/iv_signup_dialog3"
