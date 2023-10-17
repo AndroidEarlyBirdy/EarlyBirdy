@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import com.example.earlybirdy.create_plan.CreatePlanActivity
 import com.example.earlybirdy.databinding.FragmentHomeBinding
 import com.example.earlybirdy.util.navigateToAlarmActivity
@@ -19,12 +20,14 @@ class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+    private lateinit var homeViewModel: HomeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
 
         loatTimeDate()
 
@@ -36,8 +39,16 @@ class HomeFragment : Fragment() {
             val intent = Intent(requireContext(), CreatePlanActivity::class.java)
             startActivity(intent)
         }
+    }
 
-        return binding.root
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // ViewModel 초기화
+        homeViewModel = ViewModelProvider(requireActivity())[HomeViewModel::class.java]
+
+        // 데이터 설정
+        homeViewModel.sharedData = "넘어가니"
     }
 
     @SuppressLint("SetTextI18n")

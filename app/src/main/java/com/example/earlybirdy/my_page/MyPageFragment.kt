@@ -3,20 +3,24 @@ package com.example.earlybirdy.my_page
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import com.example.earlybirdy.R
 import com.example.earlybirdy.databinding.FragmentMyPageBinding
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.DayViewDecorator
 import com.prolificinteractive.materialcalendarview.DayViewFacade
+import com.example.earlybirdy.home.HomeViewModel
 
 class MyPageFragment : Fragment() {
 
     private var _binding: FragmentMyPageBinding? = null
     private val binding get() = _binding!!
+    private lateinit var homeViewModel: HomeViewModel
 
     val dateList = mutableListOf(
         CalendarDay.from(2023,10,14),
@@ -24,6 +28,7 @@ class MyPageFragment : Fragment() {
         CalendarDay.from(2023,10,20)
     )
 
+    // 나머지 코드 생략
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,6 +46,18 @@ class MyPageFragment : Fragment() {
     private fun setCalendar() = with(binding) {
         calendarView.addDecorator(Decorator(dateList,requireContext()))
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // ViewModel 초기화
+        homeViewModel = ViewModelProvider(requireActivity())[HomeViewModel::class.java]
+
+        // 데이터 읽기
+        val sharedData = homeViewModel.sharedData
+        Log.d("MypageFragment", "넘어오니: $sharedData")
+    }
+
 
     override fun onDestroyView() {
         _binding = null
