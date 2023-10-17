@@ -5,4 +5,9 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item> <!-- 50%로 설정하면 원형 -->
     </style>
+
+    <style name="CircularDeterminateProgressBar">
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:progressDrawable">@drawable/circular_progress</item>
+    </style>
 </resources>

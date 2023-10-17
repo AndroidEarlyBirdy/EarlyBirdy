@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.earlybirdy.databinding.ActivitySigninBinding
 import com.example.earlybirdy.util.navigateToMainActivity
+import com.example.earlybirdy.util.navigateToSendEmailActivity
 import com.example.earlybirdy.util.navigateToSignupActivity
 import com.example.earlybirdy.util.showToast
 import com.google.firebase.auth.FirebaseAuth
@@ -20,6 +21,14 @@ class SigninActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
+        val user = auth.currentUser
+        if (user != null){
+            showToast(this, "이미 로그인 중입니다.")
+        }else{
+            binding.tvBtnResetPassword.setOnClickListener {
+                navigateToSendEmailActivity(this)
+            }
+        }
         //로그인
         binding.btnSignin.setOnClickListener {
             onStart()
@@ -31,7 +40,6 @@ class SigninActivity : AppCompatActivity() {
 
         // 나가기 = 앱 종료
         binding.tvFinish.setOnClickListener {
-            //val intent = Intent(Intent.ACTION_VIEW, Uri.parse("${}"))
             moveTaskToBack(true)
             finish()
             android.os.Process.killProcess(android.os.Process.myPid())
@@ -47,9 +55,8 @@ class SigninActivity : AppCompatActivity() {
     //로그인 함수
     public override fun onStart() {
         super.onStart()
-        // Check if user is signed in (non-null) and update UI accordingly.
-        val currentUser = auth.currentUser
-        if (currentUser != null) {
+        val user = auth.currentUser
+        if (user != null) { // 로그인 여부 체크
             navigateToMainActivity(this)
         } else {
             val email = binding.titEmail.text.toString()
@@ -74,8 +81,3 @@ class SigninActivity : AppCompatActivity() {
         }
     }
 }
-
-//finish() : 이 코드가 속해있는 액티비티를 종료 onDestroy()를 호출
-//system.exit(0) : 현재 액티비티를 종료
-//android.os.Process.killProcess(android.os.Process.myPid()) : 현재의 프로세스 및 서비스를 종료
-//moveTaskToBack(boolean): 현재 어플을 백그라운드로 넘김 /  현재 실행되고있는 어플이 하나라면 홈화면으로 바귀지만 종료는 아님
