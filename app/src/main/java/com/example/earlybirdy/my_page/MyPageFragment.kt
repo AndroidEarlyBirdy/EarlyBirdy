@@ -1,5 +1,7 @@
 package com.example.earlybirdy.my_page
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,11 +9,20 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.earlybirdy.R
 import com.example.earlybirdy.databinding.FragmentMyPageBinding
+import com.prolificinteractive.materialcalendarview.CalendarDay
+import com.prolificinteractive.materialcalendarview.DayViewDecorator
+import com.prolificinteractive.materialcalendarview.DayViewFacade
 
 class MyPageFragment : Fragment() {
 
     private var _binding: FragmentMyPageBinding? = null
     private val binding get() = _binding!!
+
+    val dateList = mutableListOf(
+        CalendarDay.from(2023,10,14),
+        CalendarDay.from(2023,10,15),
+        CalendarDay.from(2023,10,20)
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -19,6 +30,16 @@ class MyPageFragment : Fragment() {
     ): View? {
         _binding = FragmentMyPageBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setCalendar()
+    }
+
+    private fun setCalendar() = with(binding) {
+        calendarView.addDecorator(Decorator(dateList,requireContext()))
     }
 
     override fun onDestroyView() {
@@ -87,5 +108,22 @@ class MyPageFragment : Fragment() {
             else -> 0
         }
     }
-// 레벨업에 쓰이고 남은 경험치를 리턴
+
+    class Decorator(dates : List<CalendarDay>,context : Context) : DayViewDecorator {
+
+        private val selectedDates = dates
+        @SuppressLint("UseCompatLoadingForDrawables")
+        private val drawable = context.getDrawable(R.drawable.bg_calendar_date)
+        override fun shouldDecorate(day: CalendarDay?): Boolean {
+            return selectedDates.contains(day)
+        }
+
+        override fun decorate(view: DayViewFacade?) {
+            if (drawable != null) {
+                view?.setBackgroundDrawable(drawable)
+            }
+        }
+
+    }
+
 }

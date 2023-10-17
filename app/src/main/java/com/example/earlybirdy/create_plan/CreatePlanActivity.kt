@@ -12,9 +12,9 @@ class CreatePlanActivity : AppCompatActivity() {
 
     private val listAdapter = CreatePlanAdapter()
     private val testList = mutableListOf(
-        Todo("20231017","test",false),
-        Todo("20231018","test2",true),
-        Todo("20231016", "test3", false))
+        Todo(CalendarDay.from(2023,10,17),"test",false),
+        Todo(CalendarDay.from(2023,10,16),"test2",true),
+        Todo(CalendarDay.from(2023,10,20), "test3", false))
 
     private lateinit var binding : ActivityCreatePlanBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,7 +33,7 @@ class CreatePlanActivity : AppCompatActivity() {
         val today = CalendarDay.today().year.toString()+ CalendarDay.today().month.toString() + CalendarDay.today().day.toString()
         listAdapter.clearItems()
         for (todo in testList) {
-            if (todo.date == today) {
+            if (todo.date == CalendarDay.today()) {
                 listAdapter.addItem(todo)
             }
         }
@@ -43,7 +43,7 @@ class CreatePlanActivity : AppCompatActivity() {
             listAdapter.clearItems()
             val selectedDate = date.year.toString() + date.month.toString() + date.day.toString()
             for (todo in testList) {
-                if (todo.date == selectedDate) {
+                if (todo.date == date) {
                     listAdapter.addItem(todo)
                 }
             }
