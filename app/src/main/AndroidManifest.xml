@@ -38,6 +38,9 @@
             android:name=".signin.SigninActivity"
             android:exported="false" />
         <activity
+            android:name=".setting.SettingDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".signup.SignupActivity"
             android:exported="false" />
         <activity
