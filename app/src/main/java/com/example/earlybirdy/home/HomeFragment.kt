@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -49,7 +50,7 @@ class HomeFragment : Fragment() {
         user = auth!!.currentUser
         firestore = FirebaseFirestore.getInstance()
 
-        //loatTimeDate()
+        loadTimeDate()
 
         binding.ivGoAlarm.setOnClickListener {
             navigateToAlarmActivity(this.requireActivity())
@@ -110,6 +111,17 @@ class HomeFragment : Fragment() {
         return String.format(Locale.US, "%d:%02d %s", if (hour > 12) hour - 12 else hour, minute, if (hour >= 12) "PM" else "AM")
     }
 
+    @SuppressLint("SetTextI18n")
+    private fun updateAlarmTime() {
+        val alarmTime = loadTimeDate()
+
+        if (alarmTime != null) {
+            binding.tvAlarm.text = alarmTime
+            Log.d("AlarmTime", alarmTime)
+        }
+    }
+
+
     private fun getCurrentTime(): String {
         val calendar = Calendar.getInstance()
         return dateFormat.format(calendar.time)
@@ -132,6 +144,12 @@ class HomeFragment : Fragment() {
             else -> 1
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        updateAlarmTime()
+    }
+
 
     override fun onDestroyView() {
         _binding = null
