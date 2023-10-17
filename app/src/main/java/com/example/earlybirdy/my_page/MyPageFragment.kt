@@ -51,11 +51,12 @@ class MyPageFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // ViewModel 초기화
-        homeViewModel = ViewModelProvider(requireActivity())[HomeViewModel::class.java]
+        homeViewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
 
-        // 데이터 읽기
-        val sharedData = homeViewModel.sharedData
-        Log.d("MypageFragment", "넘어오니: $sharedData")
+        // LiveData를 관찰하여 데이터 업데이트
+        homeViewModel.sharedData.observe(viewLifecycleOwner) { data ->
+            binding.tvSharedData.text = data
+        }
     }
 
 
