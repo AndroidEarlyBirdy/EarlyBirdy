@@ -11,7 +11,7 @@
         android:id="@+id/tv_setting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="설정"
+        android:text="@string/setting_setting"
         android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        android:src="@drawable/ic_btn_back"
+        android:src="@drawable/btn_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -47,7 +47,7 @@
             android:background="@drawable/btn_setting"
             android:paddingHorizontal="40dp"
             android:paddingVertical="16dp"
-            android:text="고객 지원"
+            android:text="@string/setting_support"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent" />
@@ -61,7 +61,7 @@
             android:background="@drawable/btn_setting"
             android:paddingHorizontal="40dp"
             android:paddingVertical="16dp"
-            android:text="오픈 라이선스"
+            android:text="@string/setting_openlicense"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@+id/btn_user_support" />
@@ -75,7 +75,7 @@
             android:background="@drawable/btn_setting"
             android:paddingHorizontal="40dp"
             android:paddingVertical="16dp"
-            android:text="약관"
+            android:text="@string/setting_terms"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@+id/btn_open_license" />
@@ -89,7 +89,7 @@
             android:background="@drawable/btn_setting"
             android:paddingHorizontal="40dp"
             android:paddingVertical="16dp"
-            android:text="로그아웃"
+            android:text="@string/setting_logout"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@+id/btn_genral_condition" />
@@ -103,7 +103,7 @@
             android:background="@drawable/btn_setting"
             android:paddingHorizontal="40dp"
             android:paddingVertical="16dp"
-            android:text="회원탈퇴"
+            android:text="@string/setting_delet_account"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@+id/btn_logout" />

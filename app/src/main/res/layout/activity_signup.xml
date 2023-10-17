@@ -37,7 +37,7 @@
             android:id="@+id/tit_nickname"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="닉네임을 입력하세요"
+            android:hint="@string/signup_enter_nickname"
             android:textColor="#CC999999" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -53,7 +53,7 @@
             android:id="@+id/tit_email"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="이메일을 입력하세요"
+            android:hint="@string/signup_enter_email"
             android:textColor="#CC999999" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -71,7 +71,7 @@
             android:id="@+id/tit_password"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="15자 이하의 비밀번호를 입력하세요"
+            android:hint="@string/signup_under15pw"
             android:clickable="true"
             android:inputType="textPassword"
             android:maxLength="15"
@@ -92,7 +92,7 @@
             android:id="@+id/tit_password_check"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="비밀번호 재입력"
+            android:hint="@string/signup_pw_check"
             android:clickable="true"
             android:inputType="textPassword"
             android:maxLength="15"
@@ -107,7 +107,7 @@
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/btn_sign_background"
-        android:text="회원가입"
+        android:text="@string/signup_signup"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -130,7 +130,7 @@
         android:layout_height="40dp"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="16dp"
-        android:text="구글로 로그인 임시"
+        android:text="@string/signup_google_login"
         app:layout_constraintTop_toBottomOf="@+id/iv_line" />
 
     <TextView
@@ -139,7 +139,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"
         android:layout_marginBottom="10dp"
-        android:text="이미 계정이 있으신가요?"
+        android:text="@string/signup_have_accout"
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -152,7 +152,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="80dp"
         android:layout_marginBottom="10dp"
-        android:text="로그인"
+        android:text="@string/signup_login"
         android:textColor="#ABABAB"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
