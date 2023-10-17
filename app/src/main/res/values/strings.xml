@@ -10,7 +10,7 @@
     <string name="alarm_cancel">취소</string>
     <string name="alarm_edit">알람 편집</string>
     <string name="alarm_save">저장</string>
-    <string name="alarm_holidayoff">공휴일에는 끄기</string>
+    <string name="alarm_holiday_off">공휴일에는 끄기</string>
     <string name="alarm_setting">알람 설정</string>
     <string name="alarm_vibration">진동 설정</string>
 
@@ -24,18 +24,18 @@
     <string name="editprofile_save">저장하기</string>
     <string name="editprfile_edit">프로필 수정</string>
     <string name="editprofile_nikname_edit">닉네임 수정</string>
-    <string name="editprofile_enternickname">닉네임을 입력해주세요</string>
+    <string name="editprofile_enter_nickname">닉네임을 입력해주세요</string>
     <string name="editprofile_edit_email">이메일 수정</string>
     <string name="editprofile_enter_email">이메일을 입력해주세요</string>
     <string name="editprofile_pw">비밀번호</string>
     <string name="editprofile_enter_pw">비밀번호를 입력해주세요</string>
     <string name="editprofile_pw_check">비밀번호 확인</string>
-    <string name="editprofile_reenter_pw_">비밀번호를 다시 입력해주세요</string>
+    <string name="editprofile_re_enter_pw_">비밀번호를 다시 입력해주세요</string>
 
     <!--패스워드 찾기-->
     <string name="resetpw_ed_pw">비밀번호 재설정</string>
     <string name="resetpw_pw">비밀번호</string>
-    <string name="resetpw_15underword">15자 이하의 비밀번호를 입력하세요</string>
+    <string name="resetpw_under15word">15자 이하의 비밀번호를 입력하세요</string>
     <string name="resetpw_pw_check_tv">비밀번호 확인</string>
     <string name="resetpw_pw_check_hint">비밀번호 확인</string>
     <string name="resetpw_save">재설정</string>
@@ -43,9 +43,9 @@
     <string name="resetpw_signup">회원가입</string>
 
     <!--이메일 보내기-->
-    <string name="sendemail_findpw">비밀번호 찾기</string>
-    <string name="sendemail_singupemail">회원가입 한 이메일을 입력해주세요</string>
-    <string name="sendemail_ex">user@example.com</string>
+    <string name="sendemail_find_pw">비밀번호 찾기</string>
+    <string name="sendemail_singup_email">회원가입 한 이메일을 입력해주세요</string>
+    <string name="sendemail_example">user@example.com</string>
     <string name="sendemail_send">보내기</string>
     <string name="sendemail_out">나가기</string>
     <string name="sendemail_signup">회원가입</string>
@@ -56,7 +56,7 @@
     <string name="setting_openlicense">오픈 라이선스</string>
     <string name="setting_terms">약관</string>
     <string name="setting_logout">로그아웃</string>
-    <string name="setting_deletaccount">회원탈퇴</string>
+    <string name="setting_delet_account">회원탈퇴</string>
 
     <!--로그인 액티비티-->
     <string name="signin_logo">EarlyBirdy</string>
@@ -64,9 +64,9 @@
     <string name="signin_enter_email">이메일을 입력하세요</string>
     <string name="signin_pw">비밀번호</string>
     <string name="signin_under15pw">15자 이하의 비밀번호를 입력하세요</string>
-    <string name="signin_findpw">비밀번호를 잊으셨나요?</string>
+    <string name="signin_find_pw">비밀번호를 잊으셨나요?</string>
     <string name="signin_login">로그인</string>
-    <string name="signin_googlelogin">구글로 로그인 임시</string>
+    <string name="signin_google_login">구글로 로그인 임시</string>
     <string name="signin_out">나가기</string>
     <string name="signin_signup">회원가입</string>
 
@@ -85,7 +85,7 @@
     <string name="board_login_test">로그인 테스트</string>
     <string name="board_logout_test">로그아웃 테스트</string>
     <string name="board_edit_profile_test">프로필수정 테스트</string>
-    <string name="board_todaygoal_test">오늘의목표 테스트</string>
+    <string name="board_today_goal_test">오늘의목표 테스트</string>
 
     <!--홈 프래그먼트-->
     <string name="home_goodmorning">활기찬 아침</string>

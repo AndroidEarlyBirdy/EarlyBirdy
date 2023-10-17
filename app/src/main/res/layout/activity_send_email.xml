@@ -25,7 +25,7 @@
         android:id="@+id/tv_reset_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/sendemail_findpw"
+        android:text="@string/sendemail_find_pw"
         android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="50dp"
-            android:text="@string/sendemail_singupemail"
+            android:text="@string/sendemail_singup_email"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -65,7 +65,7 @@
                 android:id="@+id/tit_send_email"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="@string/sendemail_ex"
+                android:hint="@string/sendemail_example"
                 android:inputType="textEmailAddress"
                 android:textColor="#CC999999" />
         </com.google.android.material.textfield.TextInputLayout>

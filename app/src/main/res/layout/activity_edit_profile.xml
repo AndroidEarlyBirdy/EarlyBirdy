@@ -125,7 +125,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:hint="@string/editprofile_enternickname" />
+        android:hint="@string/editprofile_enter_nickname" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -221,7 +221,7 @@
             android:layout_marginStart="2dp"
             android:layout_marginEnd="16dp"
             android:inputType="textPassword"
-            android:hint="@string/editprofile_reenter_pw_" />
+            android:hint="@string/editprofile_re_enter_pw_" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
