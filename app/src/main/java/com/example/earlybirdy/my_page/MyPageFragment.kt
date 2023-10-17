@@ -109,6 +109,7 @@ class MyPageFragment : Fragment() {
         }
     }
 
+    //기상 성공한 날짜 Custom
     class Decorator(dates : List<CalendarDay>,context : Context) : DayViewDecorator {
 
         private val selectedDates = dates
