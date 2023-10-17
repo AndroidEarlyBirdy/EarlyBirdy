@@ -49,7 +49,7 @@ class HomeFragment : Fragment() {
         user = auth!!.currentUser
         firestore = FirebaseFirestore.getInstance()
 
-        loatTimeDate()
+        //loatTimeDate()
 
         binding.ivGoAlarm.setOnClickListener {
             navigateToAlarmActivity(this.requireActivity())
@@ -70,41 +70,44 @@ class HomeFragment : Fragment() {
         homeViewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
 
         binding.btnAttend.setOnClickListener {
-            // tv_alarm 시간 가져오기 (가정)
-            val alarmTime = "8:00 AM"
-            // 현재 시간 가져오기
-            val currentTime = getCurrentTime()
-            // 현재 시간을 분 단위로 변환
-            val currentMinutes = convertToMinutes(currentTime)
-            // tv_alarm 시간을 분 단위로 변환
-            val alarmMinutes = convertToMinutes(alarmTime)
 
-            // sharedData에 데이터 저장
-            val data = calculateProgress(alarmMinutes, currentMinutes)
-            homeViewModel.setSharedData(data)
+            val alarmTime = loadTimeDate()
+            if (alarmTime != null) {
+                // 현재 시간 가져오기
+                val currentTime = getCurrentTime()
+                // 현재 시간을 분 단위로 변환
+                val currentMinutes = convertToMinutes(currentTime)
+                // tv_alarm 시간을 분 단위로 변환
+                val alarmMinutes = convertToMinutes(alarmTime)
 
-            val nowTime = System.currentTimeMillis()
-            val timeformatter = SimpleDateFormat("yyyy.MM.dd")
-            val dateTime = timeformatter.format(nowTime)
-            attendindex = UUID.randomUUID().toString()
+                // sharedData에 데이터 저장
+                val data = calculateProgress(alarmMinutes, currentMinutes)
+                homeViewModel.setSharedData(data)
 
-            //db에 저장
-            firestore?.collection("UserDto")?.document("0d30iSuXD1WqNDILKC0I6e1YiuO2")
-                ?.collection("Attendance")?.document("$attendindex")
-                ?.set(
-                    hashMapOf(
-                        "AttendanceId" to attendindex,
-                        "Date" to dateTime.toString()
+                val nowTime = System.currentTimeMillis()
+                val timeFormatter = SimpleDateFormat("yyyy.MM.dd")
+                val dateTime = timeFormatter.format(nowTime)
+                attendindex = UUID.randomUUID().toString()
+
+                // db에 저장
+                firestore?.collection("UserDto")?.document("0d30iSuXD1WqNDILKC0I6e1YiuO2")
+                    ?.collection("Attendance")?.document("$attendindex")
+                    ?.set(
+                        hashMapOf(
+                            "AttendanceId" to attendindex,
+                            "Date" to dateTime.toString()
+                        )
                     )
-                )
+            }
         }
     }
-
     @SuppressLint("SetTextI18n")
-    private fun loatTimeDate() {
+    private fun loadTimeDate(): String? {
         val pref: SharedPreferences = requireContext().getSharedPreferences("alarmTime", Context.MODE_PRIVATE)
+        val hour = pref.getInt("hour", 0)
+        val minute = pref.getInt("min", 0)
 
-        binding.tvAlarm.text = "${pref.getInt("hour", 0).toString()} : ${pref.getInt("min", 0).toString()} AM"
+        return String.format(Locale.US, "%d:%02d %s", if (hour > 12) hour - 12 else hour, minute, if (hour >= 12) "PM" else "AM")
     }
 
     private fun getCurrentTime(): String {

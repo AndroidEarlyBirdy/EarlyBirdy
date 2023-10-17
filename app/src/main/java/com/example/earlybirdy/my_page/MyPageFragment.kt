@@ -40,16 +40,6 @@ class MyPageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setCalendar()
-    }
-
-    private fun setCalendar() = with(binding) {
-        calendarView.addDecorator(Decorator(dateList,requireContext()))
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
         // ViewModel 초기화
         homeViewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
 
@@ -57,8 +47,13 @@ class MyPageFragment : Fragment() {
         homeViewModel.sharedData.observe(viewLifecycleOwner) { data ->
             binding.tvSharedData.text = data
         }
+
+        setCalendar()
     }
 
+    private fun setCalendar() = with(binding) {
+        calendarView.addDecorator(Decorator(dateList,requireContext()))
+    }
 
     override fun onDestroyView() {
         _binding = null

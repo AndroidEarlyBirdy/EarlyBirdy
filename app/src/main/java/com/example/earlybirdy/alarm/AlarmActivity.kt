@@ -54,7 +54,7 @@ class AlarmActivity : AppCompatActivity() {
             saveTime()
             setNotification()
 //            navigateToMainActivity(this)
-//            finish()
+            finish()
         }
     }
 //    private fun setTimeChangedListener() {
