@@ -6,6 +6,7 @@ import android.util.Log
 import com.example.earlybirdy.databinding.ActivitySendEmailBinding
 import com.example.earlybirdy.databinding.ActivitySigninBinding
 import com.example.earlybirdy.util.navigateToMainActivity
+import com.example.earlybirdy.util.navigateToSigninActivity
 import com.example.earlybirdy.util.navigateToSignupActivity
 import com.example.earlybirdy.util.showToast
 import com.google.firebase.auth.FirebaseAuth
@@ -30,6 +31,8 @@ class SendEmailActivity : AppCompatActivity() {
 
         binding.btnSend.setOnClickListener {
             onStart()
+            finish()
+            navigateToSigninActivity(this)
         }
 
         // 나가기 = 앱 종료

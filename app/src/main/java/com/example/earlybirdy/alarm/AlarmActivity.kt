@@ -5,13 +5,8 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.NotificationManager.IMPORTANCE_HIGH
 import android.app.PendingIntent
-import android.app.PendingIntent.FLAG_ONE_SHOT
-import android.app.PendingIntent.getActivity
-import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
-import android.graphics.Color
 import android.media.AudioAttributes
 import android.media.RingtoneManager
 import android.net.Uri
@@ -19,14 +14,8 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.RequiresApi
-import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
-import androidx.core.content.ContextCompat
 import com.example.earlybirdy.R
-import com.example.earlybirdy.alarm.AlarmContants.CHANNEL_ID
-import com.example.earlybirdy.alarm.AlarmContants.CHANNEL_NAME
 import com.example.earlybirdy.databinding.ActivityAlarmBinding
 import com.example.earlybirdy.main.MainActivity
 
@@ -43,7 +32,7 @@ class AlarmActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-//        setTimeChangedListener()
+        setTimeChangedListener()
 
 //        if (binding.switchAlarm.isChecked){
 //            handler.postDelayed({
@@ -145,43 +134,4 @@ class AlarmActivity : AppCompatActivity() {
         }
         manager.notify(1, builder.build())
     }
-
-//    private fun sendNotification() {
-//        val pref = getSharedPreferences("alarmTime",0)
-//
-//        val title = "${pref.getInt("hour", 0).toString()} : ${pref.getInt("min", 0).toString()} AM"
-//        val message = "일어나세요 용사여"
-//
-//        val intent = Intent(this, MainActivity::class.java)
-//        val notificationManager = getSystemService(NOTIFICATION_SERVICE)
-//                as NotificationManager
-//        val notificationID = 1
-//
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            createNotificationChannel(notificationManager)
-//        }
-//
-//        val pendingIntent = getActivity(this, 0, intent, FLAG_ONE_SHOT or PendingIntent.FLAG_MUTABLE)
-//        val notification = NotificationCompat.Builder(this, CHANNEL_ID)
-//            .setContentTitle(title)
-//            .setContentText(message)
-//            .setSmallIcon(R.drawable.ic_logo)
-//            .setAutoCancel(true)
-//            .setContentIntent(pendingIntent)
-//            .build()
-//
-//        notificationManager.notify(notificationID, notification)
-//    }
-//
-//    @RequiresApi(Build.VERSION_CODES.O)
-//    private fun createNotificationChannel(notificationManager: NotificationManager) {
-//        val channel = NotificationChannel(CHANNEL_ID, CHANNEL_NAME, IMPORTANCE_HIGH).apply {
-//            description = "Channel Description"
-//            enableLights(true)
-//            lightColor = Color.GREEN
-//        }
-//        notificationManager.createNotificationChannel(channel)
-//    }
-
-
 }
