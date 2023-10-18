@@ -2,10 +2,11 @@ package com.example.earlybirdy.home
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.SharedPreferences
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +15,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.earlybirdy.create_plan.CreatePlanActivity
 import com.example.earlybirdy.databinding.FragmentHomeBinding
 import com.example.earlybirdy.util.navigateToAlarmActivity
-import com.example.earlybirdy.main.MainActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
@@ -23,11 +23,8 @@ import java.util.Calendar
 import java.util.Locale
 import java.util.UUID
 
-@Suppress("UNREACHABLE_CODE")
 class HomeFragment : Fragment() {
 
-
-    //파이어스토어
     var auth: FirebaseAuth? = null
     var firestore: FirebaseFirestore? = null
     var user: FirebaseUser? = null
@@ -36,8 +33,12 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
     private val dateFormat = SimpleDateFormat("h:mm a", Locale.US)
 
-    var attendindex : String? = null
+    var attendindex: String? = null
     private lateinit var homeViewModel: HomeViewModel
+
+    // SharedPreferences를 사용하여 출석 여부를 저장하는 상수
+    private val PREF_NAME = "ButtonPress"
+    private val PREF_KEY_HAS_ATTENDED = "HasAttended"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,7 +46,6 @@ class HomeFragment : Fragment() {
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        //파이어스토어
         auth = FirebaseAuth.getInstance()
         user = auth!!.currentUser
         firestore = FirebaseFirestore.getInstance()
@@ -67,41 +67,59 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // ViewModel 초기화
         homeViewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
 
-        binding.btnAttend.setOnClickListener {
+        // SharedPreferences를 사용하여 출석 여부를 확인하고 처리
+        val hasAttended = loadHasAttended()
+        if (!hasAttended) {
+            binding.btnAttend.setOnClickListener {
+                val alarmTime = loadTimeDate()
+                if (alarmTime != null) {
+                    val currentTime = getCurrentTime()
+                    val currentMinutes = convertToMinutes(currentTime)
+                    val alarmMinutes = convertToMinutes(alarmTime)
 
-            val alarmTime = loadTimeDate()
-            if (alarmTime != null) {
-                // 현재 시간 가져오기
-                val currentTime = getCurrentTime()
-                // 현재 시간을 분 단위로 변환
-                val currentMinutes = convertToMinutes(currentTime)
-                // tv_alarm 시간을 분 단위로 변환
-                val alarmMinutes = convertToMinutes(alarmTime)
+                    val data = calculateProgress(alarmMinutes, currentMinutes)
+                    homeViewModel.setSharedData(data)
 
-                // sharedData에 데이터 저장
-                val data = calculateProgress(alarmMinutes, currentMinutes)
-                homeViewModel.setSharedData(data)
+                    val nowTime = System.currentTimeMillis()
+                    val timeFormatter = SimpleDateFormat("yyyy.MM.dd")
+                    val dateTime = timeFormatter.format(nowTime)
+                    attendindex = UUID.randomUUID().toString()
 
-                val nowTime = System.currentTimeMillis()
-                val timeFormatter = SimpleDateFormat("yyyy.MM.dd")
-                val dateTime = timeFormatter.format(nowTime)
-                attendindex = UUID.randomUUID().toString()
-
-                // db에 저장
-                firestore?.collection("UserDto")?.document("0d30iSuXD1WqNDILKC0I6e1YiuO2")
-                    ?.collection("Attendance")?.document("$attendindex")
-                    ?.set(
-                        hashMapOf(
-                            "AttendanceId" to attendindex,
-                            "Date" to dateTime.toString()
+                    firestore?.collection("UserDto")?.document("KWler36V6MdaNkMsvtK2DRynWVw1")
+                        ?.collection("Attendance")?.document("$attendindex")
+                        ?.set(
+                            hashMapOf(
+                                "AttendanceId" to attendindex,
+                                "Date" to dateTime.toString()
+                            )
                         )
-                    )
+
+                    saveHasAttended(true)
+                }
             }
+        } else {
+            // 이미 출석한 경우 버튼 비활성화
+            binding.btnAttend.isEnabled = false
+            // 이미 출석한 경우 메시지를 표시
+            Toast.makeText(requireContext(), "이미 출석했습니다.", Toast.LENGTH_SHORT).show()
+            Log.d("확인", binding.btnAttend.isEnabled.toString())
         }
     }
+
+    private fun loadHasAttended(): Boolean {
+        val preferences = requireContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+        return preferences.getBoolean(PREF_KEY_HAS_ATTENDED, false)
+    }
+
+    private fun saveHasAttended(hasAttended: Boolean) {
+        val preferences = requireContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+        val editor = preferences.edit()
+        editor.putBoolean(PREF_KEY_HAS_ATTENDED, hasAttended)
+        editor.apply()
+    }
+
     @SuppressLint("SetTextI18n")
     private fun loadTimeDate(): String? {
         val pref: SharedPreferences = requireContext().getSharedPreferences("alarmTime", Context.MODE_PRIVATE)
@@ -113,8 +131,6 @@ class HomeFragment : Fragment() {
         return String.format(Locale.US, "%d:%02d %s", formattedHour, minute, if (isAM) "AM" else "")
     }
 
-
-
     @SuppressLint("SetTextI18n")
     private fun updateAlarmTime() {
         val alarmTime = loadTimeDate()
@@ -124,7 +140,6 @@ class HomeFragment : Fragment() {
             Log.d("AlarmTime", alarmTime)
         }
     }
-
 
     private fun getCurrentTime(): String {
         val calendar = Calendar.getInstance()
@@ -154,7 +169,6 @@ class HomeFragment : Fragment() {
         updateAlarmTime()
     }
 
-
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
@@ -163,5 +177,4 @@ class HomeFragment : Fragment() {
     companion object {
         fun newInstance() = HomeFragment()
     }
-
 }
