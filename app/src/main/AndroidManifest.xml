@@ -30,7 +30,7 @@
             android:name=".setting.SettingActivity"
             android:exported="false" />
         <activity
-            android:name=".main.MainActivity"
+            android:name=".create_plan.CreatePlanActivity"
             android:exported="false" />
         <activity
             android:name=".alarm.AlarmActivity"
@@ -45,10 +45,10 @@
             android:name=".signup.SignupActivity"
             android:exported="false" />
         <activity
-            android:name=".main.SplashActivity"
+            android:name=".main.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".create_plan.CreatePlanActivity"
+            android:name=".main.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
