@@ -92,8 +92,7 @@ class SignupActivity : AppCompatActivity() {
         if (user != null) { // 로그인 여부 체크
             navigateToMainActivity(this)
         } else {
-            val profile = binding.ivProfile.toString()  // 이미지 객체 정보
-            val imageId = signupDialog.getSelectedImageId()
+            val profile = signupDialog.getSelectedImageId()  // 이미지 객체 정보
             val nickname = binding.titNickname.text.toString()
             val email = binding.titEmail.text.toString()
             val password = binding.titPassword.text.toString()
@@ -117,7 +116,7 @@ class SignupActivity : AppCompatActivity() {
                             updateUI(user)
                             // firestore DB에 저장
                             val userDto =
-                                UserDto(user!!.uid,profile,imageId, nickname, email, password)
+                                UserDto(user!!.uid,profile, nickname, email, password)
                             db.collection("UserDto").document(user!!.uid)
                                 .set(userDto)
                                 .addOnSuccessListener { documentReference ->
