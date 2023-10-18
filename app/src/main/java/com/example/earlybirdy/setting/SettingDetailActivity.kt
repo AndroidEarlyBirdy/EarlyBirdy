@@ -12,6 +12,10 @@ class SettingDetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+       initView()
+    }
+
+    private fun initView() {
         val title = intent.getStringExtra("title")
         val content = intent.getStringExtra("content")
 
@@ -25,6 +29,5 @@ class SettingDetailActivity : AppCompatActivity() {
     }
 
 
-
-        }
+}
 
