@@ -107,9 +107,13 @@ class HomeFragment : Fragment() {
         val pref: SharedPreferences = requireContext().getSharedPreferences("alarmTime", Context.MODE_PRIVATE)
         val hour = pref.getInt("hour", 0)
         val minute = pref.getInt("min", 0)
+        val isAM = hour < 12
 
-        return String.format(Locale.US, "%d:%02d %s", if (hour > 12) hour - 12 else hour, minute, if (hour >= 12) "PM" else "AM")
+        val formattedHour = if (isAM) hour else hour - 12
+        return String.format(Locale.US, "%d:%02d %s", formattedHour, minute, if (isAM) "AM" else "")
     }
+
+
 
     @SuppressLint("SetTextI18n")
     private fun updateAlarmTime() {
