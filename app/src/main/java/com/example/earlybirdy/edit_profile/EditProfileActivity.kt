@@ -15,16 +15,20 @@ import com.example.earlybirdy.util.showToast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class EditProfileActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEditProfileBinding
-    private lateinit var editProfileDialog : EditProfileDialog
+    private lateinit var editProfileDialog: EditProfileDialog
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
+    private lateinit var fireStore: FirebaseFirestore
+    private lateinit var user: FirebaseUser
     val db = Firebase.firestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +39,8 @@ class EditProfileActivity : AppCompatActivity() {
         editProfileDialog = EditProfileDialog(this@EditProfileActivity)
         auth = FirebaseAuth.getInstance()
         database = Firebase.database.reference
+        user = auth.currentUser!!
+        fireStore = FirebaseFirestore.getInstance()
 
         // 프로필 사진 등록
         binding.icEditprofileProfile.setOnClickListener {
@@ -45,18 +51,24 @@ class EditProfileActivity : AppCompatActivity() {
         }
 
         // 저장 하기 버튼
-        binding.clProfileSave.setOnClickListener{
-            onSaveButtonClick()
+        binding.btnProfileSave.setOnClickListener {
+            val password = binding.etProfilePassword.text.toString()
+            val passwordCheck = binding.etProfilePasswordCheck.text.toString()
+            if (password == passwordCheck) {
+                onSaveButtonClick()
+            } else {
+                showToast(this,"비밀번호가 일치하지 않습니다.")
+            }
         }
 
-        binding.etProfilePassword.addTextChangedListener(object : TextWatcher{
+        binding.etProfilePassword.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                if (binding.etProfilePassword.getText().toString().equals(binding.etProfilePasswordCheck.getText().toString())){
+                if (binding.etProfilePassword.getText().toString()
+                        .equals(binding.etProfilePasswordCheck.getText().toString())
+                ) {
                     binding.tilProfilePasswordCheck.error = "비밀번호가 일치합니다."
-                    binding.clProfileSave.isEnabled= true
                 } else {
                     binding.tilProfilePasswordCheck.error = "비밀번호가 일치하지 않습니다."
-                    binding.clProfileSave.isEnabled=false
                 }
             }
 
@@ -66,66 +78,70 @@ class EditProfileActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             }
         })
+        loadUserData()
     }
 
 
-    fun onSaveButtonClick() {
-        val user = auth.currentUser
-        user?.reload() // 최신 유저 정보 갱신
-        if (user != null) { // 로그인 여부 체크
-            navigateToMainActivity(this)
-        } else {
-            val profile = editProfileDialog.getSelectedEditProfileImageId()  // 이미지 객체 정보
-            val nickname = binding.etProfileNickname.text.toString()
-            val email = binding.etProfileEmail.text.toString()
-            val password = binding.etProfilePassword.text.toString()
-            val passwordCheck = binding.etProfilePasswordCheck.text.toString()
+    private fun onSaveButtonClick() {
+        val profile = editProfileDialog.getSelectedEditProfileImageId()  // 이미지 객체 정보
+        val nickname = binding.etProfileNickname.text.toString()
+        val email = binding.etProfileEmail.text.toString()
+        val password = binding.etProfilePassword.text.toString()
+        val passwordCheck = binding.etProfilePasswordCheck.text.toString()
 
-            // 빈칸 확인
-            if (nickname.isBlank()) {
-                binding.tilProfileNickname.error = "닉네임을 입력해주세요"
-            } else if (email.isBlank()) {
-                binding.tilProfileEmail.error = "이메일을 입력해주세요"
-            } else if (password.isBlank()) {
-                binding.tilProfilePassword.error = "비밀번호를 입력해주세요"
-            } else if(!password.equals(passwordCheck)){
-                binding.tilProfilePasswordCheck.error = "일치하지 않습니다"
-            } else {
-                // auth 회원가입
-                auth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this) { task ->
-                        if (task.isSuccessful) {
-                            val user = auth.currentUser
-                            updateUI(user)
-                            // firestore DB에 저장
-                            val userDto =
-                                UserDto(user!!.uid,profile, nickname, email, password)
-                            db.collection("UserDto").document(user!!.uid)
-                                .set(userDto)
-                                .addOnSuccessListener { documentReference ->
-                                }
-                                .addOnFailureListener { e ->
-                                }
-                            showToast(this, "회원가입 성공 & 자동로그인")
-                            navigateToMainActivity(this)
-                            finish()
-                        }
-                    }.addOnFailureListener {
-                        Log.e("email", "이메일 중복 테스트", it)
-                        if (it is FirebaseAuthUserCollisionException){
 
-                        }
-                    }
-            }
+
+        // 빈칸 확인
+        if (nickname.isBlank()) {
+            binding.tilProfileNickname.error = "닉네임을 입력해주세요"
+        } else if (password.isBlank()) {
+            binding.tilProfilePassword.error = "비밀번호를 입력해주세요"
+        } else if (!password.equals(passwordCheck)) {
+            binding.tilProfilePasswordCheck.error = "일치하지 않습니다"
         }
+        updateUserData(user.uid, profile, nickname, email, password)
+        navigateToMainActivity(this)
+        showToast(this@EditProfileActivity,"회원 정보 수정 완료!")
+        finish()
 
     }
-    private fun showToast(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+
+    private fun updateUserData(uid: String, profile: Int?, nickname: String?, email: String?, password: String?) {
+
+        db.collection("UserDto").document(uid).update(
+            mapOf(
+                "profile" to profile,
+                "nickname" to nickname,
+                "email" to email,
+                "password" to password
+            )
+        ).addOnSuccessListener {
+            showToast(this@EditProfileActivity,"회원정보 업데이트 완료!")
+        }.addOnFailureListener{e ->
+            Log.e("error","Error updating document", e)
+        }
+    }
+    private fun loadUserData() {
+        val uid = user.uid
+
+        db.collection("UserDto").document(uid).get()
+            .addOnSuccessListener { document ->
+                if (document != null) {
+                    val nickname = document.getString("nickname") ?: ""
+                    val email = document.getString("email") ?: ""
+                    val password = document.getString("password") ?: ""
+                    val profile = document.getLong("profile")?.toInt() ?: 0
+                    binding.imgProflileProfile.setImageResource(profile)
+                    binding.etProfileNickname.setText(nickname)
+                    binding.etProfileEmail.setText(email)
+                    binding.etProfilePassword.setText(password)
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.e("loadUserData", "사용자 정보 로딩 실패", e)
+                showToast(this, "사용자 정보 로딩에 실패했습니다.")
+            }
     }
 
-    private fun updateUI(user: FirebaseUser?) {
-
-    }
 
 }

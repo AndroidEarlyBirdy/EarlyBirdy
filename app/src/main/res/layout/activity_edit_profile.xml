@@ -39,33 +39,43 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_profile_save"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_profile_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:onClick="onSaveButtonClick"
+            android:text="저장하기"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"/>
 
-            <TextView
-                android:id="@+id/tv_edit_save"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:focusable="true"
-                android:text="@string/editprofile_save"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/cl_profile_save"
-                app:layout_constraintEnd_toEndOf="@+id/cl_profile_save"
-                app:layout_constraintStart_toStartOf="@+id/cl_profile_save"
-                app:layout_constraintTop_toTopOf="@+id/cl_profile_save" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:id="@+id/cl_profile_save"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="16dp"-->
+<!--            android:layout_marginEnd="16dp"-->
+<!--            android:clickable="true"-->
+<!--            android:focusable="true"-->
+<!--            android:onClick="onSaveButtonClick"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent">-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/tv_edit_save"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:clickable="true"-->
+<!--                android:focusable="true"-->
+<!--                android:text="@string/editprofile_save"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textSize="16sp"-->
+<!--                android:textStyle="bold"-->
+<!--                app:layout_constraintBottom_toBottomOf="@+id/cl_profile_save"-->
+<!--                app:layout_constraintEnd_toEndOf="@+id/cl_profile_save"-->
+<!--                app:layout_constraintStart_toStartOf="@+id/cl_profile_save"-->
+<!--                app:layout_constraintTop_toTopOf="@+id/cl_profile_save" />-->
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/img_proflile_profile"
