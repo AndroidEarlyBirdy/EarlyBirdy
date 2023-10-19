@@ -4,9 +4,12 @@ import android.annotation.SuppressLint
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.AttributeSet
 import android.util.Log
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.earlybirdy.R
+import com.example.earlybirdy.data.MyGoal
 import com.example.earlybirdy.data.Todo
 import com.example.earlybirdy.databinding.ActivityCreatePlanBinding
 import com.google.firebase.Timestamp
@@ -46,17 +49,13 @@ class CreatePlanActivity : AppCompatActivity(), CreatePlanDialog.DialogCreateLis
             }
         }, this)
     }
-    private val testList = mutableListOf(
-        Todo("1", CalendarDay.from(2023, 10, 17), "test", false),
-        Todo("2", CalendarDay.from(2023, 10, 16), "test2", true),
-        Todo("3", CalendarDay.from(2023, 10, 20), "test3", false),
-        Todo("4", CalendarDay.from(2023, 10, 19), "test4", false)
-    )
+    private val testList = ArrayList<Todo>()
     private var selectedDay: CalendarDay = CalendarDay.today()
 
     private lateinit var binding: ActivityCreatePlanBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityCreatePlanBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -65,8 +64,12 @@ class CreatePlanActivity : AppCompatActivity(), CreatePlanDialog.DialogCreateLis
         auth = FirebaseAuth.getInstance()
         user = auth.currentUser!!
 
+        loadData()
         initView()
-        setCalendar()
+    }
+
+    override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
+        return super.onCreateView(name, context, attrs)
     }
 
     //달력 세팅
@@ -76,8 +79,9 @@ class CreatePlanActivity : AppCompatActivity(), CreatePlanDialog.DialogCreateLis
 
         //오늘 날짜 Selected 되게 설정
         //오늘 계획 setting
-        calendarView.selectedDate = CalendarDay.today()
+        Log.d("today", testList.toString())
         filterDate(CalendarDay.today())
+        calendarView.selectedDate = CalendarDay.today()
         //날짜 변경 시
         calendarView.setOnDateChangedListener { _, date, _ ->
             listAdapter.clearItems()
@@ -133,10 +137,10 @@ class CreatePlanActivity : AppCompatActivity(), CreatePlanDialog.DialogCreateLis
         fireStore.collection("UserDto").document(user.uid).collection("MyGoal")
             .document(attendIndex).set(
                 hashMapOf(
-                    "TodoId" to attendIndex,
-                    "Date" to todo.date.toTimestamp(),
-                    "Title" to todo.title,
-                    "IsChecked" to todo.isChecked
+                    "goalId" to attendIndex,
+                    "date" to todo.date.toTimestamp(),
+                    "title" to todo.title,
+                    "check" to todo.isChecked
                 )
             )
     }
@@ -172,7 +176,7 @@ class CreatePlanActivity : AppCompatActivity(), CreatePlanDialog.DialogCreateLis
 
     private fun CalendarDay.toTimestamp(): Timestamp {
         val calendar = Calendar.getInstance()
-        calendar.set(this.year, this.month, this.day)
+        calendar.set(this.year, this.month-1, this.day)
         return Timestamp(calendar.time)
     }
 
@@ -182,6 +186,41 @@ class CreatePlanActivity : AppCompatActivity(), CreatePlanDialog.DialogCreateLis
             if (date.date == day) demoList.add(date)
         }
         listAdapter.addItems(demoList)
+    }
+
+    private fun loadData() {
+        fireStore.collection("UserDto").document(user.uid)
+            .collection("MyGoal").get().addOnSuccessListener { value ->
+                for(snapshot in value!!.documents) {
+                    var item = snapshot.toObject(MyGoal::class.java)
+                    if (item != null) {
+                        val todo = Todo(
+                            item.goalId,
+                            timestampToCalendarDay(item.date),
+                            item.title,
+                            item.check
+                        )
+                        testList.add(todo)
+                        Log.d("todo",todo.toString())
+                    }
+                }
+                Log.d("list", testList.toString())
+                setCalendar()
+            }
+
+    }
+    private fun timestampToCalendarDay(timestamp: Timestamp?): CalendarDay {
+        val date = timestamp?.toDate()
+
+        val calendar = Calendar.getInstance()
+        if (date != null) {
+            calendar.time = date
+        }
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        return CalendarDay.from(year, month + 1, day)
     }
 
 }
