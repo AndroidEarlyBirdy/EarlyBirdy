@@ -22,7 +22,7 @@ class MyPageFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var homeViewModel: HomeViewModel
 
-    private var localExp = 1980
+    private var localExp = 2023
     private var currentExp = 0
     private var currentLevel = 1
 
