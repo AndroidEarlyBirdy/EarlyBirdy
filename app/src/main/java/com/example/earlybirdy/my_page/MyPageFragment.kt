@@ -23,9 +23,9 @@ class MyPageFragment : Fragment() {
     private lateinit var homeViewModel: HomeViewModel
 
     val dateList = mutableListOf(
-        CalendarDay.from(2023,10,14),
-        CalendarDay.from(2023,10,15),
-        CalendarDay.from(2023,10,20)
+        CalendarDay.from(2023, 10, 14),
+        CalendarDay.from(2023, 10, 15),
+        CalendarDay.from(2023, 10, 20)
     )
 
     // 나머지 코드 생략
@@ -49,10 +49,12 @@ class MyPageFragment : Fragment() {
         }
 
         setCalendar()
+
+        binding.pbExp
     }
 
     private fun setCalendar() = with(binding) {
-        calendarView.addDecorator(Decorator(dateList,requireContext()))
+        calendarView.addDecorator(Decorator(dateList, requireContext()))
     }
 
     override fun onDestroyView() {
@@ -75,6 +77,7 @@ class MyPageFragment : Fragment() {
             else -> R.drawable.ic_insignia1
         }
     }
+
     //경험치에 따라 테두리
     fun expLevel(exp: Int): Int {
         return when (exp) {
@@ -123,9 +126,10 @@ class MyPageFragment : Fragment() {
     }
 
     //기상 성공한 날짜 Custom
-    class Decorator(dates : List<CalendarDay>,context : Context) : DayViewDecorator {
+    class Decorator(dates: List<CalendarDay>, context: Context) : DayViewDecorator {
 
         private val selectedDates = dates
+
         @SuppressLint("UseCompatLoadingForDrawables")
         private val drawable = context.getDrawable(R.drawable.bg_calendar_date)
         override fun shouldDecorate(day: CalendarDay?): Boolean {

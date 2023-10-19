@@ -12,7 +12,7 @@ class SettingDetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-       initView()
+        initView()
     }
 
     private fun initView() {
@@ -34,6 +34,4 @@ class SettingDetailActivity : AppCompatActivity() {
             else -> "약관에 대한 내용입니다"
         }
     }
-}
-
 }
