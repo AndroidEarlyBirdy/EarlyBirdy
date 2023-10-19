@@ -123,6 +123,18 @@ class HomeFragment : Fragment() {
                         ?.addOnFailureListener {
                             Log.d("체크 업데이트", "실패")
                         }
+
+                    // 경험치 업데이트
+                    val experienceChange = if (checked) 10 else -10
+                    firestore?.collection("UserDto")?.document("vlKOuWtxe1b6flDCwHoPRwOYsWt2")
+                        ?.update("experience", FieldValue.increment(experienceChange.toLong()))
+                        ?.addOnSuccessListener {
+                            Log.d("경험치 업데이트", "성공")
+                        }
+                        ?.addOnFailureListener {
+                            Log.d("경험치 업데이트", "실패")
+                        }
+
                 }
             }
         }
