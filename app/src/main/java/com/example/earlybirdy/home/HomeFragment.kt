@@ -28,6 +28,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+import java.util.TimeZone
 import java.util.UUID
 
 
@@ -99,7 +100,9 @@ class HomeFragment : Fragment() {
         }
 
         override fun getItemCount(): Int {
-            return list.size
+            val itemCount = list.size
+            binding.tvEmptyListMessage.visibility = if (itemCount == 0) View.VISIBLE else View.GONE
+            return itemCount
         }
 
         inner class ViewHolder(private val binding : ItemTodoMainBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -118,15 +121,28 @@ class HomeFragment : Fragment() {
 
     }
     private fun loadDataFromFirestore() {
+        // 오늘의 날짜를 구합니다.
+        val today = Calendar.getInstance()
+        today.timeZone = TimeZone.getTimeZone("Asia/Seoul")
+        val year = today.get(Calendar.YEAR)
+        val month = today.get(Calendar.MONTH)
+        val day = today.get(Calendar.DAY_OF_MONTH)
+        today.set(year, month, day, 0, 0, 0) // 날짜의 시작 부분 설정
+        val startOfDay = today.time
+        today.set(year, month, day, 23, 59, 59) // 날짜의 끝 부분 설정
+        val endOfDay = today.time
+
         firestore?.collection("UserDto")?.document("KWler36V6MdaNkMsvtK2DRynWVw1")
             ?.collection("MyGoal")
+            ?.whereGreaterThanOrEqualTo("date", startOfDay)
+            ?.whereLessThanOrEqualTo("date", endOfDay)
             ?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
                 // ArrayList 비워줌
                 adapter.clearList()
 
                 for (snapshot in querySnapshot!!.documents) {
                     var item = snapshot.toObject(MyGoal::class.java)
-                    if(item != null) {
+                    if (item != null) {
                         adapter.addToList(item)
                     }
                 }
