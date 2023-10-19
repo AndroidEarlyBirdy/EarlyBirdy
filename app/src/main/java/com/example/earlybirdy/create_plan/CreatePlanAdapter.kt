@@ -19,7 +19,7 @@ class CreatePlanAdapter(
     private lateinit var getDate : CalendarDay
 
     fun addItems(items : List<Todo>) {
-        wholeList.addAll(items)
+        list.addAll(items)
         notifyDataSetChanged()
     }
 
@@ -95,11 +95,7 @@ class CreatePlanAdapter(
 
             //삭제 버튼 클릭 시
             ivDelete.setOnClickListener {
-                val position = wholeList.indexOfFirst { it == item }
-                if (position != RecyclerView.NO_POSITION) {
-                    removeItemInList(adapterPosition)
-                    removeItem(position)
-                }
+                removeItemInList(adapterPosition)
                 todoDeleteListener.onDeleteButtonClicked(item)
             }
 

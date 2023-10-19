@@ -104,5 +104,4 @@ class SettingActivity : AppCompatActivity() {
         startActivity(intent)
     }
     }
-}
-}
+
