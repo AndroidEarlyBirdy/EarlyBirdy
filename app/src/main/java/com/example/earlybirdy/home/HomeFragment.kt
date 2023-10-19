@@ -24,6 +24,7 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -44,7 +45,7 @@ class HomeFragment : Fragment() {
     private val dateFormat = SimpleDateFormat("h:mm a", Locale.US)
 
     var attendindex: String? = null
-    private lateinit var homeViewModel: HomeViewModel
+    //private lateinit var homeViewModel: HomeViewModel
 
     // SharedPreferences를 사용하여 출석 여부를 저장하는 상수
     private val PREF_NAME = "ButtonPress"
@@ -132,7 +133,7 @@ class HomeFragment : Fragment() {
         today.set(year, month, day, 23, 59, 59) // 날짜의 끝 부분 설정
         val endOfDay = today.time
 
-        firestore?.collection("UserDto")?.document("KWler36V6MdaNkMsvtK2DRynWVw1")
+        firestore?.collection("UserDto")?.document("vlKOuWtxe1b6flDCwHoPRwOYsWt2")
             ?.collection("MyGoal")
             ?.whereGreaterThanOrEqualTo("date", startOfDay)
             ?.whereLessThanOrEqualTo("date", endOfDay)
@@ -153,11 +154,11 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        homeViewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
-
+        //homeViewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
+        Log.d("확인", binding.btnAttend.isEnabled.toString())
         // SharedPreferences를 사용하여 출석 여부를 확인하고 처리
-        val hasAttended = loadHasAttended()
-        if (!hasAttended) {
+        //val hasAttended = loadHasAttended()
+       // if (!hasAttended) {
             binding.btnAttend.setOnClickListener {
                 val alarmTime = loadTimeDate()
                 if (alarmTime != null) {
@@ -166,14 +167,22 @@ class HomeFragment : Fragment() {
                     val alarmMinutes = convertToMinutes(alarmTime)
 
                     val data = calculateProgress(alarmMinutes, currentMinutes)
-                    homeViewModel.setSharedData(data)
+                    firestore?.collection("UserDto")?.document("vlKOuWtxe1b6flDCwHoPRwOYsWt2")
+                        ?.update("experience", FieldValue.increment(data.toLong()))
+                        ?.addOnSuccessListener {
+                            Log.d("성공", data.toString())
+                        }
+                        ?.addOnFailureListener { }
+
+
+                    // homeViewModel.setSharedData(data)
 
                     val nowTime = System.currentTimeMillis()
                     val timeFormatter = SimpleDateFormat("yyyy.MM.dd")
                     val dateTime = timeFormatter.format(nowTime)
                     attendindex = UUID.randomUUID().toString()
 
-                    firestore?.collection("UserDto")?.document("KWler36V6MdaNkMsvtK2DRynWVw1")
+                    firestore?.collection("UserDto")?.document("vlKOuWtxe1b6flDCwHoPRwOYsWt2")
                         ?.collection("Attendance")?.document("$attendindex")
                         ?.set(
                             hashMapOf(
@@ -185,13 +194,13 @@ class HomeFragment : Fragment() {
                     saveHasAttended(true)
                 }
             }
-        } else {
-            // 이미 출석한 경우 버튼 비활성화
-            binding.btnAttend.isEnabled = false
-            // 이미 출석한 경우 메시지를 표시
-            Toast.makeText(requireContext(), "이미 출석했습니다.", Toast.LENGTH_SHORT).show()
-            Log.d("확인", binding.btnAttend.isEnabled.toString())
-        }
+//        } else {
+//            // 이미 출석한 경우 버튼 비활성화
+//            binding.btnAttend.isEnabled = false
+//            // 이미 출석한 경우 메시지를 표시
+//            Toast.makeText(requireContext(), "이미 출석했습니다.", Toast.LENGTH_SHORT).show()
+//            Log.d("2 확인", binding.btnAttend.isEnabled.toString())
+//        }
 
         // RecyclerView 어댑터 초기화 및 데이터 불러오는 코드 이곳으로 이동
 //        adapter = HomeFragmentAdapter()
