@@ -12,7 +12,7 @@ class SettingDetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initView()
+       initView()
     }
 
     private fun initView() {
@@ -35,3 +35,5 @@ class SettingDetailActivity : AppCompatActivity() {
         }
     }
 }
+
+
