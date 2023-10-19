@@ -10,6 +10,7 @@ import com.prolificinteractive.materialcalendarview.CalendarDay
 
 class CreatePlanAdapter(
     private val onClickItem: (Int, Todo) -> Unit,
+    private val todoDeleteListener : TodoDeleteListener
 ) : RecyclerView.Adapter<CreatePlanAdapter.ViewHolder>() {
     private val wholeList = ArrayList<Todo>()
 
@@ -18,7 +19,7 @@ class CreatePlanAdapter(
     private lateinit var getDate : CalendarDay
 
     fun addItems(items : List<Todo>) {
-        wholeList.addAll(items)
+        list.addAll(items)
         notifyDataSetChanged()
     }
 
@@ -94,11 +95,8 @@ class CreatePlanAdapter(
 
             //삭제 버튼 클릭 시
             ivDelete.setOnClickListener {
-                val position = wholeList.indexOfFirst { it == item }
-                if (position != RecyclerView.NO_POSITION) {
-                    removeItemInList(adapterPosition)
-                    removeItem(position)
-                }
+                removeItemInList(adapterPosition)
+                todoDeleteListener.onDeleteButtonClicked(item)
             }
 
             //아이템 클릭 시
@@ -110,5 +108,9 @@ class CreatePlanAdapter(
             }
 
         }
+    }
+
+    interface TodoDeleteListener {
+        fun onDeleteButtonClicked(todo : Todo)
     }
 }
