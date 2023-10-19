@@ -63,7 +63,8 @@ class HomeFragment : Fragment() {
 
         adapter = HomeFragmentAdapter()
         binding.rvTodoMain.adapter = adapter
-        binding.rvTodoMain.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvTodoMain.layoutManager =
+            LinearLayoutManager(requireContext()).also { it.orientation = LinearLayoutManager.HORIZONTAL } //리사이클러뷰 가로로
 
         // 데이터를 불러오는 코드를 onCreateView 내에서 실행
         loadDataFromFirestore()
