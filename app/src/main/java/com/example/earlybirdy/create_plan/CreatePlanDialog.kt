@@ -56,7 +56,7 @@ class CreatePlanDialog(
             when (dialogType) {
                 "create" -> {
                     if (todoContent.isNotBlank()) {
-                        val todo = createDay?.let { day -> Todo(day, todoContent, false) }
+                        val todo = createDay?.let { day -> Todo(null,day, todoContent, false) }
                         if (todo != null) {
                             dialogListener.onDialogSaveClicked(todo)
                         }
@@ -68,7 +68,7 @@ class CreatePlanDialog(
 
                 "edit" -> {
                     if(todoContent.isNotBlank()) {
-                        val todo = createDay?.let { day -> Todo(day,todoContent,false) }
+                        val todo = createDay?.let { day -> Todo(dialogTodo?.tid,day,todoContent,false) }
                         if (todo != null) {
                             if (todoPosition != null) {
                                 dialogListener.onDialogEditClicked(todo,todoPosition)
