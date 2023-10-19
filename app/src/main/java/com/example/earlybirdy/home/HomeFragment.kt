@@ -110,6 +110,20 @@ class HomeFragment : Fragment() {
             fun bind(item: MyGoal) = with(binding) {
                 tvTodo.text = item.title
                 checkBox.isChecked= item.check
+
+                // 체크박스 클릭 시 상태 업데이트
+                binding.checkBox.setOnClickListener {
+                    val checked = checkBox.isChecked
+                    firestore?.collection("UserDto")?.document("vlKOuWtxe1b6flDCwHoPRwOYsWt2")
+                        ?.collection("MyGoal")?.document("${item.goalId}")
+                        ?.update("check", checked)
+                        ?.addOnSuccessListener {
+                            Log.d("체크 업데이트", "성공")
+                        }
+                        ?.addOnFailureListener {
+                            Log.d("체크 업데이트", "실패")
+                        }
+                }
             }
         }
 
@@ -154,7 +168,6 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //homeViewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
         Log.d("확인", binding.btnAttend.isEnabled.toString())
         // SharedPreferences를 사용하여 출석 여부를 확인하고 처리
         //val hasAttended = loadHasAttended()
@@ -194,18 +207,10 @@ class HomeFragment : Fragment() {
                     saveHasAttended(true)
                 }
             }
-//        } else {
-//            // 이미 출석한 경우 버튼 비활성화
-//            binding.btnAttend.isEnabled = false
-//            // 이미 출석한 경우 메시지를 표시
-//            Toast.makeText(requireContext(), "이미 출석했습니다.", Toast.LENGTH_SHORT).show()
-//            Log.d("2 확인", binding.btnAttend.isEnabled.toString())
-//        }
 
-        // RecyclerView 어댑터 초기화 및 데이터 불러오는 코드 이곳으로 이동
-//        adapter = HomeFragmentAdapter()
-//        binding.rvTodoMain.adapter = adapter
-//        binding.rvTodoMain.layoutManager = LinearLayoutManager(requireContext())
+
+
+
     }
     private fun loadHasAttended(): Boolean {
         val preferences = requireContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
