@@ -103,5 +103,6 @@ class SettingActivity : AppCompatActivity() {
         intent.putExtra("title", title)
         startActivity(intent)
     }
-
+    }
+}
 }
