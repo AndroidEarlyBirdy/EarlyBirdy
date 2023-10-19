@@ -25,7 +25,8 @@ class MyPageFragment : Fragment() {
     val dateList = mutableListOf(
         CalendarDay.from(2023,10,14),
         CalendarDay.from(2023,10,15),
-        CalendarDay.from(2023,10,20)
+        CalendarDay.from(2023,10,20),
+        CalendarDay.from(2023,10,19)
     )
 
     // 나머지 코드 생략
