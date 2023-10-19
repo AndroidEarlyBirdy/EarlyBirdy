@@ -60,9 +60,10 @@ class SigninActivity : AppCompatActivity() {
             finish()
         }
 
-        // 알림 권한 설정 함수ㅅ
+        // 알림 권한 설정 함수
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
             var permissions = arrayOf(
+                android.Manifest.permission.SCHEDULE_EXACT_ALARM,
                 android.Manifest.permission.POST_NOTIFICATIONS
             )
             ActivityCompat.requestPermissions(this, permissions, MY_PERMISSION_ACCESS_ALL)
