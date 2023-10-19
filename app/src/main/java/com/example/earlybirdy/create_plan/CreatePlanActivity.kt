@@ -25,10 +25,12 @@ import java.util.UUID
 class CreatePlanActivity : AppCompatActivity(), CreatePlanDialog.DialogCreateListener,
     CreatePlanAdapter.TodoDeleteListener {
 
-    private lateinit var firestore: FirebaseFirestore
+    private lateinit var fireStore: FirebaseFirestore
     private lateinit var database: DatabaseReference
     private lateinit var auth: FirebaseAuth
     private lateinit var user: FirebaseUser
+
+    private val demoList = ArrayList<Todo>()
 
     private val listAdapter by lazy {
         CreatePlanAdapter({ position, todo ->
@@ -47,7 +49,8 @@ class CreatePlanActivity : AppCompatActivity(), CreatePlanDialog.DialogCreateLis
     private val testList = mutableListOf(
         Todo("1", CalendarDay.from(2023, 10, 17), "test", false),
         Todo("2", CalendarDay.from(2023, 10, 16), "test2", true),
-        Todo("3", CalendarDay.from(2023, 10, 20), "test3", false)
+        Todo("3", CalendarDay.from(2023, 10, 20), "test3", false),
+        Todo("4", CalendarDay.from(2023, 10, 19), "test4", false)
     )
     private var selectedDay: CalendarDay = CalendarDay.today()
 
@@ -57,7 +60,7 @@ class CreatePlanActivity : AppCompatActivity(), CreatePlanDialog.DialogCreateLis
         binding = ActivityCreatePlanBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        firestore = FirebaseFirestore.getInstance()
+        fireStore = FirebaseFirestore.getInstance()
         database = Firebase.database.reference
         auth = FirebaseAuth.getInstance()
         user = auth.currentUser!!
@@ -74,15 +77,11 @@ class CreatePlanActivity : AppCompatActivity(), CreatePlanDialog.DialogCreateLis
         //오늘 날짜 Selected 되게 설정
         //오늘 계획 setting
         calendarView.selectedDate = CalendarDay.today()
-        listAdapter.filterByDate(CalendarDay.today())
+        filterDate(CalendarDay.today())
         //날짜 변경 시
         calendarView.setOnDateChangedListener { _, date, _ ->
             listAdapter.clearItems()
-            for (todo in testList) {
-                if (todo.date == date) {
-                    listAdapter.filterByDate(date)
-                }
-            }
+            filterDate(date)
             //Dialog에 전달할 날짜 데이터
             selectedDay = date
         }
@@ -92,8 +91,6 @@ class CreatePlanActivity : AppCompatActivity(), CreatePlanDialog.DialogCreateLis
         binding.recyclerViewTodo.adapter = listAdapter
         binding.recyclerViewTodo.layoutManager =
             LinearLayoutManager(parent, LinearLayoutManager.VERTICAL, false)
-
-        listAdapter.addItems(testList)
 
         //버튼 클릭 시 Dialog 생성
         binding.ivAddTodo.setOnClickListener {
@@ -126,18 +123,17 @@ class CreatePlanActivity : AppCompatActivity(), CreatePlanDialog.DialogCreateLis
     }
 
     override fun onDialogSaveClicked(todo: Todo) {
-        listAdapter.addItem(todo)
-        listAdapter.addItemInList(todo)
+        var attendIndex = UUID.randomUUID().toString()
+        todo.tid = attendIndex
 
+        testList.add(todo)
+        listAdapter.clearItems()
+        filterDate(selectedDay)
 
-        var attendindex = UUID.randomUUID().toString()
-
-        todo.tid = attendindex
-
-        firestore.collection("UserDto").document(user.uid).collection("MyGoal")
-            .document(attendindex).set(
+        fireStore.collection("UserDto").document(user.uid).collection("MyGoal")
+            .document(attendIndex).set(
                 hashMapOf(
-                    "TodoId" to attendindex,
+                    "TodoId" to attendIndex,
                     "Date" to todo.date.toTimestamp(),
                     "Title" to todo.title,
                     "IsChecked" to todo.isChecked
@@ -146,24 +142,30 @@ class CreatePlanActivity : AppCompatActivity(), CreatePlanDialog.DialogCreateLis
     }
 
     override fun onDialogEditClicked(todo: Todo, position: Int) {
-        listAdapter.editItem(todo, position)
+        val index = testList.indexOfFirst { it.tid == todo.tid }
         listAdapter.editItemInList(todo, position)
 
-        Log.d("todo", todo.toString())
-
-        todo.tid?.let {
-            firestore.collection("UserDto").document(user.uid).collection("MyGoal")
-                .document(it).update("Title", todo.title)
-
+        if (index != -1) {
+            testList[index].title = todo.title
+            listAdapter.editItemInList(testList[index], position)
+            todo.tid?.let {
+                fireStore.collection("UserDto").document(user.uid).collection("MyGoal")
+                    .document(it).update("Title", todo.title)
+            }
         }
 
     }
 
     override fun onDeleteButtonClicked(todo: Todo) {
+        val matchingTodo = testList.find { it.tid == todo.tid }
+        matchingTodo?.let {
+            testList.remove(it)
+        }
+
         todo.tid?.let {
-            firestore.collection("UserDto").document(user.uid).collection("MyGoal")
+            fireStore.collection("UserDto").document(user.uid).collection("MyGoal")
                 .document(it).delete().addOnCompleteListener {
-                    Log.d("삭제 완료", todo.tid.toString())
+
                 }
         }
     }
@@ -172,6 +174,14 @@ class CreatePlanActivity : AppCompatActivity(), CreatePlanDialog.DialogCreateLis
         val calendar = Calendar.getInstance()
         calendar.set(this.year, this.month, this.day)
         return Timestamp(calendar.time)
+    }
+
+    private fun filterDate(day: CalendarDay) {
+        demoList.clear()
+        for (date in testList) {
+            if (date.date == day) demoList.add(date)
+        }
+        listAdapter.addItems(demoList)
     }
 
 }
