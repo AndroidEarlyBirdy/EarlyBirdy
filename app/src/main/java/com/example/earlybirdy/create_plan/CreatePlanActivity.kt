@@ -4,9 +4,12 @@ import android.annotation.SuppressLint
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.AttributeSet
 import android.util.Log
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.earlybirdy.R
+import com.example.earlybirdy.data.MyGoal
 import com.example.earlybirdy.data.Todo
 import com.example.earlybirdy.databinding.ActivityCreatePlanBinding
 import com.google.firebase.Timestamp
@@ -25,10 +28,12 @@ import java.util.UUID
 class CreatePlanActivity : AppCompatActivity(), CreatePlanDialog.DialogCreateListener,
     CreatePlanAdapter.TodoDeleteListener {
 
-    private lateinit var firestore: FirebaseFirestore
+    private lateinit var fireStore: FirebaseFirestore
     private lateinit var database: DatabaseReference
     private lateinit var auth: FirebaseAuth
     private lateinit var user: FirebaseUser
+
+    private val demoList = ArrayList<Todo>()
 
     private val listAdapter by lazy {
         CreatePlanAdapter({ position, todo ->
@@ -44,26 +49,27 @@ class CreatePlanActivity : AppCompatActivity(), CreatePlanDialog.DialogCreateLis
             }
         }, this)
     }
-    private val testList = mutableListOf(
-        Todo("1", CalendarDay.from(2023, 10, 17), "test", false),
-        Todo("2", CalendarDay.from(2023, 10, 16), "test2", true),
-        Todo("3", CalendarDay.from(2023, 10, 20), "test3", false)
-    )
+    private val testList = ArrayList<Todo>()
     private var selectedDay: CalendarDay = CalendarDay.today()
 
     private lateinit var binding: ActivityCreatePlanBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityCreatePlanBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        firestore = FirebaseFirestore.getInstance()
+        fireStore = FirebaseFirestore.getInstance()
         database = Firebase.database.reference
         auth = FirebaseAuth.getInstance()
         user = auth.currentUser!!
 
+        loadData()
         initView()
-        setCalendar()
+    }
+
+    override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
+        return super.onCreateView(name, context, attrs)
     }
 
     //달력 세팅
@@ -73,16 +79,13 @@ class CreatePlanActivity : AppCompatActivity(), CreatePlanDialog.DialogCreateLis
 
         //오늘 날짜 Selected 되게 설정
         //오늘 계획 setting
+        Log.d("today", testList.toString())
+        filterDate(CalendarDay.today())
         calendarView.selectedDate = CalendarDay.today()
-        listAdapter.filterByDate(CalendarDay.today())
         //날짜 변경 시
         calendarView.setOnDateChangedListener { _, date, _ ->
             listAdapter.clearItems()
-            for (todo in testList) {
-                if (todo.date == date) {
-                    listAdapter.filterByDate(date)
-                }
-            }
+            filterDate(date)
             //Dialog에 전달할 날짜 데이터
             selectedDay = date
         }
@@ -92,8 +95,6 @@ class CreatePlanActivity : AppCompatActivity(), CreatePlanDialog.DialogCreateLis
         binding.recyclerViewTodo.adapter = listAdapter
         binding.recyclerViewTodo.layoutManager =
             LinearLayoutManager(parent, LinearLayoutManager.VERTICAL, false)
-
-        listAdapter.addItems(testList)
 
         //버튼 클릭 시 Dialog 생성
         binding.ivAddTodo.setOnClickListener {
@@ -126,52 +127,100 @@ class CreatePlanActivity : AppCompatActivity(), CreatePlanDialog.DialogCreateLis
     }
 
     override fun onDialogSaveClicked(todo: Todo) {
-        listAdapter.addItem(todo)
-        listAdapter.addItemInList(todo)
+        var attendIndex = UUID.randomUUID().toString()
+        todo.tid = attendIndex
 
+        testList.add(todo)
+        listAdapter.clearItems()
+        filterDate(selectedDay)
 
-        var attendindex = UUID.randomUUID().toString()
-
-        todo.tid = attendindex
-
-        firestore.collection("UserDto").document(user.uid).collection("MyGoal")
-            .document(attendindex).set(
+        fireStore.collection("UserDto").document(user.uid).collection("MyGoal")
+            .document(attendIndex).set(
                 hashMapOf(
-                    "TodoId" to attendindex,
-                    "Date" to todo.date.toTimestamp(),
-                    "Title" to todo.title,
-                    "IsChecked" to todo.isChecked
+                    "goalId" to attendIndex,
+                    "date" to todo.date.toTimestamp(),
+                    "title" to todo.title,
+                    "check" to todo.isChecked
                 )
             )
     }
 
     override fun onDialogEditClicked(todo: Todo, position: Int) {
-        listAdapter.editItem(todo, position)
+        val index = testList.indexOfFirst { it.tid == todo.tid }
         listAdapter.editItemInList(todo, position)
 
-        Log.d("todo", todo.toString())
-
-        todo.tid?.let {
-            firestore.collection("UserDto").document(user.uid).collection("MyGoal")
-                .document(it).update("Title", todo.title)
-
+        if (index != -1) {
+            testList[index].title = todo.title
+            listAdapter.editItemInList(testList[index], position)
+            todo.tid?.let {
+                fireStore.collection("UserDto").document(user.uid).collection("MyGoal")
+                    .document(it).update("Title", todo.title)
+            }
         }
 
     }
 
     override fun onDeleteButtonClicked(todo: Todo) {
+        val matchingTodo = testList.find { it.tid == todo.tid }
+        matchingTodo?.let {
+            testList.remove(it)
+        }
+
         todo.tid?.let {
-            firestore.collection("UserDto").document(user.uid).collection("MyGoal")
+            fireStore.collection("UserDto").document(user.uid).collection("MyGoal")
                 .document(it).delete().addOnCompleteListener {
-                    Log.d("삭제 완료", todo.tid.toString())
+
                 }
         }
     }
 
     private fun CalendarDay.toTimestamp(): Timestamp {
         val calendar = Calendar.getInstance()
-        calendar.set(this.year, this.month, this.day)
+        calendar.set(this.year, this.month-1, this.day)
         return Timestamp(calendar.time)
+    }
+
+    private fun filterDate(day: CalendarDay) {
+        demoList.clear()
+        for (date in testList) {
+            if (date.date == day) demoList.add(date)
+        }
+        listAdapter.addItems(demoList)
+    }
+
+    private fun loadData() {
+        fireStore.collection("UserDto").document(user.uid)
+            .collection("MyGoal").get().addOnSuccessListener { value ->
+                for(snapshot in value!!.documents) {
+                    var item = snapshot.toObject(MyGoal::class.java)
+                    if (item != null) {
+                        val todo = Todo(
+                            item.goalId,
+                            timestampToCalendarDay(item.date),
+                            item.title,
+                            item.check
+                        )
+                        testList.add(todo)
+                        Log.d("todo",todo.toString())
+                    }
+                }
+                Log.d("list", testList.toString())
+                setCalendar()
+            }
+
+    }
+    private fun timestampToCalendarDay(timestamp: Timestamp?): CalendarDay {
+        val date = timestamp?.toDate()
+
+        val calendar = Calendar.getInstance()
+        if (date != null) {
+            calendar.time = date
+        }
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        return CalendarDay.from(year, month + 1, day)
     }
 
 }
