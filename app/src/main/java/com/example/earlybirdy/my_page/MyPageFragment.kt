@@ -49,10 +49,10 @@ class MyPageFragment : Fragment() {
         // ViewModel 초기화
         homeViewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
 
-        // LiveData를 관찰하여 데이터 업데이트
-        homeViewModel.sharedData.observe(viewLifecycleOwner) { data ->
-            binding.tvSharedData.text = data
-        }
+//        // LiveData를 관찰하여 데이터 업데이트
+//        homeViewModel.sharedData.observe(viewLifecycleOwner) { data ->
+//            binding.tvSharedData.text = data
+//        }
 
         setCalendar()
 
