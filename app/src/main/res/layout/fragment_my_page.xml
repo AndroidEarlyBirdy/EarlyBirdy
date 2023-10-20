@@ -116,15 +116,6 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_experience" />
             <!---데이터 넘어오는지 테스트용 -->
-            <TextView
-                android:id="@+id/tv_SharedData"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="임시 테스트 데이터"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tv_nickname"
-                app:layout_constraintTop_toTopOf="parent" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

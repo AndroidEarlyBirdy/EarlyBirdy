@@ -10,7 +10,7 @@
         android:id="@+id/imageView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="42dp"
+        android:layout_marginStart="55dp"
         android:layout_marginTop="1dp"
         android:layout_marginEnd="42dp"
         app:layout_constraintEnd_toEndOf="parent"

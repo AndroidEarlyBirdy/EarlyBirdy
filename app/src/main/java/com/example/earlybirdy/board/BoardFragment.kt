@@ -1,6 +1,7 @@
 package com.example.earlybirdy.board
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,6 +36,7 @@ class BoardFragment : Fragment() {
         database = Firebase.database.reference
 
         val currentUser = auth.currentUser
+        Log.d("user","${currentUser}")
         if(currentUser != null) {
             binding.tvTestUid.setText("${currentUser.uid}")
 
@@ -60,6 +62,11 @@ class BoardFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("resume","${auth.currentUser}")
     }
 
     override fun onDestroyView() {
