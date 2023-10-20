@@ -4,18 +4,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.View
-import android.widget.Toast
 import com.example.earlybirdy.databinding.ActivityEditProfileBinding
 import com.example.earlybirdy.signup.EditProfileDialog
 import android.util.Log
-import com.example.earlybirdy.dto.UserDto
-import com.example.earlybirdy.signin.SigninActivity
 import com.example.earlybirdy.util.navigateToMainActivity
 import com.example.earlybirdy.util.showToast
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
@@ -31,6 +26,7 @@ class EditProfileActivity : AppCompatActivity() {
     private lateinit var database: DatabaseReference
     private lateinit var fireStore: FirebaseFirestore
     private lateinit var user: FirebaseUser
+    private lateinit var editProfileActivityDialog: EditProfileActivityDialog
     val db = Firebase.firestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,13 +34,12 @@ class EditProfileActivity : AppCompatActivity() {
         binding = ActivityEditProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        editProfileActivityDialog = EditProfileActivityDialog(this@EditProfileActivity)
         editProfileDialog = EditProfileDialog(this@EditProfileActivity)
         auth = FirebaseAuth.getInstance()
         database = Firebase.database.reference
         user = auth.currentUser!!
         fireStore = FirebaseFirestore.getInstance()
-
-
 
 
         // 프로필 사진 등록
@@ -84,6 +79,7 @@ class EditProfileActivity : AppCompatActivity() {
             }
         })
         loadUserData()
+        editProfileActivityDialog.show()
     }
 
 
@@ -104,8 +100,9 @@ class EditProfileActivity : AppCompatActivity() {
         } else if (!password.equals(passwordCheck)) {
             binding.tilProfilePasswordCheck.error = "일치하지 않습니다"
         }
-        updateUserData(user.uid, profile, nickname, email)
+
         changePassword()
+        updateUserData(user.uid, profile, nickname, email)
         navigateToMainActivity(this)
         showToast(this@EditProfileActivity,"회원 정보 수정 완료!")
 
