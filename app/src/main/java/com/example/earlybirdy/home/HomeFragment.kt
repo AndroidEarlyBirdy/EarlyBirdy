@@ -160,6 +160,7 @@ class HomeFragment : Fragment() {
         val endOfDay = today.time
 
         firestore?.collection("UserDto")?.document("vlKOuWtxe1b6flDCwHoPRwOYsWt2")
+        firestore?.collection("UserDto")?.document("IC8Lk0KkBWdxHQpNdPnW7uLCG7n2")
             ?.collection("MyGoal")
             ?.whereGreaterThanOrEqualTo("date", startOfDay)
             ?.whereLessThanOrEqualTo("date", endOfDay)
