@@ -1,5 +1,6 @@
 package com.example.earlybirdy.edit_profile
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -7,6 +8,8 @@ import android.text.TextWatcher
 import com.example.earlybirdy.databinding.ActivityEditProfileBinding
 import com.example.earlybirdy.signup.EditProfileDialog
 import android.util.Log
+import androidx.activity.OnBackPressedCallback
+import com.example.earlybirdy.main.MainActivity
 import com.example.earlybirdy.util.navigateToMainActivity
 import com.example.earlybirdy.util.showToast
 import com.google.firebase.auth.EmailAuthProvider
@@ -157,6 +160,7 @@ class EditProfileActivity : AppCompatActivity() {
                 }
             }
             .addOnFailureListener {
+                showToast(this, "비밀번호변경에 실패하였습니다.")
                 Log.e("fail","${it}")
             }
     }

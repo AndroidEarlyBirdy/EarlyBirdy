@@ -39,6 +39,8 @@ class EditProfileDialog (
         setCancelable(false)
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
+        binding.ivProfileDialogSelect.setImageResource(selectedEditProfileImageId)
+
         binding.ivProfileDialog1.setOnClickListener{
             selectedEditProfileImageId = R.drawable.img_profile_sample
             binding.ivProfileDialogSelect.setImageResource(selectedEditProfileImageId)

@@ -16,10 +16,18 @@ class EditProfileActivityDialog (
 ) : Dialog(context) {
     private lateinit var binding: ActivityEditProfileDialogBinding
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityEditProfileDialogBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setOnCancelListener {
+            val intent = Intent(context, MainActivity::class.java).apply{
+                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            }
+            context.startActivity(intent)
+        }
+
         initViews()
     }
 
