@@ -154,13 +154,15 @@ class HomeFragment : Fragment() {
 
         firestore?.collection("UserDto")?.document("vlKOuWtxe1b6flDCwHoPRwOYsWt2")
             ?.collection("Attendance")
-            ?.whereEqualTo("Date", dateTime)
+            ?.whereEqualTo("date", dateTime)
             ?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
                 val hasAttended = querySnapshot?.documents?.isNotEmpty()
                 if(hasAttended != null && hasAttended) {
                     completedAttendances = 1
+
                 } else {
                     completedAttendances = 0
+
                 }
                 updateProgress()
                 adapter.notifyDataSetChanged()
@@ -204,7 +206,8 @@ class HomeFragment : Fragment() {
                     val currentTime = getCurrentTime()
                     val currentMinutes = convertToMinutes(currentTime)
                     val alarmMinutes = convertToMinutes(alarmTime)
-                    val data = 0 // TODO. currentMinutes, alarmMinutes 이용해서 경험치 계산해주는 함수로 변경
+                    val data = calculateTime(alarmMinutes, currentMinutes)
+
                     firestore?.collection("UserDto")?.document("vlKOuWtxe1b6flDCwHoPRwOYsWt2")
                         ?.update("exp", FieldValue.increment(data.toLong()))
                         ?.addOnSuccessListener {
@@ -225,11 +228,19 @@ class HomeFragment : Fragment() {
                         ?.set(
                             hashMapOf(
                                 "AttendanceId" to attendindex,
-                                "Date" to dateTime.toString()
+                                "date" to dateTime.toString()
                             )
                         )
+                    // 출석 처리가 완료되면 SharedPreferences에 출석 상태를 저장
+//                    setAttendanceStatus(true)
+
+                    // 출석 버튼을 비활성화
+                    binding.btnAttend.isEnabled = false
                 }
             }
+        } else {
+            // 이미 출석한 경우, 버튼을 비활성화
+            binding.btnAttend.isEnabled = false
         }
     }
 
@@ -268,6 +279,21 @@ class HomeFragment : Fragment() {
         val calendar = Calendar.getInstance()
         return dateFormat.format(calendar.time)
     }
+
+    private fun calculateTime(alarmMinutes: Int, currentMinutes: Int): Int {
+        val timeDifference = currentMinutes - alarmMinutes
+        Log.d("시간", timeDifference.toString())
+        return when {
+            timeDifference in 0..5 -> 30
+            timeDifference in 6..10 -> 20
+            timeDifference in 11..15 -> 10
+            else -> 1
+        }
+    }
+
+
+
+
 
     private fun convertToMinutes(time: String): Int {
         val date = dateFormat.parse(time)
