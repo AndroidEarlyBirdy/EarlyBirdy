@@ -22,7 +22,7 @@ class MyPageFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var homeViewModel: HomeViewModel
 
-    private var localExp = 2023
+    private var localExp = 3450
     private var currentExp = 0
     private var currentLevel = 1
 
@@ -72,15 +72,15 @@ class MyPageFragment : Fragment() {
     }
 
     //레벨 범위에 따른 인장 설정
-//    private fun updateLevelImage() {
-//        when (currentLevel) {
-//            in 1..10 -> binding.ivLevelBorder.setImageResource(R.drawable.ic_insignia1)
-//            in 11..20 -> binding.ivLevelBorder.setImageResource(R.drawable.bg_levelborder2_png)
-//            in 21..30 -> binding.ivLevelBorder.setImageResource(R.drawable.bg_levelborder3_png)
-//            in 31..40 -> binding.ivLevelBorder.setImageResource(R.drawable.bg_levelborder4_png)
-//            else -> binding.ivLevelBorder.setImageResource(R.drawable.bg_levelborder5_png)
-//        }
-//    }
+    private fun updateLevelImage() {
+        when (currentLevel) {
+            in 1..10 -> binding.ivProfileBorder.setImageResource(R.drawable.ic_insignia1)
+            in 11..20 -> binding.ivProfileBorder.setImageResource(R.drawable.ic_insignia2)
+            in 21..30 -> binding.ivProfileBorder.setImageResource(R.drawable.ic_insignia3)
+            in 31..40 -> binding.ivProfileBorder.setImageResource(R.drawable.ic_insignia4)
+            else -> binding.ivProfileBorder.setImageResource(R.drawable.ic_insignia5)
+        }
+    }
 
     // 레벨 당 경험치 량
     private fun calculateMaxExpForLevel(level: Int): Int {
@@ -104,7 +104,7 @@ class MyPageFragment : Fragment() {
         currentExp = tempExp
         currentLevel = tempLevel
         updateExpUI()
-//        updateLevelImage()
+        updateLevelImage()
     }
 
     override fun onDestroyView() {

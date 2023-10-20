@@ -55,18 +55,18 @@ class SendEmailActivity : AppCompatActivity() {
             //navigateToMainActivity(this)
             showToast(this, "이미 로그인 중")
         }
-//        else {
-//            val emailAddress = binding.titSendEmail.text.toString()
-//            if (emailAddress.isNotBlank()) {
-//                Firebase.auth.sendPasswordResetEmail(emailAddress)
-//                    .addOnCompleteListener { task ->
-//                        if (task.isSuccessful) {
-//                            Log.d("send", "${emailAddress}")
-//                        }
-//                    }.addOnFailureListener {
-//                        // 유저 정보에 없는 이메일이면 보내지 않음
-//                    }
-//            }
-//        }
+        else {
+            val emailAddress = binding.titSendEmail.text.toString()
+            if (emailAddress.isNotBlank()) {
+                Firebase.auth.sendPasswordResetEmail(emailAddress)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            Log.d("send", "${emailAddress}")
+                        }
+                    }.addOnFailureListener {
+                        // 유저 정보에 없는 이메일이면 보내지 않음
+                    }
+            }
+        }
     }
 }
