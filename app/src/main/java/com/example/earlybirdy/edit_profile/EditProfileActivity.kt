@@ -10,8 +10,10 @@ import com.example.earlybirdy.databinding.ActivityEditProfileBinding
 import com.example.earlybirdy.signup.EditProfileDialog
 import android.util.Log
 import com.example.earlybirdy.dto.UserDto
+import com.example.earlybirdy.signin.SigninActivity
 import com.example.earlybirdy.util.navigateToMainActivity
 import com.example.earlybirdy.util.showToast
+import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseUser
@@ -41,6 +43,9 @@ class EditProfileActivity : AppCompatActivity() {
         database = Firebase.database.reference
         user = auth.currentUser!!
         fireStore = FirebaseFirestore.getInstance()
+
+
+
 
         // 프로필 사진 등록
         binding.icEditprofileProfile.setOnClickListener {
@@ -99,21 +104,22 @@ class EditProfileActivity : AppCompatActivity() {
         } else if (!password.equals(passwordCheck)) {
             binding.tilProfilePasswordCheck.error = "일치하지 않습니다"
         }
-        updateUserData(user.uid, profile, nickname, email, password)
+        updateUserData(user.uid, profile, nickname, email)
+        changePassword()
         navigateToMainActivity(this)
         showToast(this@EditProfileActivity,"회원 정보 수정 완료!")
+
         finish()
 
     }
 
-    private fun updateUserData(uid: String, profile: Int?, nickname: String?, email: String?, password: String?) {
+    private fun updateUserData(uid: String, profile: Int?, nickname: String?, email: String?) {
 
         db.collection("UserDto").document(uid).update(
             mapOf(
                 "profile" to profile,
                 "nickname" to nickname,
                 "email" to email,
-                "password" to password
             )
         ).addOnSuccessListener {
             showToast(this@EditProfileActivity,"회원정보 업데이트 완료!")
@@ -129,12 +135,10 @@ class EditProfileActivity : AppCompatActivity() {
                 if (document != null) {
                     val nickname = document.getString("nickname") ?: ""
                     val email = document.getString("email") ?: ""
-                    val password = document.getString("password") ?: ""
                     val profile = document.getLong("profile")?.toInt() ?: 0
                     binding.imgProflileProfile.setImageResource(profile)
                     binding.etProfileNickname.setText(nickname)
                     binding.etProfileEmail.setText(email)
-                    binding.etProfilePassword.setText(password)
                 }
             }
             .addOnFailureListener { e ->
@@ -142,6 +146,25 @@ class EditProfileActivity : AppCompatActivity() {
                 showToast(this, "사용자 정보 로딩에 실패했습니다.")
             }
     }
+
+    private fun changePassword() {
+        val user = Firebase.auth.currentUser!!
+        val newPassword = binding.etProfilePassword.text.toString()
+        val credential = EmailAuthProvider
+            .getCredential("user@example.com", "password123")
+        user.reauthenticate(credential)
+        user!!.updatePassword(newPassword)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d("password", "User password updated.")
+                }
+            }
+            .addOnFailureListener {
+                Log.e("fail","${it}")
+            }
+    }
+
+
 
 
 }
