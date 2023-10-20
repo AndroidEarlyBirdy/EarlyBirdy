@@ -1,11 +1,15 @@
 package com.example.earlybirdy.signup
 
+import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.widget.ImageView
+import androidx.core.widget.addTextChangedListener
 import com.example.earlybirdy.databinding.ActivitySignupBinding
 import com.example.earlybirdy.dto.UserDto
 import com.example.earlybirdy.util.navigateToMainActivity
