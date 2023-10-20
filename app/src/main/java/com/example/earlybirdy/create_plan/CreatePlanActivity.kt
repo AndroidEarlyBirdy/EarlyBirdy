@@ -117,9 +117,9 @@ class CreatePlanActivity : AppCompatActivity(), CreatePlanDialog.DialogCreateLis
             }
         }
 
-        btnBack.setOnClickListener {
-            finish()
-        }
+//        binding.btnBack.setOnClickListener {
+//            finish()
+//        }
     }
 
     //오늘 날짜를 Custom

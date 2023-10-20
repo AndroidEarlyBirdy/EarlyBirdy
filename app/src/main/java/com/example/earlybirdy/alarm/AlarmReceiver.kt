@@ -22,10 +22,10 @@ import com.example.earlybirdy.util.showToast
 
 class AlarmReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
-        noti(context)
+        sendNotifivation(context)
     }
 
-    private fun noti(context: Context){
+    private fun sendNotifivation(context: Context){
         val pref = context.getSharedPreferences("alarmTime", 0)
 
         val manager = context.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
@@ -38,13 +38,13 @@ class AlarmReceiver : BroadcastReceiver() {
             val channel = NotificationChannel(
                 channelId,
                 channelName,
-                NotificationManager.IMPORTANCE_DEFAULT
+                NotificationManager.IMPORTANCE_DEFAULT // 소리 설정
             ).apply {
                 // 채널에 다양한 정보 설정
                 description = "My Channel One Description"
                 setShowBadge(true)
                 val uri: Uri =
-                    RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION) //소리 설정
+                    RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
                 val audioAttributes = AudioAttributes.Builder()
                     .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
                     .setUsage(AudioAttributes.USAGE_ALARM)
@@ -78,9 +78,7 @@ class AlarmReceiver : BroadcastReceiver() {
             setSmallIcon(R.mipmap.ic_launcher)
             setWhen(System.currentTimeMillis())
             setContentTitle(
-                "${pref.getInt("hour", 0).toString()} : ${
-                    pref.getInt("min", 0).toString()
-                }"
+                "${pref.getInt("hour", 0).toString()} : ${pref.getInt("min", 0).toString()}"
             )
             setContentText("Gooood Morning~~~")
             setLargeIcon(bitmap) // 큰 이미지
