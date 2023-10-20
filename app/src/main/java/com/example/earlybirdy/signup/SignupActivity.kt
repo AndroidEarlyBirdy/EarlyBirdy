@@ -116,7 +116,8 @@ class SignupActivity : AppCompatActivity() {
                             updateUI(user)
                             // firestore DB에 저장
                             val userDto =
-                                UserDto(user!!.uid,profile, nickname, email)
+                                UserDto(user!!.uid,profile, nickname, email, 0)
+
                             db.collection("UserDto").document(user!!.uid)
                                 .set(userDto)
                                 .addOnSuccessListener { documentReference ->

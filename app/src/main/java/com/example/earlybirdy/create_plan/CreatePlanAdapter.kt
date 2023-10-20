@@ -12,11 +12,8 @@ class CreatePlanAdapter(
     private val onClickItem: (Int, Todo) -> Unit,
     private val todoDeleteListener : TodoDeleteListener
 ) : RecyclerView.Adapter<CreatePlanAdapter.ViewHolder>() {
-    private val wholeList = ArrayList<Todo>()
 
     private var list = ArrayList<Todo>()
-
-    private lateinit var getDate : CalendarDay
 
     fun addItems(items : List<Todo>) {
         list.addAll(items)
@@ -28,40 +25,15 @@ class CreatePlanAdapter(
         notifyDataSetChanged()
     }
 
-    fun addItem(todo : Todo) {
-        wholeList.add(todo)
-        notifyDataSetChanged()
-    }
-
-    fun addItemInList(todo : Todo) {
-        list.add(todo)
-        notifyDataSetChanged()
-    }
-    fun removeItem(position: Int) {
-        wholeList.removeAt(position)
-        notifyDataSetChanged()
-    }
 
     fun removeItemInList(position : Int) {
         list.removeAt(position)
         notifyItemRemoved(position)
     }
 
-    fun editItem(item:Todo, position: Int) {
-        val pos = wholeList.indexOfFirst { it == list[position] }
-        wholeList[pos] = item
-    }
 
     fun editItemInList(item:Todo, position: Int) {
         list[position] = item
-        notifyDataSetChanged()
-    }
-
-    fun filterByDate(date: CalendarDay) {
-        getDate = date
-        for(i in wholeList) {
-            if (i.date == date) list.add(i)
-        }
         notifyDataSetChanged()
     }
     
@@ -90,8 +62,7 @@ class CreatePlanAdapter(
     inner class ViewHolder(private val binding : ItemTodoBinding,
     private val onClickItem: (Int, Todo) -> Unit) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Todo) = with(binding) {
-            checkBoxIschecked.text = item.title
-            checkBoxIschecked.isChecked = item.isChecked
+            tvTitle.text = item.title
 
             //삭제 버튼 클릭 시
             ivDelete.setOnClickListener {
