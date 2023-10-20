@@ -22,10 +22,14 @@ class MyPageFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var homeViewModel: HomeViewModel
 
+    private var localExp = 2023
+    private var currentExp = 0
+    private var currentLevel = 1
+
     val dateList = mutableListOf(
-        CalendarDay.from(2023,10,14),
-        CalendarDay.from(2023,10,15),
-        CalendarDay.from(2023,10,20)
+        CalendarDay.from(2023, 10, 14),
+        CalendarDay.from(2023, 10, 15),
+        CalendarDay.from(2023, 10, 20)
     )
 
     // 나머지 코드 생략
@@ -34,6 +38,8 @@ class MyPageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentMyPageBinding.inflate(inflater, container, false)
+
+
         return binding.root
     }
 
@@ -49,10 +55,56 @@ class MyPageFragment : Fragment() {
         }
 
         setCalendar()
+
+        initializeUIWithLocalExp(localExp)
     }
 
     private fun setCalendar() = with(binding) {
-        calendarView.addDecorator(Decorator(dateList,requireContext()))
+        calendarView.addDecorator(Decorator(dateList, requireContext()))
+    }
+
+    // 마이페이지를 눌렀을 때 보이는 레벨, 경험치, 프로그레스 바
+    private fun updateExpUI() {
+        binding.tvLevel.text = "레벨 $currentLevel"
+        binding.pbExp.max = calculateMaxExpForLevel(currentLevel)
+        binding.pbExp.progress = currentExp
+        binding.tvExperience.text = "$currentExp / ${calculateMaxExpForLevel(currentLevel)} xp"
+    }
+
+    //레벨 범위에 따른 인장 설정
+//    private fun updateLevelImage() {
+//        when (currentLevel) {
+//            in 1..10 -> binding.ivLevelBorder.setImageResource(R.drawable.ic_insignia1)
+//            in 11..20 -> binding.ivLevelBorder.setImageResource(R.drawable.bg_levelborder2_png)
+//            in 21..30 -> binding.ivLevelBorder.setImageResource(R.drawable.bg_levelborder3_png)
+//            in 31..40 -> binding.ivLevelBorder.setImageResource(R.drawable.bg_levelborder4_png)
+//            else -> binding.ivLevelBorder.setImageResource(R.drawable.bg_levelborder5_png)
+//        }
+//    }
+
+    // 레벨 당 경험치 량
+    private fun calculateMaxExpForLevel(level: Int): Int {
+        return when (level) {
+            in 1..10 -> 100
+            in 11..20 -> 150
+            in 21..30 -> 200
+            in 31..40 -> 250
+            else -> 300
+        }
+    }
+
+    // localExp의 값에 따라 경험치와 레벨 변경
+    private fun initializeUIWithLocalExp(localExp: Int) {
+        var tempExp = localExp
+        var tempLevel = 1
+        while (tempExp >= calculateMaxExpForLevel(tempLevel)) {
+            tempExp -= calculateMaxExpForLevel(tempLevel)
+            tempLevel++
+        }
+        currentExp = tempExp
+        currentLevel = tempLevel
+        updateExpUI()
+//        updateLevelImage()
     }
 
     override fun onDestroyView() {
@@ -75,6 +127,7 @@ class MyPageFragment : Fragment() {
             else -> R.drawable.ic_insignia1
         }
     }
+
     //경험치에 따라 테두리
     fun expLevel(exp: Int): Int {
         return when (exp) {
@@ -123,9 +176,10 @@ class MyPageFragment : Fragment() {
     }
 
     //기상 성공한 날짜 Custom
-    class Decorator(dates : List<CalendarDay>,context : Context) : DayViewDecorator {
+    class Decorator(dates: List<CalendarDay>, context: Context) : DayViewDecorator {
 
         private val selectedDates = dates
+
         @SuppressLint("UseCompatLoadingForDrawables")
         private val drawable = context.getDrawable(R.drawable.bg_calendar_date)
         override fun shouldDecorate(day: CalendarDay?): Boolean {
