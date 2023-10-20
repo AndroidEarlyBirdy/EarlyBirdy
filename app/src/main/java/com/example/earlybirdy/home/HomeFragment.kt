@@ -117,7 +117,7 @@ class HomeFragment : Fragment() {
 
     }
     private fun loadDataFromFirestore() {
-        firestore?.collection("UserDto")?.document("KWler36V6MdaNkMsvtK2DRynWVw1")
+        firestore?.collection("UserDto")?.document("IC8Lk0KkBWdxHQpNdPnW7uLCG7n2")
             ?.collection("MyGoal")
             ?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
                 // ArrayList 비워줌

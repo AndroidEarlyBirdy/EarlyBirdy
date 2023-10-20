@@ -92,20 +92,33 @@ class CreatePlanActivity : AppCompatActivity(), CreatePlanDialog.DialogCreateLis
     }
 
     private fun initView() = with(binding) {
-        binding.recyclerViewTodo.adapter = listAdapter
-        binding.recyclerViewTodo.layoutManager =
+        recyclerViewTodo.adapter = listAdapter
+        recyclerViewTodo.layoutManager =
             LinearLayoutManager(parent, LinearLayoutManager.VERTICAL, false)
 
         //버튼 클릭 시 Dialog 생성
-        binding.ivAddTodo.setOnClickListener {
-            CreatePlanDialog(
-                this@CreatePlanActivity,
-                selectedDay,
-                this@CreatePlanActivity,
-                "create",
-                null,
-                null
-            ).show()
+        ivAddTodo.setOnClickListener {
+            if (CalendarDay.today().isBefore(selectedDay) || CalendarDay.today() == selectedDay) {
+                if(demoList.size < 3) {
+                    CreatePlanDialog(
+                        this@CreatePlanActivity,
+                        selectedDay,
+                        this@CreatePlanActivity,
+                        "create",
+                        null,
+                        null
+                    ).show()
+                }
+                else {
+                    CreateFailDialog(this@CreatePlanActivity, "오늘의 목표는 3개까지 작성 가능합니다.").show()
+                }
+            } else {
+                CreateFailDialog(this@CreatePlanActivity, "이미 지난 날짜에는 Todo를 작성할 수 없습니다.").show()
+            }
+        }
+
+        btnBack.setOnClickListener {
+            finish()
         }
     }
 
@@ -140,7 +153,7 @@ class CreatePlanActivity : AppCompatActivity(), CreatePlanDialog.DialogCreateLis
                     "goalId" to attendIndex,
                     "date" to todo.date.toTimestamp(),
                     "title" to todo.title,
-                    "check" to todo.isChecked
+                    "check" to false
                 )
             )
     }
@@ -165,6 +178,8 @@ class CreatePlanActivity : AppCompatActivity(), CreatePlanDialog.DialogCreateLis
         matchingTodo?.let {
             testList.remove(it)
         }
+        val matchingDemo = demoList.find { it.tid == todo.tid }
+        demoList.remove(matchingDemo)
 
         todo.tid?.let {
             fireStore.collection("UserDto").document(user.uid).collection("MyGoal")
@@ -176,7 +191,7 @@ class CreatePlanActivity : AppCompatActivity(), CreatePlanDialog.DialogCreateLis
 
     private fun CalendarDay.toTimestamp(): Timestamp {
         val calendar = Calendar.getInstance()
-        calendar.set(this.year, this.month-1, this.day)
+        calendar.set(this.year, this.month - 1, this.day)
         return Timestamp(calendar.time)
     }
 
@@ -191,7 +206,7 @@ class CreatePlanActivity : AppCompatActivity(), CreatePlanDialog.DialogCreateLis
     private fun loadData() {
         fireStore.collection("UserDto").document(user.uid)
             .collection("MyGoal").get().addOnSuccessListener { value ->
-                for(snapshot in value!!.documents) {
+                for (snapshot in value!!.documents) {
                     var item = snapshot.toObject(MyGoal::class.java)
                     if (item != null) {
                         val todo = Todo(
@@ -201,7 +216,7 @@ class CreatePlanActivity : AppCompatActivity(), CreatePlanDialog.DialogCreateLis
                             item.check
                         )
                         testList.add(todo)
-                        Log.d("todo",todo.toString())
+                        Log.d("todo", todo.toString())
                     }
                 }
                 Log.d("list", testList.toString())
@@ -209,6 +224,7 @@ class CreatePlanActivity : AppCompatActivity(), CreatePlanDialog.DialogCreateLis
             }
 
     }
+
     private fun timestampToCalendarDay(timestamp: Timestamp?): CalendarDay {
         val date = timestamp?.toDate()
 
