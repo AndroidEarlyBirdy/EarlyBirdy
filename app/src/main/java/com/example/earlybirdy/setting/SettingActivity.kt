@@ -7,11 +7,14 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
+import android.widget.Button
+import android.widget.ImageView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.earlybirdy.R
 import com.example.earlybirdy.board.BoardFragment
 import com.example.earlybirdy.databinding.ActivitySettingBinding
+import com.example.earlybirdy.my_page.MyPageFragment
 import com.example.earlybirdy.util.navigateToMainActivity
 import com.example.earlybirdy.util.navigateToSigninActivity
 import com.example.earlybirdy.util.showToast
@@ -29,6 +32,9 @@ class SettingActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         auth = FirebaseAuth.getInstance()
+
+
+
 
         binding.btnUserSupport.setOnClickListener {
             val title = "고객 지원"
@@ -53,6 +59,11 @@ class SettingActivity : AppCompatActivity() {
             signOut()
             Log.d("SettingActivity", "Logout button clicked")
         }
+
+        binding.ivBack.setOnClickListener{
+            finish()
+        }
+
     }
 
     private fun signOut() {
