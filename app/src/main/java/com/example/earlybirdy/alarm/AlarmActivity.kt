@@ -2,12 +2,15 @@ package com.example.earlybirdy.alarm
 
 import android.annotation.SuppressLint
 import android.app.AlarmManager
+import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.annotation.RequiresApi
 import com.example.earlybirdy.databinding.ActivityAlarmBinding
 import java.util.Calendar
 
@@ -17,20 +20,27 @@ class AlarmActivity : AppCompatActivity() {
     private lateinit var alarmManager: AlarmManager
     private lateinit var pendingIntent: PendingIntent
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        val pref = getSharedPreferences("alarmTime", 0)
+        val pref = getSharedPreferences("alarmSetting", 0)
 
         if (pref != null) {
             binding.tpSetTime.hour = pref.getInt("hour", 4)
             binding.tpSetTime.minute = pref.getInt("minute", 0)
+
             binding.switchAlarm.isChecked = pref.getBoolean("alarmSwitch", false)
+            binding.switchRingtone.isChecked = pref.getBoolean("ringtoneSwitch", false)
+            binding.switchVibe.isChecked = pref.getBoolean("vibeSwitch", false)
         }else{
             binding.tpSetTime.hour = 4
             binding.tpSetTime.minute = 0
-            binding.switchAlarm.isChecked = false
+
+            binding.switchAlarm.isChecked  = false
+            binding.switchRingtone.isChecked = false
+            binding.switchVibe.isChecked = false
         }
 
         setTimeChangedListener()
@@ -46,8 +56,13 @@ class AlarmActivity : AppCompatActivity() {
         // 저장버튼 누르면 상태 저장
         binding.tvSave.setOnClickListener {
             saveTime()
+            val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            val id: String = "Alarm-channel"
+            notificationManager.deleteNotificationChannel(id)
+            Log.d("cid", id)
 
-            if (!binding.switchAlarm.isChecked){
+            // 알람 끄기 스위치의 상태에 따라 알람 울림 여부 변경
+            if (!this.binding.switchAlarm.isChecked){
                 //알람 매니저 함수
                 sendAlarm()
             }
@@ -75,9 +90,9 @@ class AlarmActivity : AppCompatActivity() {
         editTime.putBoolean("ringtoneSwitch", binding.switchRingtone.isChecked)
         editTime.putBoolean("vibeSwitch", binding.switchVibe.isChecked)
 
-        Log.d("alarmSwitch", "${binding.switchAlarm.isChecked}")
-        Log.d("ringtoneSwitch", "${binding.switchRingtone.isChecked}")
-        Log.d("vibeSwitch", "${binding.switchVibe.isChecked}")
+//        Log.d("alarmSwitch", "${binding.switchAlarm.isChecked}")
+//        Log.d("ringtoneSwitch", "${binding.switchRingtone.isChecked}")
+//        Log.d("vibeSwitch", "${binding.switchVibe.isChecked}")
 
         editTime.apply()
     }
@@ -94,8 +109,8 @@ class AlarmActivity : AppCompatActivity() {
         calendar.set(Calendar.HOUR_OF_DAY, binding.tpSetTime.hour)
         calendar.set(Calendar.MINUTE, binding.tpSetTime.minute)
 
-        Log.d("hour", "${binding.tpSetTime.hour}")
-        Log.d("minute", "${binding.tpSetTime.minute}")
+//        Log.d("hour", "${binding.tpSetTime.hour}")
+//        Log.d("minute", "${binding.tpSetTime.minute}")
 
         calendar.set(Calendar.SECOND, 0)
 

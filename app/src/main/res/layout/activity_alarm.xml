@@ -5,8 +5,8 @@
     android:id="@+id/bottomSheetDashBoardLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:behavior_hideable="true"
     app:behavior_draggable="true"
+    app:behavior_hideable="true"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
 
@@ -14,17 +14,16 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@drawable/bg_gr3"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5"/>
+        app:layout_constraintGuide_percent="0.5" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_toolbar"
@@ -107,7 +106,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/iv_set_ringtone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -119,7 +117,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.493"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_set_alarm"
             app:srcCompat="@drawable/ic_listitem" />
@@ -132,7 +129,6 @@
             android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.493"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_set_ringtone"
             app:srcCompat="@drawable/ic_listitem" />
@@ -145,7 +141,7 @@
             android:layout_marginTop="16dp"
             android:text="@string/alarm_alarmSetting"
             android:textColor="@color/icon1"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/iv_set_alarm"
             app:layout_constraintTop_toTopOf="@+id/iv_set_alarm" />
@@ -158,7 +154,7 @@
             android:layout_marginTop="16dp"
             android:text="@string/alarm_ringtone"
             android:textColor="@color/icon1"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/iv_set_ringtone"
             app:layout_constraintTop_toTopOf="@+id/iv_set_ringtone" />
@@ -171,7 +167,7 @@
             android:layout_marginTop="16dp"
             android:text="@string/alarm_vibration"
             android:textColor="@color/icon1"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/iv_set_vibe"
             app:layout_constraintTop_toTopOf="@+id/iv_set_vibe" />
@@ -183,8 +179,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="@+id/iv_set_alarm"
-            app:layout_constraintTop_toTopOf="@+id/iv_set_alarm"
-             />
+            app:layout_constraintTop_toTopOf="@+id/iv_set_alarm" />
 
         <Switch
             android:id="@+id/switch_ringtone"
@@ -193,8 +188,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="@+id/iv_set_ringtone"
-            app:layout_constraintTop_toTopOf="@+id/iv_set_ringtone"
-            />
+            app:layout_constraintTop_toTopOf="@+id/iv_set_ringtone" />
 
         <Switch
             android:id="@+id/switch_vibe"
@@ -203,10 +197,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="@+id/iv_set_vibe"
-            app:layout_constraintTop_toTopOf="@+id/iv_set_vibe"
-            />
+            app:layout_constraintTop_toTopOf="@+id/iv_set_vibe" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
 
