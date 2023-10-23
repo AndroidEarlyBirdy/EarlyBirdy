@@ -3,6 +3,7 @@ package com.example.earlybirdy.alarm
 import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -16,7 +17,6 @@ class AlarmActivity : AppCompatActivity() {
     private lateinit var alarmManager: AlarmManager
     private lateinit var pendingIntent: PendingIntent
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -26,9 +26,11 @@ class AlarmActivity : AppCompatActivity() {
         if (pref != null) {
             binding.tpSetTime.hour = pref.getInt("hour", 4)
             binding.tpSetTime.minute = pref.getInt("minute", 0)
+            binding.switchAlarm.isChecked = pref.getBoolean("alarmSwitch", false)
         }else{
             binding.tpSetTime.hour = 4
             binding.tpSetTime.minute = 0
+            binding.switchAlarm.isChecked = false
         }
 
         setTimeChangedListener()
@@ -44,6 +46,7 @@ class AlarmActivity : AppCompatActivity() {
         // 저장버튼 누르면 상태 저장
         binding.tvSave.setOnClickListener {
             saveTime()
+
             if (!binding.switchAlarm.isChecked){
                 //알람 매니저 함수
                 sendAlarm()
@@ -62,16 +65,16 @@ class AlarmActivity : AppCompatActivity() {
     }
 
     private fun saveTime() {
-        val pref = getSharedPreferences("alarmTime", 0)
-        val edit = pref.edit()
+        val pref = getSharedPreferences("alarmSetting", Context.MODE_PRIVATE)
+        val editTime = pref.edit()
 
-        edit.putInt("hour", binding.tpSetTime.hour)
-        edit.putInt("minute", binding.tpSetTime.minute)
+        editTime.putInt("hour", binding.tpSetTime.hour)
+        editTime.putInt("minute", binding.tpSetTime.minute)
 
-//        edit.putBoolean("alarmCheck", binding.switchAlarm.isChecked)
+        editTime.putBoolean("alarmSwitch", binding.switchAlarm.isChecked)
+        Log.d("alarmSwitch", "${binding.switchAlarm.isChecked}")
 
-        edit.apply()
-
+        editTime.apply()
     }
 
     @SuppressLint("ScheduleExactAlarm")

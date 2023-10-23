@@ -246,7 +246,7 @@ class HomeFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun loadTimeDate(): String? {
-        val pref: SharedPreferences = requireContext().getSharedPreferences("alarmTime", Context.MODE_PRIVATE)
+        val pref: SharedPreferences = requireContext().getSharedPreferences("alarmSetting", Context.MODE_PRIVATE)
         val hour = pref.getInt("hour", 4)
         val minute = pref.getInt("minute", 0)
         val isAM = hour < 12
