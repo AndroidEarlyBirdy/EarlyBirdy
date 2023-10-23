@@ -42,22 +42,22 @@ class EditProfileDialog (
         binding.ivProfileDialogSelect.setImageResource(selectedEditProfileImageId)
 
         binding.ivProfileDialog1.setOnClickListener{
-            selectedEditProfileImageId = R.drawable.img_profile_sample
+            selectedEditProfileImageId = R.drawable.img_profile_man1
             binding.ivProfileDialogSelect.setImageResource(selectedEditProfileImageId)
         }
 
         binding.ivProfileDialog2.setOnClickListener{
-            selectedEditProfileImageId = R.drawable.ic_insignia2
+            selectedEditProfileImageId = R.drawable.img_profile_woman1
             binding.ivProfileDialogSelect.setImageResource(selectedEditProfileImageId)
         }
 
         binding.ivProfileDialog3.setOnClickListener{
-            selectedEditProfileImageId = R.drawable.ic_insignia3
+            selectedEditProfileImageId = R.drawable.img_profile_man2
             binding.ivProfileDialogSelect.setImageResource(selectedEditProfileImageId)
         }
 
         binding.ivProfileDialog4.setOnClickListener{
-            selectedEditProfileImageId = R.drawable.ic_insignia4
+            selectedEditProfileImageId = R.drawable.img_profile_woman2
             binding.ivProfileDialogSelect.setImageResource(selectedEditProfileImageId)
         }
 

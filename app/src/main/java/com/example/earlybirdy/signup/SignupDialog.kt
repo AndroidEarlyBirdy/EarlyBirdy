@@ -41,22 +41,22 @@ class SignupDialog (
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         binding.ivSignupDialog1.setOnClickListener{
-            selectedImageId = R.drawable.img_profile_sample
+            selectedImageId = R.drawable.img_profile_man1
             binding.ivSignupDialogSelect.setImageResource(selectedImageId)
         }
 
         binding.ivSignupDialog2.setOnClickListener{
-            selectedImageId = R.drawable.ic_insignia2
+            selectedImageId = R.drawable.img_profile_woman1
             binding.ivSignupDialogSelect.setImageResource(selectedImageId)
         }
 
         binding.ivSignupDialog3.setOnClickListener{
-            selectedImageId = R.drawable.ic_insignia3
+            selectedImageId = R.drawable.img_profile_man2
             binding.ivSignupDialogSelect.setImageResource(selectedImageId)
         }
 
         binding.ivSignupDialog4.setOnClickListener{
-            selectedImageId = R.drawable.ic_insignia4
+            selectedImageId = R.drawable.img_profile_woman2
             binding.ivSignupDialogSelect.setImageResource(selectedImageId)
         }
 
