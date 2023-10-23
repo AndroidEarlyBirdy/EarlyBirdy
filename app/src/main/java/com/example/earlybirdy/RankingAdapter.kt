@@ -2,6 +2,7 @@ package com.example.earlybirdy
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.earlybirdy.R
 import com.example.earlybirdy.databinding.ItemRangkingBinding
@@ -10,7 +11,8 @@ import com.example.earlybirdy.dto.UserDto
 class RankingAdapter(private val userList: List<UserDto>) : RecyclerView.Adapter<RankingAdapter.ViewHolder>() {
 
     inner class ViewHolder(private val binding: ItemRangkingBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(user: UserDto) {
+        fun bind(user: UserDto, position: Int) {
+            binding.tvBoard1.text = "${position + 4}등"
             binding.iv4th.setImageResource(user.profile ?: R.drawable.img_profile_add)
             binding.tv4thid.text = user.nickname
             binding.tvContent1.text = user.exp.toString()
@@ -24,7 +26,7 @@ class RankingAdapter(private val userList: List<UserDto>) : RecyclerView.Adapter
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val user = userList[position]
-        holder.bind(user)
+        holder.bind(user, position)
     }
 
     override fun getItemCount(): Int {
