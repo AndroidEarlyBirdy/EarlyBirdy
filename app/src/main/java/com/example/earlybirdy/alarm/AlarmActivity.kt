@@ -72,7 +72,12 @@ class AlarmActivity : AppCompatActivity() {
         editTime.putInt("minute", binding.tpSetTime.minute)
 
         editTime.putBoolean("alarmSwitch", binding.switchAlarm.isChecked)
+        editTime.putBoolean("ringtoneSwitch", binding.switchRingtone.isChecked)
+        editTime.putBoolean("vibeSwitch", binding.switchVibe.isChecked)
+
         Log.d("alarmSwitch", "${binding.switchAlarm.isChecked}")
+        Log.d("ringtoneSwitch", "${binding.switchRingtone.isChecked}")
+        Log.d("vibeSwitch", "${binding.switchVibe.isChecked}")
 
         editTime.apply()
     }
