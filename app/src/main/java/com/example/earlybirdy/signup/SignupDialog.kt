@@ -13,7 +13,8 @@ class SignupDialog (
     context: Context,
 ) : Dialog(context) {
     private lateinit var binding: ActivitySignupDialogBinding
-    private  var selectedImageId: Int = 0
+    private var selectedImageId: Int = 0
+    private var lastSelectedImageId: Int = 0
     private var onSaveClickListener: ((Int) -> Unit)? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,7 +25,10 @@ class SignupDialog (
 
     // 이미지 ID를 반환하는 함수
     fun getSelectedImageId(): Int {
-        return selectedImageId
+        if (selectedImageId != 0) {
+            lastSelectedImageId = selectedImageId
+        }
+        return lastSelectedImageId
     }
 
     // "저장" 버튼 클릭 리스너 설정
@@ -61,7 +65,7 @@ class SignupDialog (
                 onSaveClickListener?.invoke(selectedImageId)
 
             } else {
-
+                dismiss()
             }
             dismiss()
         }

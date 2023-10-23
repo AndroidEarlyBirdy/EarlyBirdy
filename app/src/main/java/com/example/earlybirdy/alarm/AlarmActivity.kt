@@ -1,9 +1,12 @@
 package com.example.earlybirdy.alarm
 
+import android.Manifest
+import android.annotation.SuppressLint
+import android.app.AlarmManager
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.NotificationManager.IMPORTANCE_HIGH
 import android.app.PendingIntent
-import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
@@ -14,32 +17,30 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.os.SystemClock
 import android.util.Log
+import android.view.View
 import androidx.core.app.NotificationCompat
 import com.example.earlybirdy.R
 import com.example.earlybirdy.databinding.ActivityAlarmBinding
-import com.example.earlybirdy.databinding.ActivitySigninBinding
 import com.example.earlybirdy.main.MainActivity
-import com.example.earlybirdy.util.navigateToMainActivity
-import java.text.SimpleDateFormat
+import com.example.earlybirdy.main.SplashActivity
 import java.util.Calendar
 
 class AlarmActivity : AppCompatActivity() {
     private val binding by lazy { ActivityAlarmBinding.inflate(layoutInflater) }
 
-    private var handler: Handler = Handler() // Notification delay적용을 위한 Handler
+    private lateinit var alarmManager: AlarmManager
+    private lateinit var pendingIntent: PendingIntent
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-//        setTimeChangedListener()
+        val pref = getSharedPreferences("alarmTime", 0)
 
-//        if (binding.switchAlarm.isChecked){
-//            handler.postDelayed({
-//                setNotification()
-//            }, binding.tpSetTime.minute.toLong())
-//        }
+        setTimeChangedListener()
 
         //오전 오후 설정
         binding.tpSetTime.setIs24HourView(true)
@@ -52,74 +53,53 @@ class AlarmActivity : AppCompatActivity() {
         // 저장버튼 누르면 상태 저장
         binding.tvSave.setOnClickListener {
             saveTime()
-            setNotification()
-//            navigateToMainActivity(this)
             finish()
         }
     }
-//    private fun setTimeChangedListener() {
-//        binding.tpSetTime.setOnTimeChangedListener { view, hourOfDay, minute ->
-//            Log.d("hour", "${hourOfDay}")
-//            if (hourOfDay > 7 || hourOfDay < 4){
-//                binding.tpSetTime.hour = 4
-//            }
-//        }
-//    }
 
-    private fun saveTime(){
-        val pref = getSharedPreferences("alarmTime",0)
+    private fun setTimeChangedListener() {
+        binding.tpSetTime.setOnTimeChangedListener { view, hourOfDay, minute ->
+//            if (hourOfDay > 7 || hourOfDay < 4) {
+//                binding.tpSetTime.hour = 4
+//
+//            }
+        }
+    }
+
+    private fun saveTime() {
+        val pref = getSharedPreferences("alarmTime", 0)
         val edit = pref.edit()
 
         edit.putInt("hour", binding.tpSetTime.hour)
         edit.putInt("min", binding.tpSetTime.minute)
 
         edit.apply()
+
+        //알람 매니저 함수
+        sendAlarm()
     }
 
-    private fun setNotification() {
-        val pref = getSharedPreferences("alarmTime",0)
-        val manager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-        val builder: NotificationCompat.Builder
+    @SuppressLint("ScheduleExactAlarm")
+    private fun sendAlarm(){
+        alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
+        Log.d("alarmManager", "${alarmManager}")
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            //26버전 이상
-            val channelId="channel"
-            val channelName="Number Channel"
-            val channel = NotificationChannel(
-                channelId,
-                channelName,
-                NotificationManager.IMPORTANCE_DEFAULT
-            ).apply{
-                description = "My Channel One Description"
-                setShowBadge(true)
-                val uri: Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-                val audioAttributes = AudioAttributes.Builder()
-                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                    .setUsage(AudioAttributes.USAGE_ALARM)
-                    .build()
-                setSound(uri, audioAttributes)
-                enableVibration(true)
-            }
-            manager.createNotificationChannel(channel)
-            builder = NotificationCompat.Builder(this, channelId)
+        val alarmIntent = Intent(this, AlarmReceiver::class.java)
+        pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, PendingIntent.FLAG_IMMUTABLE)
 
-        }else{
-            builder = NotificationCompat.Builder(this)
-        }
+        val calendar: Calendar = Calendar.getInstance()
+        calendar.set(Calendar.HOUR_OF_DAY, binding.tpSetTime.hour)
+        calendar.set(Calendar.MINUTE, binding.tpSetTime.minute)
 
-        val bitmap = BitmapFactory.decodeResource(resources,R.drawable.ic_logo)
-        val intent = Intent(this,MainActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        val pendingIntent = PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
-        builder.run{
-            setSmallIcon(R.mipmap.ic_launcher)
-            setWhen(System.currentTimeMillis())
-            setContentTitle("${pref.getInt("hour", 0).toString()} : ${pref.getInt("min", 0).toString()}")
-            setContentText("일어나세요 용사여!")
-//            setLargeIcon(bitmap)
-            addAction(R.mipmap.ic_launcher,"Action",pendingIntent)
-        }
-        manager.notify(1,builder.build())
+        Log.d("hour", "${binding.tpSetTime.hour}")
+        Log.d("minute", "${binding.tpSetTime.minute}")
 
+        calendar.set(Calendar.SECOND, 0)
+
+        alarmManager.setExactAndAllowWhileIdle(
+            AlarmManager.RTC_WAKEUP,
+            calendar.timeInMillis,
+            pendingIntent
+        )
     }
 }

@@ -68,7 +68,11 @@ class CreatePlanDialog(
 
                 "edit" -> {
                     if(todoContent.isNotBlank()) {
-                        val todo = createDay?.let { day -> Todo(dialogTodo?.tid,day,todoContent,false) }
+                        val todo = createDay?.let { day -> dialogTodo?.let { it1 ->
+                            Todo(
+                                dialogTodo.tid,day,todoContent,
+                                it1.isChecked)
+                        } }
                         if (todo != null) {
                             if (todoPosition != null) {
                                 dialogListener.onDialogEditClicked(todo,todoPosition)

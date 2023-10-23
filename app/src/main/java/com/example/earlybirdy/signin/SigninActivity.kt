@@ -1,7 +1,11 @@
 package com.example.earlybirdy.signin
 
+import android.content.pm.PackageManager
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
 import com.example.earlybirdy.databinding.ActivitySigninBinding
 import com.example.earlybirdy.util.navigateToMainActivity
 import com.example.earlybirdy.util.navigateToSendEmailActivity
@@ -15,6 +19,9 @@ class SigninActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
 
+    val MY_PERMISSION_ACCESS_ALL = 100
+
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -51,6 +58,15 @@ class SigninActivity : AppCompatActivity() {
             //val intent = Intent(Intent.ACTION_VIEW, Uri.parse("${}"))
             navigateToSignupActivity(this)
             finish()
+        }
+
+        // 알림 권한 설정 함수
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            var permissions = arrayOf(
+                android.Manifest.permission.SCHEDULE_EXACT_ALARM,
+                android.Manifest.permission.POST_NOTIFICATIONS
+            )
+            ActivityCompat.requestPermissions(this, permissions, MY_PERMISSION_ACCESS_ALL)
         }
     }
 
