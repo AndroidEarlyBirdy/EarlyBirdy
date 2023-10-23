@@ -2,11 +2,15 @@ package com.example.earlybirdy.my_page
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.FrameLayout
+import android.widget.ImageView
 import androidx.lifecycle.ViewModelProvider
 import com.example.earlybirdy.R
 import com.example.earlybirdy.databinding.FragmentMyPageBinding
@@ -15,6 +19,7 @@ import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.DayViewDecorator
 import com.prolificinteractive.materialcalendarview.DayViewFacade
 import com.example.earlybirdy.home.HomeViewModel
+import com.example.earlybirdy.setting.SettingActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
@@ -118,9 +123,10 @@ class MyPageFragment : Fragment() {
                 setCalendar()
             }
 
-
-
-
+        binding.ivSetting.setOnClickListener {
+            val intent = Intent(requireContext(), SettingActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun setCalendar() = with(binding) {
@@ -138,11 +144,11 @@ class MyPageFragment : Fragment() {
     //레벨 범위에 따른 인장 설정
     private fun updateLevelImage() {
         when (currentLevel) {
-            in 1..10 -> binding.ivProfileBorder.setImageResource(R.drawable.ic_insignia1)
-            in 11..20 -> binding.ivProfileBorder.setImageResource(R.drawable.ic_insignia2)
-            in 21..30 -> binding.ivProfileBorder.setImageResource(R.drawable.ic_insignia3)
-            in 31..40 -> binding.ivProfileBorder.setImageResource(R.drawable.ic_insignia4)
-            else -> binding.ivProfileBorder.setImageResource(R.drawable.ic_insignia5)
+            in 1..10 -> binding.ivProfileBorder1.setImageResource(R.drawable.ic_insignia1)
+            in 11..20 -> binding.ivProfileBorder1.setImageResource(R.drawable.ic_insignia2)
+            in 21..30 -> binding.ivProfileBorder1.setImageResource(R.drawable.ic_insignia3)
+            in 31..40 -> binding.ivProfileBorder1.setImageResource(R.drawable.ic_insignia4)
+            else -> binding.ivProfileBorder1.setImageResource(R.drawable.ic_insignia5)
         }
     }
 

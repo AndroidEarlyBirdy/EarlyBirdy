@@ -70,6 +70,8 @@ class CreatePlanActivity : AppCompatActivity(), CreatePlanDialog.DialogCreateLis
 
     override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
         return super.onCreateView(name, context, attrs)
+
+
     }
 
     //달력 세팅
@@ -115,11 +117,11 @@ class CreatePlanActivity : AppCompatActivity(), CreatePlanDialog.DialogCreateLis
             } else {
                 CreateFailDialog(this@CreatePlanActivity, "이미 지난 날짜에는 Todo를 작성할 수 없습니다.").show()
             }
-        }
 
-//        binding.btnBack.setOnClickListener {
-//            finish()
-//        }
+        }
+        binding.btnBack.setOnClickListener {
+            finish()
+        }
     }
 
     //오늘 날짜를 Custom
