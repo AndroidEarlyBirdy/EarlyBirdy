@@ -44,6 +44,10 @@ class AlarmActivity : AppCompatActivity() {
         // 저장버튼 누르면 상태 저장
         binding.tvSave.setOnClickListener {
             saveTime()
+            if (!binding.switchAlarm.isChecked){
+                //알람 매니저 함수
+                sendAlarm()
+            }
             finish()
         }
     }
@@ -64,10 +68,10 @@ class AlarmActivity : AppCompatActivity() {
         edit.putInt("hour", binding.tpSetTime.hour)
         edit.putInt("minute", binding.tpSetTime.minute)
 
+//        edit.putBoolean("alarmCheck", binding.switchAlarm.isChecked)
+
         edit.apply()
 
-        //알람 매니저 함수
-        sendAlarm()
     }
 
     @SuppressLint("ScheduleExactAlarm")
