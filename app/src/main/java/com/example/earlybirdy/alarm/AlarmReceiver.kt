@@ -12,13 +12,10 @@ import android.media.AudioAttributes
 import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Build
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import android.util.Log
 import androidx.core.app.NotificationCompat
-import androidx.core.content.ContextCompat.getSystemService
 import com.example.earlybirdy.R
 import com.example.earlybirdy.main.MainActivity
-import com.example.earlybirdy.util.showToast
 
 class AlarmReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
@@ -26,31 +23,51 @@ class AlarmReceiver : BroadcastReceiver() {
     }
 
     private fun sendNotifivation(context: Context){
-        val pref = context.getSharedPreferences("alarmTime", 0)
+        val pref = context.getSharedPreferences("alarmSetting", 0)
+
+        val ringPref = pref.getBoolean("ringtoneSwitch", false)
+        val vibePref = pref.getBoolean("vibeSwitch", false)
+        Log.d("ring1", "${ringPref}")
+        Log.d("vibe1", "${vibePref}")
 
         val manager = context.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
 
         val builder: NotificationCompat.Builder
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             // 26 버전 이상
-            val channelId = "one-channel"
-            val channelName = "My Channel One"
+            val channelId = "Alarm-channel"
+            val channelName = "Alarm channel"
             val channel = NotificationChannel(
                 channelId,
                 channelName,
-                NotificationManager.IMPORTANCE_DEFAULT // 소리 설정
+                NotificationManager.IMPORTANCE_DEFAULT
             ).apply {
                 // 채널에 다양한 정보 설정
-                description = "My Channel One Description"
+                description = "Alarm channel Description"
                 setShowBadge(true)
-                val uri: Uri =
-                    RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-                val audioAttributes = AudioAttributes.Builder()
-                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                    .setUsage(AudioAttributes.USAGE_ALARM)
-                    .build()
-                setSound(uri, audioAttributes)
-                enableVibration(true) // 진동 설정
+                // 소리 끄기 스위치의 상태에 따라 소리 설정
+                if (!ringPref) {
+                    Log.d("ring2", "${ringPref}")
+                    val uri: Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+                    val audioAttributes = AudioAttributes.Builder()
+                        .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                        .setUsage(AudioAttributes.USAGE_ALARM)
+                        .build()
+                    setSound(uri, audioAttributes)
+                }else{
+                    Log.d("ring3", "${ringPref}")
+                    setSound(null, null)
+                }
+                // 진동 끄기 스위치의 상태에 따라 진동 설정
+                if (!vibePref) {
+                    Log.d("vibe2", "${vibePref}")
+                    enableVibration(true)
+                } else {
+                    Log.d("vibe3", "${vibePref}")
+//                    vibrationPattern = longArrayOf(0)
+                    enableVibration(false)
+                }
+                 // 진동 설정
             }
             // 채널을 NotificationManager에 등록
             manager.createNotificationChannel(channel)
@@ -78,7 +95,7 @@ class AlarmReceiver : BroadcastReceiver() {
             setSmallIcon(R.mipmap.ic_launcher)
             setWhen(System.currentTimeMillis())
             setContentTitle(
-                "${pref.getInt("hour", 0).toString()} : ${pref.getInt("min", 0).toString()}"
+                "${pref.getInt("hour", 0).toString()} : ${pref.getInt("minute", 0).toString()}"
             )
             setContentText("Gooood Morning~~~")
             setLargeIcon(bitmap) // 큰 이미지

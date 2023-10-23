@@ -1,30 +1,17 @@
 package com.example.earlybirdy.alarm
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.app.AlarmManager
-import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.app.NotificationManager.IMPORTANCE_HIGH
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.graphics.BitmapFactory
-import android.media.AudioAttributes
-import android.media.RingtoneManager
-import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.os.SystemClock
 import android.util.Log
-import android.view.View
-import androidx.core.app.NotificationCompat
-import com.example.earlybirdy.R
+import androidx.annotation.RequiresApi
 import com.example.earlybirdy.databinding.ActivityAlarmBinding
-import com.example.earlybirdy.main.MainActivity
-import com.example.earlybirdy.main.SplashActivity
 import java.util.Calendar
 
 class AlarmActivity : AppCompatActivity() {
@@ -33,12 +20,28 @@ class AlarmActivity : AppCompatActivity() {
     private lateinit var alarmManager: AlarmManager
     private lateinit var pendingIntent: PendingIntent
 
-
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        val pref = getSharedPreferences("alarmTime", 0)
+        val pref = getSharedPreferences("alarmSetting", 0)
+
+        if (pref != null) {
+            binding.tpSetTime.hour = pref.getInt("hour", 4)
+            binding.tpSetTime.minute = pref.getInt("minute", 0)
+
+            binding.switchAlarm.isChecked = pref.getBoolean("alarmSwitch", false)
+            binding.switchRingtone.isChecked = pref.getBoolean("ringtoneSwitch", false)
+            binding.switchVibe.isChecked = pref.getBoolean("vibeSwitch", false)
+        }else{
+            binding.tpSetTime.hour = 4
+            binding.tpSetTime.minute = 0
+
+            binding.switchAlarm.isChecked  = false
+            binding.switchRingtone.isChecked = false
+            binding.switchVibe.isChecked = false
+        }
 
         setTimeChangedListener()
 
@@ -53,6 +56,16 @@ class AlarmActivity : AppCompatActivity() {
         // 저장버튼 누르면 상태 저장
         binding.tvSave.setOnClickListener {
             saveTime()
+            val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            val id: String = "Alarm-channel"
+            notificationManager.deleteNotificationChannel(id)
+            Log.d("cid", id)
+
+            // 알람 끄기 스위치의 상태에 따라 알람 울림 여부 변경
+            if (!this.binding.switchAlarm.isChecked){
+                //알람 매니저 함수
+                sendAlarm()
+            }
             finish()
         }
     }
@@ -67,16 +80,21 @@ class AlarmActivity : AppCompatActivity() {
     }
 
     private fun saveTime() {
-        val pref = getSharedPreferences("alarmTime", 0)
-        val edit = pref.edit()
+        val pref = getSharedPreferences("alarmSetting", Context.MODE_PRIVATE)
+        val editTime = pref.edit()
 
-        edit.putInt("hour", binding.tpSetTime.hour)
-        edit.putInt("min", binding.tpSetTime.minute)
+        editTime.putInt("hour", binding.tpSetTime.hour)
+        editTime.putInt("minute", binding.tpSetTime.minute)
 
-        edit.apply()
+        editTime.putBoolean("alarmSwitch", binding.switchAlarm.isChecked)
+        editTime.putBoolean("ringtoneSwitch", binding.switchRingtone.isChecked)
+        editTime.putBoolean("vibeSwitch", binding.switchVibe.isChecked)
 
-        //알람 매니저 함수
-        sendAlarm()
+//        Log.d("alarmSwitch", "${binding.switchAlarm.isChecked}")
+//        Log.d("ringtoneSwitch", "${binding.switchRingtone.isChecked}")
+//        Log.d("vibeSwitch", "${binding.switchVibe.isChecked}")
+
+        editTime.apply()
     }
 
     @SuppressLint("ScheduleExactAlarm")
@@ -91,8 +109,8 @@ class AlarmActivity : AppCompatActivity() {
         calendar.set(Calendar.HOUR_OF_DAY, binding.tpSetTime.hour)
         calendar.set(Calendar.MINUTE, binding.tpSetTime.minute)
 
-        Log.d("hour", "${binding.tpSetTime.hour}")
-        Log.d("minute", "${binding.tpSetTime.minute}")
+//        Log.d("hour", "${binding.tpSetTime.hour}")
+//        Log.d("minute", "${binding.tpSetTime.minute}")
 
         calendar.set(Calendar.SECOND, 0)
 
