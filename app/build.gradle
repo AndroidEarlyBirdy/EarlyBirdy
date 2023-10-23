@@ -41,7 +41,6 @@ android {
 
 }
 
-
 dependencies {
 
     //calendar
@@ -63,8 +62,5 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore-ktx")
 
     implementation 'com.yuyakaido.android:card-stack-view:2.2.0'
-
-
-
 
 }

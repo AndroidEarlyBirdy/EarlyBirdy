@@ -10,9 +10,9 @@
     <string name="alarm_cancel">취소</string>
     <string name="alarm_edit">알람 편집</string>
     <string name="alarm_save">저장</string>
-    <string name="alarm_holiday_off">공휴일에는 끄기</string>
-    <string name="alarm_setting">알람 설정</string>
-    <string name="alarm_vibration">진동 설정</string>
+    <string name="alarm_alarmSetting">알람 끄기</string>
+    <string name="alarm_ringtone">소리 끄기</string>
+    <string name="alarm_vibration">진동 끄기</string>
 
     <!--크리에이트 플랜-->
     <string name="createplan_today_goal">오늘의 목표</string>
