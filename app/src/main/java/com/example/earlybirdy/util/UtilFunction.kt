@@ -9,6 +9,8 @@ import com.example.earlybirdy.edit_profile.EditProfileActivity
 import com.example.earlybirdy.main.MainActivity
 import com.example.earlybirdy.resetpassword.ResetPasswordActivity
 import com.example.earlybirdy.sendemail.SendEmailActivity
+import com.example.earlybirdy.setting.SettingActivity
+import com.example.earlybirdy.setting.SettingDetailActivity
 import com.example.earlybirdy.signin.SigninActivity
 import com.example.earlybirdy.signup.SignupActivity
 
@@ -37,6 +39,16 @@ fun navigateToEditProfileActivity(context: Context) {
 // 오늘의목표 액티비티로 이동 함수
 fun navigateToCreatePlanActivity(context: Context) {
     val intent = Intent(context, CreatePlanActivity::class.java)
+    context.startActivity(intent)
+}
+
+fun navigateToSettingActivity(context: Context) {
+    val intent = Intent(context, SettingActivity::class.java)
+    context.startActivity(intent)
+}
+
+fun navigateToSettingDetailActivity(context: Context) {
+    val intent = Intent(context, SettingDetailActivity::class.java)
     context.startActivity(intent)
 }
 
