@@ -3,20 +3,21 @@ package com.example.earlybirdy.setting
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.earlybirdy.databinding.ActivityDetailBinding
+import com.example.earlybirdy.databinding.SettingDetailBinding
 
 class SettingDetailActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityDetailBinding
+    private lateinit var binding: SettingDetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityDetailBinding.inflate(layoutInflater)
+        binding = SettingDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val title = intent.getStringExtra("title")
         val content = getContentByTitle(title)
 
-        binding.tvItemTitle.text = title
-        binding.tvDetial.text = content
+        binding.tvSettingName.text = title
+        binding.tvSettingDetail.text = content
 
         binding.btnBack.setOnClickListener {
             finish()

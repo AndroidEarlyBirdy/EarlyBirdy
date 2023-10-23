@@ -15,6 +15,12 @@ import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.DayViewDecorator
 import com.prolificinteractive.materialcalendarview.DayViewFacade
 import com.example.earlybirdy.home.HomeViewModel
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
 
 class MyPageFragment : Fragment() {
 
@@ -25,6 +31,11 @@ class MyPageFragment : Fragment() {
     private var localExp = 3450
     private var currentExp = 0
     private var currentLevel = 1
+
+    private lateinit var fireStore: FirebaseFirestore
+    private lateinit var database: DatabaseReference
+    private lateinit var auth: FirebaseAuth
+    private lateinit var user: FirebaseUser
 
     val dateList = mutableListOf(
         CalendarDay.from(2023, 10, 14),
@@ -38,21 +49,26 @@ class MyPageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentMyPageBinding.inflate(inflater, container, false)
-
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        fireStore = FirebaseFirestore.getInstance()
+        database = Firebase.database.reference
+        auth = FirebaseAuth.getInstance()
+        user = auth.currentUser!!
+
         // ViewModel 초기화
-        homeViewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
+        homeViewModel = ViewModelProvider(requireActivity())[HomeViewModel::class.java]
 
 //        // LiveData를 관찰하여 데이터 업데이트
 //        homeViewModel.sharedData.observe(viewLifecycleOwner) { data ->
 //            binding.tvSharedData.text = data
 //        }
+
+        fireStore.collection("UserDto").document(user.uid).get()
 
         setCalendar()
 
