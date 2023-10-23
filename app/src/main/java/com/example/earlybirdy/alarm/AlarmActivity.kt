@@ -1,30 +1,13 @@
 package com.example.earlybirdy.alarm
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.app.AlarmManager
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.NotificationManager.IMPORTANCE_HIGH
 import android.app.PendingIntent
-import android.content.Context
 import android.content.Intent
-import android.graphics.BitmapFactory
-import android.media.AudioAttributes
-import android.media.RingtoneManager
-import android.net.Uri
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.os.SystemClock
 import android.util.Log
-import android.view.View
-import androidx.core.app.NotificationCompat
-import com.example.earlybirdy.R
 import com.example.earlybirdy.databinding.ActivityAlarmBinding
-import com.example.earlybirdy.main.MainActivity
-import com.example.earlybirdy.main.SplashActivity
 import java.util.Calendar
 
 class AlarmActivity : AppCompatActivity() {
@@ -39,6 +22,14 @@ class AlarmActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val pref = getSharedPreferences("alarmTime", 0)
+
+        if (pref != null) {
+            binding.tpSetTime.hour = pref.getInt("hour", 4)
+            binding.tpSetTime.minute = pref.getInt("minute", 0)
+        }else{
+            binding.tpSetTime.hour = 4
+            binding.tpSetTime.minute = 0
+        }
 
         setTimeChangedListener()
 
@@ -71,7 +62,7 @@ class AlarmActivity : AppCompatActivity() {
         val edit = pref.edit()
 
         edit.putInt("hour", binding.tpSetTime.hour)
-        edit.putInt("min", binding.tpSetTime.minute)
+        edit.putInt("minute", binding.tpSetTime.minute)
 
         edit.apply()
 
