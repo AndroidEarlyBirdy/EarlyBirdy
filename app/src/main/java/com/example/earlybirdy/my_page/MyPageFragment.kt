@@ -71,8 +71,6 @@ class MyPageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
         // ViewModel 초기화
         homeViewModel = ViewModelProvider(requireActivity())[HomeViewModel::class.java]
 

@@ -25,7 +25,7 @@
         android:id="@+id/tv_item_Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:text="랭킹보드"
         android:textColor="@color/white"
         android:textSize="24sp"
@@ -94,6 +94,7 @@
             android:id="@+id/crown_gold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:background="@drawable/crown_gold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -103,8 +104,9 @@
             android:id="@+id/crown_silver"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/crown_silver"
+            android:layout_marginTop="16dp"
 
+            android:background="@drawable/crown_silver"
             app:layout_constraintEnd_toStartOf="@+id/crown_gold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_2nd" />
@@ -113,8 +115,9 @@
             android:id="@+id/crown_bronze"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/crown_bronze"
+            android:layout_marginTop="24dp"
 
+            android:background="@drawable/crown_bronze"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/crown_gold"
             app:layout_constraintTop_toBottomOf="@+id/tv_3rd" />
@@ -138,6 +141,7 @@
             android:id="@+id/iv_2nd"
             android:layout_width="60dp"
             android:layout_height="60dp"
+            android:layout_marginStart="20dp"
             android:adjustViewBounds="true"
             android:padding="1dp"
             android:scaleType="centerCrop"
@@ -153,15 +157,16 @@
             android:id="@+id/iv_3rd"
             android:layout_width="60dp"
             android:layout_height="60dp"
+            android:layout_marginEnd="20dp"
             android:adjustViewBounds="true"
+
+
             android:padding="1dp"
             android:scaleType="centerCrop"
             android:src="@drawable/img_profile_add"
-
-
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/iv_1st"
-            app:layout_constraintTop_toBottomOf="@+id/crown_silver"
+            app:layout_constraintTop_toBottomOf="@+id/crown_bronze"
             app:shapeAppearanceOverlay="@style/RoundedShapeAppearanceOverlay"
             app:strokeColor="@color/white"
             app:strokeWidth="3dp" />
@@ -170,9 +175,10 @@
             android:id="@+id/tv_1st"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:text="1위"
             android:textColor="@color/red_orange"
-            android:textSize="31sp"
+            android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -185,7 +191,7 @@
             android:layout_marginTop="15dp"
             android:text="2위"
             android:textColor="#FF7246"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/tv_1st"
             app:layout_constraintStart_toStartOf="parent"
@@ -195,42 +201,22 @@
             android:id="@+id/tv_3rd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="18dp"
             android:text="3위"
             android:textColor="@color/yellow_orange"
-            android:textSize="21sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tv_1st"
             app:layout_constraintTop_toBottomOf="@+id/btn_rangking" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
-            app:layout_constraintBottom_toTopOf="@+id/tv_nth"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_1st">
-
-        </androidx.recyclerview.widget.RecyclerView>
-
-        <TextView
-            android:id="@+id/tv_nth"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="40dp"
-            android:background="@drawable/btn_setting"
-            android:paddingHorizontal="40dp"
-            android:paddingVertical="16dp"
-            android:text="n등"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+            app:layout_constraintTop_toBottomOf="@+id/iv_1st" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
