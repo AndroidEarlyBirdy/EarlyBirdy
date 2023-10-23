@@ -13,7 +13,7 @@
         android:id="@+id/iv_signup_dialog_select"
         android:layout_width="110dp"
         android:layout_height="110dp"
-        android:src="@drawable/img_profile_sample"
+        android:src="@drawable/ic_logo"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         app:shapeAppearanceOverlay="@style/circle"
@@ -24,7 +24,7 @@
         android:id="@+id/iv_signup_dialog1"
         android:layout_width="110dp"
         android:layout_height="110dp"
-        android:src="@drawable/img_profile_sample"
+        android:src="@drawable/img_profile_man1"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         app:layout_constraintTop_toBottomOf="@id/iv_signup_dialog_select"
@@ -37,6 +37,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        android:src="@drawable/img_profile_woman1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/iv_signup_dialog1"
         app:layout_constraintTop_toBottomOf="@id/iv_signup_dialog_select"/>
@@ -47,6 +48,7 @@
         android:layout_height="110dp"
         android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
+        android:src="@drawable/img_profile_man2"
         app:layout_constraintTop_toBottomOf="@id/iv_signup_dialog1"
         app:layout_constraintStart_toStartOf="parent"/>
 
@@ -57,6 +59,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        android:src="@drawable/img_profile_woman2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_signup_dialog2"
         app:layout_constraintStart_toEndOf="@id/iv_signup_dialog3"/>
