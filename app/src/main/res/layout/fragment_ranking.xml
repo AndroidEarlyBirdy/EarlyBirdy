@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.53" />
+        app:layout_constraintGuide_end="355dp" />
 
     <TextView
         android:id="@+id/tv_item_Title"
@@ -210,16 +210,6 @@
             app:layout_constraintStart_toEndOf="@+id/tv_1"
             app:layout_constraintTop_toBottomOf="@+id/btn_rangking" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_ranking"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="56dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_1st" />
-
         <TextView
             android:id="@+id/tv_1st"
             android:layout_width="wrap_content"
@@ -251,6 +241,26 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tv_1st"
             app:layout_constraintTop_toBottomOf="@+id/iv_3rd" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_1st">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_ranking"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:listitem="@layout/item_rangking" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

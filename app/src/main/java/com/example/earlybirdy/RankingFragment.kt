@@ -79,7 +79,7 @@ class RankingFragment : Fragment() {
                     val rankingAdapter = RankingAdapter(userList.subList(3, userList.size))
                     binding.rvRanking.adapter = rankingAdapter
                 } else {
-                    // 사용자가 3명 이하일 때 처리=
+                    // 사용자가 3명 이하일 때 처리
                     val emptyList = ArrayList<UserDto>()
                     val rankingAdapter = RankingAdapter(emptyList)
                     binding.rvRanking.adapter = rankingAdapter
