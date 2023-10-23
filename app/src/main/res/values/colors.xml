@@ -7,5 +7,7 @@
 
     <color name="togglebtn_color">#FFBF24</color>
     <color name="setting_round">#C8C8C8</color>
+    <color name="yellow_orange">#FFBF24</color>
+    <color name="red_orange">#FF4646</color>
 
 </resources>

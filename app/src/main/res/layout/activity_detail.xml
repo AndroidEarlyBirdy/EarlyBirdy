@@ -56,7 +56,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_item_Title">
 
         <TextView
-            android:id="@+id/tv_detial"
+            android:id="@+id/btn_board"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
