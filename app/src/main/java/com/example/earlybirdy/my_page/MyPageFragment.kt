@@ -3,7 +3,6 @@ package com.example.earlybirdy.my_page
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +10,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.example.earlybirdy.R
 import com.example.earlybirdy.databinding.FragmentMyPageBinding
+import com.example.earlybirdy.dto.AttendanceDto
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.DayViewDecorator
 import com.prolificinteractive.materialcalendarview.DayViewFacade
@@ -21,6 +21,9 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 class MyPageFragment : Fragment() {
 
@@ -37,7 +40,14 @@ class MyPageFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private lateinit var user: FirebaseUser
 
-    val dateList = mutableListOf(
+    private var nickname : String? = ""
+    private var exp : Int? = 0
+    private var profile : Int? = 0
+
+    private var getList = ArrayList<AttendanceDto>()
+    private var dateList2 = ArrayList<CalendarDay>()
+
+    private val dateList = mutableListOf(
         CalendarDay.from(2023, 10, 14),
         CalendarDay.from(2023, 10, 15),
         CalendarDay.from(2023, 10, 20)
@@ -49,16 +59,19 @@ class MyPageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentMyPageBinding.inflate(inflater, container, false)
+
+        fireStore = FirebaseFirestore.getInstance()
+        database = Firebase.database.reference
+        auth = FirebaseAuth.getInstance()
+        user = auth.currentUser!!
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        fireStore = FirebaseFirestore.getInstance()
-        database = Firebase.database.reference
-        auth = FirebaseAuth.getInstance()
-        user = auth.currentUser!!
+
 
         // ViewModel 초기화
         homeViewModel = ViewModelProvider(requireActivity())[HomeViewModel::class.java]
@@ -68,15 +81,52 @@ class MyPageFragment : Fragment() {
 //            binding.tvSharedData.text = data
 //        }
 
-        fireStore.collection("UserDto").document(user.uid).get()
+//        fireStore.collection("UserDto").document("vlKOuWtxe1b6flDCwHoPRwOYsWt2").get()
+//            .addOnSuccessListener {document ->
+//                if (document != null) {
+//                    nickname = document.getString("nickname")
+//                    exp = document.getLong("exp")?.toInt()
+//                    profile = document.getLong("profile")?.toInt()
+//                }
+//                v
+//            }
 
-        setCalendar()
+        fireStore.collection("UserDto").document("vlKOuWtxe1b6flDCwHoPRwOYsWt2").
+        addSnapshotListener { value, _ ->
+            if (value != null) {
+                nickname = value.getString("nickname")
+                exp = value.getLong("exp")?.toInt()
+                profile = value.getLong("profile")?.toInt()
+            }
+            exp?.let { initializeUIWithLocalExp(it) }
+            binding.tvNickname.text = nickname
+        }
 
-        initializeUIWithLocalExp(localExp)
+        fireStore.collection("UserDto").document("vlKOuWtxe1b6flDCwHoPRwOYsWt2").collection("Attendance")
+            .addSnapshotListener {value, _ ->
+                for(snapshot in value!!.documents) {
+                    var item = snapshot.toObject(AttendanceDto::class.java)
+                    if (item != null) {
+                        val attendence = AttendanceDto(
+                            item.AttendanceId,
+                            item.date
+                        )
+                        getList.add(attendence)
+                    }
+                }
+                for(date in getList) {
+                    convertStringToCalendarDay(date.date)?.let { dateList2.add(it) }
+                }
+                setCalendar()
+            }
+
+
+
+
     }
 
     private fun setCalendar() = with(binding) {
-        calendarView.addDecorator(Decorator(dateList, requireContext()))
+        calendarView.addDecorator(Decorator(dateList2, requireContext()))
     }
 
     // 마이페이지를 눌렀을 때 보이는 레벨, 경험치, 프로그레스 바
@@ -208,6 +258,24 @@ class MyPageFragment : Fragment() {
             }
         }
 
+    }
+
+    fun convertStringToCalendarDay(dateString: String): CalendarDay? {
+        val dateFormat = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault())
+        try {
+            val date = dateFormat.parse(dateString)
+            val calendar = Calendar.getInstance()
+            calendar.time = date
+
+            val year = calendar.get(Calendar.YEAR)
+            val month = calendar.get(Calendar.MONTH) + 1 // Calendar.MONTH는 0부터 시작하므로 +1 해야 합니다.
+            val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+            return CalendarDay.from(year, month, day)
+        } catch (e: Exception) {
+            // 날짜 파싱에 실패하면 null을 반환하거나 오류 처리를 수행할 수 있습니다.
+            return null
+        }
     }
 
 }
