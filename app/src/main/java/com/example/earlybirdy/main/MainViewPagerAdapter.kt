@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.earlybirdy.R
-import com.example.RankingFragment
+import com.example.earlybirdy.RankingFragment
 import com.example.earlybirdy.home.HomeFragment
 
 import com.example.earlybirdy.my_page.MyPageFragment
