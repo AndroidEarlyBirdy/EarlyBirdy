@@ -90,11 +90,11 @@ class MyPageFragment : Fragment() {
     //레벨 범위에 따른 인장 설정
     private fun updateLevelImage() {
         when (currentLevel) {
-            in 1..10 -> binding.ivProfileBorder.setImageResource(R.drawable.ic_insignia1)
-            in 11..20 -> binding.ivProfileBorder.setImageResource(R.drawable.ic_insignia2)
-            in 21..30 -> binding.ivProfileBorder.setImageResource(R.drawable.ic_insignia3)
-            in 31..40 -> binding.ivProfileBorder.setImageResource(R.drawable.ic_insignia4)
-            else -> binding.ivProfileBorder.setImageResource(R.drawable.ic_insignia5)
+            in 1..10 -> binding.ivProfileBorder1.setImageResource(R.drawable.ic_insignia1)
+            in 11..20 -> binding.ivProfileBorder1.setImageResource(R.drawable.ic_insignia2)
+            in 21..30 -> binding.ivProfileBorder1.setImageResource(R.drawable.ic_insignia3)
+            in 31..40 -> binding.ivProfileBorder1.setImageResource(R.drawable.ic_insignia4)
+            else -> binding.ivProfileBorder1.setImageResource(R.drawable.ic_insignia5)
         }
     }
 
