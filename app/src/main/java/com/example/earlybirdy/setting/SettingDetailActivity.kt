@@ -16,7 +16,7 @@ class SettingDetailActivity : AppCompatActivity() {
         val content = getContentByTitle(title)
 
         binding.tvItemTitle.text = title
-        binding.tvDetial.text = content
+        binding.btnBoard.text = content
 
         binding.btnBack.setOnClickListener {
             finish()
