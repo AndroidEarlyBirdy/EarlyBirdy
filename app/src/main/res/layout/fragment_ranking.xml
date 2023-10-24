@@ -3,10 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <!--    배경 그라데이션 이미지-->
     <ImageView
+        android:id="@+id/imageView2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@drawable/bg_gr3"
@@ -21,27 +22,30 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_end="355dp" />
 
+
     <TextView
         android:id="@+id/tv_item_Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="84dp"
         android:text="랭킹보드"
         android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="60dp"
+        android:layout_height="561dp"
+        android:layout_marginTop="80dp"
         android:background="@drawable/ic_roundig"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_item_Title"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="1.0"
         tools:layout_editor_absoluteX="0dp">
 
         <TextView
@@ -265,5 +269,67 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <TextView
+        android:id="@+id/tv_myRank"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:background="@drawable/btn_setting"
+        android:paddingHorizontal="40dp"
+        android:paddingVertical="16dp"
+        android:text="순위"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="68dp"
+        android:layout_height="68dp"
+        android:layout_marginTop="220dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:srcCompat="@drawable/ic_dot" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/tv_myProfile"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="90dp"
+        android:adjustViewBounds="true"
+        android:padding="1dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_profile_add"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_myRank"
+        app:layout_constraintStart_toStartOf="@+id/tv_myRank"
+        app:layout_constraintTop_toTopOf="@+id/tv_myRank"
+        app:shapeAppearanceOverlay="@style/RoundedShapeAppearanceOverlay"
+        app:strokeColor="@color/white"
+        app:strokeWidth="3dp" />
+
+    <TextView
+        android:id="@+id/tv_myName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:text="닉네임"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_myRank"
+        app:layout_constraintStart_toStartOf="@+id/tv_myProfile"
+        app:layout_constraintTop_toTopOf="@+id/tv_myRank" />
+
+    <TextView
+        android:id="@+id/tv_myExp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="경험치량"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_myName"
+        app:layout_constraintEnd_toEndOf="@+id/tv_myRank"
+        app:layout_constraintTop_toTopOf="@+id/tv_myName" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
