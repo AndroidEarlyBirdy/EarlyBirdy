@@ -77,7 +77,9 @@ class SigninActivity : AppCompatActivity() {
             .setTitle("종료 확인")
             .setMessage("앱을 종료하시겠습니까?")
             .setPositiveButton("예") { _, _ ->
-                super.onBackPressed()
+                moveTaskToBack(true)
+                finish()
+                android.os.Process.killProcess(android.os.Process.myPid())
             }
             .setNegativeButton("아니오") { _, _ ->
                 val intent = Intent(this, SigninActivity::class.java)
