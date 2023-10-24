@@ -9,24 +9,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.FrameLayout
-import android.widget.ImageView
 import androidx.lifecycle.ViewModelProvider
 import com.example.earlybirdy.R
 import com.example.earlybirdy.databinding.FragmentMyPageBinding
-import com.example.earlybirdy.dto.AttendanceDto
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.DayViewDecorator
 import com.prolificinteractive.materialcalendarview.DayViewFacade
-import com.example.earlybirdy.home.HomeViewModel
 import com.example.earlybirdy.setting.SettingActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ktx.database
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.ktx.Firebase
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -36,41 +27,53 @@ class MyPageFragment : Fragment() {
     private var _binding: FragmentMyPageBinding? = null
     private val binding get() = _binding!!
 
+    companion object {
+        fun newInstance() = MyPageFragment()
+    }
+
+    //Exp, Level Setting
     private var currentExp = 0
     private var currentLevel = 1
 
-    private lateinit var fireStore: FirebaseFirestore
-    private lateinit var database: DatabaseReference
+    //Firebase
     private lateinit var auth: FirebaseAuth
     private lateinit var user: FirebaseUser
+
+    //ViewModel
     private lateinit var myPageViewModel : MyPageViewModel
 
-    // 나머지 코드 생략
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentMyPageBinding.inflate(inflater, container, false)
-
-        fireStore = FirebaseFirestore.getInstance()
-        database = Firebase.database.reference
-        auth = FirebaseAuth.getInstance()
-        user = auth.currentUser!!
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        auth = FirebaseAuth.getInstance()
+        user = auth.currentUser!!
         myPageViewModel = ViewModelProvider(this, MyPageViewModelFactory())[MyPageViewModel::class.java]
 
-        myPageViewModel.getMyPageUserData("vlKOuWtxe1b6flDCwHoPRwOYsWt2")
-        myPageViewModel.getAttendanceData("vlKOuWtxe1b6flDCwHoPRwOYsWt2")
+        getData()
+        observeData()
+        setListener()
+    }
 
+    //Repository에서 데이터 get
+    private fun getData() {
+        myPageViewModel.getMyPageUserData("QmAqNyojAWOwn59jYM2jwz9WsvI2")
+        myPageViewModel.getAttendanceData("QmAqNyojAWOwn59jYM2jwz9WsvI2")
+    }
+
+    //LiveData 감지
+    @SuppressLint("SetTextI18n")
+    private fun observeData() {
         myPageViewModel.userData.observe(viewLifecycleOwner) { user->
             binding.tvNickname.text = user.nickname
-            user.exp?.let { initializeUIWithLocalExp(it) }
+            user.exp?.let { myPageViewModel.initializeUIWithLocalExp(it) }
         }
 
         myPageViewModel.attendanceData.observe(viewLifecycleOwner) {list ->
@@ -82,29 +85,45 @@ class MyPageFragment : Fragment() {
             binding.calendarView.addDecorator(Decorator(dateList, requireContext()))
         }
 
+        myPageViewModel.exp.observe(viewLifecycleOwner) {exp ->
+            binding.pbExp.progress = exp
+            currentExp = exp
+            updateExpUI()
+        }
+
+        myPageViewModel.level.observe(viewLifecycleOwner) {level ->
+            binding.tvLevel.text = "레벨 $level"
+            binding.pbExp.max = calculateMaxExpForLevel(level)
+            currentLevel = level
+            updateLevelImage(level)
+            updateExpUI()
+        }
+    }
+
+    //리스너 부착
+    private fun setListener() {
         binding.ivSetting.setOnClickListener {
             val intent = Intent(requireContext(), SettingActivity::class.java)
             startActivity(intent)
         }
+
+        binding.calendarView.isEnabled = false
     }
 
-
     // 마이페이지를 눌렀을 때 보이는 레벨, 경험치, 프로그레스 바
+    @SuppressLint("SetTextI18n")
     private fun updateExpUI() {
-        binding.tvLevel.text = "레벨 $currentLevel"
-        binding.pbExp.max = calculateMaxExpForLevel(currentLevel)
-        binding.pbExp.progress = currentExp
         binding.tvExperience.text = "$currentExp / ${calculateMaxExpForLevel(currentLevel)} xp"
     }
 
     //레벨 범위에 따른 인장 설정
-    private fun updateLevelImage() {
-        when (currentLevel) {
-            in 1..10 -> binding.ivProfileBorder1.setImageResource(R.drawable.ic_insignia1)
-            in 11..20 -> binding.ivProfileBorder1.setImageResource(R.drawable.ic_insignia2)
-            in 21..30 -> binding.ivProfileBorder1.setImageResource(R.drawable.ic_insignia3)
-            in 31..40 -> binding.ivProfileBorder1.setImageResource(R.drawable.ic_insignia4)
-            else -> binding.ivProfileBorder1.setImageResource(R.drawable.ic_insignia5)
+    private fun updateLevelImage(level : Int) {
+        when (level) {
+            in 1..10 -> binding.ivProfileBorder1.setBackgroundResource(R.drawable.ic_insignia1)
+            in 11..20 -> binding.ivProfileBorder1.setBackgroundResource(R.drawable.ic_insignia2)
+            in 21..30 -> binding.ivProfileBorder1.setBackgroundResource(R.drawable.ic_insignia3)
+            in 31..40 -> binding.ivProfileBorder1.setBackgroundResource(R.drawable.ic_insignia4)
+            else -> binding.ivProfileBorder1.setBackgroundResource(R.drawable.ic_insignia5)
         }
     }
 
@@ -119,47 +138,7 @@ class MyPageFragment : Fragment() {
         }
     }
 
-    // localExp의 값에 따라 경험치와 레벨 변경
-    private fun initializeUIWithLocalExp(localExp: Int) {
-        var tempExp = localExp
-        var tempLevel = 1
-        while (tempExp >= calculateMaxExpForLevel(tempLevel)) {
-            tempExp -= calculateMaxExpForLevel(tempLevel)
-            tempLevel++
-        }
-        currentExp = tempExp
-        currentLevel = tempLevel
-        updateExpUI()
-        updateLevelImage()
-    }
-
-    override fun onDestroyView() {
-        _binding = null
-        super.onDestroyView()
-    }
-
-    companion object {
-        fun newInstance() = MyPageFragment()
-    }
-
-    //기상 성공한 날짜 Custom
-    class Decorator(dates: List<CalendarDay>, context: Context) : DayViewDecorator {
-
-        private val selectedDates = dates
-
-        @SuppressLint("UseCompatLoadingForDrawables")
-        private val drawable = context.getDrawable(R.drawable.bg_calendar_date)
-        override fun shouldDecorate(day: CalendarDay?): Boolean {
-            return selectedDates.contains(day)
-        }
-
-        override fun decorate(view: DayViewFacade?) {
-            if (drawable != null) {
-                view?.setBackgroundDrawable(drawable)
-            }
-        }
-    }
-
+    //String 값을 CalendarDay로 전환
     private fun convertStringToCalendarDay(dateString: String): CalendarDay? {
         val dateFormat = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault())
         return try {
@@ -175,6 +154,29 @@ class MyPageFragment : Fragment() {
             CalendarDay.from(year, month, day)
         } catch (e: Exception) {
             null
+        }
+    }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
+    }
+
+    //날짜 Custom Decorator
+    class Decorator(dates: List<CalendarDay>, context: Context) : DayViewDecorator {
+
+        private val selectedDates = dates
+
+        @SuppressLint("UseCompatLoadingForDrawables")
+        private val drawable = context.getDrawable(R.drawable.bg_calendar_date)
+        override fun shouldDecorate(day: CalendarDay?): Boolean {
+            return selectedDates.contains(day)
+        }
+
+        override fun decorate(view: DayViewFacade?) {
+            if (drawable != null) {
+                view?.setBackgroundDrawable(drawable)
+            }
         }
     }
 }
