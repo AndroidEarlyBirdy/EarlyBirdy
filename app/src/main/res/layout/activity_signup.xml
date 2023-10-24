@@ -54,6 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:hint="@string/signup_enter_nickname"
+            android:maxLength="12"
             android:textColor="#CC999999" />
     </com.google.android.material.textfield.TextInputLayout>
 
