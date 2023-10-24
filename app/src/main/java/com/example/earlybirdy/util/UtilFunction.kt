@@ -9,6 +9,7 @@ import com.example.earlybirdy.edit_profile.EditProfileActivity
 import com.example.earlybirdy.main.MainActivity
 import com.example.earlybirdy.resetpassword.ResetPasswordActivity
 import com.example.earlybirdy.sendemail.SendEmailActivity
+import com.example.earlybirdy.setting.SettingActivity
 import com.example.earlybirdy.signin.SigninActivity
 import com.example.earlybirdy.signup.SignupActivity
 
@@ -49,6 +50,11 @@ fun navigateToSendEmailActivity(context: Context) {
 // 알람 액티비티로 이동 함수
 fun navigateToAlarmActivity(context: Context) {
     val intent = Intent(context, AlarmActivity::class.java)
+    context.startActivity(intent)
+}
+
+fun navigateToSettingActivity(context: Context) {
+    val intent = Intent(context, SettingActivity::class.java)
     context.startActivity(intent)
 }
 
