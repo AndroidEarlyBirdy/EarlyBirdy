@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_end="355dp" />
+        app:layout_constraintGuide_end="340dp" />
 
 
     <TextView
@@ -96,40 +96,41 @@
 
         <ImageView
             android:id="@+id/crown_gold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="32dp"
             android:background="@drawable/crown_gold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_1" />
+            app:layout_constraintTop_toBottomOf="@+id/btn_challenge" />
 
         <ImageView
             android:id="@+id/crown_silver"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_width="28dp"
+            android:layout_height="35dp"
 
+            android:layout_marginTop="29dp"
             android:background="@drawable/crown_silver"
             app:layout_constraintEnd_toStartOf="@+id/crown_gold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_2" />
+            app:layout_constraintTop_toBottomOf="@+id/btn_board" />
 
         <ImageView
             android:id="@+id/crown_bronze"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_width="28dp"
+            android:layout_height="35dp"
 
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="6dp"
             android:background="@drawable/crown_bronze"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/crown_gold"
-            app:layout_constraintTop_toBottomOf="@+id/tv_3" />
+            app:layout_constraintTop_toBottomOf="@+id/btn_rangking" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_1st"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:adjustViewBounds="true"
             android:padding="1dp"
             android:scaleType="centerCrop"
@@ -162,9 +163,9 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginEnd="20dp"
+
+
             android:adjustViewBounds="true"
-
-
             android:padding="1dp"
             android:scaleType="centerCrop"
             android:src="@drawable/img_profile_add"
@@ -176,49 +177,9 @@
             app:strokeWidth="3dp" />
 
         <TextView
-            android:id="@+id/tv_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="1위"
-            android:textColor="@color/red_orange"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_challenge" />
-
-        <TextView
-            android:id="@+id/tv_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="2위"
-            android:textColor="#FF7246"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/tv_1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_board" />
-
-        <TextView
-            android:id="@+id/tv_3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            android:text="3위"
-            android:textColor="@color/yellow_orange"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_1"
-            app:layout_constraintTop_toBottomOf="@+id/btn_rangking" />
-
-        <TextView
             android:id="@+id/tv_1st"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
             android:text="TextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -228,8 +189,7 @@
             android:id="@+id/tv_2nd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginStart="22dp"
             android:text="TextView"
             app:layout_constraintEnd_toStartOf="@+id/tv_1st"
             app:layout_constraintStart_toStartOf="parent"
@@ -239,8 +199,7 @@
             android:id="@+id/tv_3rd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="21dp"
             android:text="TextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tv_1st"
@@ -258,7 +217,6 @@
                 android:id="@+id/rv_ranking"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -289,7 +247,7 @@
         android:id="@+id/imageView"
         android:layout_width="68dp"
         android:layout_height="68dp"
-        android:layout_marginTop="220dp"
+        android:layout_marginTop="190dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2"
