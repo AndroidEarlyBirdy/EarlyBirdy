@@ -109,6 +109,7 @@ class SignupActivity : AppCompatActivity() {
             } else if (!password.equals(passwordCheck)) {
                 binding.tilPasswordCheck.error = "일치하지 않습니다"
             } else {
+                // 닉네임 중복 처리 확인
                 db.collection("UserDto").whereEqualTo("nickname", nickname)
                     .get()
                     .addOnSuccessListener { documentReference ->
@@ -119,7 +120,6 @@ class SignupActivity : AppCompatActivity() {
                                 .addOnCompleteListener(this) { task ->
                                     if (task.isSuccessful) {
                                         val user = auth.currentUser
-                                        updateUI(user)
                                         // firestore DB에 저장
                                         val userDto =
                                             UserDto(user!!.uid, profile, nickname, email, 0)
@@ -135,8 +135,7 @@ class SignupActivity : AppCompatActivity() {
                                         navigateToMainActivity(this)
                                         finish()
                                     }
-                                }.addOnFailureListener { // 이메일 닉네임 중복 체크
-                                    Log.e("email", "이메일 중복 테스트", it)
+                                }.addOnFailureListener { // 이메일 중복 체크
                                     if (it is FirebaseAuthUserCollisionException) {
                                         binding.tilEmail.error = "이미 가입된 이메일입니다"
                                     }
@@ -146,17 +145,12 @@ class SignupActivity : AppCompatActivity() {
                                 }
                         } else {
                             binding.tilNickname.error = "이미 가입된 닉네임 입니다."
-                            showToast(this, "이미 가입된 닉네임 입니다.")
-                            Log.d("nickTest", "$nickname")
                         }
                     }
                     .addOnFailureListener { e ->
                     }
             }
         }
-    }
-
-    private fun updateUI(user: FirebaseUser?) {
     }
 
 //    private fun profileUpload(){
