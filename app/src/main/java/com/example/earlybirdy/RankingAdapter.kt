@@ -12,7 +12,8 @@ class RankingAdapter(private val userList: List<UserDto>) : RecyclerView.Adapter
 
     inner class ViewHolder(private val binding: ItemRangkingBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(user: UserDto, position: Int) {
-            binding.tvBoard1.text = "${position + 4}등"
+            val rank = calculateRank(position)
+            binding.tvBoard1.text = "$rank 등"
             binding.iv4th.setImageResource(user.profile ?: R.drawable.img_profile_add)
             binding.tv4thid.text = user.nickname
             binding.tvContent1.text = user.exp.toString()
@@ -31,5 +32,14 @@ class RankingAdapter(private val userList: List<UserDto>) : RecyclerView.Adapter
 
     override fun getItemCount(): Int {
         return userList.size
+    }
+
+    // 모든 사용자의 exp를 비교하여 같은 경우 동일한 rank를 반환
+    private fun calculateRank(position: Int): Int {
+        if (position == 0) return 4
+        if (userList[position].exp == userList[position - 1].exp) {
+            return calculateRank(position - 1)
+        }
+        return calculateRank(position - 1) + 1
     }
 }
