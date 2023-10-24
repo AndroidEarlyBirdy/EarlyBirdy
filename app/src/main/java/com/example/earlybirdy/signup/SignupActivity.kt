@@ -132,7 +132,7 @@ class SignupActivity : AppCompatActivity() {
                             navigateToMainActivity(this)
                             finish()
                         }
-                    }.addOnFailureListener {
+                    }.addOnFailureListener { // 이메일 닉네임 중복 체크
                         Log.e("email", "이메일 중복 테스트", it)
                         if (it is FirebaseAuthUserCollisionException){
 
