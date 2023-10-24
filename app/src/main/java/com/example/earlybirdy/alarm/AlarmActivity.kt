@@ -76,6 +76,9 @@ class AlarmActivity : AppCompatActivity() {
 //                binding.tpSetTime.hour = 4
 //
 //            }
+//            if (hourOfDay == 7){
+//                binding.tpSetTime.minute = 0
+//            }
         }
     }
 
