@@ -1,6 +1,7 @@
 package com.example.earlybirdy
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,12 +15,10 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 
-
 class RankingFragment : Fragment() {
-    // 파이어스토어
-    var auth : FirebaseAuth? = null
-    var firestore : FirebaseFirestore? = null
-    var user : FirebaseUser? = null
+    var auth: FirebaseAuth? = null
+    var firestore: FirebaseFirestore? = null
+    var user: FirebaseUser? = null
 
     private var _binding: FragmentRankingBinding? = null
     private val binding get() = _binding!!
@@ -31,10 +30,8 @@ class RankingFragment : Fragment() {
     ): View? {
         _binding = FragmentRankingBinding.inflate(inflater, container, false)
 
-        // 파이어베이스 인증 객체
         auth = FirebaseAuth.getInstance()
         user = auth!!.currentUser
-        // 파이어스토어 인스턴스 초기화
         firestore = FirebaseFirestore.getInstance()
 
         val rankingAdapter = RankingAdapter(userList)
@@ -45,12 +42,11 @@ class RankingFragment : Fragment() {
             ?.orderBy("exp", Query.Direction.DESCENDING)
             ?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
                 if (firebaseFirestoreException != null) {
-                    // 에러 처리
                     return@addSnapshotListener
                 }
 
                 val userList = ArrayList<UserDto>()
-                for (document in querySnapshot!!) {
+                for ((index, document) in querySnapshot?.withIndex()!!) {
                     val uid = document.id
                     val profile = document.get("profile") as? Int ?: R.drawable.img_profile_add
                     val nickname = document.getString("nickname") ?: ""
@@ -59,24 +55,43 @@ class RankingFragment : Fragment() {
 
                     val user = UserDto(uid, profile, nickname, email, exp)
                     userList.add(user)
+                    Log.d("아아아 이름 되냐고로로",nickname)
+
+
+                    val currentUserUid = user?.uid
+                    // 나의 등수를 나타내는 처리
+                    if (currentUserUid == uid)  {
+                        binding.tvMyProfile.setImageResource(user.profile ?: R.drawable.img_profile_add)
+                        binding.tvMyExp.text = "${user.exp}"
+                        binding.tvMyName.text = user.nickname
+                        binding.tvMyRank.text = "${index + 1}등"
+                        Log.d("유저 이름",user.nickname)
+                    }
                 }
 
                 // 상위 3명의 사용자를 이미지뷰와 TextView에 설정
-                if (userList.size >= 1) {
-                    binding.iv1st.setImageResource(userList[0].profile ?: R.drawable.img_profile_add)
-                    binding.tv1st.text = userList[0].nickname
-                }
-                if (userList.size >= 2) {
-                    binding.iv2nd.setImageResource(userList[1].profile ?: R.drawable.img_profile_add)
-                    binding.tv2nd.text = userList[1].nickname
-                }
-                if (userList.size >= 3) {
-                    binding.iv3rd.setImageResource(userList[2].profile ?: R.drawable.img_profile_add)
-                    binding.tv3rd.text = userList[2].nickname
+                for (i in 0 until 3) {
+                    if (userList.size > i) {
+                        when (i) {
+                            0 -> {
+                                binding.iv1st.setImageResource(userList[i].profile ?: R.drawable.img_profile_add)
+                                binding.tv1st.text = userList[i].nickname
+                            }
+                            1 -> {
+                                binding.iv2nd.setImageResource(userList[i].profile ?: R.drawable.img_profile_add)
+                                binding.tv2nd.text = userList[i].nickname
+                            }
+                            2 -> {
+                                binding.iv3rd.setImageResource(userList[i].profile ?: R.drawable.img_profile_add)
+                                binding.tv3rd.text = userList[i].nickname
+                            }
+                        }
+                    }
                 }
 
-                if (userList.size >= 4) {
-                    val rankingAdapter = RankingAdapter(userList.subList(3, userList.size))
+                // 상위 100명까지만 리사이클러뷰에 표시
+                if (userList.size > 3) {
+                    val rankingAdapter = RankingAdapter(userList.subList(3, minOf(userList.size, 103)))
                     binding.rvRanking.adapter = rankingAdapter
                 } else {
                     // 사용자가 3명 이하일 때 처리
@@ -88,7 +103,6 @@ class RankingFragment : Fragment() {
         return binding.root
     }
 
-
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
@@ -97,6 +111,4 @@ class RankingFragment : Fragment() {
     companion object {
         fun newInstance() = RankingFragment()
     }
-
 }
-
