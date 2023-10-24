@@ -18,7 +18,7 @@ import com.google.firebase.firestore.Query
 class RankingFragment : Fragment() {
     var auth: FirebaseAuth? = null
     var firestore: FirebaseFirestore? = null
-    var user: FirebaseUser? = null
+    var currentuser: FirebaseUser? = null
 
     private var _binding: FragmentRankingBinding? = null
     private val binding get() = _binding!!
@@ -31,7 +31,7 @@ class RankingFragment : Fragment() {
         _binding = FragmentRankingBinding.inflate(inflater, container, false)
 
         auth = FirebaseAuth.getInstance()
-        user = auth!!.currentUser
+        currentuser = auth!!.currentUser
         firestore = FirebaseFirestore.getInstance()
 
         val rankingAdapter = RankingAdapter(userList)
@@ -58,9 +58,8 @@ class RankingFragment : Fragment() {
                     Log.d("아아아 이름 되냐고로로",nickname)
 
 
-                    val currentUserUid = user?.uid
                     // 나의 등수를 나타내는 처리
-                    if (currentUserUid == uid)  {
+                    if (user != null && user.uid == currentuser?.uid) {
                         binding.tvMyProfile.setImageResource(user.profile ?: R.drawable.img_profile_add)
                         binding.tvMyExp.text = "${user.exp}"
                         binding.tvMyName.text = user.nickname
