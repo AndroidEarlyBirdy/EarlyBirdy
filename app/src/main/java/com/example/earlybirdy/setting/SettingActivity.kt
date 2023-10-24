@@ -14,24 +14,42 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.earlybirdy.R
 import com.example.earlybirdy.board.BoardFragment
 import com.example.earlybirdy.databinding.ActivitySettingBinding
+import com.example.earlybirdy.edit_profile.EditProfileActivityDialog
 import com.example.earlybirdy.my_page.MyPageFragment
+import com.example.earlybirdy.signin.SigninActivity
 import com.example.earlybirdy.util.navigateToMainActivity
 import com.example.earlybirdy.util.navigateToSigninActivity
 import com.example.earlybirdy.util.showToast
 
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 
 class SettingActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySettingBinding
     private lateinit var auth: FirebaseAuth
+    private lateinit var database: DatabaseReference
+    private lateinit var fireStore: FirebaseFirestore
+    private lateinit var user: FirebaseUser
+    private lateinit var settingDeleteDialog: SettingDeleteDialog
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySettingBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         auth = FirebaseAuth.getInstance()
+        settingDeleteDialog = SettingDeleteDialog(this@SettingActivity)
+        database = Firebase.database.reference
+        user = auth.currentUser!!
+        fireStore = FirebaseFirestore.getInstance()
+
 
 
 
@@ -60,8 +78,11 @@ class SettingActivity : AppCompatActivity() {
             Log.d("SettingActivity", "Logout button clicked")
         }
 
-        binding.ivBack.setOnClickListener{
+        binding.ivBack.setOnClickListener {
             finish()
+        }
+        binding.btnDeleteAccount.setOnClickListener {
+            settingDeleteDialog.show()
         }
 
     }
@@ -114,6 +135,8 @@ class SettingActivity : AppCompatActivity() {
         intent.putExtra("title", title)
         startActivity(intent)
     }
+
+
 }
 
 
