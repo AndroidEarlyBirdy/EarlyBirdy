@@ -1,29 +1,24 @@
 package com.example.earlybirdy.signup
 
-import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.widget.ImageView
-import androidx.core.widget.addTextChangedListener
+import androidx.appcompat.app.AppCompatActivity
 import com.example.earlybirdy.databinding.ActivitySignupBinding
 import com.example.earlybirdy.dto.UserDto
 import com.example.earlybirdy.util.navigateToMainActivity
 import com.example.earlybirdy.util.navigateToSigninActivity
 import com.example.earlybirdy.util.showToast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.example.earlybirdy.signup.SignupDialog
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 
 class SignupActivity : AppCompatActivity() {
 
@@ -36,7 +31,7 @@ class SignupActivity : AppCompatActivity() {
 
     private lateinit var selectImgUri: Uri
     private val IMAGE_PICKER_REQUEST_CODE = 123
-    private lateinit var signupDialog : SignupDialog
+    private lateinit var signupDialog: SignupDialog
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -111,37 +106,51 @@ class SignupActivity : AppCompatActivity() {
                 binding.tilEmail.error = "이메일을 입력해주세요"
             } else if (password.isBlank()) {
                 binding.tilPassword.error = "비밀번호를 입력해주세요"
-            } else if(!password.equals(passwordCheck)){
+            } else if (!password.equals(passwordCheck)) {
                 binding.tilPasswordCheck.error = "일치하지 않습니다"
             } else {
-                // auth 회원가입
-                auth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this) { task ->
-                        if (task.isSuccessful) {
-                            val user = auth.currentUser
-                            updateUI(user)
-                            // firestore DB에 저장
-                            val userDto =
-                                UserDto(user!!.uid,profile, nickname, email, 0)
+                db.collection("UserDto").whereEqualTo("nickname", nickname)
+                    .get()
+                    .addOnSuccessListener { documentReference ->
+                        Log.d("docuTest", "${documentReference.documents}")
+                        if (documentReference.documents.isEmpty()) {
+                            // auth 회원가입
+                            auth.createUserWithEmailAndPassword(email, password)
+                                .addOnCompleteListener(this) { task ->
+                                    if (task.isSuccessful) {
+                                        val user = auth.currentUser
+                                        updateUI(user)
+                                        // firestore DB에 저장
+                                        val userDto =
+                                            UserDto(user!!.uid, profile, nickname, email, 0)
 
-                            db.collection("UserDto").document(user!!.uid)
-                                .set(userDto)
-                                .addOnSuccessListener { documentReference ->
+                                        db.collection("UserDto").document(user.uid)
+                                            .set(userDto)
+                                            .addOnSuccessListener { documentReference ->
+                                            }
+                                            .addOnFailureListener { e ->
+                                            }
+
+                                        showToast(this, "회원가입 성공 & 자동로그인")
+                                        navigateToMainActivity(this)
+                                        finish()
+                                    }
+                                }.addOnFailureListener { // 이메일 닉네임 중복 체크
+                                    Log.e("email", "이메일 중복 테스트", it)
+                                    if (it is FirebaseAuthUserCollisionException) {
+                                        binding.tilEmail.error = "이미 가입된 이메일입니다"
+                                    }
+                                    if (it is FirebaseAuthInvalidCredentialsException) {
+                                        binding.tilEmail.error = "유효하지 않은 이메일 형식입니다"
+                                    }
                                 }
-                                .addOnFailureListener { e ->
-                                }
-                            showToast(this, "회원가입 성공 & 자동로그인")
-                            navigateToMainActivity(this)
-                            finish()
+                        } else {
+                            binding.tilNickname.error = "이미 가입된 닉네임 입니다."
+                            showToast(this, "이미 가입된 닉네임 입니다.")
+                            Log.d("nickTest", "$nickname")
                         }
-                    }.addOnFailureListener { // 이메일 닉네임 중복 체크
-                        Log.e("email", "이메일 중복 테스트", it)
-                        if (it is FirebaseAuthUserCollisionException){
-                            binding.tilEmail.error = "이미 가입된 이메일입니다"
-                        }
-                        if (it is FirebaseAuthInvalidCredentialsException){
-                            binding.tilEmail.error = "유효하지 않은 이메일 형식입니다"
-                        }
+                    }
+                    .addOnFailureListener { e ->
                     }
             }
         }
