@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
+import com.example.earlybirdy.R
 import com.example.earlybirdy.databinding.ActivitySigninBinding
 import com.example.earlybirdy.util.navigateToMainActivity
 import com.example.earlybirdy.util.navigateToSendEmailActivity
@@ -59,6 +60,7 @@ class SigninActivity : AppCompatActivity() {
             navigateToSignupActivity(this)
             finish()
         }
+        overridePendingTransition(R.anim.slide_left_enter, R.anim.slide_right_exit)
 
         // 알림 권한 설정 함수
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {

@@ -33,9 +33,6 @@ class SettingActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
-
-
-
         binding.btnUserSupport.setOnClickListener {
             val title = "고객 지원"
             navigateToDetail("고객 지원")
@@ -63,6 +60,8 @@ class SettingActivity : AppCompatActivity() {
         binding.ivBack.setOnClickListener{
             finish()
         }
+        //화면전환 애니메이션
+        overridePendingTransition(R.anim.slide_left_enter,R.anim.slide_left_exit)
 
     }
 

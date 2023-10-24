@@ -9,6 +9,7 @@ import com.example.earlybirdy.databinding.ActivityEditProfileBinding
 import com.example.earlybirdy.signup.EditProfileDialog
 import android.util.Log
 import androidx.activity.OnBackPressedCallback
+import com.example.earlybirdy.R
 import com.example.earlybirdy.main.MainActivity
 import com.example.earlybirdy.util.navigateToMainActivity
 import com.example.earlybirdy.util.showToast
@@ -83,6 +84,7 @@ class EditProfileActivity : AppCompatActivity() {
         })
         loadUserData()
         editProfileActivityDialog.show()
+        overridePendingTransition(R.anim.slide_left_enter, R.anim.slide_right_exit)
     }
 
 
