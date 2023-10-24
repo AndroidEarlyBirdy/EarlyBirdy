@@ -1,10 +1,12 @@
 package com.example.earlybirdy.signin
 
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import com.example.earlybirdy.databinding.ActivitySigninBinding
 import com.example.earlybirdy.util.navigateToMainActivity
@@ -68,6 +70,23 @@ class SigninActivity : AppCompatActivity() {
             )
             ActivityCompat.requestPermissions(this, permissions, MY_PERMISSION_ACCESS_ALL)
         }
+    }
+
+    override fun onBackPressed() {
+        AlertDialog.Builder(this)
+            .setTitle("종료 확인")
+            .setMessage("앱을 종료하시겠습니까?")
+            .setPositiveButton("예") { _, _ ->
+                moveTaskToBack(true)
+                finish()
+                android.os.Process.killProcess(android.os.Process.myPid())
+            }
+            .setNegativeButton("아니오") { _, _ ->
+                val intent = Intent(this, SigninActivity::class.java)
+                startActivity(intent)
+            }
+            .create()
+            .show()
     }
 
     //로그인 함수
