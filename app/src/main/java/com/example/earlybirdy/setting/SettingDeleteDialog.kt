@@ -37,7 +37,6 @@ class SettingDeleteDialog(
     private fun initViews() {
         binding.btnSddOk.setOnClickListener {
             settingLoginDialog.show()
-            deleteUser()
             dismiss()
         }
 
@@ -46,24 +45,6 @@ class SettingDeleteDialog(
         }
     }
 
-    private fun deleteUser() {
-        val user = Firebase.auth.currentUser!!
 
-        user.delete()
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    db.collection("UserDto").document(user.uid)
-                        .delete().addOnSuccessListener {
-                            showToast(context, "회원탈퇴 되었습니다. 로그인 페이지로 이동합니다.")
-                            navigateToSigninActivity(context)
-                        }
-                        .addOnFailureListener { e ->
-                            Log.e("fail","Error", e)
-                        }
-
-                }
-            }
-
-    }
 
 }

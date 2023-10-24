@@ -8,9 +8,12 @@ import android.util.Log
 import android.widget.Toast
 import com.example.earlybirdy.databinding.ActivitySettingLoginDialogBinding
 import com.example.earlybirdy.main.MainActivity
+import com.example.earlybirdy.util.navigateToSigninActivity
+import com.example.earlybirdy.util.showToast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -61,6 +64,26 @@ class SettingLoginDialog(
             }
     }
 
+    private fun deleteUser() {
+        val user = Firebase.auth.currentUser!!
+
+        user.delete()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    db.collection("UserDto").document(user.uid)
+                        .delete().addOnSuccessListener {
+                            showToast(context, "회원탈퇴 되었습니다. 로그인 페이지로 이동합니다.")
+                            navigateToSigninActivity(context)
+                        }
+                        .addOnFailureListener { e ->
+                            Log.e("fail","Error", e)
+                        }
+
+                }
+            }
+
+    }
+
     private fun checkAuth(email:String,password:String) {
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
@@ -69,7 +92,7 @@ class SettingLoginDialog(
                     val user = FirebaseAuth.getInstance().currentUser
                     Toast.makeText(context, "비밀번호가 확인되었습니다.", Toast.LENGTH_SHORT).show()
                     Log.d("login", "success")
-                    dismiss()
+                    deleteUser()
                 } else {
                     // 인증 실패: 입력한 이메일과 비밀번호가 일치하지 않음
                     val exception = task.exception
