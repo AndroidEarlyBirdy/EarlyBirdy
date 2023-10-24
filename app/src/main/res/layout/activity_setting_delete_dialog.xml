@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_gravity="center"
+    android:padding="16dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv_sdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:text="정말로 탈퇴하시겠습니까?"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_sdd_ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="40dp"
+        android:background="#FF7246"
+        android:text="확인"
+        app:layout_constraintTop_toBottomOf="@+id/tv_sdd"
+        app:layout_constraintEnd_toStartOf="@+id/btn_sdd_cancel"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_sdd_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="16dp"
+        android:text="취소"
+        android:background="@color/setting_round"
+        app:layout_constraintStart_toEndOf="@+id/btn_sdd_ok"
+        app:layout_constraintTop_toBottomOf="@+id/tv_sdd"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
