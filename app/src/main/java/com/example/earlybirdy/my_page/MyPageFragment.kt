@@ -2,7 +2,6 @@ package com.example.earlybirdy.my_page
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -15,7 +14,7 @@ import com.example.earlybirdy.databinding.FragmentMyPageBinding
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.DayViewDecorator
 import com.prolificinteractive.materialcalendarview.DayViewFacade
-import com.example.earlybirdy.setting.SettingActivity
+import com.example.earlybirdy.util.navigateToSettingActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import java.text.SimpleDateFormat
@@ -64,8 +63,8 @@ class MyPageFragment : Fragment() {
 
     //Repository에서 데이터 get
     private fun getData() {
-        myPageViewModel.getMyPageUserData("QmAqNyojAWOwn59jYM2jwz9WsvI2")
-        myPageViewModel.getAttendanceData("QmAqNyojAWOwn59jYM2jwz9WsvI2")
+        myPageViewModel.getMyPageUserData(user.uid)
+        myPageViewModel.getAttendanceData(user.uid)
     }
 
     //LiveData 감지
@@ -103,11 +102,8 @@ class MyPageFragment : Fragment() {
     //리스너 부착
     private fun setListener() {
         binding.ivSetting.setOnClickListener {
-            val intent = Intent(requireContext(), SettingActivity::class.java)
-            startActivity(intent)
+            navigateToSettingActivity(requireContext())
         }
-
-        binding.calendarView.isEnabled = false
     }
 
     // 마이페이지를 눌렀을 때 보이는 레벨, 경험치, 프로그레스 바
@@ -127,7 +123,7 @@ class MyPageFragment : Fragment() {
         }
     }
 
-    // 레벨 당 경험치 량
+    // 레벨 당 경험치 양 계산
     private fun calculateMaxExpForLevel(level: Int): Int {
         return when (level) {
             in 1..10 -> 100
