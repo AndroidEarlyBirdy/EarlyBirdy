@@ -51,9 +51,6 @@ class SettingActivity : AppCompatActivity() {
         fireStore = FirebaseFirestore.getInstance()
 
 
-
-
-
         binding.btnUserSupport.setOnClickListener {
             val title = "고객 지원"
             navigateToDetail("고객 지원")
@@ -84,6 +81,8 @@ class SettingActivity : AppCompatActivity() {
         binding.btnDeleteAccount.setOnClickListener {
             settingDeleteDialog.show()
         }
+        //화면전환 애니메이션
+        overridePendingTransition(R.anim.slide_left_enter,R.anim.slide_left_exit)
 
     }
 
