@@ -159,7 +159,7 @@ class SignupActivity : AppCompatActivity() {
         }
     }
 
-    fun setImageByFixedValue(fixedValue: Int) {
+    private fun setImageByFixedValue(fixedValue: Int) {
         val imageResourceId = imageMap[fixedValue]
         if (imageResourceId != null) {
             binding.ivProfile.setImageResource(imageResourceId)

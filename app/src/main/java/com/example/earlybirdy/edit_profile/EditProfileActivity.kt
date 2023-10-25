@@ -173,7 +173,7 @@ class EditProfileActivity : AppCompatActivity() {
                 Log.e("fail","${it}")
             }
     }
-    fun setImageByFixedValue(fixedValue: Int) {
+    private fun setImageByFixedValue(fixedValue: Int) {
         val imageResourceId = imageMap[fixedValue]
         if (imageResourceId != null) {
             binding.imgProflileProfile.setImageResource(imageResourceId)
