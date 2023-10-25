@@ -31,11 +31,6 @@ class MyPageFragment : Fragment() {
         fun newInstance() = MyPageFragment()
     }
 
-    //Exp, Level Setting
-    private var currentExp = 0
-    private var currentLevel = 1
-    private var currentMaxExp = 0
-
     //Firebase
     private lateinit var auth: FirebaseAuth
     private lateinit var user: FirebaseUser
@@ -87,23 +82,17 @@ class MyPageFragment : Fragment() {
             binding.calendarView.addDecorator(Decorator(dateList, requireContext()))
         }
 
-        myPageViewModel.exp.observe(viewLifecycleOwner) {exp ->
-            binding.pbExp.progress = exp
-            currentExp = exp
-            updateExpUI()
-        }
+        myPageViewModel.expMap.observe(viewLifecycleOwner) { map ->
+            val currentExp = map["exp"]
+            val currentLevel = map["level"]
+            val currentMapExp = map["maxExp"]
 
-        myPageViewModel.level.observe(viewLifecycleOwner) {level ->
-            binding.tvLevel.text = "레벨 $level"
-            currentLevel = level
-            updateLevelImage(level)
-            updateExpUI()
-        }
+            binding.pbExp.progress = currentExp!!
+            binding.tvLevel.text = "레벨 $currentLevel"
+            binding.pbExp.max = currentMapExp!!
+            binding.tvExperience.text = "$currentExp / $currentMapExp xp"
 
-        myPageViewModel.maxExp.observe(viewLifecycleOwner) {maxExp ->
-            currentMaxExp = maxExp
-            binding.pbExp.max = maxExp
-            updateExpUI()
+            updateLevelImage(currentLevel!!)
         }
     }
 
@@ -115,12 +104,6 @@ class MyPageFragment : Fragment() {
         binding.ivEditProfile.setOnClickListener {
             navigateToEditProfileActivity(requireContext())
         }
-    }
-
-    // 마이페이지를 눌렀을 때 보이는 레벨, 경험치, 프로그레스 바
-    @SuppressLint("SetTextI18n")
-    private fun updateExpUI() {
-        binding.tvExperience.text = "$currentExp / $currentMaxExp xp"
     }
 
     //레벨 범위에 따른 인장 설정
