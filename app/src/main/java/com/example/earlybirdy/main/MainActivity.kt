@@ -15,7 +15,7 @@ import com.example.earlybirdy.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
 
-class MainActivity : AppCompatActivity() {
+open class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private var alertDialog: AlertDialog? = null

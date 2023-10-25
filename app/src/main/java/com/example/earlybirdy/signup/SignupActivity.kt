@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.earlybirdy.R
 import com.example.earlybirdy.databinding.ActivitySignupBinding
 import com.example.earlybirdy.dto.UserDto
+import com.example.earlybirdy.main.MainActivity
 import com.example.earlybirdy.util.navigateToMainActivity
 import com.example.earlybirdy.util.navigateToSigninActivity
 import com.example.earlybirdy.util.showToast
@@ -21,7 +22,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-class SignupActivity : AppCompatActivity() {
+class SignupActivity : MainActivity() {
 
     private val binding by lazy { ActivitySignupBinding.inflate(layoutInflater) }
 

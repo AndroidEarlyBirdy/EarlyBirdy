@@ -16,6 +16,7 @@ import com.example.earlybirdy.R
 import com.example.earlybirdy.board.BoardFragment
 import com.example.earlybirdy.databinding.ActivitySettingBinding
 import com.example.earlybirdy.edit_profile.EditProfileActivityDialog
+import com.example.earlybirdy.main.MainActivity
 import com.example.earlybirdy.my_page.MyPageFragment
 import com.example.earlybirdy.signin.SigninActivity
 import com.example.earlybirdy.util.navigateToMainActivity
@@ -32,7 +33,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 
-class SettingActivity : AppCompatActivity() {
+class SettingActivity : MainActivity() {
     private lateinit var binding: ActivitySettingBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference

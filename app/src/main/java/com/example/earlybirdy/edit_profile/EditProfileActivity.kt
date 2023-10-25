@@ -23,7 +23,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-class EditProfileActivity : AppCompatActivity() {
+class EditProfileActivity : MainActivity() {
     private lateinit var binding: ActivityEditProfileBinding
     private lateinit var editProfileDialog: EditProfileDialog
     private lateinit var auth: FirebaseAuth
