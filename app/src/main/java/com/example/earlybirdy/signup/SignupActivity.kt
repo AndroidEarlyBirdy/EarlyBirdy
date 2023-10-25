@@ -6,6 +6,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.example.earlybirdy.R
 import com.example.earlybirdy.databinding.ActivitySignupBinding
 import com.example.earlybirdy.dto.UserDto
 import com.example.earlybirdy.util.navigateToMainActivity
@@ -29,8 +30,12 @@ class SignupActivity : AppCompatActivity() {
     val db = Firebase.firestore
     //val storage = Firebase.storage
 
-    private lateinit var selectImgUri: Uri
-    private val IMAGE_PICKER_REQUEST_CODE = 123
+    private val imageMap = mapOf(
+        1 to R.drawable.img_profile_man1,
+        2 to R.drawable.img_profile_woman1,
+        3 to R.drawable.img_profile_man2,
+        4 to R.drawable.img_profile_woman2,
+    )
     private lateinit var signupDialog: SignupDialog
 
 
@@ -44,8 +49,9 @@ class SignupActivity : AppCompatActivity() {
         // 프로필 사진 등록
         binding.ivProfile.setOnClickListener {
             signupDialog.show()
-            signupDialog.setOnSaveClickListener { selectedImageId ->
-                binding.ivProfile.setImageResource(selectedImageId)
+            signupDialog.setOnSaveClickListener {
+                val value = signupDialog.getSelectedImageId()
+                setImageByFixedValue(value)
             }
         }
 
@@ -85,7 +91,7 @@ class SignupActivity : AppCompatActivity() {
     }
 
     // 회원가입 함수
-    public override fun onStart() {
+    public override fun onStart() { // 이미 로그인 페이지에서 로그인 여부 체크가 들어가기 때문에 굳이?
         super.onStart()
         val user = auth.currentUser
         user?.reload() // 최신 유저 정보 갱신
@@ -150,6 +156,15 @@ class SignupActivity : AppCompatActivity() {
                     .addOnFailureListener { e ->
                     }
             }
+        }
+    }
+
+    fun setImageByFixedValue(fixedValue: Int) {
+        val imageResourceId = imageMap[fixedValue]
+        if (imageResourceId != null) {
+            binding.ivProfile.setImageResource(imageResourceId)
+        } else {
+            binding.ivProfile.setImageResource(R.drawable.img_profile_add)
         }
     }
 
