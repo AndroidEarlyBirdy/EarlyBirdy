@@ -17,6 +17,8 @@ import com.example.earlybirdy.data.MyGoal
 import com.example.earlybirdy.databinding.FragmentHomeBinding
 import com.example.earlybirdy.databinding.ItemTodoMainBinding
 import com.example.earlybirdy.util.navigateToAlarmActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
@@ -42,6 +44,9 @@ class HomeFragment : Fragment() {
 
     var attendindex: String? = null
 
+    private lateinit var auth: FirebaseAuth
+    private lateinit var user: FirebaseUser
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,6 +54,8 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         // 파이어스토어 인스턴스 초기화
         firestore = FirebaseFirestore.getInstance()
+        auth = FirebaseAuth.getInstance()
+        user = auth.currentUser!!
 
         adapter = HomeFragmentAdapter()
         binding.rvTodoMain.adapter = adapter
@@ -102,7 +109,7 @@ class HomeFragment : Fragment() {
                 // 체크박스 클릭 시 상태 업데이트
                 binding.checkBox.setOnClickListener {
                     val checked = checkBox.isChecked
-                    firestore?.collection("UserDto")?.document("vlKOuWtxe1b6flDCwHoPRwOYsWt2")
+                    firestore?.collection("UserDto")?.document(user.uid)
                         ?.collection("MyGoal")?.document("${item.goalId}")
                         ?.update("check", checked)
                         ?.addOnSuccessListener {
@@ -114,7 +121,7 @@ class HomeFragment : Fragment() {
 
                     // 경험치 업데이트
                     val experienceChange = if (checked) 10 else -10
-                    firestore?.collection("UserDto")?.document("vlKOuWtxe1b6flDCwHoPRwOYsWt2")
+                    firestore?.collection("UserDto")?.document(user.uid)
                         ?.update("exp", FieldValue.increment(experienceChange.toLong()))
                         ?.addOnSuccessListener {
                             Log.d("경험치 업데이트", "성공")
@@ -152,7 +159,7 @@ class HomeFragment : Fragment() {
         val dateTime = timeFormatter.format(today.time)
         Log.d("MINJI", dateTime)
 
-        firestore?.collection("UserDto")?.document("vlKOuWtxe1b6flDCwHoPRwOYsWt2")
+        firestore?.collection("UserDto")?.document(user.uid)
             ?.collection("Attendance")
             ?.whereEqualTo("date", dateTime)
             ?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
@@ -168,7 +175,7 @@ class HomeFragment : Fragment() {
                 adapter.notifyDataSetChanged()
             }
 
-        firestore?.collection("UserDto")?.document("vlKOuWtxe1b6flDCwHoPRwOYsWt2")
+        firestore?.collection("UserDto")?.document(user.uid)
             ?.collection("MyGoal")
             ?.whereGreaterThanOrEqualTo("date", startOfDay)
             ?.whereLessThanOrEqualTo("date", endOfDay)
@@ -208,7 +215,7 @@ class HomeFragment : Fragment() {
                     val alarmMinutes = convertToMinutes(alarmTime)
                     val data = calculateTime(alarmMinutes, currentMinutes)
 
-                    firestore?.collection("UserDto")?.document("vlKOuWtxe1b6flDCwHoPRwOYsWt2")
+                    firestore?.collection("UserDto")?.document(user.uid)
                         ?.update("exp", FieldValue.increment(data.toLong()))
                         ?.addOnSuccessListener {
                             Log.d("성공", data.toString())
@@ -223,7 +230,7 @@ class HomeFragment : Fragment() {
                     val dateTime = timeFormatter.format(nowTime)
                     attendindex = UUID.randomUUID().toString()
 
-                    firestore?.collection("UserDto")?.document("vlKOuWtxe1b6flDCwHoPRwOYsWt2")
+                    firestore?.collection("UserDto")?.document(user.uid)
                         ?.collection("Attendance")?.document("$attendindex")
                         ?.set(
                             hashMapOf(
