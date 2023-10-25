@@ -12,14 +12,8 @@ class MyPageViewModel(private val userRepository : UserRepositoryImpl) : ViewMod
     val userData: LiveData<MyPageData> = userRepository.myPageUserData
     val attendanceData : LiveData<List<AttendanceDto>> = userRepository.attendanceListData
 
-    private val _exp = MutableLiveData<Int>()
-    val exp : LiveData<Int> get() = _exp
-
-    private val _level = MutableLiveData<Int>()
-    val level : LiveData<Int> get() = _level
-
-    private val _maxExp = MutableLiveData<Int>()
-    val maxExp : LiveData<Int> get() = _maxExp
+    private val _expMap = MutableLiveData<Map<String,Int>>()
+    val expMap get() = _expMap
 
     fun getMyPageUserData(userId : String) {
         userRepository.getMyPageUserData(userId)
@@ -36,9 +30,10 @@ class MyPageViewModel(private val userRepository : UserRepositoryImpl) : ViewMod
             tempExp -= calculateMaxExpForLevel(tempLevel)
             tempLevel++
         }
-        _exp.value = tempExp
-        _level.value = tempLevel
-        _maxExp.value = calculateMaxExpForLevel(tempLevel)
+
+        val expMap = mapOf("exp" to tempExp, "level" to tempLevel, "maxExp" to calculateMaxExpForLevel(tempLevel))
+        _expMap.value = expMap
+
     }
 
     private fun calculateMaxExpForLevel(level: Int) : Int{
