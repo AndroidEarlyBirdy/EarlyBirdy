@@ -83,7 +83,7 @@
             android:layout_height="140dp"
             android:layout_margin="50dp"
             android:padding="1dp"
-            android:src="@drawable/img_profile_sample"
+            android:src="@drawable/img_profile_add"
             app:layout_constraintBottom_toBottomOf="@id/cl_profile_top"
             app:layout_constraintEnd_toEndOf="@id/cl_profile_top"
             app:layout_constraintStart_toStartOf="@id/cl_profile_top"

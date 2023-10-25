@@ -3,6 +3,7 @@ package com.example.earlybirdy.setting
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
@@ -50,10 +51,16 @@ class SettingActivity : AppCompatActivity() {
         user = auth.currentUser!!
         fireStore = FirebaseFirestore.getInstance()
 
-
+        //고객지원 구글폼으로 연결
         binding.btnUserSupport.setOnClickListener {
-            val title = "고객 지원"
-            navigateToDetail("고객 지원")
+            val supportUrl = "https://forms.gle/hgZMcfx2uWNDUkTe6"
+
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(supportUrl))
+            try {
+                startActivity(browserIntent)
+            } catch (e: ActivityNotFoundException) {
+
+            }
         }
 
         binding.btnOpenLicense.setOnClickListener {
@@ -82,7 +89,7 @@ class SettingActivity : AppCompatActivity() {
             settingDeleteDialog.show()
         }
         //화면전환 애니메이션
-        overridePendingTransition(R.anim.slide_left_enter,R.anim.slide_left_exit)
+        overridePendingTransition(R.anim.slide_right_enter,R.anim.slide_left_exit)
 
     }
 

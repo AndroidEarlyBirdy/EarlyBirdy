@@ -32,6 +32,12 @@ class EditProfileActivity : AppCompatActivity() {
     private lateinit var user: FirebaseUser
     private lateinit var editProfileActivityDialog: EditProfileActivityDialog
     val db = Firebase.firestore
+    private val imageMap = mapOf(
+        1 to R.drawable.img_profile_man1,
+        2 to R.drawable.img_profile_woman1,
+        3 to R.drawable.img_profile_man2,
+        4 to R.drawable.img_profile_woman2,
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,8 +55,9 @@ class EditProfileActivity : AppCompatActivity() {
         // 프로필 사진 등록
         binding.icEditprofileProfile.setOnClickListener {
             editProfileDialog.show()
-            editProfileDialog.setOnSaveClickListener { selectedImageId ->
-                binding.imgProflileProfile.setImageResource(selectedImageId)
+            editProfileDialog.setOnSaveClickListener {
+                val value = editProfileDialog.getSelectedEditProfileImageId()
+                setImageByFixedValue(value)
             }
         }
 
@@ -138,7 +145,7 @@ class EditProfileActivity : AppCompatActivity() {
                     val nickname = document.getString("nickname") ?: ""
                     val email = document.getString("email") ?: ""
                     val profile = document.getLong("profile")?.toInt() ?: 0
-                    binding.imgProflileProfile.setImageResource(profile)
+                    setImageByFixedValue(profile)
                     binding.etProfileNickname.setText(nickname)
                     binding.etProfileEmail.setText(email)
                 }
@@ -166,7 +173,14 @@ class EditProfileActivity : AppCompatActivity() {
                 Log.e("fail","${it}")
             }
     }
-
+    fun setImageByFixedValue(fixedValue: Int) {
+        val imageResourceId = imageMap[fixedValue]
+        if (imageResourceId != null) {
+            binding.imgProflileProfile.setImageResource(imageResourceId)
+        } else {
+            binding.imgProflileProfile.setImageResource(R.drawable.img_profile_add)
+        }
+    }
 
 
 
