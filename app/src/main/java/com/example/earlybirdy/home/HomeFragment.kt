@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.earlybirdy.create_plan.CreatePlanActivity
@@ -51,6 +52,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.d("이곳은", "onCreateView")
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         // 파이어스토어 인스턴스 초기화
         firestore = FirebaseFirestore.getInstance()
@@ -60,7 +62,9 @@ class HomeFragment : Fragment() {
         adapter = HomeFragmentAdapter()
         binding.rvTodoMain.adapter = adapter
         binding.rvTodoMain.layoutManager =
-            LinearLayoutManager(requireContext()).also { it.orientation = LinearLayoutManager.HORIZONTAL } // 리사이클러뷰 가로로
+            LinearLayoutManager(requireContext()).also {
+                it.orientation = LinearLayoutManager.HORIZONTAL
+            } // 리사이클러뷰 가로로
 
         // 데이터를 불러오는 코드를 onCreateView 내에서 실행
         loadDataFromFirestore()
@@ -101,7 +105,8 @@ class HomeFragment : Fragment() {
             return itemCount
         }
 
-        inner class ViewHolder(private val binding: ItemTodoMainBinding) : RecyclerView.ViewHolder(binding.root) {
+        inner class ViewHolder(private val binding: ItemTodoMainBinding) :
+            RecyclerView.ViewHolder(binding.root) {
             fun bind(item: MyGoal) = with(binding) {
                 tvTodo.text = item.title
                 checkBox.isChecked = item.check
@@ -157,20 +162,23 @@ class HomeFragment : Fragment() {
 
         val timeFormatter = SimpleDateFormat("yyyy.MM.dd")
         val dateTime = timeFormatter.format(today.time)
-        Log.d("MINJI", dateTime)
+        Log.d("이곳이지롱", dateTime)
 
         firestore?.collection("UserDto")?.document(user.uid)
             ?.collection("Attendance")
             ?.whereEqualTo("date", dateTime)
             ?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
+                Log.d("이곳왈왈", dateTime)
                 val hasAttended = querySnapshot?.documents?.isNotEmpty()
-                if(hasAttended != null && hasAttended) {
+                Log.d("이곳인가", hasAttended.toString())
+                if (hasAttended != null && hasAttended) {
                     completedAttendances = 1
-
+                    binding.btnAttend.isEnabled = false
                 } else {
                     completedAttendances = 0
-
+                    binding.btnAttend.isEnabled = true
                 }
+                Log.d("이곳인지", completedAttendances.toString())
                 updateProgress()
                 adapter.notifyDataSetChanged()
             }
@@ -203,57 +211,52 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d("이곳은", "onViewCreated")
+        Log.d("이곳이니", completedAttendances.toString())
 
-        Log.d("확인", binding.btnAttend.isEnabled.toString())
-        // SharedPreferences를 사용하여 출석 여부를 확인하고 처리
-        if (completedAttendances == 0) {
-            binding.btnAttend.setOnClickListener {
-                val alarmTime = loadTimeDate()
-                if (alarmTime != null) {
-                    val currentTime = getCurrentTime()
-                    val currentMinutes = convertToMinutes(currentTime)
-                    val alarmMinutes = convertToMinutes(alarmTime)
-                    val data = calculateTime(alarmMinutes, currentMinutes)
+        binding.btnAttend.setOnClickListener {
+            val alarmTime = loadTimeDate()
+            if (alarmTime != null) {
+                val currentTime = getCurrentTime()
+                val currentMinutes = convertToMinutes(currentTime)
+                val alarmMinutes = convertToMinutes(alarmTime)
+                val data = calculateTime(alarmMinutes, currentMinutes)
 
-                    firestore?.collection("UserDto")?.document(user.uid)
-                        ?.update("exp", FieldValue.increment(data.toLong()))
-                        ?.addOnSuccessListener {
-                            Log.d("성공", data.toString())
-                        }
-                        ?.addOnFailureListener { }
+                firestore?.collection("UserDto")?.document(user.uid)
+                    ?.update("exp", FieldValue.increment(data.toLong()))
+                    ?.addOnSuccessListener {
+                        Log.d("성공", data.toString())
+                    }
+                    ?.addOnFailureListener { }
 
 
-                    // homeViewModel.setSharedData(data)
+                // homeViewModel.setSharedData(data)
 
-                    val nowTime = System.currentTimeMillis()
-                    val timeFormatter = SimpleDateFormat("yyyy.MM.dd")
-                    val dateTime = timeFormatter.format(nowTime)
-                    attendindex = UUID.randomUUID().toString()
+                val nowTime = System.currentTimeMillis()
+                val timeFormatter = SimpleDateFormat("yyyy.MM.dd")
+                val dateTime = timeFormatter.format(nowTime)
+                attendindex = UUID.randomUUID().toString()
 
-                    firestore?.collection("UserDto")?.document(user.uid)
-                        ?.collection("Attendance")?.document("$attendindex")
-                        ?.set(
-                            hashMapOf(
-                                "AttendanceId" to attendindex,
-                                "date" to dateTime.toString()
-                            )
+                firestore?.collection("UserDto")?.document(user.uid)
+                    ?.collection("Attendance")?.document("$attendindex")
+                    ?.set(
+                        hashMapOf(
+                            "AttendanceId" to attendindex,
+                            "date" to dateTime.toString()
                         )
-                    // 출석 처리가 완료되면 SharedPreferences에 출석 상태를 저장
-//                    setAttendanceStatus(true)
-
-                    // 출석 버튼을 비활성화
-                    binding.btnAttend.isEnabled = false
-                }
+                    )
+                // 출석 버튼을 비활성화
+                binding.btnAttend.isEnabled = false
             }
-        } else {
-            // 이미 출석한 경우, 버튼을 비활성화
-            binding.btnAttend.isEnabled = false
         }
+        // 버튼을 비활성화
+        binding.btnAttend.isEnabled = false
     }
 
     @SuppressLint("SetTextI18n")
     private fun loadTimeDate(): String? {
-        val pref: SharedPreferences = requireContext().getSharedPreferences("alarmSetting", Context.MODE_PRIVATE)
+        val pref: SharedPreferences =
+            requireContext().getSharedPreferences("alarmSetting", Context.MODE_PRIVATE)
         val hour = pref.getInt("hour", 4)
         val minute = pref.getInt("minute", 0)
         val isAM = hour < 12
@@ -266,7 +269,7 @@ class HomeFragment : Fragment() {
     private fun updateProgress() {
         val progress = calculateProgress()
 
-        if(binding != null) {
+        if (binding != null) {
             binding.progressBar.progress = progress
             binding.tvProgress.text = "$progress%"
         }
@@ -297,9 +300,6 @@ class HomeFragment : Fragment() {
             else -> 1
         }
     }
-
-
-
 
 
     private fun convertToMinutes(time: String): Int {
