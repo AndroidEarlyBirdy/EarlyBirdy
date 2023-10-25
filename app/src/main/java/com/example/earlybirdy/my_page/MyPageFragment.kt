@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.example.earlybirdy.R
 import com.example.earlybirdy.databinding.FragmentMyPageBinding
+import com.example.earlybirdy.util.navigateToEditProfileActivity
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.DayViewDecorator
 import com.prolificinteractive.materialcalendarview.DayViewFacade
@@ -33,6 +34,7 @@ class MyPageFragment : Fragment() {
     //Exp, Level Setting
     private var currentExp = 0
     private var currentLevel = 1
+    private var currentMaxExp = 0
 
     //Firebase
     private lateinit var auth: FirebaseAuth
@@ -73,6 +75,7 @@ class MyPageFragment : Fragment() {
         myPageViewModel.userData.observe(viewLifecycleOwner) { user->
             binding.tvNickname.text = user.nickname
             user.exp?.let { myPageViewModel.initializeUIWithLocalExp(it) }
+            user.profile?.let { setProfileImage(it) }
         }
 
         myPageViewModel.attendanceData.observe(viewLifecycleOwner) {list ->
@@ -92,9 +95,14 @@ class MyPageFragment : Fragment() {
 
         myPageViewModel.level.observe(viewLifecycleOwner) {level ->
             binding.tvLevel.text = "레벨 $level"
-            binding.pbExp.max = calculateMaxExpForLevel(level)
             currentLevel = level
             updateLevelImage(level)
+            updateExpUI()
+        }
+
+        myPageViewModel.maxExp.observe(viewLifecycleOwner) {maxExp ->
+            currentMaxExp = maxExp
+            binding.pbExp.max = maxExp
             updateExpUI()
         }
     }
@@ -104,33 +112,35 @@ class MyPageFragment : Fragment() {
         binding.ivSetting.setOnClickListener {
             navigateToSettingActivity(requireContext())
         }
+        binding.ivEditProfile.setOnClickListener {
+            navigateToEditProfileActivity(requireContext())
+        }
     }
 
     // 마이페이지를 눌렀을 때 보이는 레벨, 경험치, 프로그레스 바
     @SuppressLint("SetTextI18n")
     private fun updateExpUI() {
-        binding.tvExperience.text = "$currentExp / ${calculateMaxExpForLevel(currentLevel)} xp"
+        binding.tvExperience.text = "$currentExp / $currentMaxExp xp"
     }
 
     //레벨 범위에 따른 인장 설정
     private fun updateLevelImage(level : Int) {
         when (level) {
-            in 1..10 -> binding.ivProfileBorder1.setBackgroundResource(R.drawable.ic_insignia1)
-            in 11..20 -> binding.ivProfileBorder1.setBackgroundResource(R.drawable.ic_insignia2)
-            in 21..30 -> binding.ivProfileBorder1.setBackgroundResource(R.drawable.ic_insignia3)
-            in 31..40 -> binding.ivProfileBorder1.setBackgroundResource(R.drawable.ic_insignia4)
-            else -> binding.ivProfileBorder1.setBackgroundResource(R.drawable.ic_insignia5)
+            in 1..10 -> binding.ivProfileBorder1.setImageResource(R.drawable.ic_insignia1)
+            in 11..20 -> binding.ivProfileBorder1.setImageResource(R.drawable.ic_insignia2)
+            in 21..30 -> binding.ivProfileBorder1.setImageResource(R.drawable.ic_insignia3)
+            in 31..40 -> binding.ivProfileBorder1.setImageResource(R.drawable.ic_insignia4)
+            else -> binding.ivProfileBorder1.setImageResource(R.drawable.ic_insignia5)
         }
     }
 
-    // 레벨 당 경험치 양 계산
-    private fun calculateMaxExpForLevel(level: Int): Int {
-        return when (level) {
-            in 1..10 -> 100
-            in 11..20 -> 150
-            in 21..30 -> 200
-            in 31..40 -> 250
-            else -> 300
+    private fun setProfileImage(profileNum : Int) {
+        when(profileNum) {
+            1 -> binding.ivProfile.setImageResource(R.drawable.img_profile_man1)
+            2 -> binding.ivProfile.setImageResource(R.drawable.img_profile_woman1)
+            3 -> binding.ivProfile.setImageResource(R.drawable.img_profile_man2)
+            4 -> binding.ivProfile.setImageResource(R.drawable.img_profile_woman2)
+            else -> binding.ivProfile.setImageResource(R.drawable.img_profile_add)
         }
     }
 

@@ -11,17 +11,16 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@drawable/bg_gr3"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5"/>
+        app:layout_constraintGuide_percent="0.5" />
 
     <TextView
         android:id="@+id/tv_item_Title"
@@ -48,6 +47,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_setting"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="60dp"
@@ -74,70 +74,75 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="40dp"
             android:background="@drawable/btn_setting"
             android:paddingHorizontal="40dp"
             android:paddingVertical="16dp"
             android:text="@string/setting_support"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/btn_notification_settings" />
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/btn_notification_settings"
+            />
 
         <TextView
             android:id="@+id/btn_open_license"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="40dp"
             android:background="@drawable/btn_setting"
             android:paddingHorizontal="40dp"
             android:paddingVertical="16dp"
             android:text="@string/setting_openlicense"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@+id/btn_user_support" />
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/btn_user_support"
+            />
 
         <TextView
             android:id="@+id/btn_genral_condition"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="40dp"
             android:background="@drawable/btn_setting"
             android:paddingHorizontal="40dp"
             android:paddingVertical="16dp"
             android:text="@string/setting_terms"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@+id/btn_open_license" />
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/btn_open_license"
+            />
 
         <TextView
             android:id="@+id/btn_logout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="40dp"
             android:background="@drawable/btn_setting"
             android:paddingHorizontal="40dp"
             android:paddingVertical="16dp"
             android:text="@string/setting_logout"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@+id/btn_genral_condition" />
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/btn_genral_condition"
+            />
 
         <TextView
             android:id="@+id/btn_delete_account"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="40dp"
             android:background="@drawable/btn_setting"
             android:paddingHorizontal="40dp"
-            android:paddingVertical="16dp"
+            android:paddingVertical="15dp"
             android:text="@string/setting_delet_account"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@+id/btn_logout" />
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/btn_logout"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

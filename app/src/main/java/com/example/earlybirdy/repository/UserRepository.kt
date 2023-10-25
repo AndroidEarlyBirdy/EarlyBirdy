@@ -1,4 +1,4 @@
-package com.example.earlybirdy.my_page
+package com.example.earlybirdy.repository
 
 import com.example.earlybirdy.data.MyPageData
 
