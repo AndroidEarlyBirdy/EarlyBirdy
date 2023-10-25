@@ -85,7 +85,7 @@ class SignupActivity : AppCompatActivity() {
     }
 
     // 회원가입 함수
-    public override fun onStart() {
+    public override fun onStart() { // 이미 로그인 페이지에서 로그인 여부 체크가 들어가기 때문에 굳이?
         super.onStart()
         val user = auth.currentUser
         user?.reload() // 최신 유저 정보 갱신
