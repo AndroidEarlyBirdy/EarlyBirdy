@@ -3,8 +3,10 @@ package com.example.earlybirdy.setting
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.earlybirdy.databinding.SettingDetailBinding
+import com.example.earlybirdy.util.Constants
 
 class SettingDetailActivity : AppCompatActivity() {
+
     private lateinit var binding: SettingDetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -12,7 +14,11 @@ class SettingDetailActivity : AppCompatActivity() {
         binding = SettingDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val title = intent.getStringExtra("title")
+        initView()
+    }
+
+    private fun initView() {
+        val title = intent.getStringExtra(Constants.SETTING_TITLE_KEY)
         val content = getContentByTitle(title)
 
         binding.tvSettingName.text = title
@@ -25,9 +31,9 @@ class SettingDetailActivity : AppCompatActivity() {
 
     private fun getContentByTitle(title: String?): String {
         return when (title) {
-            "고객 지원" -> "고객센터입니다. 문의는 123@asd.com으로 주세요."
             "오픈 라이선스" -> "오픈 라이선스에 대한 내용입니다."
-            else -> "약관에 대한 내용입니다"
+            "약관" -> "약관에 대한 내용입니다"
+            else -> "Title 전달 오류 발생"
         }
     }
 }
