@@ -2,7 +2,6 @@ package com.example.earlybirdy.setting
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.earlybirdy.databinding.ActivityDetailBinding
 import com.example.earlybirdy.databinding.SettingDetailBinding
 
 class SettingDetailActivity : AppCompatActivity() {
