@@ -12,17 +12,14 @@ import com.example.earlybirdy.util.navigateToSigninActivity
 import com.example.earlybirdy.util.showToast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-class SettingLoginDialog(
+class SettingCheckUserDialog(
     context: Context,
 ) : Dialog(context) {
     private lateinit var binding: ActivitySettingLoginDialogBinding
-    private lateinit var user: FirebaseUser
-    private lateinit var settingLoginDialog: SettingLoginDialog
     val db = Firebase.firestore
 
     override fun onCreate(savedInstanceState: Bundle?) {

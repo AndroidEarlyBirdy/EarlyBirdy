@@ -46,11 +46,6 @@ fun navigateToSettingActivity(context: Context) {
     context.startActivity(intent)
 }
 
-fun navigateToSettingDetailActivity(context: Context) {
-    val intent = Intent(context, SettingDetailActivity::class.java)
-    context.startActivity(intent)
-}
-
 // 비밀번호 재설정 액티비티로 이동 함수
 fun navigateToSendEmailActivity(context: Context) {
     val intent = Intent(context, SendEmailActivity::class.java)
@@ -60,6 +55,12 @@ fun navigateToSendEmailActivity(context: Context) {
 // 알람 액티비티로 이동 함수
 fun navigateToAlarmActivity(context: Context) {
     val intent = Intent(context, AlarmActivity::class.java)
+    context.startActivity(intent)
+}
+
+fun navigateToDetail(title: String, context:Context) {
+    val intent = Intent(context, SettingDetailActivity::class.java)
+    intent.putExtra(Constants.SETTING_TITLE_KEY, title)
     context.startActivity(intent)
 }
 
