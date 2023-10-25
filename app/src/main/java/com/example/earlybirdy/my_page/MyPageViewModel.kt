@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.earlybirdy.data.MyPageData
 import com.example.earlybirdy.dto.AttendanceDto
+import com.example.earlybirdy.repository.UserRepositoryImpl
 
 class MyPageViewModel(private val userRepository : UserRepositoryImpl) : ViewModel() {
 
@@ -37,6 +38,7 @@ class MyPageViewModel(private val userRepository : UserRepositoryImpl) : ViewMod
         }
         _exp.value = tempExp
         _level.value = tempLevel
+        _maxExp.value = calculateMaxExpForLevel(tempLevel)
     }
 
     private fun calculateMaxExpForLevel(level: Int) : Int{

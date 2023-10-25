@@ -149,7 +149,7 @@ class CreatePlanActivity : AppCompatActivity(), CreatePlanDialog.DialogCreateLis
         listAdapter.clearItems()
         filterDate(selectedDay)
 
-        fireStore.collection("UserDto").document("vlKOuWtxe1b6flDCwHoPRwOYsWt2").collection("MyGoal")
+        fireStore.collection("UserDto").document(user.uid).collection("MyGoal")
             .document(attendIndex).set(
                 hashMapOf(
                     "goalId" to attendIndex,
@@ -168,7 +168,7 @@ class CreatePlanActivity : AppCompatActivity(), CreatePlanDialog.DialogCreateLis
             testList[index].title = todo.title
             listAdapter.editItemInList(testList[index], position)
             todo.tid?.let {
-                fireStore.collection("UserDto").document("vlKOuWtxe1b6flDCwHoPRwOYsWt2").collection("MyGoal")
+                fireStore.collection("UserDto").document(user.uid).collection("MyGoal")
                     .document(it).update("title", todo.title)
             }
         }
@@ -184,7 +184,7 @@ class CreatePlanActivity : AppCompatActivity(), CreatePlanDialog.DialogCreateLis
         demoList.remove(matchingDemo)
 
         todo.tid?.let {
-            fireStore.collection("UserDto").document("vlKOuWtxe1b6flDCwHoPRwOYsWt2").collection("MyGoal")
+            fireStore.collection("UserDto").document(user.uid).collection("MyGoal")
                 .document(it).delete().addOnCompleteListener {
 
                 }
@@ -206,7 +206,7 @@ class CreatePlanActivity : AppCompatActivity(), CreatePlanDialog.DialogCreateLis
     }
 
     private fun loadData() {
-        fireStore.collection("UserDto").document("vlKOuWtxe1b6flDCwHoPRwOYsWt2")
+        fireStore.collection("UserDto").document(user.uid)
             .collection("MyGoal").get().addOnSuccessListener { value ->
                 for (snapshot in value!!.documents) {
                     var item = snapshot.toObject(MyGoal::class.java)
