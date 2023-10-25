@@ -37,8 +37,6 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-
-
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_profile"
             android:layout_width="110dp"
@@ -112,6 +110,14 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <ImageView
+            android:id="@+id/iv_edit_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/iv_profile"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_profile"
+            android:src="@drawable/ic_edit_profile"/>
+
 
         <ImageView
             android:id="@+id/iv_profile_border1"
@@ -150,7 +156,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="350dp"
                 android:layout_marginTop="30dp"
-                app:mcv_selectionColor="@color/white" />
+                app:mcv_selectionColor="@color/white"
+                app:mcv_selectionMode="none"/>
 
         </androidx.cardview.widget.CardView>
 
