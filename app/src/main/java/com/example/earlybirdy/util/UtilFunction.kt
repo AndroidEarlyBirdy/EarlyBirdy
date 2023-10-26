@@ -7,6 +7,7 @@ import com.example.earlybirdy.alarm.AlarmActivity
 import com.example.earlybirdy.create_plan.CreatePlanActivity
 import com.example.earlybirdy.edit_profile.EditProfileActivity
 import com.example.earlybirdy.main.MainActivity
+import com.example.earlybirdy.resetpassword.ResetPasswordActivity
 import com.example.earlybirdy.sendemail.SendEmailActivity
 import com.example.earlybirdy.setting.SettingActivity
 import com.example.earlybirdy.setting.SettingDetailActivity
@@ -61,6 +62,11 @@ fun navigateToAlarmActivity(context: Context) {
 fun navigateToDetail(title: String, context:Context) {
     val intent = Intent(context, SettingDetailActivity::class.java)
     intent.putExtra(Constants.SETTING_TITLE_KEY, title)
+    context.startActivity(intent)
+}
+
+fun navigateToResetPassword(context: Context) {
+    val intent = Intent(context, ResetPasswordActivity::class.java)
     context.startActivity(intent)
 }
 
