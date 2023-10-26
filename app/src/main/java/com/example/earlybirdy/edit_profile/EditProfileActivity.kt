@@ -84,6 +84,7 @@ class EditProfileActivity : MainActivity() {
         if (nickname.isBlank()) {
             binding.tilProfileNickname.error = "닉네임을 입력해주세요"
 
+        } else {
 
             updateUserData(user.uid, profile, nickname, email)
             navigateToMainActivity(this)
