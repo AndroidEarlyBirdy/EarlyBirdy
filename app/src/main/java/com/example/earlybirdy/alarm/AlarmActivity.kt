@@ -12,9 +12,10 @@ import android.os.Bundle
 import android.util.Log
 import androidx.annotation.RequiresApi
 import com.example.earlybirdy.databinding.ActivityAlarmBinding
+import com.example.earlybirdy.main.MainActivity
 import java.util.Calendar
 
-class AlarmActivity : AppCompatActivity() {
+class AlarmActivity : MainActivity() {
     private val binding by lazy { ActivityAlarmBinding.inflate(layoutInflater) }
 
     private lateinit var alarmManager: AlarmManager

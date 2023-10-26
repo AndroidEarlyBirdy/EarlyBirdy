@@ -10,13 +10,14 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import com.example.earlybirdy.R
 import com.example.earlybirdy.databinding.ActivitySigninBinding
+import com.example.earlybirdy.main.MainActivity
 import com.example.earlybirdy.sealedclass.SigninNavigation
 import com.example.earlybirdy.util.navigateToMainActivity
 import com.example.earlybirdy.util.navigateToSendEmailActivity
 import com.example.earlybirdy.util.navigateToSignupActivity
 import com.example.earlybirdy.util.showToast
 
-class SigninActivity : AppCompatActivity() {
+class SigninActivity : MainActivity() {
 
     private val binding by lazy { ActivitySigninBinding.inflate(layoutInflater) }
     private val viewModel: SigninViewModel by viewModels()

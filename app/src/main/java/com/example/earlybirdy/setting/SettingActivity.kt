@@ -12,13 +12,28 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.earlybirdy.R
 import com.example.earlybirdy.databinding.ActivitySettingBinding
+import com.example.earlybirdy.edit_profile.EditProfileActivityDialog
+import com.example.earlybirdy.main.MainActivity
+import com.example.earlybirdy.my_page.MyPageFragment
+import com.example.earlybirdy.signin.SigninActivity
+import com.example.earlybirdy.util.navigateToMainActivity
+import com.example.earlybirdy.util.navigateToSigninActivity
+import com.example.earlybirdy.util.showToast
+
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.example.earlybirdy.util.Constants.Companion.supportUrl
 import com.example.earlybirdy.util.navigateToDetail
 import com.example.earlybirdy.util.navigateToSigninActivity
 import com.example.earlybirdy.util.showToast
 
-class SettingActivity : AppCompatActivity() {
-
+class SettingActivity : MainActivity() {
     private lateinit var binding: ActivitySettingBinding
     private lateinit var settingDeleteDialog: SettingDeleteDialog
     private val settingViewModel: SettingViewModel by viewModels()

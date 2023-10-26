@@ -9,6 +9,7 @@ import com.example.earlybirdy.databinding.ActivityResetPasswordBinding
 import com.example.earlybirdy.databinding.ActivitySendEmailBinding
 import com.example.earlybirdy.databinding.ActivitySettingBinding
 import com.example.earlybirdy.dto.UserDto
+import com.example.earlybirdy.main.MainActivity
 import com.example.earlybirdy.util.navigateToMainActivity
 import com.example.earlybirdy.util.navigateToSignupActivity
 import com.example.earlybirdy.util.showToast
@@ -19,7 +20,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-class ResetPasswordActivity : AppCompatActivity() {
+class ResetPasswordActivity : MainActivity() {
     private val binding by lazy { ActivityResetPasswordBinding.inflate(layoutInflater) }
 
     private lateinit var auth: FirebaseAuth

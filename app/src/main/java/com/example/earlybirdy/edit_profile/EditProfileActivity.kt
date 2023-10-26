@@ -23,7 +23,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-class EditProfileActivity : AppCompatActivity() {
+class EditProfileActivity : MainActivity() {
     private lateinit var binding: ActivityEditProfileBinding
     private lateinit var editProfileDialog: EditProfileDialog
     private lateinit var auth: FirebaseAuth
@@ -174,7 +174,7 @@ class EditProfileActivity : AppCompatActivity() {
                 Log.e("fail","${it}")
             }
     }
-    fun setImageByFixedValue(fixedValue: Int) {
+    private fun setImageByFixedValue(fixedValue: Int) {
         val imageResourceId = imageMap[fixedValue]
         if (imageResourceId != null) {
             binding.imgProflileProfile.setImageResource(imageResourceId)
