@@ -7,10 +7,10 @@ import com.example.earlybirdy.alarm.AlarmActivity
 import com.example.earlybirdy.create_plan.CreatePlanActivity
 import com.example.earlybirdy.edit_profile.EditProfileActivity
 import com.example.earlybirdy.main.MainActivity
-import com.example.earlybirdy.signin.sendemail.SendEmailActivity
+import com.example.earlybirdy.sendemail.SendEmailActivity
 import com.example.earlybirdy.setting.SettingActivity
 import com.example.earlybirdy.setting.SettingDetailActivity
-import com.example.earlybirdy.signin.SignInActivity
+import com.example.earlybirdy.signin.SigninActivity
 import com.example.earlybirdy.signup.SignupActivity
 
 // 메인 액티비티로 이동 함수
@@ -21,7 +21,7 @@ fun navigateToMainActivity(context: Context) {
 
 // 로그인 액티비티로 이동 함수
 fun navigateToSigninActivity(context: Context) {
-    val intent = Intent(context, SignInActivity::class.java)
+    val intent = Intent(context, SigninActivity::class.java)
     context.startActivity(intent)
 }
 

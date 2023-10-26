@@ -2,6 +2,7 @@ package com.example.earlybirdy.signin
 
 import android.content.pm.PackageManager
 import android.os.Build
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
@@ -16,10 +17,10 @@ import com.example.earlybirdy.util.navigateToSendEmailActivity
 import com.example.earlybirdy.util.navigateToSignupActivity
 import com.example.earlybirdy.util.showToast
 
-class SignInActivity : MainActivity() {
+class SigninActivity : MainActivity() {
 
     private val binding by lazy { ActivitySigninBinding.inflate(layoutInflater) }
-    private val viewModel: SignInViewModel by viewModels()
+    private val viewModel: SigninViewModel by viewModels()
 
     private val MY_PERMISSION_ACCESS_ALL = 100
 
@@ -36,7 +37,7 @@ class SignInActivity : MainActivity() {
     }
 
     private fun observeData(){
-        viewModel.signInState.observe(this) {
+        viewModel.signinState.observe(this) {
             when (it) {
                 is SigninNavigation.AlreadySignin -> {
                     navigateToMainActivity(this)
@@ -130,6 +131,6 @@ class SignInActivity : MainActivity() {
         val email = binding.titEmail.text.toString()
         val password = binding.titPassword.text.toString()
 
-        viewModel.signIn(email, password)
+        viewModel.signin(email, password)
     }
 }
