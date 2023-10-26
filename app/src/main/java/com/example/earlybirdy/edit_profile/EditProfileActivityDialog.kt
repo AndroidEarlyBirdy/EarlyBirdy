@@ -8,6 +8,7 @@ import android.util.Log
 import android.widget.Toast
 import com.example.earlybirdy.databinding.ActivityEditProfileDialogBinding
 import com.example.earlybirdy.main.MainActivity
+import com.example.earlybirdy.util.navigateToResetPassword
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseUser
@@ -69,6 +70,7 @@ class EditProfileActivityDialog (
                             val user = FirebaseAuth.getInstance().currentUser
                             Toast.makeText(context, "비밀번호가 확인되었습니다.", Toast.LENGTH_SHORT).show()
                             Log.d("login", "success")
+                            navigateToResetPassword(context)
                             dismiss()
                         } else {
                             // 인증 실패: 입력한 이메일과 비밀번호가 일치하지 않음
