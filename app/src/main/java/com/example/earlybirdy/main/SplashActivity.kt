@@ -8,7 +8,7 @@ import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import com.example.earlybirdy.R
 import com.example.earlybirdy.alarm.AlarmReceiver
-import com.example.earlybirdy.signin.SigninActivity
+import com.example.earlybirdy.signin.SignInActivity
 
 class SplashActivity : AppCompatActivity() {
 
@@ -17,7 +17,7 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         Handler().postDelayed({
-            val intent = Intent(this, SigninActivity::class.java)
+            val intent = Intent(this, SignInActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
             startActivity(intent)
             finish()
