@@ -1,4 +1,4 @@
-package com.example.earlybirdy.sendemail
+package com.example.earlybirdy.signin.sendemail
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
