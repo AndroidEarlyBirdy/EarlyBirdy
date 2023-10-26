@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -12,7 +11,6 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
-
 
     <application
         android:allowBackup="true"
@@ -24,8 +22,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EarlyBirdy"
         tools:targetApi="31">
-
-
+        <activity
+            android:name=".communitywrite.CommunityWriteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".communitycreate.CreateCommunityActivity"
+            android:exported="false" />
         <activity
             android:name=".sendemail.SendEmailActivity"
             android:exported="false"
@@ -33,41 +35,39 @@
         <activity
             android:name=".resetpassword.ResetPasswordActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".edit_profile.EditProfileActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".main.MainActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".create_plan.CreatePlanActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".alarm.AlarmActivity"
             android:exported="false"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".signin.SigninActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".setting.SettingDetailActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".signup.SignupActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".setting.SettingActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".main.SplashActivity"
             android:exported="true"
@@ -79,13 +79,13 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".main.NetworkChangeReceiver"
+        <receiver
+            android:name=".main.NetworkChangeReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
-
         <receiver
             android:name=".alarm.AlarmReceiver"
             android:enabled="true"
