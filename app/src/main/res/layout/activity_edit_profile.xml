@@ -184,78 +184,17 @@
             android:hint="@string/editprofile_enter_email" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/tv_profile_password"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_password_change"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="61dp"
-        android:layout_marginEnd="19dp"
-        android:text="@string/editprofile_pw"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@+id/til_profile_password"
+        android:background="@drawable/btn_sign_background"
+        android:text="비밀번호 변경하기"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:layout_marginBottom="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_profile_email" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_profile_password"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@id/tv_profile_password"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tv_profile_password"
-        app:layout_constraintTop_toTopOf="@id/tv_profile_password"
-        app:passwordToggleEnabled="true"
-        app:passwordToggleTint="#FFBF24">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_profile_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:inputType="textPassword"
-            android:hint="@string/editprofile_enter_pw"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <TextView
-        android:id="@+id/tv_profile_password_check"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="61dp"
-        android:layout_marginStart="16dp"
-        android:text="@string/editprofile_pw_check"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_profile_password" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_profile_password_check"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@id/tv_profile_password_check"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tv_profile_password_check"
-        app:layout_constraintTop_toTopOf="@id/tv_profile_password_check"
-        app:passwordToggleEnabled="true"
-        app:passwordToggleTint="#FFBF24">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_profile_password_check"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:layout_marginEnd="16dp"
-            android:inputType="textPassword"
-            android:hint="@string/editprofile_re_enter_pw_" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <TextView
-        android:id="@+id/tv_check_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/til_profile_password_check"/>
+        app:layout_constraintEnd_toEndOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

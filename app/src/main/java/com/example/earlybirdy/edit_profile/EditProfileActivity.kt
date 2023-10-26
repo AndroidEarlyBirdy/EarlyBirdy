@@ -26,11 +26,11 @@ import com.google.firebase.ktx.Firebase
 class EditProfileActivity : MainActivity() {
     private lateinit var binding: ActivityEditProfileBinding
     private lateinit var editProfileDialog: EditProfileDialog
+    private lateinit var editProfileActivityDialog: EditProfileActivityDialog
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
     private lateinit var fireStore: FirebaseFirestore
     private lateinit var user: FirebaseUser
-    private lateinit var editProfileActivityDialog: EditProfileActivityDialog
     val db = Firebase.firestore
     private val imageMap = mapOf(
         1 to R.drawable.img_profile_man1,
@@ -63,35 +63,14 @@ class EditProfileActivity : MainActivity() {
 
         // 저장 하기 버튼
         binding.btnProfileSave.setOnClickListener {
-            val password = binding.etProfilePassword.text.toString()
-            val passwordCheck = binding.etProfilePasswordCheck.text.toString()
-            if (password == passwordCheck) {
-                onSaveButtonClick()
-            } else {
-                showToast(this,"비밀번호가 일치하지 않습니다.")
-            }
+            onSaveButtonClick()
         }
 
-        binding.etProfilePassword.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
+        binding.btnPasswordChange.setOnClickListener {
+            editProfileActivityDialog.show()
+        }
 
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (binding.etProfilePassword.text.toString()
-                        .equals(binding.etProfilePasswordCheck.text.toString())
-                ) {
-                    binding.tilProfilePasswordCheck.error = "비밀번호가 일치합니다."
-                } else {
-                    binding.tilProfilePasswordCheck.error = "비밀번호가 일치하지 않습니다."
-                }
-            }
-        })
         loadUserData()
-        editProfileActivityDialog.show()
         overridePendingTransition(R.anim.slide_left_enter, R.anim.slide_right_exit)
     }
 
@@ -100,26 +79,18 @@ class EditProfileActivity : MainActivity() {
         val profile = editProfileDialog.getSelectedEditProfileImageId()  // 이미지 객체 정보
         val nickname = binding.etProfileNickname.text.toString()
         val email = binding.etProfileEmail.text.toString()
-        val password = binding.etProfilePassword.text.toString()
-        val passwordCheck = binding.etProfilePasswordCheck.text.toString()
-
-
 
         // 빈칸 확인
         if (nickname.isBlank()) {
             binding.tilProfileNickname.error = "닉네임을 입력해주세요"
-        } else if (password.isBlank()) {
-            binding.tilProfilePassword.error = "비밀번호를 입력해주세요"
-        } else if (!password.equals(passwordCheck)) {
-            binding.tilProfilePasswordCheck.error = "일치하지 않습니다"
+
+
+            updateUserData(user.uid, profile, nickname, email)
+            navigateToMainActivity(this)
+            showToast(this@EditProfileActivity, "회원 정보 수정 완료!")
+
+            finish()
         }
-
-        changePassword()
-        updateUserData(user.uid, profile, nickname, email)
-        navigateToMainActivity(this)
-        showToast(this@EditProfileActivity,"회원 정보 수정 완료!")
-
-        finish()
 
     }
 
@@ -157,23 +128,6 @@ class EditProfileActivity : MainActivity() {
             }
     }
 
-    private fun changePassword() {
-        val user = Firebase.auth.currentUser!!
-        val newPassword = binding.etProfilePassword.text.toString()
-        val credential = EmailAuthProvider
-            .getCredential("user@example.com", "password123")
-        user.reauthenticate(credential)
-        user!!.updatePassword(newPassword)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Log.d("password", "User password updated.")
-                }
-            }
-            .addOnFailureListener {
-                showToast(this, "비밀번호변경에 실패하였습니다.")
-                Log.e("fail","${it}")
-            }
-    }
     private fun setImageByFixedValue(fixedValue: Int) {
         val imageResourceId = imageMap[fixedValue]
         if (imageResourceId != null) {
