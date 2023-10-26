@@ -68,7 +68,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_Title">
         <TextView
-            android:id="@+id/tv_profile_nickname"
+            android:id="@+id/tv_writer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -79,35 +79,60 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/til_profile_nickname"
+            android:id="@+id/tv_nickname"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="임시 닉네임"
-            app:layout_constraintBottom_toBottomOf="@id/tv_profile_nickname"
+            app:layout_constraintBottom_toBottomOf="@id/tv_writer"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_profile_nickname"
-            app:layout_constraintTop_toTopOf="@id/tv_profile_nickname"/>
+            app:layout_constraintStart_toEndOf="@+id/tv_writer"
+            app:layout_constraintTop_toTopOf="@id/tv_writer"/>
 
         <TextView
-            android:id="@+id/tv_profile_email"
+            android:id="@+id/tv_creationTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="61dp"
             android:text="작성 시간"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_profile_nickname" />
+            app:layout_constraintTop_toBottomOf="@id/tv_writer" />
 
         <TextView
-            android:id="@+id/til_profile_email"
+            android:id="@+id/tv_createdDatetime"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="23."
-            app:layout_constraintBottom_toBottomOf="@id/tv_profile_email"
+            android:text="23.10.26.19.02"
+            app:layout_constraintBottom_toBottomOf="@id/tv_creationTime"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_profile_email"
-            app:layout_constraintTop_toTopOf="@id/tv_profile_email"/>
+            app:layout_constraintStart_toEndOf="@+id/tv_creationTime"
+            app:layout_constraintTop_toTopOf="@id/tv_creationTime"/>
+        <TextView
+            android:id="@+id/tv_createdTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="작성 시간"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_creationTime" />
+
+        <EditText
+            android:id="@+id/et_contentsTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="제목을 입력해주세요"
+            app:layout_constraintStart_toEndOf="@+id/tv_createdTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_createdDatetime" />
+
+        <EditText
+            android:id="@+id/et_Contents"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:hint="게시글을 작성해주세요"
+            app:layout_constraintTop_toBottomOf="@+id/et_contentsTitle"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
