@@ -4,8 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.widget.Toast
 import com.example.earlybirdy.alarm.AlarmActivity
-import com.example.earlybirdy.community.CommunityMainFragment
-import com.example.earlybirdy.communitywrite.CommunityWriteActivity
+import com.example.earlybirdy.board.board_write.BoardWriteActivity
 import com.example.earlybirdy.create_plan.CreatePlanActivity
 import com.example.earlybirdy.edit_profile.EditProfileActivity
 import com.example.earlybirdy.main.MainActivity
@@ -73,8 +72,8 @@ fun navigateToResetPassword(context: Context) {
 }
 
 // 게시글 작성 페이지로 이동 함수
-fun navigateToCommunityWriteActivity(context: Context) {
-    val intent = Intent(context, CommunityWriteActivity::class.java)
+fun navigateToBoardWriteActivity(context: Context) {
+    val intent = Intent(context, BoardWriteActivity::class.java)
     context.startActivity(intent)
 }
 

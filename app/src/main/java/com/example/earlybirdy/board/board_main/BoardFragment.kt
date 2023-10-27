@@ -1,31 +1,25 @@
-package com.example.earlybirdy.community
+package com.example.earlybirdy.board.board_main
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.earlybirdy.data.CommunityData
-import com.example.earlybirdy.data.MyGoal
-import com.example.earlybirdy.data.Todo
-import com.example.earlybirdy.databinding.FragmentCommunityMainBinding
-import com.example.earlybirdy.dto.CommunityDto
-import com.example.earlybirdy.home.HomeFragment
-import com.example.earlybirdy.util.navigateToCommunityWriteActivity
+import com.example.earlybirdy.databinding.FragmentBoardBinding
+import com.example.earlybirdy.dto.BoardDto
+import com.example.earlybirdy.util.navigateToBoardWriteActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.google.gson.Gson
 
+class BoardFragment : Fragment() {
 
-class CommunityMainFragment : Fragment() {
-    private var _binding: FragmentCommunityMainBinding? = null
+    private var _binding: FragmentBoardBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var auth: FirebaseAuth
@@ -35,22 +29,21 @@ class CommunityMainFragment : Fragment() {
     private val fireStore = FirebaseFirestore.getInstance()
 
     // RecyclerView 가 불러올 목록
-    private var adapter: CommunityAdapter? = null
-    private val data: MutableList<CommunityDto> = mutableListOf()
+    private var adapter: BoardAdapter? = null
+    private val data: MutableList<BoardDto> = mutableListOf()
 
-    @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentCommunityMainBinding.inflate(inflater, container, false)
+        _binding = FragmentBoardBinding.inflate(inflater, container, false)
 
         auth = FirebaseAuth.getInstance()
         database = Firebase.database.reference
 
         setOnClickListener()
 
-        adapter = CommunityAdapter()
+        adapter = BoardAdapter()
         binding.rvCommunity.adapter = adapter
         binding.rvCommunity.layoutManager = LinearLayoutManager(requireContext())
 
@@ -59,28 +52,29 @@ class CommunityMainFragment : Fragment() {
         return binding.root
     }
 
+
     private fun setOnClickListener() {
         binding.fbtnCreateContants.setOnClickListener {
-            navigateToCommunityWriteActivity(requireContext())
+            navigateToBoardWriteActivity(requireContext())
         }
     }
 
     private fun loadData() {
-        fireStore.collection("CommunityDto").get()
+        fireStore.collection("BoardDto").get()
             .addOnSuccessListener { value ->
                 adapter?.clearList()
                 data.clear()
                 for (i in value!!. documents){
-                    var item = i.toObject(CommunityDto::class.java)
+                    var item = i.toObject(BoardDto::class.java)
                     if (item != null) {
-                        val communityItam = CommunityDto(
+                        val boardItam = BoardDto(
                             item.uid,
                             item.writer,
                             item.contentsTitle,
                             item.contents
                         )
-                        data.add(communityItam)
-                        Log.d("todo", communityItam.toString())
+                        data.add(boardItam)
+                        Log.d("board", boardItam.toString())
                     }
                 }
                 adapter!!.addItems(data)
@@ -88,11 +82,12 @@ class CommunityMainFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
         _binding = null
+        super.onDestroyView()
     }
 
     companion object {
-        fun newInstance() = CommunityMainFragment()
+        fun newInstance() = BoardFragment()
     }
 }
+

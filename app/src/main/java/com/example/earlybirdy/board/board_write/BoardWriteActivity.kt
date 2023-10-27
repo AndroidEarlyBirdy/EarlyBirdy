@@ -1,24 +1,19 @@
-package com.example.earlybirdy.communitywrite
+package com.example.earlybirdy.board.board_write
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import com.example.earlybirdy.R
-import com.example.earlybirdy.data.CommunityData
-import com.example.earlybirdy.data.MyPageData
-import com.example.earlybirdy.databinding.ActivityCommunityWriteBinding
-import com.example.earlybirdy.dto.CommunityDto
-import com.example.earlybirdy.dto.UserDto
+import com.example.earlybirdy.databinding.ActivityBoardWriteBinding
+import com.example.earlybirdy.dto.BoardDto
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.google.gson.Gson
 
-class CommunityWriteActivity : AppCompatActivity() {
-    private val binding by lazy { ActivityCommunityWriteBinding.inflate(layoutInflater) }
+class BoardWriteActivity : AppCompatActivity() {
+    private val binding by lazy { ActivityBoardWriteBinding.inflate(layoutInflater) }
 
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
@@ -27,7 +22,6 @@ class CommunityWriteActivity : AppCompatActivity() {
     private val fireStore = FirebaseFirestore.getInstance()
 
     private var nickname: String? = ""
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -48,8 +42,6 @@ class CommunityWriteActivity : AppCompatActivity() {
         binding.tvSave.setOnClickListener {
             createdContents()
         }
-
-
     }
 
     fun getUserNicknameData() {
@@ -74,12 +66,12 @@ class CommunityWriteActivity : AppCompatActivity() {
         } else if (contents.isEmpty()) {
             binding.etContents.error = "내용을 입력해주세요"
         } else {
-            val communityDto =
-                CommunityDto(user!!.uid, nickname!!, contentsTitle, contents)
-            db.collection("CommunityDto").document()
-                .set(communityDto)
+            val boardDto =
+                BoardDto(user!!.uid, nickname!!, contentsTitle, contents)
+            db.collection("BoardDto").document()
+                .set(boardDto)
                 .addOnSuccessListener { documentReference ->
-                    Log.d("왜 안되냐", "${communityDto}")
+                    Log.d("boardDto", "${boardDto}")
                     finish()
                 }
                 .addOnFailureListener { e ->
@@ -87,5 +79,4 @@ class CommunityWriteActivity : AppCompatActivity() {
         }
 
     }
-
 }

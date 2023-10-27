@@ -23,7 +23,10 @@
         android:theme="@style/Theme.EarlyBirdy"
         tools:targetApi="31">
         <activity
-            android:name=".communitywrite.CommunityWriteActivity"
+            android:name=".board.board_read.BoardReadActivity"
+            android:exported="false" />
+        <activity
+            android:name=".board.board_write.BoardWriteActivity"
             android:exported="false" />
         <activity
             android:name=".signin.sendemail.SendEmailActivity"

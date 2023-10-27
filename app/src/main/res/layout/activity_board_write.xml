@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".communitywrite.CommunityWriteActivity">
+    tools:context=".board.board_write.BoardWriteActivity">
     <!--    배경 그라데이션 이미지-->
     <ImageView
         android:layout_width="match_parent"

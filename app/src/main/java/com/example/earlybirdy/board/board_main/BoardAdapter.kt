@@ -1,4 +1,4 @@
-package com.example.earlybirdy.community
+package com.example.earlybirdy.board.board_main
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -6,14 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.earlybirdy.databinding.ItemCommunityBinding
-import com.example.earlybirdy.dto.CommunityDto
+import com.example.earlybirdy.dto.BoardDto
 
-class CommunityAdapter() : RecyclerView.Adapter<CommunityAdapter.Holder>() {
+class BoardAdapter() : RecyclerView.Adapter<BoardAdapter.Holder>() {
 
-    private val list = ArrayList<CommunityDto>()
+    private val list = ArrayList<BoardDto>()
 
     @SuppressLint("NotifyDataSetChanged")
-    fun addItems(items: List<CommunityDto>) {
+    fun addItems(items: List<BoardDto>) {
         list.addAll(items)
         notifyDataSetChanged()
     }

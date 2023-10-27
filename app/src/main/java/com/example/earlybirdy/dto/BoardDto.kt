@@ -1,6 +1,5 @@
 package com.example.earlybirdy.dto
-
-data class CommunityDto(
+data class BoardDto(
     val uid: String = "",
     val writer: String= "",
 //    val createdTime: Timestamp,
