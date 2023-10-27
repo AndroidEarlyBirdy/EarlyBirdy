@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/item_board"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <TextView
+        android:id="@+id/tv_writer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="작성자"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_contentsTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="글 제목"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/tv_writer" />
+</androidx.constraintlayout.widget.ConstraintLayout>

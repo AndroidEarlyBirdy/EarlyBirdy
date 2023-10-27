@@ -4,10 +4,13 @@ import android.content.Context
 import android.content.Intent
 import android.widget.Toast
 import com.example.earlybirdy.alarm.AlarmActivity
+import com.example.earlybirdy.board.board_read.BoardReadActivity
+import com.example.earlybirdy.board.board_write.BoardWriteActivity
 import com.example.earlybirdy.create_plan.CreatePlanActivity
 import com.example.earlybirdy.edit_profile.EditProfileActivity
 import com.example.earlybirdy.main.MainActivity
-import com.example.earlybirdy.sendemail.SendEmailActivity
+import com.example.earlybirdy.signin.sendemail.SendEmailActivity
+import com.example.earlybirdy.resetpassword.ResetPasswordActivity
 import com.example.earlybirdy.setting.SettingActivity
 import com.example.earlybirdy.setting.SettingDetailActivity
 import com.example.earlybirdy.signin.SigninActivity
@@ -61,6 +64,22 @@ fun navigateToAlarmActivity(context: Context) {
 fun navigateToDetail(title: String, context:Context) {
     val intent = Intent(context, SettingDetailActivity::class.java)
     intent.putExtra(Constants.SETTING_TITLE_KEY, title)
+    context.startActivity(intent)
+}
+
+fun navigateToResetPassword(context: Context) {
+    val intent = Intent(context, ResetPasswordActivity::class.java)
+    context.startActivity(intent)
+}
+
+// 게시글 작성 페이지로 이동 함수
+fun navigateToBoardWriteActivity(context: Context) {
+    val intent = Intent(context, BoardWriteActivity::class.java)
+    context.startActivity(intent)
+}
+
+fun navigateToBoardReadActivity(context: Context) {
+    val intent = Intent(context, BoardReadActivity::class.java)
     context.startActivity(intent)
 }
 

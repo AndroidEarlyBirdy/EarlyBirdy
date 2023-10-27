@@ -9,16 +9,16 @@ import android.os.Bundle
 import android.provider.Settings
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AppCompatActivity
 import com.example.earlybirdy.R
 import com.example.earlybirdy.databinding.ActivitySettingBinding
-import com.example.earlybirdy.util.Constants.Companion.supportUrl
-import com.example.earlybirdy.util.navigateToDetail
+import com.example.earlybirdy.main.MainActivity
 import com.example.earlybirdy.util.navigateToSigninActivity
 import com.example.earlybirdy.util.showToast
 
-class SettingActivity : AppCompatActivity() {
+import com.example.earlybirdy.util.Constants.Companion.supportUrl
+import com.example.earlybirdy.util.navigateToDetail
 
+class SettingActivity : MainActivity() {
     private lateinit var binding: ActivitySettingBinding
     private lateinit var settingDeleteDialog: SettingDeleteDialog
     private val settingViewModel: SettingViewModel by viewModels()

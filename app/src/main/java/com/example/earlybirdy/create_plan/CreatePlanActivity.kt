@@ -12,6 +12,7 @@ import com.example.earlybirdy.R
 import com.example.earlybirdy.data.MyGoal
 import com.example.earlybirdy.data.Todo
 import com.example.earlybirdy.databinding.ActivityCreatePlanBinding
+import com.example.earlybirdy.main.MainActivity
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -25,7 +26,7 @@ import com.prolificinteractive.materialcalendarview.DayViewFacade
 import java.util.Calendar
 import java.util.UUID
 
-class CreatePlanActivity : AppCompatActivity(), CreatePlanDialog.DialogCreateListener,
+class CreatePlanActivity : MainActivity(), CreatePlanDialog.DialogCreateListener,
     CreatePlanAdapter.TodoDeleteListener {
 
     private lateinit var fireStore: FirebaseFirestore

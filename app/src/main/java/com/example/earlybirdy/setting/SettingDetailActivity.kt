@@ -3,9 +3,10 @@ package com.example.earlybirdy.setting
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.earlybirdy.databinding.SettingDetailBinding
+import com.example.earlybirdy.main.MainActivity
 import com.example.earlybirdy.util.Constants
 
-class SettingDetailActivity : AppCompatActivity() {
+class SettingDetailActivity : MainActivity() {
 
     private lateinit var binding: SettingDetailBinding
 

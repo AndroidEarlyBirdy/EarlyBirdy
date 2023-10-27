@@ -61,6 +61,9 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:32.3.1"))
     implementation("com.google.firebase:firebase-firestore-ktx")
 
+    //Gson
+    implementation 'com.google.code.gson:gson:2.9.0'
+
     implementation 'com.yuyakaido.android:card-stack-view:2.2.0'
 
     //뷰모델용 Android KTX
