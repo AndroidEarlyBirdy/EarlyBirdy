@@ -1,15 +1,10 @@
 package com.example.earlybirdy.resetpassword
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import com.example.earlybirdy.R
 import com.example.earlybirdy.databinding.ActivityResetPasswordBinding
-import com.example.earlybirdy.databinding.ActivitySendEmailBinding
-import com.example.earlybirdy.databinding.ActivitySettingBinding
-import com.example.earlybirdy.dto.UserDto
 import com.example.earlybirdy.main.MainActivity
 import com.example.earlybirdy.signup.EditProfileDialog
 import com.example.earlybirdy.util.navigateToMainActivity

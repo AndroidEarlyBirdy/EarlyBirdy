@@ -26,9 +26,6 @@
             android:name=".communitywrite.CommunityWriteActivity"
             android:exported="false" />
         <activity
-            android:name=".communitycreate.CreateCommunityActivity"
-            android:exported="false" />
-        <activity
             android:name=".signin.sendemail.SendEmailActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
