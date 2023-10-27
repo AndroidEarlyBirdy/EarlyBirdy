@@ -91,7 +91,7 @@
         app:layout_constraintTop_toTopOf="@+id/iv_go_alarm" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/tv_todaygoal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
@@ -108,11 +108,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="13dp"
-        android:layout_marginTop="36dp"
         android:background="@android:color/transparent"
         android:src="@drawable/btn_plus"
-        app:layout_constraintStart_toEndOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/iv_go_alarm" />
+        app:layout_constraintStart_toEndOf="@+id/tv_todaygoal"
+        app:layout_constraintTop_toTopOf="@+id/tv_todaygoal"
+        app:layout_constraintBottom_toBottomOf="@id/tv_todaygoal"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_todo_main"
@@ -122,7 +122,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_todaygoal" />
 
         <TextView
             android:visibility="gone"

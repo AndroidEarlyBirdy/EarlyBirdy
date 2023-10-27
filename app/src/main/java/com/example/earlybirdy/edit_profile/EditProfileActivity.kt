@@ -70,6 +70,10 @@ class EditProfileActivity : MainActivity() {
             editProfileActivityDialog.show()
         }
 
+        binding.imgProfileBack.setOnClickListener {
+            finish()
+        }
+
         loadUserData()
         overridePendingTransition(R.anim.slide_left_enter, R.anim.slide_right_exit)
     }
