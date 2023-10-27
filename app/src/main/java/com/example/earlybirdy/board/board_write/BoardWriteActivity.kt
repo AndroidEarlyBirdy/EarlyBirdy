@@ -11,6 +11,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import java.util.UUID
 
 class BoardWriteActivity : AppCompatActivity() {
     private val binding by lazy { ActivityBoardWriteBinding.inflate(layoutInflater) }
@@ -58,6 +59,8 @@ class BoardWriteActivity : AppCompatActivity() {
     private fun createdContents() {
         val user = auth.currentUser
 
+        var boardIndex = UUID.randomUUID().toString()
+
         val contentsTitle = binding.etContentsTitle.text.toString()
         val contents = binding.etContents.text.toString()
 
@@ -67,8 +70,8 @@ class BoardWriteActivity : AppCompatActivity() {
             binding.etContents.error = "내용을 입력해주세요"
         } else {
             val boardDto =
-                BoardDto(user!!.uid, nickname!!, contentsTitle, contents)
-            db.collection("BoardDto").document()
+                BoardDto(boardIndex, user!!.uid, nickname!!, contentsTitle, contents)
+            db.collection("BoardDto").document(boardIndex)
                 .set(boardDto)
                 .addOnSuccessListener { documentReference ->
                     Log.d("boardDto", "${boardDto}")
