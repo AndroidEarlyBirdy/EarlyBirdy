@@ -98,6 +98,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
         app:layout_constraintTop_toBottomOf="@+id/cl_timepicker"
         tools:layout_editor_absoluteX="0dp">
 
@@ -109,7 +110,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_listitem" />
+            app:srcCompat="@drawable/ic_listitem1" />
 
         <ImageView
             android:id="@+id/iv_set_ringtone"
@@ -119,7 +120,28 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_set_alarm"
-            app:srcCompat="@drawable/ic_listitem" />
+            app:srcCompat="@drawable/ic_listitem1" />
+
+        <View
+            android:layout_width="328dp"
+            android:layout_height="1dp"
+            android:background="#E4E4E4"
+            app:layout_constraintStart_toStartOf="@+id/iv_set_alarm"
+            app:layout_constraintTop_toBottomOf="@+id/iv_set_alarm" />
+
+        <View
+            android:layout_width="328dp"
+            android:layout_height="1dp"
+            android:background="#E4E4E4"
+            app:layout_constraintStart_toStartOf="@+id/iv_set_ringtone"
+            app:layout_constraintTop_toBottomOf="@+id/iv_set_ringtone" />
+
+        <View
+            android:layout_width="328dp"
+            android:layout_height="1dp"
+            android:background="#E4E4E4"
+            app:layout_constraintStart_toStartOf="@+id/iv_set_vibe"
+            app:layout_constraintTop_toBottomOf="@+id/iv_set_vibe" />
 
         <ImageView
             android:id="@+id/iv_set_vibe"
@@ -131,7 +153,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_set_ringtone"
-            app:srcCompat="@drawable/ic_listitem" />
+            app:srcCompat="@drawable/ic_listitem1" />
 
         <TextView
             android:id="@+id/tv_title1"
