@@ -1,22 +1,15 @@
 package com.example.earlybirdy.edit_profile
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import com.example.earlybirdy.databinding.ActivityEditProfileBinding
 import com.example.earlybirdy.signup.EditProfileDialog
 import android.util.Log
-import androidx.activity.OnBackPressedCallback
 import com.example.earlybirdy.R
 import com.example.earlybirdy.main.MainActivity
 import com.example.earlybirdy.util.navigateToMainActivity
 import com.example.earlybirdy.util.showToast
-import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
@@ -68,6 +61,10 @@ class EditProfileActivity : MainActivity() {
 
         binding.btnPasswordChange.setOnClickListener {
             editProfileActivityDialog.show()
+        }
+
+        binding.imgProfileBack.setOnClickListener {
+            finish()
         }
 
         loadUserData()

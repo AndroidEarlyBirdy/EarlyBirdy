@@ -1,11 +1,9 @@
 package com.example.earlybirdy.signup
 
-import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
 import com.example.earlybirdy.R
 import com.example.earlybirdy.databinding.ActivitySignupBinding
 import com.example.earlybirdy.dto.UserDto
@@ -16,7 +14,6 @@ import com.example.earlybirdy.util.showToast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.ktx.firestore
@@ -134,6 +131,7 @@ class SignupActivity : MainActivity() {
                                         db.collection("UserDto").document(user.uid)
                                             .set(userDto)
                                             .addOnSuccessListener { documentReference ->
+                                                Log.d("documentReference", "$documentReference")
                                             }
                                             .addOnFailureListener { e ->
                                             }
