@@ -16,6 +16,7 @@ class ExpDialog (
         binding = DialogExpBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initViews()
+        window?.setBackgroundDrawableResource(android.R.color.transparent)
     }
     private fun initViews() = with(binding) {
 
