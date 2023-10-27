@@ -106,7 +106,7 @@ open class MainActivity : AppCompatActivity() {
             vpMain.isUserInputEnabled = false
 
             // 기본 프래그먼트로 HomeFragment 설정
-            binding.vpMain.setCurrentItem(1, false)
+            binding.vpMain.setCurrentItem(0, false)
         }
 
         private fun setTabLayout() = with(binding) {
@@ -120,7 +120,8 @@ open class MainActivity : AppCompatActivity() {
                 when (position) {
                     0 -> tab.setIcon(R.drawable.ic_home)
                     1 -> tab.setIcon(R.drawable.ic_board)
-                    2 -> tab.setIcon(R.drawable.ic_mypage)
+                    2 -> tab.setIcon(R.drawable.ic_board)
+                    3 -> tab.setIcon(R.drawable.ic_mypage)
                 }
             }.attach()
         }
