@@ -24,6 +24,7 @@ import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+import java.util.TimeZone
 
 class MyPageFragment : Fragment() {
 
@@ -42,7 +43,7 @@ class MyPageFragment : Fragment() {
     private lateinit var user: FirebaseUser
 
     //ViewModel
-    private lateinit var myPageViewModel : MyPageViewModel
+    private lateinit var myPageViewModel: MyPageViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,7 +59,8 @@ class MyPageFragment : Fragment() {
         calendarView = view.findViewById(R.id.calendarView)
         auth = FirebaseAuth.getInstance()
         user = auth.currentUser!!
-        myPageViewModel = ViewModelProvider(this, MyPageViewModelFactory())[MyPageViewModel::class.java]
+        myPageViewModel =
+            ViewModelProvider(this, MyPageViewModelFactory())[MyPageViewModel::class.java]
 
         getData()
         observeData()
@@ -75,7 +77,7 @@ class MyPageFragment : Fragment() {
     //LiveData 감지
     @SuppressLint("SetTextI18n")
     private fun observeData() {
-        myPageViewModel.userData.observe(viewLifecycleOwner) { user->
+        myPageViewModel.userData.observe(viewLifecycleOwner) { user ->
             binding.tvNickname.text = user.nickname
             user.exp?.let { myPageViewModel.initializeUIWithLocalExp(it) }
             user.profile?.let { setProfileImage(it) }
@@ -115,7 +117,7 @@ class MyPageFragment : Fragment() {
     }
 
     //레벨 범위에 따른 인장 설정
-    private fun updateLevelImage(level : Int) {
+    private fun updateLevelImage(level: Int) {
         when (level) {
             in 1..10 -> binding.ivProfileBorder1.setImageResource(R.drawable.ic_insignia1)
             in 11..20 -> binding.ivProfileBorder1.setImageResource(R.drawable.ic_insignia2)
@@ -125,8 +127,8 @@ class MyPageFragment : Fragment() {
         }
     }
 
-    private fun setProfileImage(profileNum : Int) {
-        when(profileNum) {
+    private fun setProfileImage(profileNum: Int) {
+        when (profileNum) {
             1 -> binding.ivProfile.setImageResource(R.drawable.img_profile_man1)
             2 -> binding.ivProfile.setImageResource(R.drawable.img_profile_woman1)
             3 -> binding.ivProfile.setImageResource(R.drawable.img_profile_man2)
@@ -158,68 +160,97 @@ class MyPageFragment : Fragment() {
     private fun loadAttendanceData() {
         val userId = "alUKQs4TIDM7F6GFC01TfXdUWwB2"
 
-
         firestore.collection("UserDto")
             .document(userId)
             .collection("Attendance")
-            .get()
-            .addOnSuccessListener { querySnapshot: QuerySnapshot? ->
+            .addSnapshotListener { querySnapshot, error ->
+                if (error != null) {
+                    // 에러 처리
+                    return@addSnapshotListener
+                }
+
+                val attendanceDates = mutableListOf<CalendarDay>()
+                val goalAchievedDates = mutableMapOf<CalendarDay, Int>()
                 for (document in querySnapshot!!) {
-                    val date = document.getString("date")
-                    if (date != null) {
-                        val calendarDay = parseDate(date)
-                        val dayDecorator = DayDecorator(calendarDay, requireContext())
-                        calendarView.addDecorator(dayDecorator)
+                    val timestamp = document.getTimestamp("date")
+                    if (timestamp != null) {
+                        val calendarDay = parseDate(timestamp)
+                        attendanceDates.add(calendarDay)
+                        goalAchievedDates[calendarDay] = 0
                     }
                 }
 
+                firestore.collection("UserDto")
+                    .document(userId)
+                    .collection("MyGoal")
+                    .whereEqualTo("check", true)
+                    .addSnapshotListener { querySnapshot, error ->
+                        if (error != null) {
+                            // 에러 처리
+                            return@addSnapshotListener
+                        }
+
+                        goalAchievedDates.clear()
+
+                        for (document in querySnapshot!!) {
+                            val goalDate = document.getTimestamp("date")
+                            if (goalDate != null) {
+                                val calendarDay = parseDate(goalDate)
+                                goalAchievedDates[calendarDay] =
+                                    goalAchievedDates[calendarDay]?.toInt() ?: 0 + 1
+                            }
+
+                            for (day in attendanceDates) {
+                                val decoratorDrawableResId = when {
+                                    goalAchievedDates[day]?.toInt() ?: 0 >= 3 -> R.drawable.bg_calendar_date4
+                                    goalAchievedDates[day]?.toInt() ?: 0 == 2 -> R.drawable.bg_calendar_date3
+                                    goalAchievedDates[day]?.toInt() ?: 0 == 1 -> R.drawable.bg_calendar_date2
+                                    else -> R.drawable.bg_calendar_date1
+                                }
+                                val dayDecorator =
+                                    DayDecorator(day, requireContext(), decoratorDrawableResId)
+                                calendarView.addDecorator(dayDecorator)
+                            }
+                        }
+                    }
             }
     }
 
-    // 날짜를 CalendarDay로 변환
-    private fun parseDate(date: String): CalendarDay {
-        val year = date.substring(0, 4).toInt()
-        val month = date.substring(5, 7).toInt()
-        val day = date.substring(8, 10).toInt()
+    private fun parseDate(timestamp: com.google.firebase.Timestamp): CalendarDay {
+        // Timestamp에서 Date 객체를 가져오고
+        val date = timestamp.toDate()
+
+        // Date 객체를 Calendar로 변환
+        val calendar = Calendar.getInstance()
+        calendar.time = date
+        calendar.timeZone = TimeZone.getTimeZone("Asia/Seoul")
+
+        // Calendar를 사용하여 CalendarDay로 변환
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH) + 1
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
         return CalendarDay.from(year, month, day)
     }
 
-//    // 날짜에 따라 배경 이미지 추가
-//    private fun checkGoalsForDate(date: CalendarDay) {
-//        val userId = "사용자 UID" // 사용자의 UID로 변경
-//
-//        // Firestore에서 사용자의 목표 데이터 가져오기
-//        firestore.collection("UserDto")
-//            .document(userId)
-//            .collection("MyGoal")
-//            .get()
-//            .addOnSuccessListener { querySnapshot ->
-//                for (document in querySnapshot) {
-//                    val goalDate = document.getString("date")
-//                    val checked = document.getBoolean("check") ?: false
-//
-//                    if (goalDate != null && parseDate(goalDate) == date && checked) {
-//                        // 해당 날짜에 목표가 달성되고 체크된 경우, 배경 이미지를 추가
-//                        calendarView.addDecorator(DayDecorator(date, R.drawable.bg_calendar_date))
-//                        break // 이미 배경 이미지를 추가했으므로 루프 종료
-//                    }
-//                }
-//            }
-//    }
 
     // 날짜에 따라 배경 이미지 추가
-    private class DayDecorator(private val date: CalendarDay, private val context: Context) : DayViewDecorator {
-
-        private val drawable = context.resources.getDrawable(R.drawable.bg_calendar_date1)
+    // DayDecorator 클래스 수정
+    private class DayDecorator(
+        private val date: CalendarDay,
+        private val context: Context,
+        private val decoratorDrawableResId: Int
+    ) : DayViewDecorator {
 
         override fun shouldDecorate(day: CalendarDay?): Boolean {
             return day == date
         }
 
         override fun decorate(view: DayViewFacade) {
-            view.setBackgroundDrawable(drawable)
+            view.setBackgroundDrawable(context.resources.getDrawable(decoratorDrawableResId))
         }
     }
+
 
     override fun onDestroyView() {
         _binding = null
