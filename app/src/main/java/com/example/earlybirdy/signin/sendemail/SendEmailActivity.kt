@@ -34,7 +34,7 @@ class SendEmailActivity : MainActivity() {
 
         // 나가기 = 앱 종료
         binding.tvFinish.setOnClickListener {
-            finish()
+                navigateToSigninActivity(this)
         }
 
         // 회원가입 페이지로 이동
