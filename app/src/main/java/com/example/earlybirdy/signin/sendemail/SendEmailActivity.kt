@@ -2,6 +2,7 @@ package com.example.earlybirdy.signin.sendemail
 
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import com.example.earlybirdy.databinding.ActivitySendEmailBinding
 import com.example.earlybirdy.main.MainActivity
 import com.example.earlybirdy.util.navigateToSigninActivity
@@ -33,13 +34,17 @@ class SendEmailActivity : MainActivity() {
 
         // 나가기 = 앱 종료
         binding.tvFinish.setOnClickListener {
-            finish()
+                navigateToSigninActivity(this)
         }
 
         // 회원가입 페이지로 이동
         binding.tvBtnSignup.setOnClickListener {
             navigateToSignupActivity(this)
         }
+    }
+
+    override fun onBackPressed() {
+        navigateToSigninActivity(this)
     }
 
     public override fun onStart() {
