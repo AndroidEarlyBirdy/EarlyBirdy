@@ -70,26 +70,12 @@ class BoardFragment : Fragment() {
             override fun onClick(view: View, data: BoardDto) {
                 startActivity(BoardReadActivity.BoardReadIntent(context, data))
             }
-        }
 
-        boardAdapter.boardDeleteListener = object : BoardAdapter.BoardDeleteListener{
-            override fun onDeleteButtonClicked(boardData: BoardDto) {
-
-                val user = auth.currentUser
-
-                if (user!!.uid == boardData.uid){
-                    val rboardDto = data.find { it.bid == boardData.bid}
-                    data.remove(rboardDto)
-
-                    boardData.uid.let {
-                        fireStore.collection("BoardDto").document()
-                            .delete().addOnCompleteListener {
-
-                            }
-                    }
-                }
+            override fun deleteItem(view: View, boardData: BoardDto) {
+                data.remove(boardData)
             }
         }
+
 
     }
 
@@ -127,20 +113,10 @@ class BoardFragment : Fragment() {
     }
 
     fun deleteData() {
-//        data.remove()
-//        val user = auth.currentUser
-//        val gson = Gson()
-//        val boardDto =
-//            gson.fromJson(data.toString(), BoardDto::class.java)
-//        if (user!!.uid == boardDto.uid) {
-//            fireStore.collection("BoardDto").document()
-//                .delete()
-//                .addOnSuccessListener {
-//                    boardAdapter.clearList()
-//                    data.clear()
-//                }
-//        }
+        fireStore.collection("BoardDto").document().delete()
+            .addOnSuccessListener {
 
+            }
     }
 
     override fun onDestroyView() {

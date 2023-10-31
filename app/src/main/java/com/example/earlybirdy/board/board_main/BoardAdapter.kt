@@ -18,23 +18,16 @@ class BoardAdapter(context: Context) : RecyclerView.Adapter<BoardAdapter.Holder>
 
     private val list = ArrayList<BoardDto>()
 
-
-
     var bContext = context
 
     interface ItemClick {
 
         fun onClick(view: View, boardData: BoardDto)
+        fun deleteItem(view:View, boardData: BoardDto)
 
-    }
-
-    interface BoardDeleteListener {
-        fun onDeleteButtonClicked(boardData: BoardDto)
     }
 
     var itemClick: ItemClick? = null
-
-    var boardDeleteListener: BoardDeleteListener? = null
 
     @SuppressLint("NotifyDataSetChanged")
     fun addItems(items: List<BoardDto>) {
@@ -77,12 +70,11 @@ class BoardAdapter(context: Context) : RecyclerView.Adapter<BoardAdapter.Holder>
             itemView.setOnClickListener {
                 itemClick?.onClick(it, item)
             }
+            ivDelete.setOnClickListener {
+                itemClick?.deleteItem(it, item)
+            }
             tvWriter.text = item.writer
             tvContentsTitle.text = item.contentsTitle
-
-            ivDelete.setOnClickListener {
-                boardDeleteListener?.onDeleteButtonClicked(item)
-            }
         }
     }
 
