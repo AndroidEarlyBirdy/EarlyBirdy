@@ -6,12 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.earlybirdy.create_plan.CreatePlanAdapter
+import com.example.earlybirdy.data.Todo
 import com.example.earlybirdy.databinding.ItemBoardBinding
 import com.example.earlybirdy.dto.BoardDto
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.firestore.FirebaseFirestore
 
 class BoardAdapter(context: Context) : RecyclerView.Adapter<BoardAdapter.Holder>() {
 
     private val list = ArrayList<BoardDto>()
+
+
 
     var bContext = context
 
@@ -21,11 +28,22 @@ class BoardAdapter(context: Context) : RecyclerView.Adapter<BoardAdapter.Holder>
 
     }
 
+    interface BoardDeleteListener {
+        fun onDeleteButtonClicked(boardData: BoardDto)
+    }
+
     var itemClick: ItemClick? = null
+
+    var boardDeleteListener: BoardDeleteListener? = null
 
     @SuppressLint("NotifyDataSetChanged")
     fun addItems(items: List<BoardDto>) {
         list.addAll(items)
+        notifyDataSetChanged()
+    }
+    @SuppressLint("NotifyDataSetChanged")
+    fun removeList(position: Int) {
+        list.removeAt(position)
         notifyDataSetChanged()
     }
 
@@ -61,6 +79,12 @@ class BoardAdapter(context: Context) : RecyclerView.Adapter<BoardAdapter.Holder>
             }
             tvWriter.text = item.writer
             tvContentsTitle.text = item.contentsTitle
+
+            ivDelete.setOnClickListener {
+                boardDeleteListener?.onDeleteButtonClicked(item)
+            }
         }
     }
+
+
 }

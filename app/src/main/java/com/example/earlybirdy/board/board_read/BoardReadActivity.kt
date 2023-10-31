@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.earlybirdy.R
+import com.example.earlybirdy.board.board_write.BoardWriteActivity
 import com.example.earlybirdy.databinding.ActivityBoardReadBinding
 import com.example.earlybirdy.databinding.ActivityBoardWriteBinding
 import com.example.earlybirdy.dto.BoardDto
@@ -37,7 +38,7 @@ class BoardReadActivity : AppCompatActivity() {
         }
 
         binding.tvUpdate.setOnClickListener {
-            navigateToBoardWriteActivity(this)
+            startActivity(BoardWriteActivity.BoardReadIntent(baseContext, BoardData))
         }
     }
 
