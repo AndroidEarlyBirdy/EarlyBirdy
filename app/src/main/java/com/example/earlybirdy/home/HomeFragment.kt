@@ -230,24 +230,43 @@ class HomeFragment : Fragment() {
         val rightArrowButton = binding.btnRightArrow
         val recyclerView = binding.rvTodoMain
 
-// 좌측 화살표 클릭 시 RecyclerView를 좌측으로 스크롤
+        val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+
+        // 좌측 화살표 클릭 시 RecyclerView를 좌측으로 스크롤
         leftArrowButton.setOnClickListener {
-            val layoutManager = recyclerView.layoutManager as LinearLayoutManager
             val firstVisibleItem = layoutManager.findFirstVisibleItemPosition()
             if (firstVisibleItem > 0) {
                 recyclerView.smoothScrollToPosition(firstVisibleItem - 1)
             }
         }
 
-// 우측 화살표 클릭 시 RecyclerView를 우측으로 스크롤
+        // 우측 화살표 클릭 시 RecyclerView를 우측으로 스크롤
         rightArrowButton.setOnClickListener {
-            val layoutManager = recyclerView.layoutManager as LinearLayoutManager
             val lastVisibleItem = layoutManager.findLastVisibleItemPosition()
             if (lastVisibleItem < adapter.itemCount - 1) {
                 recyclerView.smoothScrollToPosition(lastVisibleItem + 1)
             }
         }
 
+        // RecyclerView 스크롤 리스너를 추가하여 화살표 가시성을 업데이트
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                // 처음 또는 끝에 도달하면 화살표 가시성 업데이트
+                leftArrowButton.visibility = if (layoutManager.findFirstVisibleItemPosition() > 0) {
+                    View.VISIBLE
+                } else {
+                    View.INVISIBLE
+                }
+
+                rightArrowButton.visibility = if (layoutManager.findLastVisibleItemPosition() < adapter.itemCount - 1) {
+                    View.VISIBLE
+                } else {
+                    View.INVISIBLE
+                }
+            }
+        })
 
         binding.btnAttend.setOnClickListener {
             val alarmTime = loadTimeDate()
