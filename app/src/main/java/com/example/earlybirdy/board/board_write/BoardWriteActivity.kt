@@ -31,29 +31,29 @@ class BoardWriteActivity : AppCompatActivity() {
         database = Firebase.database.reference
 
         setOnClickListener()
-        getUserNicknameData()
+//        getUserNicknameData()
     }
 
     // 클릭 리스너 함수
     private fun setOnClickListener() {
-        binding.tvCancel.setOnClickListener {
+        binding.ivBack.setOnClickListener {
             finish()
         }
 
-        binding.tvSave.setOnClickListener {
+        binding.btnCreatContents.setOnClickListener {
             createdContents()
         }
     }
 
-    fun getUserNicknameData() {
-        var user = auth.currentUser
-        fireStore.collection("UserDto").document(user!!.uid).addSnapshotListener { value, _ ->
-            if (value != null) {
-                nickname = value.getString("nickname")
-            }
-            binding.tvNickname.text = nickname
-        }
-    }
+//    fun getUserNicknameData() {
+//        var user = auth.currentUser
+//        fireStore.collection("UserDto").document(user!!.uid).addSnapshotListener { value, _ ->
+//            if (value != null) {
+//                nickname = value.getString("nickname")
+//            }
+//            binding.tvNickname.text = nickname
+//        }
+//    }
 
 
     private fun createdContents() {
@@ -62,12 +62,12 @@ class BoardWriteActivity : AppCompatActivity() {
         var boardIndex = UUID.randomUUID().toString()
 
         val contentsTitle = binding.etContentsTitle.text.toString()
-        val contents = binding.etContents.text.toString()
+        val contents = binding.etContentsDetail.text.toString()
 
         if (contentsTitle.isEmpty()) {
             binding.etContentsTitle.error = "제목을 입력해주세요"
         } else if (contents.isEmpty()) {
-            binding.etContents.error = "내용을 입력해주세요"
+            binding.etContentsDetail.error = "내용을 입력해주세요"
         } else {
             val boardDto =
                 BoardDto(boardIndex, user!!.uid, nickname!!, contentsTitle, contents)
