@@ -74,7 +74,7 @@ class BoardAdapter(context: Context) : RecyclerView.Adapter<BoardAdapter.Holder>
                 itemClick?.deleteItem(it, item)
             }
             tvWriter.text = item.writer
-            tvContentsTitle.text = item.contentsTitle
+            etContentsTitle.text = item.contentsTitle
         }
     }
 

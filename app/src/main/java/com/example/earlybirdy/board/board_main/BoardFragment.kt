@@ -80,11 +80,11 @@ class BoardFragment : Fragment() {
     }
 
     private fun setOnClickListener() {
-        binding.fbtnCreateContants.setOnClickListener {
+        binding.btnCreatContents.setOnClickListener {
             navigateToBoardWriteActivity(requireContext())
         }
 
-        binding.tvReload.setOnClickListener {
+        binding.icReload.setOnClickListener {
             loadData()
         }
     }

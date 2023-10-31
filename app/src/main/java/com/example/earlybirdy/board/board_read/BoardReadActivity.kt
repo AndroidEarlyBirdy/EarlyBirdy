@@ -5,7 +5,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.earlybirdy.R
-import com.example.earlybirdy.board.board_write.BoardWriteActivity
 import com.example.earlybirdy.databinding.ActivityBoardReadBinding
 import com.example.earlybirdy.databinding.ActivityBoardWriteBinding
 import com.example.earlybirdy.dto.BoardDto
@@ -46,7 +45,7 @@ class BoardReadActivity : AppCompatActivity() {
 
     private fun readBoard() {
         binding.tvNickname.text = BoardData.writer
-        binding.tvContentsTitle.text = BoardData.contentsTitle
-        binding.tvContents.text = BoardData.contents
+        binding.etContentsTitle.text = BoardData.contentsTitle
+        binding.etContentsDetail.text = BoardData.contents
     }
 }

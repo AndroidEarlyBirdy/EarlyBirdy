@@ -51,18 +51,17 @@ class BoardWriteActivity : AppCompatActivity() {
 
     // 클릭 리스너 함수
     private fun setOnClickListener() {
-        binding.tvCancel.setOnClickListener {
+        binding.ivBack.setOnClickListener {
             finish()
         }
 
-        binding.tvSave.setOnClickListener {
+        binding.btnCreatContents.setOnClickListener {
+
             if (boardType == 1) {
                 createdBoard()
             } else {
                 updateBoard()
             }
-
-        }
     }
 
     fun getUserNicknameData() {
@@ -82,12 +81,12 @@ class BoardWriteActivity : AppCompatActivity() {
         var boardIndex = UUID.randomUUID().toString()
 
         val contentsTitle = binding.etContentsTitle.text.toString()
-        val contents = binding.etContents.text.toString()
+        val contents = binding.etContentsDetail.text.toString()
 
         if (contentsTitle.isEmpty()) {
             binding.etContentsTitle.error = "제목을 입력해주세요"
         } else if (contents.isEmpty()) {
-            binding.etContents.error = "내용을 입력해주세요"
+            binding.etContentsDetail.error = "내용을 입력해주세요"
         } else {
             val boardDto =
                 BoardDto(boardIndex, user!!.uid, nickname!!, contentsTitle, contents)
