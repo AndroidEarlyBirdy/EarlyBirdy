@@ -48,6 +48,10 @@ open class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onBackPressed() {
+//        super.onBackPressed()
+    }
+
     override fun onResume() {
         super.onResume()
         // 인터넷에 연결되어 있지 않다면, 앱의 모든 액티비티 종료 후 프로세스도 강제종료.
