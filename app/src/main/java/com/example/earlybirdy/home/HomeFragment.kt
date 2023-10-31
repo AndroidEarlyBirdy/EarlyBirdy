@@ -62,10 +62,7 @@ class HomeFragment : Fragment() {
 
         adapter = HomeFragmentAdapter()
         binding.rvTodoMain.adapter = adapter
-        binding.rvTodoMain.layoutManager =
-            LinearLayoutManager(requireContext()).also {
-                it.orientation = LinearLayoutManager.HORIZONTAL
-            } // 리사이클러뷰 가로로
+        binding.rvTodoMain.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false) // 리사이클러뷰 가로로
 
         // 데이터를 불러오는 코드를 onCreateView 내에서 실행
         loadDataFromFirestore()
@@ -189,7 +186,6 @@ class HomeFragment : Fragment() {
             ?.whereGreaterThanOrEqualTo("date", startOfDay)
             ?.whereLessThanOrEqualTo("date", endOfDay)
             ?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
-
                 // ArrayList 비워줌
                 adapter.clearList()
 
@@ -205,15 +201,72 @@ class HomeFragment : Fragment() {
                         totalGoals++
                     }
                 }
+
+                if (totalGoals == 0) {
+                    // RecyclerView 내용이 없을 때 화살표를 숨김
+                    binding.btnLeftArrow.visibility = View.GONE
+                    binding.btnRightArrow.visibility = View.GONE
+                } else {
+                    // RecyclerView 내용이 있을 때 화살표를 표시
+                    binding.btnLeftArrow.visibility = View.VISIBLE
+                    binding.btnRightArrow.visibility = View.VISIBLE
+                }
+
+
                 updateProgress()
                 adapter.notifyDataSetChanged()
             }
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.d("이곳은", "onViewCreated")
         Log.d("이곳이니", completedAttendances.toString())
+
+        super.onViewCreated(view, savedInstanceState)
+
+        val leftArrowButton = binding.btnLeftArrow
+        val rightArrowButton = binding.btnRightArrow
+        val recyclerView = binding.rvTodoMain
+
+        val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+
+        // 좌측 화살표 클릭 시 RecyclerView를 좌측으로 스크롤
+        leftArrowButton.setOnClickListener {
+            val firstVisibleItem = layoutManager.findFirstVisibleItemPosition()
+            if (firstVisibleItem > 0) {
+                recyclerView.smoothScrollToPosition(firstVisibleItem - 1)
+            }
+        }
+
+        // 우측 화살표 클릭 시 RecyclerView를 우측으로 스크롤
+        rightArrowButton.setOnClickListener {
+            val lastVisibleItem = layoutManager.findLastVisibleItemPosition()
+            if (lastVisibleItem < adapter.itemCount - 1) {
+                recyclerView.smoothScrollToPosition(lastVisibleItem + 1)
+            }
+        }
+
+        // RecyclerView 스크롤 리스너를 추가하여 화살표 가시성을 업데이트
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                // 처음 또는 끝에 도달하면 화살표 가시성 업데이트
+                leftArrowButton.visibility = if (layoutManager.findFirstVisibleItemPosition() > 0) {
+                    View.VISIBLE
+                } else {
+                    View.INVISIBLE
+                }
+
+                rightArrowButton.visibility = if (layoutManager.findLastVisibleItemPosition() < adapter.itemCount - 1) {
+                    View.VISIBLE
+                } else {
+                    View.INVISIBLE
+                }
+            }
+        })
 
         binding.btnAttend.setOnClickListener {
             val alarmTime = loadTimeDate()
