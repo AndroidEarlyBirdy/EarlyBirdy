@@ -25,6 +25,7 @@ import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
 import java.util.UUID
@@ -232,9 +233,15 @@ class HomeFragment : Fragment() {
 
                 // homeViewModel.setSharedData(data)
 
+//                val nowTime = System.currentTimeMillis()
+//                val timeFormatter = SimpleDateFormat("yyyy.MM.dd")
+//                val dateTime = timeFormatter.format(nowTime)
                 val nowTime = System.currentTimeMillis()
-                val timeFormatter = SimpleDateFormat("yyyy.MM.dd")
-                val dateTime = timeFormatter.format(nowTime)
+                val timeZone = TimeZone.getTimeZone("UTC+9")
+                val dateFormat = SimpleDateFormat("yyyy년 MM월 dd일 a hh시 mm분 ss초 'UTC'Z", Locale.getDefault())
+                dateFormat.timeZone = timeZone
+                val dateTime = dateFormat.format(Date(nowTime))
+
                 attendindex = UUID.randomUUID().toString()
 
                 firestore?.collection("UserDto")?.document(user.uid)
@@ -242,7 +249,7 @@ class HomeFragment : Fragment() {
                     ?.set(
                         hashMapOf(
                             "AttendanceId" to attendindex,
-                            "date" to dateTime.toString()
+                            "date" to dateTime.toString(),
                         )
                     )
                 // 출석 버튼을 비활성화
