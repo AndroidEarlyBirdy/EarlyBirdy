@@ -125,25 +125,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_edit_profile" />
 
-    <TextView
-        android:id="@+id/tv_profile_nickname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="26dp"
-        android:text="@string/editprofile_nikname_edit"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/line_profile_center" />
+<!--    <TextView-->
+<!--        android:id="@+id/tv_profile_nickname"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_marginTop="26dp"-->
+<!--        android:text="@string/editprofile_nikname_edit"-->
+<!--        android:textSize="16sp"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/line_profile_center" />-->
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_profile_nickname"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@id/tv_profile_nickname"
+        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tv_profile_nickname"
-        app:layout_constraintTop_toTopOf="@id/tv_profile_nickname">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/line_profile_center"
+
+        >
+<!--        app:layout_constraintBottom_toBottomOf="@id/tv_profile_nickname"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/tv_profile_nickname"-->
+<!--        app:layout_constraintTop_toTopOf="@id/tv_profile_nickname">-->
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/et_profile_nickname"
@@ -151,38 +157,38 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:hint="@string/editprofile_enter_nickname" />
+        android:hint="수정할 닉네임을 입력해주세요" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/tv_profile_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="61dp"
-        android:text="@string/editprofile_edit_email"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_profile_nickname" />
+<!--    <TextView-->
+<!--        android:id="@+id/tv_profile_email"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_marginTop="61dp"-->
+<!--        android:text="이메일 주소"-->
+<!--        android:textSize="16sp"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/tv_profile_nickname" />-->
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_profile_email"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@id/tv_profile_email"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tv_profile_email"
-        app:layout_constraintTop_toTopOf="@id/tv_profile_email">
+<!--    <com.google.android.material.textfield.TextInputLayout-->
+<!--        android:id="@+id/til_profile_email"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/tv_profile_email"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/tv_profile_email"-->
+<!--        app:layout_constraintTop_toTopOf="@id/tv_profile_email">-->
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_profile_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:enabled="false"
-            android:hint="@string/editprofile_enter_email" />
-    </com.google.android.material.textfield.TextInputLayout>
+<!--        <com.google.android.material.textfield.TextInputEditText-->
+<!--            android:id="@+id/et_profile_email"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="16dp"-->
+<!--            android:layout_marginEnd="16dp"-->
+<!--            android:enabled="false"-->
+<!--            />-->
+<!--    </com.google.android.material.textfield.TextInputLayout>-->
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_password_change"

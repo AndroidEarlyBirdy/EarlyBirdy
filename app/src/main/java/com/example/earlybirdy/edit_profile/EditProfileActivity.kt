@@ -54,6 +54,14 @@ class EditProfileActivity : MainActivity() {
             }
         }
 
+        binding.imgProflileProfile.setOnClickListener {
+            editProfileDialog.show()
+            editProfileDialog.setOnSaveClickListener {
+                val value = editProfileDialog.getSelectedEditProfileImageId()
+                setImageByFixedValue(value)
+            }
+        }
+
         // 저장 하기 버튼
         binding.btnProfileSave.setOnClickListener {
             onSaveButtonClick()
@@ -75,7 +83,7 @@ class EditProfileActivity : MainActivity() {
     private fun onSaveButtonClick() {
         val profile = editProfileDialog.getSelectedEditProfileImageId()  // 이미지 객체 정보
         val nickname = binding.etProfileNickname.text.toString()
-        val email = binding.etProfileEmail.text.toString()
+//        val email = binding.etProfileEmail.text.toString()
 
         // 빈칸 확인
         if (nickname.isBlank()) {
@@ -83,7 +91,7 @@ class EditProfileActivity : MainActivity() {
 
         } else {
 
-            updateUserData(user.uid, profile, nickname, email)
+            updateUserData(user.uid, profile, nickname)
             navigateToMainActivity(this)
             showToast(this@EditProfileActivity, "회원 정보 수정 완료!")
 
@@ -92,13 +100,12 @@ class EditProfileActivity : MainActivity() {
 
     }
 
-    private fun updateUserData(uid: String, profile: Int?, nickname: String?, email: String?) {
+    private fun updateUserData(uid: String, profile: Int?, nickname: String?) {
 
         db.collection("UserDto").document(uid).update(
             mapOf(
                 "profile" to profile,
                 "nickname" to nickname,
-                "email" to email,
             )
         ).addOnSuccessListener {
             showToast(this@EditProfileActivity,"회원정보 업데이트 완료!")
@@ -117,7 +124,7 @@ class EditProfileActivity : MainActivity() {
                     val profile = document.getLong("profile")?.toInt() ?: 0
                     setImageByFixedValue(profile)
                     binding.etProfileNickname.setText(nickname)
-                    binding.etProfileEmail.setText(email)
+//                    binding.etProfileEmail.setText(email)
                 }
             }
             .addOnFailureListener { e ->

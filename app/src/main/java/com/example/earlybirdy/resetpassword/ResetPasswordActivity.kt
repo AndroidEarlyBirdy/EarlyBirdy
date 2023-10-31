@@ -7,6 +7,7 @@ import android.util.Log
 import com.example.earlybirdy.databinding.ActivityResetPasswordBinding
 import com.example.earlybirdy.main.MainActivity
 import com.example.earlybirdy.signup.EditProfileDialog
+import com.example.earlybirdy.util.navigateToEditProfileActivity
 import com.example.earlybirdy.util.navigateToMainActivity
 import com.example.earlybirdy.util.navigateToSignupActivity
 import com.example.earlybirdy.util.showToast
@@ -63,16 +64,14 @@ class ResetPasswordActivity : MainActivity() {
             onSaveButtonClick()
         }
 
-        // 나가기 = 앱 종료
-        binding.tvFinish.setOnClickListener {
-            finish()
+        binding.icRpBack.setOnClickListener {
+            navigateToEditProfileActivity(this)
         }
 
-        // 회원가입 페이지로 이동
-        binding.tvBtnSignup.setOnClickListener {
-            //val intent = Intent(Intent.ACTION_VIEW, Uri.parse("${}"))
-            navigateToSignupActivity(this)
-        }
+    }
+
+    override fun onBackPressed() {
+        navigateToEditProfileActivity(this)
     }
 
     private fun onSaveButtonClick() {

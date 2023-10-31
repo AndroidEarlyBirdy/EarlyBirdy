@@ -31,7 +31,6 @@
             android:id="@+id/tit_epd_email"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="@string/signin_enter_email"
             android:textColor="#CC999999" />
     </com.google.android.material.textfield.TextInputLayout>
 
