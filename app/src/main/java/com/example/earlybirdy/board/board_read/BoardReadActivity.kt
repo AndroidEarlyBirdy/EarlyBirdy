@@ -36,14 +36,14 @@ class BoardReadActivity : AppCompatActivity() {
             finish()
         }
 
-        binding.tvUpdate.setOnClickListener {
-            navigateToBoardWriteActivity(this)
-        }
+//        binding.btn.setOnClickListener {
+//            navigateToBoardWriteActivity(this)
+//        }
     }
 
     private fun readBoard() {
         binding.tvNickname.text = BoardData.writer
-        binding.tvContentsTitle.text = BoardData.contentsTitle
-        binding.tvContents.text = BoardData.contents
+        binding.etContentsTitle.text = BoardData.contentsTitle
+        binding.etContentsDetail.text = BoardData.contents
     }
 }
