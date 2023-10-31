@@ -38,7 +38,9 @@ class BoardReadActivity : AppCompatActivity() {
         }
 
         binding.tvUpdate.setOnClickListener {
-            startActivity(BoardWriteActivity.BoardReadIntent(baseContext, BoardData))
+            val boardWriteIntent = Intent(this, BoardWriteActivity::class.java)
+            boardWriteIntent.putExtra("boardType", 2)
+            startActivity(boardWriteIntent)
         }
     }
 

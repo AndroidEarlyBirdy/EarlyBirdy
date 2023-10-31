@@ -6,8 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.example.earlybirdy.board.board_read.BoardReadActivity
+import com.example.earlybirdy.data.BoardData
 import com.example.earlybirdy.databinding.ActivityBoardWriteBinding
 import com.example.earlybirdy.dto.BoardDto
+import com.example.earlybirdy.util.navigateToBoardReadActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
@@ -27,16 +29,10 @@ class BoardWriteActivity : AppCompatActivity() {
 
     private var nickname: String? = ""
 
-    companion object {
-        //나중에 위치 받아서 값 설정하기
-        // 위치 사용될 변수
-        lateinit var BoardData: BoardDto
-        fun BoardReadIntent(context: Context?, boardData: BoardDto) =
-            Intent(context, BoardWriteActivity::class.java).apply {
-                BoardData = boardData
-            }
-
+    private val boardType: Int by lazy {
+        intent.getIntExtra("boardType", 1)
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -44,7 +40,10 @@ class BoardWriteActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         database = Firebase.database.reference
 
-        readBoard()
+
+        if (boardType == 2) {
+            readBoard()
+        }
 
         setOnClickListener()
         getUserNicknameData()
@@ -57,7 +56,12 @@ class BoardWriteActivity : AppCompatActivity() {
         }
 
         binding.tvSave.setOnClickListener {
-            createdContents()
+            if (boardType == 1) {
+                createdBoard()
+            } else {
+                updateBoard()
+            }
+
         }
     }
 
@@ -72,7 +76,7 @@ class BoardWriteActivity : AppCompatActivity() {
     }
 
 
-    private fun createdContents() {
+    private fun createdBoard() {
         val user = auth.currentUser
 
         var boardIndex = UUID.randomUUID().toString()
@@ -105,31 +109,26 @@ class BoardWriteActivity : AppCompatActivity() {
         binding.etContents.setText(BoardReadActivity.BoardData.contents)
     }
 
-//    private fun modifyContents() {
-//        val user = auth.currentUser
-//
-//        db.collection("BoardDto").document().get()
-//            .addOnSuccessListener {
-//
-//            }
-//        val contentsTitle = binding.etContentsTitle.text.toString()
-//        val contents = binding.etContents.text.toString()
-//
-//        if (contentsTitle.isEmpty()) {
-//            binding.etContentsTitle.error = "제목을 입력해주세요"
-//        } else if (contents.isEmpty()) {
-//            binding.etContents.error = "내용을 입력해주세요"
-//        } else {
-//            val boardDto =
-//                BoardDto(boardIndex, user!!.uid, nickname!!, contentsTitle, contents)
-//            db.collection("BoardDto").document(boardIndex)
-//                .set(boardDto)
-//                .addOnSuccessListener { documentReference ->
-//                    Log.d("boardDto", "${boardDto}")
-//                    finish()
-//                }
-//                .addOnFailureListener { e ->
-//                }
-//        }
-//    }
+    private fun updateBoard() {
+        val user = auth.currentUser
+
+        val boardData = BoardReadActivity.BoardData
+        val contentsTitle = binding.etContentsTitle.text.toString()
+        val contents = binding.etContents.text.toString()
+
+        if (contentsTitle.isEmpty()) {
+            binding.etContentsTitle.error = "제목을 입력해주세요"
+        } else if (contents.isEmpty()) {
+            binding.etContents.error = "내용을 입력해주세요"
+        } else {
+            val boardDto = BoardDto(boardData.bid, boardData.uid, nickname!!, contentsTitle, contents)
+            db.collection("BoardDto").document(boardData.bid)
+                .set(boardDto)
+                .addOnSuccessListener {
+                    finish()
+                }
+                .addOnFailureListener { e ->
+                }
+        }
+    }
 }

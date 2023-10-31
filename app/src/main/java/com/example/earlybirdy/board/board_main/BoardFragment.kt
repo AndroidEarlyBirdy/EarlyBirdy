@@ -72,16 +72,10 @@ class BoardFragment : Fragment() {
             }
 
             override fun deleteItem(view: View, boardData: BoardDto) {
-                val user = auth.currentUser
-                if (user!!.uid == boardData.uid){
-                    fireStore.collection("BoardDto").document(boardData.bid).delete()
-                        .addOnSuccessListener {
-                            data.remove(boardData)
-                        }
-                }
+                deleteData(boardData)
+                loadData()
             }
         }
-
 
     }
 
@@ -118,8 +112,14 @@ class BoardFragment : Fragment() {
             }
     }
 
-    fun deleteData() {
-
+    private fun deleteData(boardData: BoardDto) {
+        val user = auth.currentUser
+        if (user!!.uid == boardData.uid){
+            fireStore.collection("BoardDto").document(boardData.bid).delete()
+                .addOnSuccessListener {
+                    data.remove(boardData)
+                }
+        }
     }
 
     override fun onDestroyView() {
