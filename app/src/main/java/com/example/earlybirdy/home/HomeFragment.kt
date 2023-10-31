@@ -186,7 +186,6 @@ class HomeFragment : Fragment() {
             ?.whereGreaterThanOrEqualTo("date", startOfDay)
             ?.whereLessThanOrEqualTo("date", endOfDay)
             ?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
-
                 // ArrayList 비워줌
                 adapter.clearList()
 
@@ -202,9 +201,22 @@ class HomeFragment : Fragment() {
                         totalGoals++
                     }
                 }
+
+                if (totalGoals == 0) {
+                    // RecyclerView 내용이 없을 때 화살표를 숨김
+                    binding.btnLeftArrow.visibility = View.GONE
+                    binding.btnRightArrow.visibility = View.GONE
+                } else {
+                    // RecyclerView 내용이 있을 때 화살표를 표시
+                    binding.btnLeftArrow.visibility = View.VISIBLE
+                    binding.btnRightArrow.visibility = View.VISIBLE
+                }
+
+
                 updateProgress()
                 adapter.notifyDataSetChanged()
             }
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
