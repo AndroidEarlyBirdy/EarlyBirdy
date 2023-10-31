@@ -1,15 +1,11 @@
 package com.example.earlybirdy.board.board_write
 
-import android.content.Context
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.example.earlybirdy.board.board_read.BoardReadActivity
-import com.example.earlybirdy.data.BoardData
 import com.example.earlybirdy.databinding.ActivityBoardWriteBinding
 import com.example.earlybirdy.dto.BoardDto
-import com.example.earlybirdy.util.navigateToBoardReadActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
@@ -62,6 +58,7 @@ class BoardWriteActivity : AppCompatActivity() {
             } else {
                 updateBoard()
             }
+        }
     }
 
     fun getUserNicknameData() {
@@ -70,7 +67,7 @@ class BoardWriteActivity : AppCompatActivity() {
             if (value != null) {
                 nickname = value.getString("nickname")
             }
-            binding.tvNickname.text = nickname
+            binding.tvWriter.text = nickname
         }
     }
 
@@ -81,12 +78,12 @@ class BoardWriteActivity : AppCompatActivity() {
         var boardIndex = UUID.randomUUID().toString()
 
         val contentsTitle = binding.etContentsTitle.text.toString()
-        val contents = binding.etContentsDetail.text.toString()
+        val contents = binding.etContents.text.toString()
 
         if (contentsTitle.isEmpty()) {
             binding.etContentsTitle.error = "제목을 입력해주세요"
         } else if (contents.isEmpty()) {
-            binding.etContentsDetail.error = "내용을 입력해주세요"
+            binding.etContents.error = "내용을 입력해주세요"
         } else {
             val boardDto =
                 BoardDto(boardIndex, user!!.uid, nickname!!, contentsTitle, contents)
@@ -103,7 +100,7 @@ class BoardWriteActivity : AppCompatActivity() {
     }
 
     private fun readBoard() {
-        binding.tvNickname.text = BoardReadActivity.BoardData.writer
+        binding.tvWriter.text = BoardReadActivity.BoardData.writer
         binding.etContentsTitle.setText(BoardReadActivity.BoardData.contentsTitle)
         binding.etContents.setText(BoardReadActivity.BoardData.contents)
     }
@@ -120,7 +117,8 @@ class BoardWriteActivity : AppCompatActivity() {
         } else if (contents.isEmpty()) {
             binding.etContents.error = "내용을 입력해주세요"
         } else {
-            val boardDto = BoardDto(boardData.bid, boardData.uid, nickname!!, contentsTitle, contents)
+            val boardDto =
+                BoardDto(boardData.bid, boardData.uid, nickname!!, contentsTitle, contents)
             db.collection("BoardDto").document(boardData.bid)
                 .set(boardDto)
                 .addOnSuccessListener {

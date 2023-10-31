@@ -38,7 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="게시글 작성"
+        android:text="게시글 보기"
         android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -46,21 +46,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-<!--    <TextView-->
-<!--        android:id="@+id/tv_update"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="30dp"-->
-<!--        android:layout_marginEnd="30dp"-->
-<!--        android:text="수정"-->
-<!--        android:textColor="@color/icon2"-->
-<!--        android:textSize="18dp"-->
-<!--        android:textStyle="bold"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
-
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout2"
+        android:id="@+id/cl_contents"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="60dp"
@@ -69,31 +56,51 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_Title">
 
         <TextView
-            android:id="@+id/btn_communityDelet"
+            android:id="@+id/tv_delete"
             android:layout_width="101dp"
             android:layout_height="32dp"
             android:layout_marginTop="15dp"
             android:background="@drawable/btn_setting"
+            android:layout_marginLeft="16dp"
             android:gravity="center"
-            android:text="글수정"
+            android:text="삭제"
             android:textSize="13sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/constraintLayout2" />
+            app:layout_constraintTop_toTopOf="@+id/cl_contents" />
 
         <TextView
-            android:id="@+id/btn_addPicture"
+            android:id="@+id/tv_update"
             android:layout_width="101dp"
             android:layout_height="32dp"
             android:background="@drawable/btn_setting"
+            android:layout_marginRight="16dp"
             android:gravity="center"
-            android:text="글삭제"
+            android:text="수정"
             android:textSize="13sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btn_communityDelet"
-            app:layout_constraintTop_toTopOf="@+id/btn_communityDelet" />
+            app:layout_constraintTop_toTopOf="@+id/tv_delete" />
+
+        <TextView
+            android:id="@+id/tv_contentTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:text="제목"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_delete" />
+
+        <TextView
+            android:id="@+id/et_contentsTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="제목을 입력해주세요"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tv_nickname"
+            app:layout_constraintTop_toTopOf="@+id/tv_contentTitle" />
 
         <TextView
             android:id="@+id/tv_writer"
@@ -149,47 +156,25 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_creationTime" />
 
-        <TextView
-            android:id="@+id/tv_contentTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="10dp"
-            android:text="제목"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_communityDelet" />
-
-        <TextView
-            android:id="@+id/et_contentsTitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="제목을 입력해주세요"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/tv_nickname"
-            app:layout_constraintTop_toTopOf="@+id/tv_contentTitle" />
-
-        <TextView
-            android:id="@+id/et_ContentsDetail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="게시글을 작성해주세요"
-            android:layout_marginHorizontal="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/tv_createdDetail"
-            app:layout_constraintTop_toBottomOf="@+id/tv_createdDetail"
-            app:layout_constraintVertical_bias="0.0" />
-
         <ImageView
             android:id="@+id/iv_picture"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:src="@drawable/ic_launcher_foreground"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_ContentsDetail" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_createdDetail"/>
+
+        <TextView
+            android:id="@+id/et_contents"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:hint="게시글을 작성해주세요"
+            android:layout_marginHorizontal="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_picture"/>
 
         <TextView
             android:id="@+id/tv_commit"
@@ -201,7 +186,7 @@
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_picture" />
+            app:layout_constraintTop_toBottomOf="@+id/et_contents" />
 
         <TextView
             android:id="@+id/tv_commitEdit"
