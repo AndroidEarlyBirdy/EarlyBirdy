@@ -62,10 +62,7 @@ class HomeFragment : Fragment() {
 
         adapter = HomeFragmentAdapter()
         binding.rvTodoMain.adapter = adapter
-        binding.rvTodoMain.layoutManager =
-            LinearLayoutManager(requireContext()).also {
-                it.orientation = LinearLayoutManager.HORIZONTAL
-            } // 리사이클러뷰 가로로
+        binding.rvTodoMain.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false) // 리사이클러뷰 가로로
 
         // 데이터를 불러오는 코드를 onCreateView 내에서 실행
         loadDataFromFirestore()
@@ -214,6 +211,31 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Log.d("이곳은", "onViewCreated")
         Log.d("이곳이니", completedAttendances.toString())
+
+        super.onViewCreated(view, savedInstanceState)
+
+        val leftArrowButton = binding.btnLeftArrow
+        val rightArrowButton = binding.btnRightArrow
+        val recyclerView = binding.rvTodoMain
+
+// 좌측 화살표 클릭 시 RecyclerView를 좌측으로 스크롤
+        leftArrowButton.setOnClickListener {
+            val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+            val firstVisibleItem = layoutManager.findFirstVisibleItemPosition()
+            if (firstVisibleItem > 0) {
+                recyclerView.smoothScrollToPosition(firstVisibleItem - 1)
+            }
+        }
+
+// 우측 화살표 클릭 시 RecyclerView를 우측으로 스크롤
+        rightArrowButton.setOnClickListener {
+            val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+            val lastVisibleItem = layoutManager.findLastVisibleItemPosition()
+            if (lastVisibleItem < adapter.itemCount - 1) {
+                recyclerView.smoothScrollToPosition(lastVisibleItem + 1)
+            }
+        }
+
 
         binding.btnAttend.setOnClickListener {
             val alarmTime = loadTimeDate()
