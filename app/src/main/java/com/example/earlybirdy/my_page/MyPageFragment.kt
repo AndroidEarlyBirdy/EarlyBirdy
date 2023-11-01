@@ -158,10 +158,10 @@ class MyPageFragment : Fragment() {
 
 
     private fun loadAttendanceData() {
-        //val userId = "alUKQs4TIDM7F6GFC01TfXdUWwB2"
+        val userId = "xsZP0kXXGqYCFzRMZK9zXiaILjF3"
 
         firestore.collection("UserDto")
-            .document(user.uid)
+            .document(userId)
             .collection("Attendance")
             .addSnapshotListener { querySnapshot, error ->
                 if (error != null) {
@@ -181,7 +181,7 @@ class MyPageFragment : Fragment() {
                 }
 
                 firestore.collection("UserDto")
-                    .document(user.uid)
+                    .document(userId)
                     .collection("MyGoal")
                     .whereEqualTo("check", true)
                     .addSnapshotListener { querySnapshot, error ->
@@ -247,7 +247,9 @@ class MyPageFragment : Fragment() {
         }
 
         override fun decorate(view: DayViewFacade) {
+
             view.setBackgroundDrawable(context.resources.getDrawable(decoratorDrawableResId))
+
         }
     }
 
