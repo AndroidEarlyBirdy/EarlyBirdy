@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.earlybirdy.board.board_read.BoardReadActivity
+import com.example.earlybirdy.data.Todo
 import com.example.earlybirdy.databinding.FragmentBoardBinding
 import com.example.earlybirdy.dto.BoardDto
 import com.example.earlybirdy.util.navigateToBoardWriteActivity
@@ -17,6 +18,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import com.google.gson.Gson
 
 class BoardFragment : Fragment() {
 
@@ -51,14 +53,12 @@ class BoardFragment : Fragment() {
         database = Firebase.database.reference
 
         initView()
-
         setOnClickListener()
-
 
         return binding.root
     }
 
-    private fun initView() = with(binding){
+    private fun initView() = with(binding) {
 
         loadData()
 
@@ -70,9 +70,14 @@ class BoardFragment : Fragment() {
             override fun onClick(view: View, data: BoardDto) {
                 startActivity(BoardReadActivity.BoardReadIntent(context, data))
             }
-        }
-    }
 
+            override fun deleteItem(view: View, boardData: BoardDto) {
+                deleteData(boardData)
+                loadData()
+            }
+        }
+
+    }
 
     private fun setOnClickListener() {
         binding.btnCreatContents.setOnClickListener {
@@ -82,7 +87,6 @@ class BoardFragment : Fragment() {
         binding.icReload.setOnClickListener {
             loadData()
         }
-
     }
 
     private fun loadData() {
@@ -90,7 +94,7 @@ class BoardFragment : Fragment() {
             .addOnSuccessListener { value ->
                 boardAdapter.clearList()
                 data.clear()
-                for (i in value!!. documents){
+                for (i in value!!.documents) {
                     var item = i.toObject(BoardDto::class.java)
                     if (item != null) {
                         val boardItam = BoardDto(
@@ -106,6 +110,16 @@ class BoardFragment : Fragment() {
                 }
                 boardAdapter.addItems(data)
             }
+    }
+
+    private fun deleteData(boardData: BoardDto) {
+        val user = auth.currentUser
+        if (user!!.uid == boardData.uid){
+            fireStore.collection("BoardDto").document(boardData.bid).delete()
+                .addOnSuccessListener {
+                    data.remove(boardData)
+                }
+        }
     }
 
     override fun onDestroyView() {
