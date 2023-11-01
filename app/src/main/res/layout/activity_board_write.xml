@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".board.board_write.BoardWriteActivity">
+    tools:context=".board.board_read.BoardReadActivity">
+
+
     <!--    배경 그라데이션 이미지-->
     <ImageView
         android:layout_width="match_parent"
@@ -21,16 +23,13 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.5" />
 
-    <TextView
-        android:id="@+id/tv_cancel"
+    <ImageView
+        android:id="@+id/iv_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
-        android:text="@string/alarm_cancel"
-        android:textColor="@color/icon2"
-        android:textSize="18dp"
-        android:textStyle="bold"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/btn_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -47,92 +46,135 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="30dp"
-        android:text="작성"
-        android:textColor="@color/icon2"
-        android:textSize="18dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="60dp"
         android:background="@drawable/ic_roundig"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_Title">
-        <TextView
-            android:id="@+id/tv_writer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="26dp"
-            android:text="작성자: "
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_nickname"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="임시 닉네임"
-            app:layout_constraintBottom_toBottomOf="@id/tv_writer"
+            android:id="@+id/btn_communityDelet"
+            android:layout_width="101dp"
+            android:layout_height="32dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/btn_setting"
+            android:gravity="center"
+            android:text="삭제"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/btn_addPicture"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/constraintLayout2" />
+
+        <TextView
+            android:id="@+id/btn_addPicture"
+            android:layout_width="101dp"
+            android:layout_height="32dp"
+            android:layout_marginHorizontal="16dp"
+            android:background="@drawable/btn_setting"
+            android:gravity="center"
+            android:text="사진 첨부"
+            android:textSize="13sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_writer"
-            app:layout_constraintTop_toTopOf="@id/tv_writer"/>
-
-        <TextView
-            android:id="@+id/tv_creationTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="작성 시간"
-            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_writer" />
+            app:layout_constraintTop_toTopOf="@+id/btn_communityDelet" />
 
         <TextView
-            android:id="@+id/tv_createdDatetime"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="23.10.26.19.02"
-            app:layout_constraintBottom_toBottomOf="@id/tv_creationTime"
+            android:id="@+id/btn_creatContents"
+            android:layout_width="101dp"
+            android:layout_height="32dp"
+            android:layout_marginHorizontal="16dp"
+            android:background="@drawable/btn_setting"
+            android:gravity="center"
+            android:text="작성"
+            android:textSize="13sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_creationTime"
-            app:layout_constraintTop_toTopOf="@id/tv_creationTime"/>
+            app:layout_constraintStart_toEndOf="@+id/btn_addPicture"
+            app:layout_constraintTop_toTopOf="@+id/btn_addPicture" />
+
         <TextView
-            android:id="@+id/tv_createdTitle"
+            android:id="@+id/tv_contentTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="작성 시간"
-            android:textSize="16sp"
+            android:layout_marginTop="15dp"
+            android:text="제목"
+            android:textSize="18sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_creationTime" />
+            app:layout_constraintTop_toBottomOf="@+id/btn_communityDelet" />
 
         <EditText
             android:id="@+id/et_contentsTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
             android:hint="제목을 입력해주세요"
-            app:layout_constraintStart_toEndOf="@+id/tv_createdTitle"
+            android:paddingBottom="5dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_createdDatetime" />
+            app:layout_constraintStart_toEndOf="@+id/tv_contentTitle"
+            app:layout_constraintTop_toTopOf="@+id/tv_contentTitle" />
+
+        <TextView
+            android:id="@+id/tv_writerName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="15dp"
+            android:text="작성자"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_contentTitle" />
+
+        <TextView
+            android:id="@+id/tv_writer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:hint="작성자"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_writerName"
+            app:layout_constraintTop_toTopOf="@+id/tv_writerName" />
+
+        <TextView
+            android:id="@+id/tv_createdDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:text="내용"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_writerName" />
 
         <EditText
-            android:id="@+id/et_Contents"
+            android:id="@+id/et_contents"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="10dp"
             android:hint="게시글을 작성해주세요"
-            app:layout_constraintTop_toBottomOf="@+id/et_contentsTitle"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_picture" />
+
+        <ImageView
+            android:id="@+id/iv_picture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_launcher_foreground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_createdDetail" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

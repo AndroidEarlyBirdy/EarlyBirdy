@@ -75,6 +75,7 @@ fun navigateToResetPassword(context: Context) {
 // 게시글 작성 페이지로 이동 함수
 fun navigateToBoardWriteActivity(context: Context) {
     val intent = Intent(context, BoardWriteActivity::class.java)
+    intent.putExtra("boardType", 1)
     context.startActivity(intent)
 }
 
