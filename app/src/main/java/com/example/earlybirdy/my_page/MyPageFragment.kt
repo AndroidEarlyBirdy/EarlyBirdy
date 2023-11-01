@@ -158,7 +158,7 @@ class MyPageFragment : Fragment() {
 
 
     private fun loadAttendanceData() {
-        val userId = "alUKQs4TIDM7F6GFC01TfXdUWwB2"
+        val userId = "xsZP0kXXGqYCFzRMZK9zXiaILjF3"
 
         firestore.collection("UserDto")
             .document(userId)
@@ -247,7 +247,9 @@ class MyPageFragment : Fragment() {
         }
 
         override fun decorate(view: DayViewFacade) {
+
             view.setBackgroundDrawable(context.resources.getDrawable(decoratorDrawableResId))
+
         }
     }
 
