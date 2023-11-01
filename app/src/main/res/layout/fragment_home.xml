@@ -26,10 +26,21 @@
         android:layout_width="280dp"
         android:layout_height="280dp"
         android:layout_marginTop="32dp"
+        android:tooltipText="출석과 오늘의 목표 진행도를 나타내는 프로그래스바입니다."
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:progress="60" />
+
+        <ImageView
+            android:id="@+id/ic_home_question"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/ic_question_mark"
+            android:tooltipText="출석과 오늘의 목표 진행도를 나타내는 프로그래스바입니다."
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/progress_bar"/>
 
     <TextView
         android:id="@+id/tv_progress"

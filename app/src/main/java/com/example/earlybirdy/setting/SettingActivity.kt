@@ -35,7 +35,6 @@ class SettingActivity : MainActivity() {
 
         //화면전환 애니메이션
         overridePendingTransition(R.anim.slide_right_enter, R.anim.slide_left_exit)
-
     }
 
     private fun setOnclickListener() {
