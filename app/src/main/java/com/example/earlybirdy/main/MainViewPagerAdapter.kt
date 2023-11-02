@@ -4,7 +4,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.earlybirdy.R
-import com.example.earlybirdy.RankingFragment
 import com.example.earlybirdy.board.board_main.BoardFragment
 import com.example.earlybirdy.home.HomeFragment
 import com.example.earlybirdy.my_page.MyPageFragment
@@ -18,9 +17,9 @@ class MainViewPagerAdapter(fragmentActivity: FragmentActivity) : FragmentStateAd
         fragment_list.add(
             MainTabs(HomeFragment.newInstance(), R.string.tab_home),
         )
-        fragment_list.add(
-            MainTabs(RankingFragment.newInstance(), R.string.tab_rank)
-        )
+//        fragment_list.add(
+//            MainTabs(RankingFragment.newInstance(), R.string.tab_rank)
+//        )
         fragment_list.add(
             MainTabs(BoardFragment.newInstance(), R.string.tab_board),
         )

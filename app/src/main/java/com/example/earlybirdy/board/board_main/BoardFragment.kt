@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.earlybirdy.board.board_read.BoardReadActivity
-import com.example.earlybirdy.data.Todo
 import com.example.earlybirdy.databinding.FragmentBoardBinding
 import com.example.earlybirdy.dto.BoardDto
 import com.example.earlybirdy.util.navigateToBoardWriteActivity
@@ -18,7 +17,6 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
-import com.google.gson.Gson
 
 class BoardFragment : Fragment() {
 

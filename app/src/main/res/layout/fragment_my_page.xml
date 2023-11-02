@@ -44,18 +44,18 @@
             android:src="@drawable/img_profile_add111"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_setting"/>
+            app:layout_constraintTop_toBottomOf="@+id/iv_setting" />
 
-<!--        <com.google.android.material.imageview.ShapeableImageView-->
-<!--            android:id="@+id/iv_profile"-->
-<!--            android:layout_width="110dp"-->
-<!--            android:layout_height="110dp"-->
-<!--            android:elevation="1dp"-->
-<!--            android:src="@drawable/img_profile_add111"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/iv_setting"-->
-<!--            app:shapeAppearanceOverlay="@style/circle" />-->
+        <!--        <com.google.android.material.imageview.ShapeableImageView-->
+        <!--            android:id="@+id/iv_profile"-->
+        <!--            android:layout_width="110dp"-->
+        <!--            android:layout_height="110dp"-->
+        <!--            android:elevation="1dp"-->
+        <!--            android:src="@drawable/img_profile_add111"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/iv_setting"-->
+        <!--            app:shapeAppearanceOverlay="@style/circle" />-->
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintlayout_status"
@@ -123,9 +123,9 @@
             android:id="@+id/iv_edit_profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@id/iv_profile"
+            android:src="@drawable/ic_edit_profile"
             app:layout_constraintBottom_toBottomOf="@+id/iv_profile"
-            android:src="@drawable/ic_edit_profile"/>
+            app:layout_constraintStart_toEndOf="@id/iv_profile" />
 
 
         <ImageView
@@ -160,13 +160,21 @@
             app:layout_constraintTop_toBottomOf="@+id/constraintlayout_status"
             app:strokeColor="@color/black">
 
+            <ImageView
+                android:id="@+id/imageView_rightTop"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="top|end"
+                android:tooltipText="오늘의 목표 달성도에 따라서 달력의 마크 색상이 달라집니다."
+                android:src="@drawable/ic_question_mark" />
+
             <com.prolificinteractive.materialcalendarview.MaterialCalendarView
                 android:id="@+id/calendarView"
                 android:layout_width="match_parent"
                 android:layout_height="350dp"
                 android:layout_marginTop="30dp"
                 app:mcv_selectionColor="@color/white"
-                app:mcv_selectionMode="none"/>
+                app:mcv_selectionMode="none" />
 
         </androidx.cardview.widget.CardView>
 

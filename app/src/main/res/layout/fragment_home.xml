@@ -76,6 +76,16 @@
         android:src="@drawable/ic_list_background"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_title_alarm" />
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_question_mark"
+            android:layout_marginTop="28dp"
+            android:tooltipText="아래 칸을 누르면 알람 설정을 할 수 있습니다. 그리고 출석하기 버튼을 누를 시 출석할 수 있습니다."
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="36dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/progress_bar"/>
 
     <TextView
         android:id="@+id/tv_alarm"
@@ -124,6 +134,16 @@
         app:layout_constraintStart_toEndOf="@+id/tv_todaygoal"
         app:layout_constraintTop_toTopOf="@+id/tv_todaygoal"
         app:layout_constraintBottom_toBottomOf="@id/tv_todaygoal"/>
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_question_mark"
+            android:layout_marginEnd="36dp"
+            android:tooltipText="왼쪽의 버튼을 누르면 오늘의 목표를 생성 할 수 있습니다. 오늘의 목표는 좌우로 스와이프해서 볼 수 있습니다."
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_todaygoal"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_todaygoal"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_todo_main"
