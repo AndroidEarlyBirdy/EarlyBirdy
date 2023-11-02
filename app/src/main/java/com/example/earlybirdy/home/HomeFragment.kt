@@ -1,9 +1,13 @@
 package com.example.earlybirdy.home
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
+import android.location.LocationListener
+import android.location.LocationManager
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -11,8 +15,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+
 import com.example.earlybirdy.create_plan.CreatePlanActivity
 import com.example.earlybirdy.data.MyGoal
 import com.example.earlybirdy.databinding.FragmentHomeBinding
@@ -23,12 +30,18 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.loopj.android.http.AsyncHttpClient
+import com.loopj.android.http.JsonHttpResponseHandler
+import com.loopj.android.http.RequestParams
+import cz.msebera.android.httpclient.Header
+import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
 import java.util.UUID
+
 
 class HomeFragment : Fragment() {
 
@@ -48,6 +61,9 @@ class HomeFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var user: FirebaseUser
+
+    private lateinit var mLocationManager: LocationManager
+    private lateinit var mLocationListener: LocationListener
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -378,7 +394,97 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         updateAlarmTime()
+        getWeatherInCurrentLocation()
     }
+
+    private fun getWeatherInCurrentLocation() {
+        mLocationManager = requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        mLocationListener = LocationListener { p0 ->
+            val params: RequestParams = RequestParams()
+            params.put("lat", p0.latitude)
+            params.put("lon", p0.longitude)
+            params.put("appid", Companion.API_KEY)
+            params.put("query", "Seoul")
+            doNetworking(params)
+        }
+
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // 권한이 없는 경우 권한 요청
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                WEATHER_REQUEST
+            )
+        } else {
+            // 권한이 있는 경우 위치 업데이트 요청
+            mLocationManager.requestLocationUpdates(
+                LocationManager.NETWORK_PROVIDER,
+                MIN_TIME,
+                MIN_DISTANCE,
+                mLocationListener
+            )
+            mLocationManager.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER,
+                MIN_TIME,
+                MIN_DISTANCE,
+                mLocationListener
+            )
+        }
+    }
+
+
+
+    private fun doNetworking(params: RequestParams) {
+        val weatherstackEndpoint = "http://api.weatherstack.com/current"
+        params.put("access_key", Companion.API_KEY)
+
+        val client = AsyncHttpClient()
+        client.get(weatherstackEndpoint, params, object : JsonHttpResponseHandler() {
+            override fun onSuccess(statusCode: Int, headers: Array<Header>?, response: JSONObject?) {
+                val weatherData = WeatherData().fromJson(response)
+                if (weatherData != null) {
+                    val iconUrl = weatherData.iconUrl // 날씨 아이콘 URL 가져오기
+                    // Glide를 사용하여 이미지 로딩
+                    Glide.with(this@HomeFragment)
+                        .load(iconUrl)
+                        .into(binding.icWeather)
+                    Log.d("아이콘", binding.icWeather.toString())
+                    // 날씨 정보 및 온도 업데이트
+                    binding.tvTemperature.text = weatherData.tempString + " ℃"
+                }
+            }
+
+            override fun onFailure(statusCode: Int, headers: Array<Header>?, throwable: Throwable?, errorResponse: JSONObject?) {
+                super.onFailure(statusCode, headers, throwable, errorResponse)
+
+            }
+        })
+    }
+
+
+
+//    private fun updateWeather(weather: WeatherData) {
+//        binding.tvTemperature.setText(weather.tempString+" ℃")
+//        val resourceID = resources.getIdentifier(weather.icon, "drawable", activity?.packageName)
+//        binding.icWeather.setImageResource(resourceID)
+//        Log.d("날씨", binding.tvTemperature.toString())
+//        Log.d("아이콘", binding.icWeather.toString())
+//    }
+
+    override fun onPause() {
+        super.onPause()
+        if(mLocationManager!=null){
+            mLocationManager.removeUpdates(mLocationListener)
+        }
+    }
+
 
     override fun onDestroyView() {
         _binding = null
@@ -387,6 +493,11 @@ class HomeFragment : Fragment() {
 
     companion object {
         fun newInstance() = HomeFragment()
+        const val API_KEY: String = "fdc4d1525e506a285b467adc61c77416"
+        const val WEATHER_URL: String = "https://api.weatherstack.com/current"
+        const val MIN_TIME: Long = 5000
+        const val MIN_DISTANCE: Float = 1000F
+        const val WEATHER_REQUEST: Int = 102
     }
 
 
