@@ -8,6 +8,7 @@ import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.location.LocationListener
 import android.location.LocationManager
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -15,6 +16,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,6 +28,7 @@ import com.example.earlybirdy.data.MyGoal
 import com.example.earlybirdy.databinding.FragmentHomeBinding
 import com.example.earlybirdy.databinding.ItemTodoMainBinding
 import com.example.earlybirdy.util.navigateToAlarmActivity
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -37,6 +40,9 @@ import com.loopj.android.http.RequestParams
 import cz.msebera.android.httpclient.Header
 import org.json.JSONObject
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.ZonedDateTime
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
@@ -64,6 +70,12 @@ class HomeFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var user: FirebaseUser
+    @RequiresApi(Build.VERSION_CODES.O)
+    val now = LocalDateTime.now()
+    @RequiresApi(Build.VERSION_CODES.O)
+    private val startOfDay = now.with(LocalTime.MIN)
+    @RequiresApi(Build.VERSION_CODES.O)
+    private val endOfDay = now.with(LocalTime.MAX)
 
     private lateinit var mLocationManager: LocationManager
     private lateinit var mLocationListener: LocationListener
@@ -183,7 +195,8 @@ class HomeFragment : Fragment() {
 
         firestore?.collection("UserDto")?.document(user.uid)
             ?.collection("Attendance")
-            ?.whereEqualTo("date", dateTime)
+            ?.whereGreaterThanOrEqualTo("date", startOfDay)
+            ?.whereLessThanOrEqualTo("date", endOfDay)
             ?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
                 Log.d("이곳왈왈", dateTime)
                 val hasAttended = querySnapshot?.documents?.isNotEmpty()
@@ -319,15 +332,6 @@ class HomeFragment : Fragment() {
 
                 // homeViewModel.setSharedData(data)
 
-//                val nowTime = System.currentTimeMillis()
-//                val timeFormatter = SimpleDateFormat("yyyy.MM.dd")
-//                val dateTime = timeFormatter.format(nowTime)
-                val nowTime = System.currentTimeMillis()
-                val timeZone = TimeZone.getTimeZone("UTC+9")
-                val dateFormat = SimpleDateFormat("yyyy년 MM월 dd일 a hh시 mm분 ss초 'UTC'Z", Locale.getDefault())
-                dateFormat.timeZone = timeZone
-                val dateTime = dateFormat.format(Date(nowTime))
-
                 attendindex = UUID.randomUUID().toString()
 
                 firestore?.collection("UserDto")?.document(user.uid)
@@ -335,7 +339,7 @@ class HomeFragment : Fragment() {
                     ?.set(
                         hashMapOf(
                             "AttendanceId" to attendindex,
-                            "date" to dateTime.toString(),
+                            "date" to Timestamp.now(),
                         )
                     )
                 // 출석 버튼을 비활성화
