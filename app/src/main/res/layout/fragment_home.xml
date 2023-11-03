@@ -17,133 +17,134 @@
             android:background="@drawable/bg_gr3"
             app:layout_constraintBottom_toBottomOf="@+id/progress_bar"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        android:background="@drawable/ic_glass"
-        style="@style/CircularDeterminateProgressBar"
-        android:layout_width="280dp"
-        android:layout_height="280dp"
-        android:layout_marginTop="32dp"
-        android:tooltipText="출석과 오늘의 목표 진행도를 나타내는 프로그래스바입니다."
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:progress="60" />
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="@style/CircularDeterminateProgressBar"
+            android:layout_width="320dp"
+            android:layout_height="320dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/ic_glassbackground"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView7"
+            tools:progress="60" />
+
+        <TextView
+            android:id="@+id/tv_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textSize="34sp"
+            app:layout_constraintBottom_toBottomOf="@+id/progress_bar"
+            app:layout_constraintEnd_toEndOf="@+id/progress_bar"
+            app:layout_constraintStart_toStartOf="@+id/progress_bar"
+            app:layout_constraintTop_toTopOf="@+id/progress_bar"
+            tools:text="60%" />
 
         <ImageView
             android:id="@+id/ic_home_question"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginTop="32dp"
             android:src="@drawable/ic_question_mark"
             android:tooltipText="출석과 오늘의 목표 진행도를 나타내는 프로그래스바입니다."
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/progress_bar"/>
-
-    <TextView
-        android:id="@+id/tv_progress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintBottom_toBottomOf="@+id/progress_bar"
-        app:layout_constraintEnd_toEndOf="@+id/progress_bar"
-        app:layout_constraintStart_toStartOf="@+id/progress_bar"
-        app:layout_constraintTop_toTopOf="@+id/progress_bar"
-        tools:text="60%" />
+            app:layout_constraintStart_toEndOf="@+id/progress_bar"
+            app:layout_constraintTop_toTopOf="@+id/progress_bar" />
 
 
-    <TextView
-        android:id="@+id/tv_title_alarm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/home_goodmorning"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progress_bar"
-        tools:textColor="#444444" />
+        <TextView
+            android:id="@+id/tv_title_alarm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/home_goodmorning"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/progress_bar"
+            tools:textColor="#444444" />
 
-    <ImageView
-        android:id="@+id/iv_go_alarm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="41dp"
-        android:layout_marginTop="9dp"
-        android:src="@drawable/ic_list_background"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_title_alarm" />
+        <ImageView
+            android:id="@+id/iv_go_alarm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="41dp"
+            android:layout_marginTop="9dp"
+            android:src="@drawable/ic_list_background"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title_alarm" />
+
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/ic_question_mark"
-            android:layout_marginTop="28dp"
-            android:tooltipText="아래 칸을 누르면 알람 설정을 할 수 있습니다. 그리고 출석하기 버튼을 누를 시 출석할 수 있습니다."
             android:layout_marginStart="10dp"
+            android:layout_marginTop="28dp"
             android:layout_marginEnd="36dp"
+            android:src="@drawable/ic_question_mark"
+            android:tooltipText="아래 칸을 누르면 알람 설정을 할 수 있습니다. 그리고 출석하기 버튼을 누를 시 출석할 수 있습니다."
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/progress_bar"/>
+            app:layout_constraintTop_toBottomOf="@+id/progress_bar" />
 
-    <TextView
-        android:id="@+id/tv_alarm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/home_time"
-        android:textColor="#80000000"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/iv_go_alarm"
-        app:layout_constraintTop_toTopOf="@+id/iv_go_alarm" />
+        <TextView
+            android:id="@+id/tv_alarm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/home_time"
+            android:textColor="#80000000"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/iv_go_alarm"
+            app:layout_constraintTop_toTopOf="@+id/iv_go_alarm" />
 
-    <ImageButton
-        android:id="@+id/btn_attend"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="16dp"
-        android:background="@android:color/transparent"
-        android:src="@drawable/btn_attend"
-        app:layout_constraintEnd_toEndOf="@+id/iv_go_alarm"
-        app:layout_constraintTop_toTopOf="@+id/iv_go_alarm" />
+        <ImageButton
+            android:id="@+id/btn_attend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/btn_attend"
+            app:layout_constraintEnd_toEndOf="@+id/iv_go_alarm"
+            app:layout_constraintTop_toTopOf="@+id/iv_go_alarm" />
 
-    <TextView
-        android:id="@+id/tv_todaygoal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/home_today_goal"
-        android:textSize="18sp"
-        tools:textColor="#444444"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_go_alarm" />
+        <TextView
+            android:id="@+id/tv_todaygoal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/home_today_goal"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_go_alarm"
+            tools:textColor="#444444" />
 
-    <ImageButton
-        android:id="@+id/btn_create"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="13dp"
-        android:background="@android:color/transparent"
-        android:src="@drawable/btn_plus"
-        app:layout_constraintStart_toEndOf="@+id/tv_todaygoal"
-        app:layout_constraintTop_toTopOf="@+id/tv_todaygoal"
-        app:layout_constraintBottom_toBottomOf="@id/tv_todaygoal"/>
+        <ImageButton
+            android:id="@+id/btn_create"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="13dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/btn_plus"
+            app:layout_constraintBottom_toBottomOf="@id/tv_todaygoal"
+            app:layout_constraintStart_toEndOf="@+id/tv_todaygoal"
+            app:layout_constraintTop_toTopOf="@+id/tv_todaygoal" />
 
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/ic_question_mark"
             android:layout_marginEnd="36dp"
+            android:src="@drawable/ic_question_mark"
             android:tooltipText="왼쪽의 버튼을 누르면 오늘의 목표를 생성 할 수 있습니다. 오늘의 목표는 좌우로 스와이프해서 볼 수 있습니다."
+            app:layout_constraintBottom_toBottomOf="@+id/tv_todaygoal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_todaygoal"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_todaygoal"/>
+            app:layout_constraintTop_toTopOf="@+id/tv_todaygoal" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_todo_main"
@@ -156,7 +157,6 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_todaygoal" />
 
         <TextView
-            android:visibility="gone"
             android:id="@+id/tv_EmptyListMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -165,6 +165,7 @@
             android:text="목표를 채워주세요"
             android:textColor="#444444"
             android:textSize="16sp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/rv_todo_main"
             app:layout_constraintStart_toStartOf="@+id/rv_todo_main"
@@ -190,6 +191,51 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/rv_todo_main" />
 
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/ic_topbackground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.505"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_famous"
+            android:layout_width="221dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="18dp"
+            android:maxLines="3"
+            android:text="text"
+            app:layout_constraintStart_toStartOf="@+id/imageView7"
+            app:layout_constraintTop_toTopOf="@+id/imageView7" />
+
+        <ImageView
+            android:id="@+id/ic_weather"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="12dp"
+            android:elevation="2dp"
+            android:src="@drawable/circular_progress"
+            app:layout_constraintEnd_toEndOf="@+id/imageView7"
+            app:layout_constraintTop_toTopOf="@+id/imageView7" />
+
+        <TextView
+            android:id="@+id/tv_temperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-4dp"
+            android:layout_marginEnd="15dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/imageView7"
+            app:layout_constraintTop_toBottomOf="@+id/ic_weather"
+            tools:text="00 ℃" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
