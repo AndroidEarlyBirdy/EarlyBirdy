@@ -19,6 +19,7 @@ import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.earlybirdy.R
 
 import com.example.earlybirdy.create_plan.CreatePlanActivity
 import com.example.earlybirdy.data.MyGoal
@@ -51,6 +52,8 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val dateFormat = SimpleDateFormat("h:mm a", Locale.US)
+    private lateinit var sharedPreferences: SharedPreferences
+
 
     private lateinit var adapter: HomeFragmentAdapter
     private var completedGoals: Int = 0 // 완료된 목표 수를 추적
@@ -242,6 +245,19 @@ class HomeFragment : Fragment() {
 
         super.onViewCreated(view, savedInstanceState)
 
+        sharedPreferences = requireContext().getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+
+        val currentDate = getCurrentDate()
+        val lastShownDate = sharedPreferences.getString("last_shown_date", "")
+
+        // 현재 날짜와 마지막 표시 날짜를 비교하여, 다른 날에만 새 명언 표시
+        if (currentDate != lastShownDate) {
+            showRandomQuote()
+            // 마지막 표시 날짜를 업데이트
+            sharedPreferences.edit().putString("last_shown_date", currentDate).apply()
+        }
+
+
         val leftArrowButton = binding.btnLeftArrow
         val rightArrowButton = binding.btnRightArrow
         val recyclerView = binding.rvTodoMain
@@ -327,6 +343,19 @@ class HomeFragment : Fragment() {
         }
         // 버튼을 비활성화
         binding.btnAttend.isEnabled = false
+    }
+
+    private fun getCurrentDate(): String {
+        val cal = Calendar.getInstance()
+        val sdf = SimpleDateFormat("yyyy-MM-dd")
+        return sdf.format(cal.time)
+    }
+
+    private fun showRandomQuote() {
+        val quotes = resources.getStringArray(R.array.quotes)
+        val randomIndex = (0 until quotes.size).random()
+        val randomQuote = quotes[randomIndex]
+        binding.tvFamous.text = randomQuote
     }
 
     @SuppressLint("SetTextI18n")

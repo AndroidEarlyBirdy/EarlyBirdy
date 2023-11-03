@@ -105,4 +105,21 @@
     <string name="settingdetail_detail_name">내용페이지 이름</string>
     <string name="settingdetail_detail">내용</string>
     <string name="setting_alarm_setting">알림설정</string>
+
+
+    <!--명언-->
+        <string-array name="quotes">
+            <item>아침은 모든 일의 시작이다.</item>
+            <item>아침 일찍 일어나는 새가 벌레를 잡는다.</item>
+            <item>아침은 새로운 일의 시작이고 성공의 첫 걸음이다.</item>
+            <item>아침에 일어나기 싫다면, 일어나서 그 이유를 찾아보라.</item>
+            <item>하루는 아침에 일어나서 생각한 만큼 이루어진다.</item>
+            <item>아침이 오면 무엇이든지 할 수 있다.</item>
+            <item>아침이면 새로운 날의 찬스가 주어진다.</item>
+            <item>아침에 해야 할 일을 지금 하면, 오후에 더 많은 시간이 생긴다.</item>
+            <item>늦게 일어나서 아침을 짧게 하지 마라.</item>
+            <item>이른 아침은 입에 황금을 물고 있다.</item>
+        </string-array>
+
+
 </resources>
