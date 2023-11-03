@@ -150,7 +150,7 @@ class MyPageFragment : Fragment() {
 
     private fun loadAttendanceData() {
         firestore.collection("UserDto")
-            .document(userId)
+            .document(user.uid)
             .collection("Attendance")
             .addSnapshotListener { querySnapshot, error ->
                 if (error != null) {
@@ -170,7 +170,7 @@ class MyPageFragment : Fragment() {
                 }
 
                 firestore.collection("UserDto")
-                    .document(userId)
+                    .document(user.uid)
                     .collection("MyGoal")
                     .whereEqualTo("check", true)
                     .addSnapshotListener { querySnapshot, error ->

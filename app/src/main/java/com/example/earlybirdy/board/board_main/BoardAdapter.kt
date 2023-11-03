@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.earlybirdy.create_plan.CreatePlanAdapter
 import com.example.earlybirdy.data.Todo
 import com.example.earlybirdy.databinding.ItemBoardBinding
@@ -75,6 +76,9 @@ class BoardAdapter(context: Context) : RecyclerView.Adapter<BoardAdapter.Holder>
             }
             tvWriter.text = item.writer
             etContentsTitle.text = item.contentsTitle
+            Glide.with(bContext)
+                .load(item.contentsPoto)
+                .into(ivContentsPoto)
         }
     }
 

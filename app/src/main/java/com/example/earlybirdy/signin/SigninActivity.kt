@@ -95,19 +95,54 @@ class SigninActivity : MainActivity() {
     }
 
     // 알림 권한 설정 함수
-    private fun askPermissions(){
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                android.Manifest.permission.POST_NOTIFICATIONS
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            val permissions = arrayOf(
-                android.Manifest.permission.SCHEDULE_EXACT_ALARM,
-                android.Manifest.permission.POST_NOTIFICATIONS
-            )
-            ActivityCompat.requestPermissions(this, permissions, MY_PERMISSION_ACCESS_ALL)
+//    private fun askPermissions(){
+//        if (ActivityCompat.checkSelfPermission(
+//                this,
+//                android.Manifest.permission.POST_NOTIFICATIONS
+//            ) != PackageManager.PERMISSION_GRANTED
+//        ) {
+//            val permissions = arrayOf(
+//                android.Manifest.permission.SCHEDULE_EXACT_ALARM,
+//                android.Manifest.permission.POST_NOTIFICATIONS
+//            )
+//            ActivityCompat.requestPermissions(this, permissions, MY_PERMISSION_ACCESS_ALL)
+//        }
+//    }
+    private fun askPermissions() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
+            if (ActivityCompat.checkSelfPermission(
+                    this,
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE
+                ) != PackageManager.PERMISSION_GRANTED ||
+                ActivityCompat.checkSelfPermission(
+                    this,
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                val permissions = arrayOf(
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    android.Manifest.permission.SCHEDULE_EXACT_ALARM,
+                    android.Manifest.permission.POST_NOTIFICATIONS
+                )
+                ActivityCompat.requestPermissions(this, permissions, MY_PERMISSION_ACCESS_ALL)
+            }
+        } else {
+            if (ActivityCompat.checkSelfPermission(
+                    this,
+                    android.Manifest.permission.READ_MEDIA_IMAGES
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                val permissions = arrayOf(
+                    android.Manifest.permission.READ_MEDIA_IMAGES,
+                    android.Manifest.permission.SCHEDULE_EXACT_ALARM,
+                    android.Manifest.permission.POST_NOTIFICATIONS
+                )
+                ActivityCompat.requestPermissions(this, permissions, MY_PERMISSION_ACCESS_ALL)
+            }
         }
     }
+
 
     override fun onBackPressed() {
         AlertDialog.Builder(this)
