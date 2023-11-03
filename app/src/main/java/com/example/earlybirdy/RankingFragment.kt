@@ -20,21 +20,20 @@ class RankingFragment : Fragment() {
     var auth: FirebaseAuth? = null
     var firestore: FirebaseFirestore? = null
     var currentuser: FirebaseUser? = null
-    private var _binding: FragmentRankingBinding? = null
-    private val binding get() = _binding!!
+    private var binding: FragmentRankingBinding? = null
     private var userList = ArrayList<UserDto>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentRankingBinding.inflate(inflater, container, false)
-        val rootView = _binding?.root
+        binding = FragmentRankingBinding.inflate(inflater, container, false)
+        val rootView = binding?.root
         auth = FirebaseAuth.getInstance()
         currentuser = auth?.currentUser
         firestore = FirebaseFirestore.getInstance()
         val rankingAdapter = RankingAdapter(userList)
-        _binding?.rvRanking?.adapter = rankingAdapter
-        _binding?.rvRanking?.layoutManager = LinearLayoutManager(context)
+        binding?.rvRanking?.adapter = rankingAdapter
+        binding?.rvRanking?.layoutManager = LinearLayoutManager(context)
 
         firestore?.collection("UserDto")
             ?.orderBy("exp", Query.Direction.DESCENDING)
@@ -63,11 +62,11 @@ class RankingFragment : Fragment() {
 
                     // 나의 등수를 나타내는 처리
                     if (user != null && user.uid == currentuser?.uid) {
-                        binding.tvMyProfile.setImageResource(user.profile ?: 0)
+                        binding?.tvMyProfile?.setImageResource(user.profile ?: 0)
                         Log.d("유저 프로필", user.profile.toString())
-                        binding.tvMyExp.text = "${user.exp}"
-                        binding.tvMyName.text = user.nickname
-                        binding.tvMyRank.text = "${index + 1}등"
+                        binding?.tvMyExp?.text = "${user.exp}"
+                        binding?.tvMyName?.text = user.nickname
+                        binding?.tvMyRank?.text = "${index + 1}등"
                         Log.d("유저 이름", user.nickname)
                     }
                 }
@@ -77,20 +76,20 @@ class RankingFragment : Fragment() {
                     if (userList.size > i) {
                         when (i) {
                             0 -> {
-                                binding.iv1st.setImageResource(userList[i].profile ?: 0)
-                                binding.tv1st.text = userList[i].nickname
+                                binding?.iv1st?.setImageResource(userList[i].profile ?: 0)
+                                binding?.tv1st?.text = userList[i].nickname
                                 Log.d("프로필 불러오기", userList[i].profile.toString())
                             }
 
                             1 -> {
-                                binding.iv2nd.setImageResource(userList[i].profile ?: 0)
-                                binding.tv2nd.text = userList[i].nickname
+                                binding?.iv2nd?.setImageResource(userList[i].profile ?: 0)
+                                binding?.tv2nd?.text = userList[i].nickname
                                 Log.d("2번 프로필 불러오기", userList[i].profile.toString())
                             }
 
                             2 -> {
-                                binding.iv3rd.setImageResource(userList[i].profile ?: 0)
-                                binding.tv3rd.text = userList[i].nickname
+                                binding?.iv3rd?.setImageResource(userList[i].profile ?: 0)
+                                binding?.tv3rd?.text = userList[i].nickname
                             }
                         }
                     }
@@ -100,12 +99,12 @@ class RankingFragment : Fragment() {
                 if (userList.size > 3) {
                     val rankingAdapter =
                         RankingAdapter(userList.subList(3, minOf(userList.size, 103)))
-                    binding.rvRanking.adapter = rankingAdapter
+                    binding?.rvRanking?.adapter = rankingAdapter
                 } else {
                     // 사용자가 3명 이하일 때 처리
                     val emptyList = ArrayList<UserDto>()
                     val rankingAdapter = RankingAdapter(emptyList)
-                    binding.rvRanking.adapter = rankingAdapter
+                    binding?.rvRanking?.adapter = rankingAdapter
                 }
             }
 
@@ -124,7 +123,7 @@ class RankingFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-        _binding = null
+        binding = null
         super.onDestroyView()
     }
     companion object {
