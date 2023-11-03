@@ -53,6 +53,7 @@ class MyPageFragment : Fragment() {
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -71,6 +72,7 @@ class MyPageFragment : Fragment() {
     //Repository에서 데이터 get
     private fun getData() {
         myPageViewModel.getMyPageUserData(user.uid)
+        Log.d("겟",user.uid )
         myPageViewModel.getAttendanceData(user.uid)
     }
 
@@ -158,8 +160,8 @@ class MyPageFragment : Fragment() {
 
 
     private fun loadAttendanceData() {
-        val userId = "xsZP0kXXGqYCFzRMZK9zXiaILjF3"
 
+        var userId = "H15cV1QjDBfiqF02izuq5JLUM553"
         firestore.collection("UserDto")
             .document(user.uid)
             .collection("Attendance")
