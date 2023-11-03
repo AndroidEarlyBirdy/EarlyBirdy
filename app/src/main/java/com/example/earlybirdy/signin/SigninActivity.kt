@@ -110,7 +110,6 @@ class SigninActivity : MainActivity() {
 //    }
     private fun askPermissions() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
-            // Below Target SDK 33
             if (ActivityCompat.checkSelfPermission(
                     this,
                     android.Manifest.permission.READ_EXTERNAL_STORAGE
@@ -129,7 +128,6 @@ class SigninActivity : MainActivity() {
                 ActivityCompat.requestPermissions(this, permissions, MY_PERMISSION_ACCESS_ALL)
             }
         } else {
-            // Target SDK 33 and later
             if (ActivityCompat.checkSelfPermission(
                     this,
                     android.Manifest.permission.READ_MEDIA_IMAGES
