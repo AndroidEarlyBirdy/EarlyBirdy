@@ -161,7 +161,7 @@ class MyPageFragment : Fragment() {
         val userId = "xsZP0kXXGqYCFzRMZK9zXiaILjF3"
 
         firestore.collection("UserDto")
-            .document(userId)
+            .document(user.uid)
             .collection("Attendance")
             .addSnapshotListener { querySnapshot, error ->
                 if (error != null) {
@@ -181,7 +181,7 @@ class MyPageFragment : Fragment() {
                 }
 
                 firestore.collection("UserDto")
-                    .document(userId)
+                    .document(user.uid)
                     .collection("MyGoal")
                     .whereEqualTo("check", true)
                     .addSnapshotListener { querySnapshot, error ->
