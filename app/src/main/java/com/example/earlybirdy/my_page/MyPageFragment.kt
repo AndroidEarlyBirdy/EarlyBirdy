@@ -2,6 +2,7 @@ package com.example.earlybirdy.my_page
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -87,6 +88,7 @@ class MyPageFragment : Fragment() {
                 binding.pbExp.max = currentMapExp!!
                 binding.tvExperience.text = "$currentExp / $currentMapExp xp"
 
+                setProfileImage(myUser.profile!!)
                 updateLevelImage(currentLevel!!)
             }
         }
@@ -104,13 +106,16 @@ class MyPageFragment : Fragment() {
 
     //레벨 범위에 따른 인장 설정
     private fun updateLevelImage(level: Int) {
+        Log.d("레벨", level.toString())
         when (level) {
+
             in 1..10 -> binding.ivProfileBorder1.setImageResource(R.drawable.ic_insignia1)
             in 11..20 -> binding.ivProfileBorder1.setImageResource(R.drawable.ic_insignia2)
             in 21..30 -> binding.ivProfileBorder1.setImageResource(R.drawable.ic_insignia3)
             in 31..40 -> binding.ivProfileBorder1.setImageResource(R.drawable.ic_insignia4)
             else -> binding.ivProfileBorder1.setImageResource(R.drawable.ic_insignia5)
         }
+
     }
 
     private fun setProfileImage(profileNum: Int) {
