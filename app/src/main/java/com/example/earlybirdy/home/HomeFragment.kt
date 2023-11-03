@@ -255,6 +255,7 @@ class HomeFragment : Fragment() {
             showRandomQuote()
             // 마지막 표시 날짜를 업데이트
             sharedPreferences.edit().putString("last_shown_date", currentDate).apply()
+            Log.d("last_shown_date", lastShownDate.toString())
         }
 
 
@@ -346,10 +347,13 @@ class HomeFragment : Fragment() {
     }
 
     private fun getCurrentDate(): String {
-        val cal = Calendar.getInstance()
-        val sdf = SimpleDateFormat("yyyy-MM-dd")
-        return sdf.format(cal.time)
+        val nowTime = System.currentTimeMillis()
+        val timeZone = TimeZone.getTimeZone("GMT+9") // UTC+9
+        val dateFormat = SimpleDateFormat("yyyy년 MM월 dd일 a hh시 mm분 ss초 'UTC'Z", Locale.getDefault())
+        dateFormat.timeZone = timeZone
+        return dateFormat.format(Date(nowTime))
     }
+
 
     private fun showRandomQuote() {
         val quotes = resources.getStringArray(R.array.quotes)
