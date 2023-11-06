@@ -143,7 +143,7 @@ class BoardReadActivity : AppCompatActivity() {
         }
     }
 
-    // 댓글 저장
+    // 댓글 불러오기
     private fun loadCommentData() {
         fireStore.collection("Comment").get()
             .addOnSuccessListener { value ->
@@ -167,6 +167,7 @@ class BoardReadActivity : AppCompatActivity() {
             }
     }
 
+    // 댓글에 들어갈 작성자 닉네임 불러오기
     fun getUserNicknameData() {
         var user = auth.currentUser
         fireStore.collection("UserDto").document(user!!.uid).addSnapshotListener { value, _ ->
@@ -177,6 +178,7 @@ class BoardReadActivity : AppCompatActivity() {
         }
     }
 
+    // 댓글 저장
     private fun writeComment() {
         val user = auth.currentUser
 
