@@ -2,7 +2,6 @@ package com.example.earlybirdy.create_plan
 
 import android.annotation.SuppressLint
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.AttributeSet
 import android.util.Log
@@ -18,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.prolificinteractive.materialcalendarview.CalendarDay
@@ -35,6 +35,8 @@ class CreatePlanActivity : MainActivity(), CreatePlanDialog.DialogCreateListener
     private lateinit var user: FirebaseUser
 
     private val demoList = ArrayList<Todo>()
+
+    private val expDecrease = -10
 
     private val listAdapter by lazy {
         CreatePlanAdapter({ position, todo ->
@@ -185,11 +187,20 @@ class CreatePlanActivity : MainActivity(), CreatePlanDialog.DialogCreateListener
         demoList.remove(matchingDemo)
 
         todo.tid?.let {
+            fireStore.collection("UserDto").document(user.uid).collection("MyGoal").
+            document(it).addSnapshotListener { value, _ ->
+                if(value?.getBoolean("check") == true) {
+                    fireStore.collection("UserDto").document(user.uid).update("exp",FieldValue.increment(expDecrease.toLong()))
+                }
+            }
+        }
+
+        todo.tid?.let {
             fireStore.collection("UserDto").document(user.uid).collection("MyGoal")
                 .document(it).delete().addOnCompleteListener {
-
                 }
         }
+
     }
 
     private fun CalendarDay.toTimestamp(): Timestamp {
