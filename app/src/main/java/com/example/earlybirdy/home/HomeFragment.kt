@@ -487,14 +487,15 @@ class HomeFragment : Fragment() {
             override fun onSuccess(statusCode: Int, headers: Array<Header>?, response: JSONObject?) {
                 val weatherData = WeatherData().fromJson(response)
                 if (weatherData != null) {
-                    val iconUrl = weatherData.iconUrl // 날씨 아이콘 URL 가져오기
-                    // Glide를 사용하여 이미지 로딩
-                    Glide.with(this@HomeFragment)
-                        .load(iconUrl)
-                        .into(binding.icWeather)
-                    Log.d("아이콘", binding.icWeather.toString())
+                    updateWeather(weatherData)
+//                    val iconUrl = weatherData.iconUrl // 날씨 아이콘 URL 가져오기
+//                    // Glide를 사용하여 이미지 로딩
+//                    Glide.with(this@HomeFragment)
+//                        .load(iconUrl)
+//                        .into(binding.icWeather)
+//                    Log.d("아이콘", binding.icWeather.toString())
                     // 날씨 정보 및 온도 업데이트
-                    binding.tvTemperature.text = weatherData.tempString + " ℃"
+                    //binding.tvTemperature.text = weatherData.tempString + " ℃"
                 }
             }
 
@@ -507,13 +508,13 @@ class HomeFragment : Fragment() {
 
 
 
-//    private fun updateWeather(weather: WeatherData) {
-//        binding.tvTemperature.setText(weather.tempString+" ℃")
-//        val resourceID = resources.getIdentifier(weather.icon, "drawable", activity?.packageName)
-//        binding.icWeather.setImageResource(resourceID)
-//        Log.d("날씨", binding.tvTemperature.toString())
-//        Log.d("아이콘", binding.icWeather.toString())
-//    }
+    private fun updateWeather(weather: WeatherData) {
+        binding.tvTemperature.setText(weather.tempString+" ℃")
+        val resourceID = resources.getIdentifier(weather.icon, "drawable", activity?.packageName)
+        binding.icWeather.setImageResource(resourceID)
+        Log.d("날씨", binding.tvTemperature.toString())
+        Log.d("아이콘", binding.icWeather.toString())
+    }
 
     override fun onPause() {
         super.onPause()

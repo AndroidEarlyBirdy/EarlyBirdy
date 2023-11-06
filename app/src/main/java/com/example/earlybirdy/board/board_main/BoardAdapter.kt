@@ -54,6 +54,9 @@ class BoardAdapter(context: Context) : RecyclerView.Adapter<BoardAdapter.Holder>
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         var item = list[position]
+        list.sortWith(
+            compareBy { item.uid } // 오름차순
+        )
         holder.bind(item)
     }
 
