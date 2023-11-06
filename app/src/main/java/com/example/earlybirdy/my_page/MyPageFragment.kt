@@ -164,8 +164,11 @@ class MyPageFragment : Fragment() {
                     val timestamp = document.getTimestamp("date")
                     if (timestamp != null) {
                         val calendarDay = parseDate(timestamp)
-                        attendanceDates.add(calendarDay)
-                        goalAchievedDates[calendarDay] = 0
+                        if (calendarDay != null) {
+                            attendanceDates.add(calendarDay)
+                            goalAchievedDates[calendarDay] = 0
+                            Log.d("출석", document.getTimestamp("date").toString())
+                        }
                     }
                 }
 
@@ -185,45 +188,48 @@ class MyPageFragment : Fragment() {
                             val goalDate = document.getTimestamp("date")
                             if (goalDate != null) {
                                 val calendarDay = parseDate(goalDate)
-                                goalAchievedDates[calendarDay] =
-                                    goalAchievedDates[calendarDay]?.toInt() ?: 0 + 1
-                            }
-
-                            for (day in attendanceDates) {
-                                val decoratorDrawableResId = when {
-                                    goalAchievedDates[day]?.toInt() ?: 0 >= 3 -> R.drawable.bg_calendar_date4
-                                    goalAchievedDates[day]?.toInt() ?: 0 == 2 -> R.drawable.bg_calendar_date3
-                                    goalAchievedDates[day]?.toInt() ?: 0 == 1 -> R.drawable.bg_calendar_date2
-                                    else -> R.drawable.bg_calendar_date1
+                                if (calendarDay != null) {
+                                    goalAchievedDates[calendarDay] =
+                                        (goalAchievedDates[calendarDay] ?: 0) + 1 //연산자 우선순위
+                                    Log.d("확인색상", goalAchievedDates[calendarDay].toString())
+                                    Log.d("확인색상", calendarDay.toString())
                                 }
-                                val dayDecorator =
-                                    DayDecorator(day, requireContext(), decoratorDrawableResId)
-                                calendarView.addDecorator(dayDecorator)
                             }
                         }
+
+                        // DayDecorator 클래스 사용
+                        val decorators = mutableListOf<DayDecorator>()
+                        for (day in attendanceDates) {
+                            Log.d("색상", goalAchievedDates[day].toString())
+                            val decoratorDrawableResId = when {
+                                goalAchievedDates[day]?.toInt() ?: 0 >= 3 -> R.drawable.bg_calendar_date4
+                                goalAchievedDates[day]?.toInt() ?: 0 == 2 -> R.drawable.bg_calendar_date3
+                                goalAchievedDates[day]?.toInt() ?: 0 == 1 -> R.drawable.bg_calendar_date2
+                                else -> R.drawable.bg_calendar_date1
+                            }
+                            decorators.add(DayDecorator(day, requireContext(), decoratorDrawableResId))
+                        }
+                        calendarView.addDecorators(decorators)
                     }
             }
     }
 
-    private fun parseDate(timestamp: com.google.firebase.Timestamp): CalendarDay {
-        // Timestamp에서 Date 객체를 가져오고
-        val date = timestamp.toDate()
-
-        // Date 객체를 Calendar로 변환
-        val calendar = Calendar.getInstance()
-        calendar.time = date
-        calendar.timeZone = TimeZone.getTimeZone("Asia/Seoul")
-
-        // Calendar를 사용하여 CalendarDay로 변환
-        val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH) + 1
-        val day = calendar.get(Calendar.DAY_OF_MONTH)
-
-        return CalendarDay.from(year, month, day)
+    private fun parseDate(timestamp: com.google.firebase.Timestamp): CalendarDay? {
+        try {
+            val date = timestamp.toDate()
+            val calendar = Calendar.getInstance()
+            calendar.time = date
+            calendar.timeZone = TimeZone.getTimeZone("Asia/Seoul")
+            val year = calendar.get(Calendar.YEAR)
+            val month = calendar.get(Calendar.MONTH) + 1
+            val day = calendar.get(Calendar.DAY_OF_MONTH)
+            return CalendarDay.from(year, month, day)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return null
+        }
     }
 
-
-    // 날짜에 따라 배경 이미지 추가
     // DayDecorator 클래스 수정
     private class DayDecorator(
         private val date: CalendarDay,
@@ -236,11 +242,10 @@ class MyPageFragment : Fragment() {
         }
 
         override fun decorate(view: DayViewFacade) {
-
-            view.setBackgroundDrawable(context.resources.getDrawable(decoratorDrawableResId))
-
+            view.setSelectionDrawable(context.resources.getDrawable(decoratorDrawableResId))
         }
     }
+
 
 
     override fun onDestroyView() {
