@@ -81,7 +81,8 @@ class BoardReadActivity : AppCompatActivity() {
             }
 
             binding.tvDelete.setOnClickListener {
-                //deleteData(BoardData)
+//                deleteBoardData(BoardData)
+//                finish()
             }
         } else {
             showToast(this, "작성자만 내용 수정이 가능합니다.")
@@ -145,7 +146,7 @@ class BoardReadActivity : AppCompatActivity() {
 
     // 댓글 불러오기
     private fun loadCommentData() {
-        fireStore.collection("Comment").get()
+        fireStore.collection("BoardDto").document(BoardData.bid).collection("CommentDto").get()
             .addOnSuccessListener { value ->
                 commentAdapter.clearList()
                 cdata.clear()
@@ -163,6 +164,7 @@ class BoardReadActivity : AppCompatActivity() {
                         Log.d("comment", commentItam.toString())
                     }
                 }
+                cdata.sortBy { it.commentTime } // 날짜순 정렬
                 commentAdapter.addItems(cdata)
             }
     }

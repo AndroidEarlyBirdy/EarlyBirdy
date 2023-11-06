@@ -95,6 +95,7 @@ class BoardWriteActivity : AppCompatActivity() {
         }
     }
 
+    // url 변환
     private fun convertImageUriToString(uri: Uri): String? {
         return try {
             val inputStream: InputStream? = contentResolver.openInputStream(uri)
@@ -114,7 +115,7 @@ class BoardWriteActivity : AppCompatActivity() {
         var boardIndex = UUID.randomUUID().toString()
         val createdTime = Timestamp(Date())
 
-        val imagesRef = storage.reference.child("boardImages/${UUID.randomUUID()}")
+        val imagesRef = storage.reference.child("boardImages/${UUID.randomUUID()}") // storage로 넣는 부분
 
         val contentsTitle = binding.etContentsTitle.text.toString()
         val contents = binding.etContents.text.toString()
