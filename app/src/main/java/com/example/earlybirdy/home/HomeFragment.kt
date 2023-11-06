@@ -79,6 +79,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var mLocationManager: LocationManager
     private lateinit var mLocationListener: LocationListener
+    private lateinit var expDialog: ExpDialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -90,6 +91,7 @@ class HomeFragment : Fragment() {
         firestore = FirebaseFirestore.getInstance()
         auth = FirebaseAuth.getInstance()
         user = auth.currentUser!!
+        expDialog = ExpDialog(requireContext())
 
         adapter = HomeFragmentAdapter()
         binding.rvTodoMain.adapter = adapter
@@ -345,6 +347,7 @@ class HomeFragment : Fragment() {
                 // 출석 버튼을 비활성화
                 binding.btnAttend.isEnabled = false
             }
+            expDialog.show()
         }
         // 버튼을 비활성화
         binding.btnAttend.isEnabled = false
