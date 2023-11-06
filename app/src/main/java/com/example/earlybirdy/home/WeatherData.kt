@@ -1,5 +1,6 @@
 package com.example.earlybirdy.home
 
+import android.util.Log
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -24,6 +25,7 @@ class WeatherData {
 
             // 아이콘 URL 설정
             weatherData.iconUrl = "https://openweathermap.org/img/wn/${weatherData.icon}${if(isDay){"d"}else{"n"}}@2x.png"
+            Log.d("weather_icon_url", weatherData.iconUrl)
 //            weatherData.iconUrl = currentWeather?.getJSONArray("weather_icons")!![0].toString()
             //weatherData.iconUrl = "https://openweathermap.org/img/wn/02d@4x.png"
             //weatherData.iconUrl = "https://weatherstack.com/static/img/weather/${weatherData.icon}.png"
@@ -35,6 +37,7 @@ class WeatherData {
     }
 
     private fun updateWeatherIcon(condition: Int): String {
+        Log.d("weather_code", condition.toString())
         return when (condition) {
             113 -> "01"  // 맑음
             116 -> "02"  // 약간 흐림

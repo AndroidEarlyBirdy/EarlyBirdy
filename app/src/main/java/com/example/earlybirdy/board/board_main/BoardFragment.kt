@@ -99,8 +99,10 @@ class BoardFragment : Fragment() {
                             item.bid,
                             item.uid,
                             item.writer,
+                            item.createdTime,
                             item.contentsTitle,
-                            item.contents
+                            item.contents,
+                            item.contentsPoto
                         )
                         data.add(boardItam)
                         Log.d("board", boardItam.toString())

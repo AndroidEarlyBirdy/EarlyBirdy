@@ -1,6 +1,5 @@
 package com.example.earlybirdy.my_page
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.example.earlybirdy.R
+import com.example.earlybirdy.data.MyPageData
 import com.example.earlybirdy.databinding.FragmentMyPageBinding
 import com.example.earlybirdy.util.navigateToEditProfileActivity
 import com.prolificinteractive.materialcalendarview.CalendarDay
@@ -19,11 +19,8 @@ import com.example.earlybirdy.util.navigateToSettingActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.QuerySnapshot
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
-import java.text.SimpleDateFormat
 import java.util.Calendar
-import java.util.Locale
 import java.util.TimeZone
 
 class MyPageFragment : Fragment() {
@@ -41,6 +38,8 @@ class MyPageFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var user: FirebaseUser
+    private lateinit var userId: String
+    private lateinit var myUser: MyPageData
 
     //ViewModel
     private lateinit var myPageViewModel: MyPageViewModel
@@ -53,58 +52,45 @@ class MyPageFragment : Fragment() {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         calendarView = view.findViewById(R.id.calendarView)
         auth = FirebaseAuth.getInstance()
         user = auth.currentUser!!
+        userId = user.uid
         myPageViewModel =
             ViewModelProvider(this, MyPageViewModelFactory())[MyPageViewModel::class.java]
 
         getData()
-        observeData()
         setListener()
         loadAttendanceData()
     }
 
     //Repository에서 데이터 get
     private fun getData() {
-        myPageViewModel.getMyPageUserData(user.uid)
-        Log.d("겟",user.uid )
-        myPageViewModel.getAttendanceData(user.uid)
-    }
+        firestore.collection("UserDto").document(userId).addSnapshotListener { value, _ ->
+            myUser = MyPageData()
+            if (value != null) {
+                myUser.nickname = value.getString("nickname")
+                myUser.exp = value.getLong("exp")?.toInt()
+                myUser.profile = value.getLong("profile")?.toInt()
 
-    //LiveData 감지
-    @SuppressLint("SetTextI18n")
-    private fun observeData() {
-        myPageViewModel.userData.observe(viewLifecycleOwner) { user ->
-            binding.tvNickname.text = user.nickname
-            user.exp?.let { myPageViewModel.initializeUIWithLocalExp(it) }
-            user.profile?.let { setProfileImage(it) }
-        }
+                // set user info to view
+                binding.tvNickname.text = myUser.nickname
+                val map = initializeUIWithLocalExp(myUser.exp ?: 0)
+                val currentExp = map["exp"]
+                val currentLevel = map["level"]
+                val currentMapExp = map["maxExp"]
 
-//        myPageViewModel.attendanceData.observe(viewLifecycleOwner) {list ->
-//            val dateList = ArrayList<CalendarDay>()
-//            for(date in list) {
-//                convertStringToCalendarDay(date.date)?.let { dateList.add(it) }
-//            }
-//            Log.d("dateList",dateList.toString())
-//            binding.calendarView.addDecorator(Decorator(dateList, requireContext()))
-//        }
+                binding.pbExp.progress = currentExp!!
+                binding.tvLevel.text = "레벨 $currentLevel"
+                binding.pbExp.max = currentMapExp!!
+                binding.tvExperience.text = "$currentExp / $currentMapExp xp"
 
-        myPageViewModel.expMap.observe(viewLifecycleOwner) { map ->
-            val currentExp = map["exp"]
-            val currentLevel = map["level"]
-            val currentMapExp = map["maxExp"]
-
-            binding.pbExp.progress = currentExp!!
-            binding.tvLevel.text = "레벨 $currentLevel"
-            binding.pbExp.max = currentMapExp!!
-            binding.tvExperience.text = "$currentExp / $currentMapExp xp"
-
-            updateLevelImage(currentLevel!!)
+                setProfileImage(myUser.profile!!)
+                updateLevelImage(currentLevel!!)
+            }
         }
     }
 
@@ -120,13 +106,16 @@ class MyPageFragment : Fragment() {
 
     //레벨 범위에 따른 인장 설정
     private fun updateLevelImage(level: Int) {
+        Log.d("레벨", level.toString())
         when (level) {
+
             in 1..10 -> binding.ivProfileBorder1.setImageResource(R.drawable.ic_insignia1)
             in 11..20 -> binding.ivProfileBorder1.setImageResource(R.drawable.ic_insignia2)
             in 21..30 -> binding.ivProfileBorder1.setImageResource(R.drawable.ic_insignia3)
             in 31..40 -> binding.ivProfileBorder1.setImageResource(R.drawable.ic_insignia4)
             else -> binding.ivProfileBorder1.setImageResource(R.drawable.ic_insignia5)
         }
+
     }
 
     private fun setProfileImage(profileNum: Int) {
@@ -160,10 +149,8 @@ class MyPageFragment : Fragment() {
 
 
     private fun loadAttendanceData() {
-
-        var userId = "H15cV1QjDBfiqF02izuq5JLUM553"
         firestore.collection("UserDto")
-            .document(userId)
+            .document(user.uid)
             .collection("Attendance")
             .addSnapshotListener { querySnapshot, error ->
                 if (error != null) {
@@ -183,7 +170,7 @@ class MyPageFragment : Fragment() {
                 }
 
                 firestore.collection("UserDto")
-                    .document(userId)
+                    .document(user.uid)
                     .collection("MyGoal")
                     .whereEqualTo("check", true)
                     .addSnapshotListener { querySnapshot, error ->
@@ -278,4 +265,28 @@ class MyPageFragment : Fragment() {
 //            }
 //        }
 //    }
+}
+
+// 경험치 관련 작업을 아래로 옮김
+fun initializeUIWithLocalExp(localExp: Int): Map<String, Int> {
+    var tempExp = localExp
+    var tempLevel = 1
+    while (tempExp >= calculateMaxExpForLevel(tempLevel)) {
+        tempExp -= calculateMaxExpForLevel(tempLevel)
+        tempLevel++
+    }
+
+    val expMap = mapOf("exp" to tempExp, "level" to tempLevel, "maxExp" to calculateMaxExpForLevel(tempLevel))
+    return expMap
+//        _expMap.value = expMap
+}
+
+private fun calculateMaxExpForLevel(level: Int) : Int{
+    return when (level) {
+        in 1..10 -> 100
+        in 11..20 -> 150
+        in 21..30 -> 200
+        in 31..40 -> 250
+        else -> 300
+    }
 }

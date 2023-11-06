@@ -2,6 +2,7 @@ package com.example.earlybirdy.board.board_read
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.earlybirdy.board.board_write.BoardWriteActivity
@@ -27,6 +28,7 @@ class BoardReadActivity : AppCompatActivity() {
 
         setOnClickListener()
         readBoard()
+
     }
 
     private fun setOnClickListener() {
@@ -42,9 +44,10 @@ class BoardReadActivity : AppCompatActivity() {
         }
     }
 
-    private fun readBoard() {
-        binding.tvNickname.text = BoardData.writer
-        binding.etContentsTitle.text = BoardData.contentsTitle
-        binding.etContents.text = BoardData.contents
+    private fun readBoard() = with(binding) {
+        tvNickname.text = BoardData.writer
+        etContentsTitle.text = BoardData.contentsTitle
+        etContents.text = BoardData.contents
+        ivPicture.setImageURI(Uri.parse(BoardData.contentsPoto))
     }
 }
