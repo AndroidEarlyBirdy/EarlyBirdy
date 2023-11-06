@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:text="@string/editprofile_save"
+            android:text="저장"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
@@ -157,7 +157,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:hint="@string/editprofile_enter_nickname" />
+        android:hint="닉네임을 입력해 주세요." />
     </com.google.android.material.textfield.TextInputLayout>
 
 <!--    <TextView-->
