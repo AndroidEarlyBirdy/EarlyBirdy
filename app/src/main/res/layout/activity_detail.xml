@@ -27,7 +27,7 @@
         android:id="@+id/tv_item_Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="설정항목"
+        android:text="@string/activitydetail_title"
         android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -64,7 +64,7 @@
             android:background="@drawable/btn_setting"
             android:paddingHorizontal="40dp"
             android:paddingVertical="16dp"
-            android:text="내용"
+            android:text="@string/activitydetail_contents"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent" />
