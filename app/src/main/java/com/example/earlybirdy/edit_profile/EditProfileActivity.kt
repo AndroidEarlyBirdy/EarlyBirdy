@@ -76,7 +76,6 @@ class EditProfileActivity : MainActivity() {
         }
 
         loadUserData()
-        overridePendingTransition(R.anim.slide_left_enter, R.anim.slide_right_exit)
     }
 
 
