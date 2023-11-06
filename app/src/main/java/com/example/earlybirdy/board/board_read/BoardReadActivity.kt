@@ -2,13 +2,12 @@ package com.example.earlybirdy.board.board_read
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.earlybirdy.R
+import com.example.earlybirdy.board.board_write.BoardWriteActivity
 import com.example.earlybirdy.databinding.ActivityBoardReadBinding
-import com.example.earlybirdy.databinding.ActivityBoardWriteBinding
 import com.example.earlybirdy.dto.BoardDto
-import com.example.earlybirdy.util.navigateToBoardWriteActivity
 
 class BoardReadActivity : AppCompatActivity() {
     private val binding by lazy { ActivityBoardReadBinding.inflate(layoutInflater) }
@@ -29,6 +28,7 @@ class BoardReadActivity : AppCompatActivity() {
 
         setOnClickListener()
         readBoard()
+
     }
 
     private fun setOnClickListener() {
@@ -36,14 +36,18 @@ class BoardReadActivity : AppCompatActivity() {
             finish()
         }
 
-//        binding.btn.setOnClickListener {
-//            navigateToBoardWriteActivity(this)
-//        }
+        binding.tvUpdate.setOnClickListener { // 삭제와 수정 둘 다 uid 검증 필요
+            val boardWriteIntent = Intent(this, BoardWriteActivity::class.java)
+            boardWriteIntent.putExtra("boardType", 2)
+            startActivity(boardWriteIntent)
+            finish()
+        }
     }
 
-    private fun readBoard() {
-        binding.tvNickname.text = BoardData.writer
-        binding.etContentsTitle.text = BoardData.contentsTitle
-        binding.etContentsDetail.text = BoardData.contents
+    private fun readBoard() = with(binding) {
+        tvNickname.text = BoardData.writer
+        etContentsTitle.text = BoardData.contentsTitle
+        etContents.text = BoardData.contents
+        ivPicture.setImageURI(Uri.parse(BoardData.contentsPoto))
     }
 }
