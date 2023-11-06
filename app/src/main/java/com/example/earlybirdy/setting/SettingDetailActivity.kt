@@ -2,17 +2,18 @@ package com.example.earlybirdy.setting
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.earlybirdy.databinding.ActivityDetailBinding
 import com.example.earlybirdy.databinding.SettingDetailBinding
 import com.example.earlybirdy.main.MainActivity
 import com.example.earlybirdy.util.Constants
 
 class SettingDetailActivity : MainActivity() {
 
-    private lateinit var binding: SettingDetailBinding
+    private lateinit var binding: ActivityDetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = SettingDetailBinding.inflate(layoutInflater)
+        binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         initView()
@@ -22,8 +23,8 @@ class SettingDetailActivity : MainActivity() {
         val title = intent.getStringExtra(Constants.SETTING_TITLE_KEY)
         val content = getContentByTitle(title)
 
-        binding.tvSettingName.text = title
-        binding.tvSettingDetail.text = content
+        binding.tvItemTitle.text = title
+        binding.btnBoard.text = content
 
         binding.btnBack.setOnClickListener {
             finish()
