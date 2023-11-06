@@ -11,7 +11,7 @@
         android:id="@+id/tv_writer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="작성자"
+        android:hint="@string/itemboard_writer"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/iv_writerProfile"
         app:layout_constraintStart_toEndOf="@+id/iv_writerProfile"
@@ -29,7 +29,7 @@
         android:id="@+id/et_contentsTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="글 제목"
+        android:hint="@string/itemboard_title"
         android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/iv_load_image"
         app:layout_constraintTop_toBottomOf="@+id/view" />

@@ -131,7 +131,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
-            android:text="목표를 채워주세요"
+            android:text="@string/home_select_goal"
             android:textColor="#444444"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -38,7 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="게시글"
+        android:text="@string/boardread_title"
         android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -69,13 +69,13 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_Title">
 
         <TextView
-            android:id="@+id/btn_communityDelet"
+            android:id="@+id/btn_communityDefalt"
             android:layout_width="101dp"
             android:layout_height="32dp"
             android:layout_marginTop="15dp"
             android:background="@drawable/btn_setting"
             android:gravity="center"
-            android:text="글수정"
+            android:text="@string/boardread_edit"
             android:textSize="13sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -88,12 +88,12 @@
             android:layout_height="32dp"
             android:background="@drawable/btn_setting"
             android:gravity="center"
-            android:text="글삭제"
+            android:text="@string/boardread_delet"
             android:textSize="13sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btn_communityDelet"
-            app:layout_constraintTop_toTopOf="@+id/btn_communityDelet" />
+            app:layout_constraintStart_toEndOf="@+id/btn_communityDefalt"
+            app:layout_constraintTop_toTopOf="@+id/btn_communityDefalt" />
 
         <TextView
             android:id="@+id/tv_writer"
@@ -101,7 +101,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
-            android:text="작성자"
+            android:text="@string/boardread_writer"
             android:textSize="13sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_contentTitle" />
@@ -110,7 +110,7 @@
             android:id="@+id/tv_nickname"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="임시 닉네임"
+            android:text="@string/boardread_sample_nickname"
             app:layout_constraintBottom_toBottomOf="@id/tv_writer"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tv_createdDatetime"
@@ -122,7 +122,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
-            android:text="작성 시간"
+            android:text="@string/boardread_creat_time"
             android:textSize="13sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_writer" />
@@ -139,12 +139,12 @@
             app:layout_constraintTop_toTopOf="@id/tv_creationTime" />
 
         <TextView
-            android:id="@+id/tv_createdDetail"
+            android:id="@+id/tv_contnets"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
-            android:text="내용"
+            android:text="@string/boardread_creat_detail"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_creationTime" />
@@ -155,16 +155,16 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
-            android:text="제목"
+            android:text="@string/boardread_contents_title"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_communityDelet" />
+            app:layout_constraintTop_toBottomOf="@+id/btn_communityDefalt" />
 
         <TextView
             android:id="@+id/et_contentsTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="제목을 입력해주세요"
+            android:hint="@string/boardread_enter_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tv_nickname"
             app:layout_constraintTop_toTopOf="@+id/tv_contentTitle" />
@@ -174,11 +174,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:hint="게시글을 작성해주세요"
+            android:hint="@string/boardread_enter_contents"
             android:layout_marginHorizontal="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/tv_createdDetail"
-            app:layout_constraintTop_toBottomOf="@+id/tv_createdDetail"
+            app:layout_constraintStart_toStartOf="@+id/tv_contnets"
+            app:layout_constraintTop_toBottomOf="@+id/tv_contnets"
             app:layout_constraintVertical_bias="0.0" />
 
         <ImageView
@@ -192,28 +192,28 @@
             app:layout_constraintTop_toBottomOf="@+id/et_ContentsDetail" />
 
         <TextView
-            android:id="@+id/tv_commit"
+            android:id="@+id/tv_comment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
-            android:text="댓글"
+            android:text="@string/boardread_comment"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_picture" />
 
         <TextView
-            android:id="@+id/tv_commitEdit"
+            android:id="@+id/tv_commentEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="내용을 입력해주세요"
+            android:text="@string/boardread_enter_comment"
             android:textSize="18sp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/btn_setting"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_commit" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_comment" />
 
         <TextView
             android:id="@+id/tv_commitadd"
@@ -221,23 +221,23 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="100dp"
             android:background="@drawable/btn_setting"
-            android:text="게시"
+            android:text="@string/boardread_post"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_commitEdit"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_commentEdit"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_commitEdit" />
+            app:layout_constraintTop_toTopOf="@+id/tv_commentEdit" />
 
         <TextView
             android:id="@+id/tv_like"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="추천"
+            android:text="@string/boardread_like"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_commit"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_comment"
             app:layout_constraintStart_toStartOf="@+id/tv_commitadd"
-            app:layout_constraintTop_toTopOf="@+id/tv_commit" />
+            app:layout_constraintTop_toTopOf="@+id/tv_comment" />
 
         <ImageView
             android:id="@+id/imageView4"
