@@ -85,10 +85,6 @@ class SettingCheckUserDialog(
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    // 인증 성공: 입력한 이메일과 비밀번호가 일치함
-                    val user = FirebaseAuth.getInstance().currentUser
-                    Toast.makeText(context, "비밀번호가 확인되었습니다.", Toast.LENGTH_SHORT).show()
-                    Log.d("login", "success")
                     deleteUser()
                 } else {
                     // 인증 실패: 입력한 이메일과 비밀번호가 일치하지 않음
