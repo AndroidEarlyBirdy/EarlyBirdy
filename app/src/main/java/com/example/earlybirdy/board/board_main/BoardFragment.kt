@@ -86,9 +86,17 @@ class BoardFragment : Fragment() {
 
         binding.icReload.setOnClickListener {
             loadData()
+            loadMyBoardData()
+        }
+        binding.tvBoard.setOnClickListener {
+            loadData()
+        }
+        binding.tvMyBoard.setOnClickListener {
+            loadMyBoardData()
         }
     }
 
+    // 전체보기
     private fun loadData() {
         fireStore.collection("BoardDto").get()
             .addOnSuccessListener { value ->
@@ -110,13 +118,44 @@ class BoardFragment : Fragment() {
                         Log.d("board", boardItam.toString())
                     }
                 }
+                data.sortByDescending { it.createdTime } // 날짜순 정렬
+                boardAdapter.addItems(data)
+            }
+    }
+
+    // 내글보기
+    private fun loadMyBoardData() {
+        val userId = auth.currentUser!!.uid
+        fireStore.collection("BoardDto").get()
+            .addOnSuccessListener { value ->
+                boardAdapter.clearList()
+                data.clear()
+                for (i in value!!.documents) {
+                    var item = i.toObject(BoardDto::class.java)
+                    if (item != null) {
+                        if (userId == item.uid) { // 로그인 한 사용자의 id와 item의 id 비교
+                            val boardItam = BoardDto(
+                                item.bid,
+                                item.uid,
+                                item.writer,
+                                item.createdTime,
+                                item.contentsTitle,
+                                item.contents,
+                                item.contentsPoto
+                            )
+                            data.add(boardItam)
+                            Log.d("board", boardItam.toString())
+                        }
+                    }
+                }
+                data.sortByDescending { it.createdTime } // 날짜순 정렬
                 boardAdapter.addItems(data)
             }
     }
 
     private fun deleteData(boardData: BoardDto) {
         val user = auth.currentUser
-        if (user!!.uid == boardData.uid){
+        if (user!!.uid == boardData.uid) {
             fireStore.collection("BoardDto").document(boardData.bid).delete()
                 .addOnSuccessListener {
                     data.remove(boardData)
