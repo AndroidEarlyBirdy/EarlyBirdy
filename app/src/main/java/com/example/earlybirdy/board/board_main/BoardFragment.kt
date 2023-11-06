@@ -110,6 +110,7 @@ class BoardFragment : Fragment() {
                         Log.d("board", boardItam.toString())
                     }
                 }
+                data.sortByDescending { it.createdTime }
                 boardAdapter.addItems(data)
             }
     }
