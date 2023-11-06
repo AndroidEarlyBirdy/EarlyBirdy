@@ -76,7 +76,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/btn_sign_background"
-        android:text="사용자 인증"
+        android:text="@string/editprofiledialog_certification"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"

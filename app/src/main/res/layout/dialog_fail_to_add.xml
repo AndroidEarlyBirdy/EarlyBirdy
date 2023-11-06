@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:paddingVertical="5dp"
-        android:text="이미 지난 날짜에는 Todo를 작성할 수 없습니다."
+        android:text="@string/failtoadd_message"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:paddingHorizontal="60dp"
-        android:text="닫기"
+        android:text="@string/failtoadd_cancel"
         android:textSize="20sp"
         android:textStyle="bold"
         app:backgroundTint="#DBDBDA"
