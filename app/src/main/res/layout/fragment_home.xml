@@ -46,6 +46,7 @@
                 android:id="@+id/progress_bar"
                 android:layout_width="280dp"
                 android:layout_height="280dp"
+                android:layout_marginTop="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -62,14 +63,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="#444444"
                 android:textSize="40sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/progress_bar"
-                app:layout_constraintHorizontal_bias="0.502"
                 app:layout_constraintStart_toStartOf="@+id/progress_bar"
                 app:layout_constraintTop_toTopOf="@+id/progress_bar"
-                app:layout_constraintVertical_bias="0.46"
+                app:layout_constraintVertical_bias="0.438"
                 tools:text="60%" />
+
+            <TextView
+                android:id="@+id/tv_title_percent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/home_today_percent"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:textColor="#444444" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -81,21 +95,21 @@
             android:layout_marginStart="50dp"
             android:layout_marginTop="16dp"
             android:text="@string/home_goodmorning"
-            android:textSize="18sp"
+            android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout3"
             tools:textColor="#444444" />
 
-    <ImageView
-        android:id="@+id/iv_go_alarm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="41dp"
-        android:layout_marginTop="9dp"
-        android:src="@drawable/ic_list_background"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_title_alarm" />
+        <ImageView
+            android:id="@+id/iv_go_alarm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:src="@drawable/ic_list_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title_alarm" />
 
     <TextView
         android:id="@+id/tv_alarm"
@@ -121,18 +135,18 @@
         app:layout_constraintEnd_toEndOf="@+id/iv_go_alarm"
         app:layout_constraintTop_toTopOf="@+id/iv_go_alarm" />
 
-    <TextView
-        android:id="@+id/tv_todaygoal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/home_today_goal"
-        android:textSize="18sp"
-        tools:textColor="#444444"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_go_alarm" />
+        <TextView
+            android:id="@+id/tv_todaygoal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/home_today_goal"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_go_alarm"
+            tools:textColor="#444444" />
 
     <ImageButton
         android:id="@+id/btn_create"
@@ -210,6 +224,7 @@
             android:gravity="center_vertical"
             android:maxLines="3"
             android:text="text"
+            android:textColor="#444444"
             app:layout_constraintStart_toStartOf="@+id/imageView7"
             app:layout_constraintTop_toTopOf="@+id/imageView7" />
 
@@ -230,7 +245,9 @@
             android:id="@+id/tv_temperature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="12dp"
+            android:gravity="center_vertical"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/imageView7"
