@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.earlybirdy.board.board_main.BoardAdapter
 import com.example.earlybirdy.board.board_write.BoardWriteActivity
 import com.example.earlybirdy.databinding.ActivityBoardReadBinding
 import com.example.earlybirdy.dto.BoardDto
@@ -103,7 +102,7 @@ class BoardReadActivity : AppCompatActivity() {
         tvNickname.text = BoardData.writer
         etContentsTitle.text = BoardData.contentsTitle
         etContents.text = BoardData.contents
-        ivPicture.setImageURI(Uri.parse(BoardData.contentsPoto))
+        ivPicture.setImageURI(Uri.parse(BoardData.contentsPhoto))
     }
 
     // 게시글 삭제

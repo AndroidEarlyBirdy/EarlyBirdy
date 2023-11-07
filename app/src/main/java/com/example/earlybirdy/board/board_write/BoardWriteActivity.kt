@@ -1,20 +1,22 @@
 package com.example.earlybirdy.board.board_write
 
+import android.app.Activity
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
+import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Base64
 import android.util.Log
-import android.widget.ImageView
-import androidx.core.content.FileProvider
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import com.example.earlybirdy.R
 import com.example.earlybirdy.board.board_read.BoardReadActivity
 import com.example.earlybirdy.databinding.ActivityBoardWriteBinding
 import com.example.earlybirdy.dto.BoardDto
+import com.example.earlybirdy.util.showToast
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -23,7 +25,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.io.InputStream
 import java.util.Date
@@ -39,7 +40,7 @@ class BoardWriteActivity : AppCompatActivity() {
     private val storage = FirebaseStorage.getInstance()
 
     private var nickname: String? = ""
-    private var contentsPoto: String? = null
+    private var contentsPhoto: String? = null
 
     private lateinit var selectImgUri: Uri
     private val IMAGE_PICKER_REQUEST_CODE = 1
@@ -54,9 +55,6 @@ class BoardWriteActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
         database = Firebase.database.reference
-
-        binding.ivPicture
-
 
         if (boardType == 2) {
             readBoard()
@@ -80,12 +78,31 @@ class BoardWriteActivity : AppCompatActivity() {
                 updateBoard()
             }
         }
+
         binding.btnAddPicture.setOnClickListener {
-            openGallery()
+            when {
+                //갤러리 접근 권한이 있는 경우
+                ContextCompat.checkSelfPermission(
+                    this,
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE
+                ) == PackageManager.PERMISSION_GRANTED -> {
+                    navigateGallery()
+                }
+
+                shouldShowRequestPermissionRationale(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+                -> {
+                    showPermissionContextPopup()
+                }
+                //갤러리 접근 권한 설정
+                else -> requestPermissions(
+                    arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),
+                    1000
+                )
+            }
         }
     }
 
-    fun getUserNicknameData() {
+    private fun getUserNicknameData() {
         var user = auth.currentUser
         fireStore.collection("UserDto").document(user!!.uid).addSnapshotListener { value, _ ->
             if (value != null) {
@@ -93,6 +110,42 @@ class BoardWriteActivity : AppCompatActivity() {
             }
             binding.tvWriter.text = nickname
         }
+    }
+
+    //사진을 선택한 후
+    private val pickImageActivityResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val data: Intent? = result.data
+                if (data != null) {
+                    val selectedImageUri: Uri? = data.data
+                    if (selectedImageUri != null) {
+                        binding.ivPicture.setImageURI(selectedImageUri)
+                        contentsPhoto = selectedImageUri.toString()
+                    } else {
+                        showToast(this@BoardWriteActivity, "사진을 가져오지 못했습니다.")
+                    }
+                }
+            }
+        }
+    //갤러리에서 사진 선택
+    private fun navigateGallery() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        pickImageActivityResult.launch(intent)
+    }
+
+    //권한 설정 팝업
+    private fun showPermissionContextPopup() {
+        AlertDialog.Builder(this)
+            .setTitle(getString(R.string.modify_permissionRequired))
+            .setMessage(getString(R.string.modify_profilePermission))
+            .setPositiveButton(getString(R.string.modify_agree)) { _, _ ->
+                requestPermissions(arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), 1000)
+            }
+            .setNegativeButton(getString(R.string.modify_cancel)) { _, _ -> }
+            .create()
+            .show()
     }
 
     // url 변환
@@ -133,7 +186,7 @@ class BoardWriteActivity : AppCompatActivity() {
                     createdTime,
                     contentsTitle,
                     contents,
-                    contentsPoto
+                    contentsPhoto
                 )
             db.collection("BoardDto").document(boardIndex)
                 .set(boardDto)
@@ -145,22 +198,6 @@ class BoardWriteActivity : AppCompatActivity() {
                 }
         }
     }
-
-    private fun openGallery() {
-        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        startActivityForResult(intent, IMAGE_PICKER_REQUEST_CODE)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == IMAGE_PICKER_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
-            selectImgUri = data.data ?: return
-            binding.ivPicture.setImageURI(selectImgUri)
-
-            contentsPoto = convertImageUriToString(selectImgUri)
-        }
-    }
-
 
     // BoardReadActivity에서 페이지를 이동했을 경우 화면에 해당 게시물의 내용을 띄움
     private fun readBoard() {
@@ -190,7 +227,7 @@ class BoardWriteActivity : AppCompatActivity() {
                     boardData.createdTime,
                     contentsTitle,
                     contents,
-                    contentsPoto
+                    contentsPhoto
                 )
             db.collection("BoardDto").document(boardData.bid)
                 .set(boardDto)
