@@ -115,6 +115,8 @@ class BoardReadActivity : AppCompatActivity() {
             Glide.with(this@BoardReadActivity)
                 .load(it)
                 .into(binding.ivPicture)
+        }.addOnFailureListener {
+            binding.ivPicture.visibility = View.GONE
         }
     }
 
