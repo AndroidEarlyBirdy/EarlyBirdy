@@ -18,6 +18,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
+import androidx.fragment.app.setFragmentResultListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -27,6 +28,7 @@ import com.example.earlybirdy.create_plan.CreatePlanActivity
 import com.example.earlybirdy.data.MyGoal
 import com.example.earlybirdy.databinding.FragmentHomeBinding
 import com.example.earlybirdy.databinding.ItemTodoMainBinding
+import com.example.earlybirdy.setting.SettingDeleteDialog
 import com.example.earlybirdy.util.navigateToAlarmActivity
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
@@ -57,9 +59,11 @@ class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var alarmDialog: AlarmDialog
+
     private val dateFormat = SimpleDateFormat("h:mm a", Locale.US)
     private lateinit var sharedPreferences: SharedPreferences
-
 
     private lateinit var adapter: HomeFragmentAdapter
     private var completedGoals: Int = 0 // 완료된 목표 수를 추적
@@ -91,6 +95,8 @@ class HomeFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
         user = auth.currentUser!!
 
+        alarmDialog = AlarmDialog(requireContext())
+
         adapter = HomeFragmentAdapter()
         binding.rvTodoMain.adapter = adapter
         binding.rvTodoMain.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false) // 리사이클러뷰 가로로
@@ -100,7 +106,7 @@ class HomeFragment : Fragment() {
         loadTimeDate()
 
         binding.ivGoAlarm.setOnClickListener {
-            navigateToAlarmActivity(this.requireActivity())
+            alarmDialog.show()
         }
 
         binding.btnCreate.setOnClickListener {
@@ -147,10 +153,8 @@ class HomeFragment : Fragment() {
                         ?.collection("MyGoal")?.document("${item.goalId}")
                         ?.update("check", checked)
                         ?.addOnSuccessListener {
-                            Log.d("체크 업데이트", "성공")
                         }
                         ?.addOnFailureListener {
-                            Log.d("체크 업데이트", "실패")
                         }
 
                     // 경험치 업데이트
@@ -158,10 +162,8 @@ class HomeFragment : Fragment() {
                     firestore?.collection("UserDto")?.document(user.uid)
                         ?.update("exp", FieldValue.increment(experienceChange.toLong()))
                         ?.addOnSuccessListener {
-                            Log.d("경험치 업데이트", "성공")
                         }
                         ?.addOnFailureListener {
-                            Log.d("경험치 업데이트", "실패")
                         }
 
                 }
@@ -175,10 +177,6 @@ class HomeFragment : Fragment() {
         fun clearList() {
             this.list.clear()
         }
-    }
-
-    private fun noti() {
-
     }
 
     private fun loadDataFromFirestore() {
@@ -195,16 +193,13 @@ class HomeFragment : Fragment() {
 
         val timeFormatter = SimpleDateFormat("yyyy.MM.dd")
         val dateTime = timeFormatter.format(today.time)
-        Log.d("이곳이지롱", dateTime)
 
         firestore?.collection("UserDto")?.document(user.uid)
             ?.collection("Attendance")
             ?.whereGreaterThanOrEqualTo("date", startOfDay)
             ?.whereLessThanOrEqualTo("date", endOfDay)
             ?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
-                Log.d("이곳왈왈", dateTime)
                 val hasAttended = querySnapshot?.documents?.isNotEmpty()
-                Log.d("이곳인가", hasAttended.toString())
                 if (hasAttended != null && hasAttended) {
                     completedAttendances = 1
                     binding.btnAttend.isEnabled = false
@@ -212,7 +207,6 @@ class HomeFragment : Fragment() {
                     completedAttendances = 0
                     binding.btnAttend.isEnabled = true
                 }
-                Log.d("이곳인지", completedAttendances.toString())
                 updateProgress()
                 adapter.notifyDataSetChanged()
             }
@@ -256,8 +250,6 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("이곳은", "onViewCreated")
-        Log.d("이곳이니", completedAttendances.toString())
 
         super.onViewCreated(view, savedInstanceState)
 
@@ -271,9 +263,7 @@ class HomeFragment : Fragment() {
             showRandomQuote()
             // 마지막 표시 날짜를 업데이트
             sharedPreferences.edit().putString("last_shown_date", currentDate).apply()
-            Log.d("last_shown_date", lastShownDate.toString())
         }
-
 
         val leftArrowButton = binding.btnLeftArrow
         val rightArrowButton = binding.btnRightArrow
@@ -328,10 +318,8 @@ class HomeFragment : Fragment() {
                 firestore?.collection("UserDto")?.document(user.uid)
                     ?.update("exp", FieldValue.increment(data.toLong()))
                     ?.addOnSuccessListener {
-                        Log.d("성공", data.toString())
                     }
                     ?.addOnFailureListener { }
-
 
                 // homeViewModel.setSharedData(data)
 
@@ -391,13 +379,11 @@ class HomeFragment : Fragment() {
         }
     }
 
-
     @SuppressLint("SetTextI18n")
     private fun updateAlarmTime() {
         val alarmTime = loadTimeDate()
         if (alarmTime != null) {
             binding.tvAlarm.text = alarmTime
-            Log.d("AlarmTime", alarmTime)
         }
     }
 
@@ -408,7 +394,6 @@ class HomeFragment : Fragment() {
 
     private fun calculateTime(alarmMinutes: Int, currentMinutes: Int): Int {
         val timeDifference = currentMinutes - alarmMinutes
-        Log.d("시간", timeDifference.toString())
         return when {
             timeDifference in 0..5 -> 30
             timeDifference in 6..10 -> 20
@@ -416,7 +401,6 @@ class HomeFragment : Fragment() {
             else -> 1
         }
     }
-
 
     private fun convertToMinutes(time: String): Int {
         val date = dateFormat.parse(time)
@@ -429,7 +413,6 @@ class HomeFragment : Fragment() {
         val totalCompleted = completedAttendances + completedGoals
         return (totalCompleted / (1 + this.totalGoals).toFloat() * 100).toInt()
     }
-
 
     override fun onResume() {
         super.onResume()
@@ -479,8 +462,6 @@ class HomeFragment : Fragment() {
         }
     }
 
-
-
     private fun doNetworking(params: RequestParams) {
         val weatherstackEndpoint = "http://api.weatherstack.com/current"
         params.put("access_key", Companion.API_KEY)
@@ -509,14 +490,10 @@ class HomeFragment : Fragment() {
         })
     }
 
-
-
     private fun updateWeather(weather: WeatherData) {
         binding.tvTemperature.setText(weather.tempString+" ℃")
         val resourceID = resources.getIdentifier(weather.icon, "drawable", activity?.packageName)
         binding.icWeather.setImageResource(resourceID)
-        Log.d("날씨", binding.tvTemperature.toString())
-        Log.d("아이콘", binding.icWeather.toString())
     }
 
     override fun onPause() {
@@ -525,7 +502,6 @@ class HomeFragment : Fragment() {
             mLocationManager.removeUpdates(mLocationListener)
         }
     }
-
 
     override fun onDestroyView() {
         _binding = null
@@ -540,6 +516,5 @@ class HomeFragment : Fragment() {
         const val MIN_DISTANCE: Float = 1000F
         const val WEATHER_REQUEST: Int = 102
     }
-
 
 }

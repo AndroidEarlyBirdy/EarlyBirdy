@@ -55,7 +55,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/iv_set_alarm"/>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_cancel"
+        android:id="@+id/tv_cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/signupdialog_cancel"
@@ -69,7 +69,7 @@
         app:layout_constraintBottom_toBottomOf="parent" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_save"
+        android:id="@+id/tv_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
