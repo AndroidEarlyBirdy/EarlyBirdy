@@ -4,11 +4,12 @@ import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import com.example.earlybirdy.R
 import com.example.earlybirdy.databinding.ActivitySettingDeleteDialogBinding
 
 class SettingDeleteDialog(
     context: Context
-) : Dialog(context) {
+) : Dialog(context, R.style.Theme_TransparentBackground) {
     private lateinit var binding: ActivitySettingDeleteDialogBinding
     private lateinit var settingLoginDialog: SettingCheckUserDialog
 

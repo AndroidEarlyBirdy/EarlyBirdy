@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import com.example.earlybirdy.R
 import com.example.earlybirdy.databinding.ActivityEditProfileDialogBinding
 import com.example.earlybirdy.main.MainActivity
 import com.example.earlybirdy.util.navigateToResetPassword
@@ -17,7 +18,7 @@ import com.google.firebase.ktx.Firebase
 
 class EditProfileActivityDialog (
     context: Context,
-) : Dialog(context) {
+) : Dialog(context, R.style.Theme_TransparentBackground) {
     private lateinit var binding: ActivityEditProfileDialogBinding
     private lateinit var user: FirebaseUser
     val db = Firebase.firestore
