@@ -77,9 +77,6 @@ class SignupActivity : MainActivity() {
             onStart()
         }
 
-        binding.btnSignupGoogle.setOnClickListener {
-            navigateToMainActivity(this)
-        }
 
         // 로그인 페이지로 이동
         binding.tvBtnSignin.setOnClickListener {

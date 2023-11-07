@@ -75,10 +75,6 @@ class SigninActivity : MainActivity() {
             onStart()
         }
 
-        binding.btnSigninGoogle.setOnClickListener {
-            navigateToMainActivity(this)
-        }
-
         // 나가기 = 앱 종료
         binding.tvFinish.setOnClickListener {
             moveTaskToBack(true)
