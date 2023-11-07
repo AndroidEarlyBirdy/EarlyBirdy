@@ -4,10 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
-import com.nbcproject.earlybirdy.R
 import com.nbcproject.earlybirdy.signin.SigninActivity
 import com.nbcproject.earlybirdy.util.navigateToMainActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.nbcproject.earlybirdy.R
 
 class SplashActivity : AppCompatActivity() {
 
@@ -18,14 +18,6 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         signCheck()
-
-//        val receiver = ComponentName(this, AlarmReceiver::class.java)
-//
-//        this.packageManager.setComponentEnabledSetting(
-//            receiver,
-//            PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-//            PackageManager.DONT_KILL_APP
-//        )
     }
 
     private fun signCheck() {

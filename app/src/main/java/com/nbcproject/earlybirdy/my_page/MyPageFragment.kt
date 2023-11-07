@@ -8,9 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.nbcproject.earlybirdy.R
 import com.nbcproject.earlybirdy.data.MyPageData
-import com.nbcproject.earlybirdy.databinding.FragmentMyPageBinding
 import com.nbcproject.earlybirdy.util.navigateToEditProfileActivity
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.DayViewDecorator
@@ -19,6 +17,8 @@ import com.nbcproject.earlybirdy.util.navigateToSettingActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
+import com.nbcproject.earlybirdy.R
+import com.nbcproject.earlybirdy.databinding.FragmentMyPageBinding
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import java.util.Calendar
 import java.util.TimeZone
