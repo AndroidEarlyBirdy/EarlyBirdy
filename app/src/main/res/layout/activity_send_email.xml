@@ -96,8 +96,8 @@
 
     <ImageView
         android:id="@+id/tv_finish"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:src="@drawable/ic_profile_back"
