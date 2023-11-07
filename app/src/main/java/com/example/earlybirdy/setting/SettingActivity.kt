@@ -12,6 +12,8 @@ import androidx.annotation.RequiresApi
 import com.example.earlybirdy.R
 import com.example.earlybirdy.databinding.ActivitySettingBinding
 import com.example.earlybirdy.main.MainActivity
+import com.example.earlybirdy.util.Constants.Companion.genralconditionUrl
+import com.example.earlybirdy.util.Constants.Companion.openlicenseUrl
 import com.example.earlybirdy.util.navigateToSigninActivity
 import com.example.earlybirdy.util.showToast
 
@@ -45,14 +47,14 @@ class SettingActivity : MainActivity() {
             intentToSupportLink()
         }
 
-        //오픈 라이선스 버튼
+        //오픈 라이선스 구글폼으로 연결
         binding.btnOpenLicense.setOnClickListener {
-            navigateToDetail("오픈 라이선스", this)
+            intentToOpenLicenseUrlLink()
         }
 
-        //약관 버튼
+        //약관 구글폼으로 연결
         binding.btnGenralCondition.setOnClickListener {
-            navigateToDetail("약관", this)
+            intentToGenralconditionLink()
         }
 
         //알림 설정 버튼
@@ -81,6 +83,28 @@ class SettingActivity : MainActivity() {
         val supportLink = supportUrl
 
         val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(supportLink))
+        try {
+            startActivity(browserIntent)
+        } catch (e: ActivityNotFoundException) {
+            showToast(this, "연결 오류 발생")
+        }
+    }
+
+    private fun intentToOpenLicenseUrlLink() {
+        val supportLink = supportUrl
+
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(openlicenseUrl))
+        try {
+            startActivity(browserIntent)
+        } catch (e: ActivityNotFoundException) {
+            showToast(this, "연결 오류 발생")
+        }
+    }
+
+    private fun intentToGenralconditionLink() {
+        val supportLink = supportUrl
+
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(genralconditionUrl))
         try {
             startActivity(browserIntent)
         } catch (e: ActivityNotFoundException) {
