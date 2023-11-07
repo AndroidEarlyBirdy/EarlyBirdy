@@ -15,8 +15,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.net.toFile
 import androidx.core.net.toUri
+import com.bumptech.glide.Glide
 import com.example.earlybirdy.R
 import com.example.earlybirdy.board.board_read.BoardReadActivity
+import com.example.earlybirdy.data.BoardData
 import com.example.earlybirdy.databinding.ActivityBoardWriteBinding
 import com.example.earlybirdy.dto.BoardDto
 import com.example.earlybirdy.util.showToast
@@ -48,6 +50,8 @@ class BoardWriteActivity : AppCompatActivity() {
 
     private var imgUri: Uri = "".toUri()
     private val IMAGE_PICKER_REQUEST_CODE = 1
+
+    val storageRef = storage.reference
 
     private val boardType: Int by lazy {
         intent.getIntExtra("boardType", 1)
@@ -203,6 +207,14 @@ class BoardWriteActivity : AppCompatActivity() {
         binding.tvWriter.text = BoardReadActivity.BoardData.writer
         binding.etContentsTitle.setText(BoardReadActivity.BoardData.contentsTitle)
         binding.etContents.setText(BoardReadActivity.BoardData.contents)
+
+        val imageRef = storageRef.child(BoardReadActivity.BoardData.bid).child(BoardReadActivity.BoardData.bid)
+
+        imageRef.downloadUrl.addOnSuccessListener {
+            Glide.with(this)
+                .load(it)
+                .into(binding.ivPicture)
+        }
     }
 
     // 게시글 수정 시 업데이트
@@ -234,6 +246,13 @@ class BoardWriteActivity : AppCompatActivity() {
                 }
                 .addOnFailureListener { e ->
                 }
+
+            var imagesRef = storage!!.reference.child(boardData.bid).child(boardData.bid)
+            imagesRef.putFile(imgUri).addOnSuccessListener {
+                showToast(this@BoardWriteActivity, "성공")
+            }.addOnFailureListener {
+                Log.d("error",it.toString())
+            }
         }
     }
 }
