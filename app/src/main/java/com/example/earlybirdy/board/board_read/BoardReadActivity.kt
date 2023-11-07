@@ -7,8 +7,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.earlybirdy.board.board_main.BoardAdapter
+import com.bumptech.glide.Glide
 import com.example.earlybirdy.board.board_write.BoardWriteActivity
 import com.example.earlybirdy.databinding.ActivityBoardReadBinding
 import com.example.earlybirdy.dto.BoardDto
@@ -21,6 +22,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 import java.util.Date
 import java.util.UUID
 
@@ -39,6 +41,9 @@ class BoardReadActivity : AppCompatActivity() {
     private val commentAdapter by lazy {
         CommentAdapter(this)
     }
+
+    private val storage = FirebaseStorage.getInstance()
+    val storageRef = storage.reference
 
     //private lateinit var cContext: Context
     private lateinit var cmanager: LinearLayoutManager
@@ -103,7 +108,14 @@ class BoardReadActivity : AppCompatActivity() {
         tvNickname.text = BoardData.writer
         etContentsTitle.text = BoardData.contentsTitle
         etContents.text = BoardData.contents
-        ivPicture.setImageURI(Uri.parse(BoardData.contentsPoto))
+
+        val imageRef = storageRef.child(BoardData.bid).child(BoardData.bid)
+
+        imageRef.downloadUrl.addOnSuccessListener {
+            Glide.with(this@BoardReadActivity)
+                .load(it)
+                .into(binding.ivPicture)
+        }
     }
 
     // 게시글 삭제
