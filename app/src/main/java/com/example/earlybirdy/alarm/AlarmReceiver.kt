@@ -27,8 +27,6 @@ class AlarmReceiver : BroadcastReceiver() {
 
         val ringPref = pref.getBoolean("ringtoneSwitch", false)
         val vibePref = pref.getBoolean("vibeSwitch", false)
-        Log.d("ring1", "${ringPref}")
-        Log.d("vibe1", "${vibePref}")
 
         val manager = context.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
 
