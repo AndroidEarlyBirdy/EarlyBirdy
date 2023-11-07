@@ -74,9 +74,6 @@ class BoardAdapter(context: Context) : RecyclerView.Adapter<BoardAdapter.Holder>
             }
             tvWriter.text = item.writer
             etContentsTitle.text = item.contentsTitle
-            Glide.with(bContext)
-                .load(item.contentsPhoto)
-                .into(ivContentsPoto)
         }
     }
 

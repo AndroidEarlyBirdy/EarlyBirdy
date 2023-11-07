@@ -109,8 +109,7 @@ class BoardFragment : Fragment() {
                             item.writer,
                             item.createdTime,
                             item.contentsTitle,
-                            item.contents,
-                            item.contentsPhoto
+                            item.contents
                         )
                         data.add(boardItam)
                         Log.d("board", boardItam.toString())
@@ -139,7 +138,6 @@ class BoardFragment : Fragment() {
                                 item.createdTime,
                                 item.contentsTitle,
                                 item.contents,
-                                item.contentsPhoto
                             )
                             data.add(boardItam)
                             Log.d("board", boardItam.toString())

@@ -1,5 +1,6 @@
 package com.example.earlybirdy.board.board_write
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -12,6 +13,8 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import androidx.core.net.toFile
+import androidx.core.net.toUri
 import com.example.earlybirdy.R
 import com.example.earlybirdy.board.board_read.BoardReadActivity
 import com.example.earlybirdy.databinding.ActivityBoardWriteBinding
@@ -27,6 +30,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import java.io.IOException
 import java.io.InputStream
+import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.UUID
 
@@ -42,7 +46,7 @@ class BoardWriteActivity : AppCompatActivity() {
     private var nickname: String? = ""
     private var contentsPhoto: String? = null
 
-    private lateinit var selectImgUri: Uri
+    private var imgUri: Uri = "".toUri()
     private val IMAGE_PICKER_REQUEST_CODE = 1
 
     private val boardType: Int by lazy {
@@ -122,12 +126,14 @@ class BoardWriteActivity : AppCompatActivity() {
                     if (selectedImageUri != null) {
                         binding.ivPicture.setImageURI(selectedImageUri)
                         contentsPhoto = selectedImageUri.toString()
+                        imgUri = selectedImageUri
                     } else {
                         showToast(this@BoardWriteActivity, "사진을 가져오지 못했습니다.")
                     }
                 }
             }
         }
+
     //갤러리에서 사진 선택
     private fun navigateGallery() {
         val intent = Intent(Intent.ACTION_PICK)
@@ -148,27 +154,11 @@ class BoardWriteActivity : AppCompatActivity() {
             .show()
     }
 
-    // url 변환
-    private fun convertImageUriToString(uri: Uri): String? {
-        return try {
-            val inputStream: InputStream? = contentResolver.openInputStream(uri)
-            val imageBytes = inputStream?.readBytes()
-            inputStream?.close()
-            imageBytes?.let { Base64.encodeToString(it, Base64.DEFAULT) }
-        } catch (e: IOException) {
-            e.printStackTrace()
-            null
-        }
-    }
-
-
     private fun createdBoard() {
         val user = auth.currentUser
 
         var boardIndex = UUID.randomUUID().toString()
         val createdTime = Timestamp(Date())
-
-        val imagesRef = storage.reference.child("boardImages/${UUID.randomUUID()}") // storage로 넣는 부분
 
         val contentsTitle = binding.etContentsTitle.text.toString()
         val contents = binding.etContents.text.toString()
@@ -185,8 +175,7 @@ class BoardWriteActivity : AppCompatActivity() {
                     nickname!!,
                     createdTime,
                     contentsTitle,
-                    contents,
-                    contentsPhoto
+                    contents
                 )
             db.collection("BoardDto").document(boardIndex)
                 .set(boardDto)
@@ -197,6 +186,16 @@ class BoardWriteActivity : AppCompatActivity() {
                 .addOnFailureListener { e ->
                 }
         }
+
+        var storage: FirebaseStorage? = FirebaseStorage.getInstance()
+        var fileName = boardIndex
+        var imagesRef = storage!!.reference.child(boardIndex).child(fileName)
+        imagesRef.putFile(imgUri).addOnSuccessListener {
+            showToast(this@BoardWriteActivity, "성공")
+        }.addOnFailureListener {
+            Log.d("error",it.toString())
+        }
+
     }
 
     // BoardReadActivity에서 페이지를 이동했을 경우 화면에 해당 게시물의 내용을 띄움
@@ -226,8 +225,7 @@ class BoardWriteActivity : AppCompatActivity() {
                     nickname!!,
                     boardData.createdTime,
                     contentsTitle,
-                    contents,
-                    contentsPhoto
+                    contents
                 )
             db.collection("BoardDto").document(boardData.bid)
                 .set(boardDto)
