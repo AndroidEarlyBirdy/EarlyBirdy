@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.earlybirdy.board.board_read.BoardReadActivity
-import com.example.earlybirdy.data.Todo
 import com.example.earlybirdy.databinding.FragmentBoardBinding
 import com.example.earlybirdy.dto.BoardDto
 import com.example.earlybirdy.util.navigateToBoardWriteActivity
@@ -18,7 +17,6 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
-import com.google.gson.Gson
 
 class BoardFragment : Fragment() {
 
@@ -36,7 +34,7 @@ class BoardFragment : Fragment() {
     }
 
     private lateinit var bContext: Context
-    private lateinit var bmanager: LinearLayoutManager
+    private lateinit var bManager: LinearLayoutManager
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -62,8 +60,8 @@ class BoardFragment : Fragment() {
 
         loadData()
 
-        bmanager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        rvCommunity.layoutManager = bmanager
+        bManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        rvCommunity.layoutManager = bManager
         rvCommunity.adapter = boardAdapter
 
         boardAdapter.itemClick = object : BoardAdapter.ItemClick {
@@ -111,8 +109,7 @@ class BoardFragment : Fragment() {
                             item.writer,
                             item.createdTime,
                             item.contentsTitle,
-                            item.contents,
-                            item.contentsPoto
+                            item.contents
                         )
                         data.add(boardItam)
                         Log.d("board", boardItam.toString())
@@ -141,7 +138,6 @@ class BoardFragment : Fragment() {
                                 item.createdTime,
                                 item.contentsTitle,
                                 item.contents,
-                                item.contentsPoto
                             )
                             data.add(boardItam)
                             Log.d("board", boardItam.toString())

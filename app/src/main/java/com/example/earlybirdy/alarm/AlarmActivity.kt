@@ -33,15 +33,11 @@ class AlarmActivity : MainActivity() {
             binding.tpSetTime.minute = pref.getInt("minute", 0)
 
             binding.switchAlarm.isChecked = pref.getBoolean("alarmSwitch", false)
-            binding.switchRingtone.isChecked = pref.getBoolean("ringtoneSwitch", false)
-            binding.switchVibe.isChecked = pref.getBoolean("vibeSwitch", false)
         }else{
             binding.tpSetTime.hour = 4
             binding.tpSetTime.minute = 0
 
             binding.switchAlarm.isChecked  = false
-            binding.switchRingtone.isChecked = false
-            binding.switchVibe.isChecked = false
         }
 
         setTimeChangedListener()
@@ -60,7 +56,6 @@ class AlarmActivity : MainActivity() {
             val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             val id: String = "Alarm-channel"
             notificationManager.deleteNotificationChannel(id)
-            Log.d("cid", id)
 
             // 알람 끄기 스위치의 상태에 따라 알람 울림 여부 변경
             if (!this.binding.switchAlarm.isChecked){
@@ -91,12 +86,6 @@ class AlarmActivity : MainActivity() {
         editTime.putInt("minute", binding.tpSetTime.minute)
 
         editTime.putBoolean("alarmSwitch", binding.switchAlarm.isChecked)
-        editTime.putBoolean("ringtoneSwitch", binding.switchRingtone.isChecked)
-        editTime.putBoolean("vibeSwitch", binding.switchVibe.isChecked)
-
-//        Log.d("alarmSwitch", "${binding.switchAlarm.isChecked}")
-//        Log.d("ringtoneSwitch", "${binding.switchRingtone.isChecked}")
-//        Log.d("vibeSwitch", "${binding.switchVibe.isChecked}")
 
         editTime.apply()
     }
@@ -104,7 +93,6 @@ class AlarmActivity : MainActivity() {
     @SuppressLint("ScheduleExactAlarm")
     private fun sendAlarm(){
         alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
-        Log.d("alarmManager", "${alarmManager}")
 
         val alarmIntent = Intent(this, AlarmReceiver::class.java)
         pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, PendingIntent.FLAG_IMMUTABLE)
@@ -112,9 +100,6 @@ class AlarmActivity : MainActivity() {
         val calendar: Calendar = Calendar.getInstance()
         calendar.set(Calendar.HOUR_OF_DAY, binding.tpSetTime.hour)
         calendar.set(Calendar.MINUTE, binding.tpSetTime.minute)
-
-//        Log.d("hour", "${binding.tpSetTime.hour}")
-//        Log.d("minute", "${binding.tpSetTime.minute}")
 
         calendar.set(Calendar.SECOND, 0)
 

@@ -7,17 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.earlybirdy.create_plan.CreatePlanAdapter
-import com.example.earlybirdy.data.Todo
+import com.example.earlybirdy.board.board_read.BoardReadActivity
 import com.example.earlybirdy.databinding.ItemBoardBinding
 import com.example.earlybirdy.dto.BoardDto
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 
 class BoardAdapter(context: Context) : RecyclerView.Adapter<BoardAdapter.Holder>() {
 
     private val list = ArrayList<BoardDto>()
+    private val storage = FirebaseStorage.getInstance()
+    val storageRef = storage.reference
 
     var bContext = context
 
@@ -79,9 +78,14 @@ class BoardAdapter(context: Context) : RecyclerView.Adapter<BoardAdapter.Holder>
             }
             tvWriter.text = item.writer
             etContentsTitle.text = item.contentsTitle
-            Glide.with(bContext)
-                .load(item.contentsPoto)
-                .into(ivContentsPoto)
+
+            val imageRef = storageRef.child(item.bid).child(item.bid)
+
+            imageRef.downloadUrl.addOnSuccessListener {
+                Glide.with(bContext)
+                    .load(it)
+                    .into(binding.ivContentsPoto)
+            }
         }
     }
 
