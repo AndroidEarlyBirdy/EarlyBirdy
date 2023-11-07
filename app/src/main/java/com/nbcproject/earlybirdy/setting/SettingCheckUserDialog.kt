@@ -62,7 +62,7 @@ class SettingCheckUserDialog(
             }
     }
 
-//    private fun checkAuth(email: String, password: String) {
+    //    private fun checkAuth(email: String, password: String) {
 //        auth.signInWithEmailAndPassword(email, password)
 //            .addOnCompleteListener { task ->
 //                if (task.isSuccessful) {
@@ -99,10 +99,8 @@ class SettingCheckUserDialog(
                     if (exception is FirebaseAuthInvalidCredentialsException) {
                         // Handle invalid credentials error
                         binding.tilSldPassword.error = "비밀번호가 틀립니다."
-                        Log.d("log", "잘못된 자격 증명 오류 처리")
                     } else {
                         binding.tilSldPassword.error = "재인증에 실패했습니다."
-                        Log.d("log", "그 외")
                     }
                 }
             }
@@ -111,22 +109,25 @@ class SettingCheckUserDialog(
 
     private fun deleteUser() {
         val user = auth.currentUser
-        db.collection("UserDto").document(user!!.uid)
-            .delete()
-            .addOnSuccessListener {
-                user!!.delete()
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
+        Log.d("delete3", "${user}")
+        user?.delete()
+            ?.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d("delete4", "${user.uid}")
+                    db.collection("UserDto").document(user.uid)
+                        .delete()
+                        .addOnSuccessListener {
                             navigateToSigninActivity(context)
                             dismiss()
+                            Log.d("delete1", "${user}")
                         }
-                    }.addOnFailureListener {
+                        .addOnFailureListener { e ->
+                            Log.d("delete2", "${user}")
+                        }
 
-                    }
+                }
+            }?.addOnFailureListener {
+
             }
-            .addOnFailureListener { e ->
-
-            }
-
     }
 }

@@ -88,7 +88,8 @@ class MyPageFragment : Fragment() {
                 binding.pbExp.max = currentMapExp!!
                 binding.tvExperience.text = "$currentExp / $currentMapExp xp"
 
-                setProfileImage(myUser.profile!!)
+//                setProfileImage(myUser.profile!!)
+                myUser.profile?.let { setProfileImage(it) }
                 updateLevelImage(currentLevel!!)
             }
         }
