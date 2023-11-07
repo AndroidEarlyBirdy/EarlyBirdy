@@ -9,9 +9,9 @@ import android.os.Bundle
 import android.provider.Settings
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.tabs.TabLayoutMediator
 import com.nbcproject.earlybirdy.R
 import com.nbcproject.earlybirdy.databinding.ActivityMainBinding
-import com.google.android.material.tabs.TabLayoutMediator
 
 
 open class MainActivity : AppCompatActivity() {

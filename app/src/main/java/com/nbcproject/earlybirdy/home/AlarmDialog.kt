@@ -1,4 +1,4 @@
-package com.example.earlybirdy.home
+package com.nbcproject.earlybirdy.home
 
 import android.annotation.SuppressLint
 import android.app.AlarmManager
@@ -7,19 +7,15 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Context.ALARM_SERVICE
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
-import android.preference.DialogPreference
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat.getSystemService
-import com.example.earlybirdy.alarm.AlarmReceiver
-import com.example.earlybirdy.board.board_main.BoardAdapter
-import com.example.earlybirdy.databinding.DialogAlarmBinding
+import com.nbcproject.earlybirdy.alarm.AlarmReceiver
+import com.nbcproject.earlybirdy.databinding.DialogAlarmBinding
 import java.util.Calendar
 
 class AlarmDialog(context: Context):Dialog(context) {
-    private val binding by lazy {DialogAlarmBinding.inflate(layoutInflater) }
+    private val binding by lazy { DialogAlarmBinding.inflate(layoutInflater) }
 
     private lateinit var alarmManager: AlarmManager
     private lateinit var pendingIntent: PendingIntent

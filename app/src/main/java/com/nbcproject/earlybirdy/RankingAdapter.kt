@@ -3,7 +3,6 @@ package com.nbcproject.earlybirdy
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.nbcproject.earlybirdy.R
 import com.nbcproject.earlybirdy.databinding.ItemRangkingBinding
 import com.nbcproject.earlybirdy.dto.UserDto
 

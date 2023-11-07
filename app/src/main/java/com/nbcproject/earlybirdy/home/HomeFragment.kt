@@ -17,27 +17,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
-import androidx.fragment.app.setFragmentResultListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.example.earlybirdy.R
-import com.example.earlybirdy.board.board_main.BoardAdapter
-import com.example.earlybirdy.board.board_read.BoardReadActivity
-import com.nbcproject.earlybirdy.R
-
-import com.example.earlybirdy.create_plan.CreatePlanActivity
-import com.example.earlybirdy.data.MyGoal
-import com.example.earlybirdy.databinding.FragmentHomeBinding
-import com.example.earlybirdy.databinding.ItemTodoMainBinding
-import com.example.earlybirdy.dto.BoardDto
-import com.example.earlybirdy.setting.SettingDeleteDialog
-import com.example.earlybirdy.util.navigateToAlarmActivity
 import com.nbcproject.earlybirdy.create_plan.CreatePlanActivity
 import com.nbcproject.earlybirdy.data.MyGoal
-import com.nbcproject.earlybirdy.databinding.FragmentHomeBinding
-import com.nbcproject.earlybirdy.databinding.ItemTodoMainBinding
-import com.nbcproject.earlybirdy.util.navigateToAlarmActivity
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -46,6 +29,9 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.JsonHttpResponseHandler
 import com.loopj.android.http.RequestParams
+import com.nbcproject.earlybirdy.R
+import com.nbcproject.earlybirdy.databinding.FragmentHomeBinding
+import com.nbcproject.earlybirdy.databinding.ItemTodoMainBinding
 import cz.msebera.android.httpclient.Header
 import org.json.JSONObject
 import java.text.SimpleDateFormat
