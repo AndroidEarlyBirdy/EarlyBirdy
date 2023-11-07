@@ -23,11 +23,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.earlybirdy.R
+import com.example.earlybirdy.board.board_main.BoardAdapter
+import com.example.earlybirdy.board.board_read.BoardReadActivity
 
 import com.example.earlybirdy.create_plan.CreatePlanActivity
 import com.example.earlybirdy.data.MyGoal
 import com.example.earlybirdy.databinding.FragmentHomeBinding
 import com.example.earlybirdy.databinding.ItemTodoMainBinding
+import com.example.earlybirdy.dto.BoardDto
 import com.example.earlybirdy.setting.SettingDeleteDialog
 import com.example.earlybirdy.util.navigateToAlarmActivity
 import com.google.firebase.Timestamp
@@ -104,6 +107,12 @@ class HomeFragment : Fragment() {
         // 데이터를 불러오는 코드를 onCreateView 내에서 실행
         loadDataFromFirestore()
         loadTimeDate()
+
+        alarmDialog.loadTime = object : AlarmDialog.LoadTimeData {
+            override fun loadTimeData() {
+                updateAlarmTime()
+            }
+        }
 
         binding.ivGoAlarm.setOnClickListener {
             alarmDialog.show()

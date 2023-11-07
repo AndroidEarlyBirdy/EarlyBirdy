@@ -14,6 +14,7 @@ import android.preference.DialogPreference
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat.getSystemService
 import com.example.earlybirdy.alarm.AlarmReceiver
+import com.example.earlybirdy.board.board_main.BoardAdapter
 import com.example.earlybirdy.databinding.DialogAlarmBinding
 import java.util.Calendar
 
@@ -22,6 +23,12 @@ class AlarmDialog(context: Context):Dialog(context) {
 
     private lateinit var alarmManager: AlarmManager
     private lateinit var pendingIntent: PendingIntent
+
+    interface LoadTimeData{
+        fun loadTimeData()
+    }
+
+    var loadTime: LoadTimeData? =null
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,26 +63,27 @@ class AlarmDialog(context: Context):Dialog(context) {
         binding.tvSave.setOnClickListener {
             saveTime()
 
-
-
             // 알람 끄기 스위치의 상태에 따라 알람 울림 여부 변경
             if (!this.binding.switchAlarm.isChecked){
                 //알람 매니저 함수
                 sendAlarm()
             }
+
+            loadTime?.loadTimeData()
+
             dismiss()
         }
     }
 
     private fun setTimeChangedListener() {
         binding.tpSetTime.setOnTimeChangedListener { view, hourOfDay, minute ->
-//            if (hourOfDay > 7 || hourOfDay < 4) {
-//                binding.tpSetTime.hour = 4
-//
-//            }
-//            if (hourOfDay == 7){
-//                binding.tpSetTime.minute = 0
-//            }
+            if (hourOfDay > 7 || hourOfDay < 4) {
+                binding.tpSetTime.hour = 4
+
+            }
+            if (hourOfDay == 7){
+                binding.tpSetTime.minute = 0
+            }
         }
     }
 

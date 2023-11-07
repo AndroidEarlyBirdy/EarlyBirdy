@@ -22,14 +22,6 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         signCheck()
-
-//        val receiver = ComponentName(this, AlarmReceiver::class.java)
-//
-//        this.packageManager.setComponentEnabledSetting(
-//            receiver,
-//            PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-//            PackageManager.DONT_KILL_APP
-//        )
     }
 
     private fun signCheck() {
