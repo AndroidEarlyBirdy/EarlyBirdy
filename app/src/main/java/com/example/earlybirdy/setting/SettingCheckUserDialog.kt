@@ -63,7 +63,6 @@ class SettingCheckUserDialog(
 
     private fun deleteUser() {
         val user = Firebase.auth.currentUser!!
-
         user.delete()
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
@@ -73,12 +72,11 @@ class SettingCheckUserDialog(
                             navigateToSigninActivity(context)
                         }
                         .addOnFailureListener { e ->
-                            Log.e("fail","Error", e)
+                            Log.e("fail", "Error", e)
                         }
 
                 }
             }
-
     }
 
     private fun checkAuth(email:String,password:String) {
