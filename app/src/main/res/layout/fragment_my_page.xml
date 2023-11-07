@@ -155,10 +155,13 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="40dp"
+            android:layout_marginBottom="16dp"
             android:background="@color/white"
             app:cardCornerRadius="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintlayout_status"
-            app:strokeColor="@color/black">
+            app:strokeColor="@color/black"
+            tools:layout_editor_absoluteX="16dp">
 
             <com.prolificinteractive.materialcalendarview.MaterialCalendarView
                 android:id="@+id/calendarView"
@@ -166,7 +169,7 @@
                 android:layout_height="350dp"
                 android:layout_marginTop="30dp"
                 app:mcv_selectionColor="@color/white"
-                app:mcv_selectionMode="none"/>
+                app:mcv_selectionMode="none" />
 
         </androidx.cardview.widget.CardView>
 

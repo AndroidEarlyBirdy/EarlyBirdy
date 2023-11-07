@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     tools:context=".setting.SettingActivity">
 
-    <ImageView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@drawable/bg_gr3"
-        app:layout_constraintBottom_toBottomOf="@+id/guideline"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent">
+
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/bg_gr3"
+            app:layout_constraintBottom_toBottomOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -22,179 +27,187 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.5" />
 
-    <TextView
-        android:id="@+id/tv_item_Title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/setting_setting"
-        android:textColor="@color/white"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_back"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/iv_back" />
-
-
-    <ImageView
-        android:id="@+id/iv_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/btn_back"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraint_setting"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="60dp"
-        android:background="@drawable/ic_roundig"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_item_Title">
-
         <TextView
-            android:id="@+id/btn_notification_settings"
-            android:layout_width="match_parent"
+            android:id="@+id/tv_item_Title"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="40dp"
-            android:background="@drawable/btn_setting"
-            android:paddingHorizontal="40dp"
-            android:paddingVertical="16dp"
-            android:text="@string/setting_alarm_setting"
-            android:textSize="18sp"
+            android:layout_marginTop="32dp"
+            android:text="@string/setting_setting"
+            android:textColor="@color/white"
+            android:textSize="20sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <View
-            android:layout_width="328dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="10dp"
-            android:background="#E4E4E4"
-            app:layout_constraintEnd_toEndOf="@+id/btn_notification_settings"
-            app:layout_constraintStart_toStartOf="@+id/btn_notification_settings"
-            app:layout_constraintTop_toBottomOf="@+id/btn_notification_settings" />
 
-        <TextView
-            android:id="@+id/btn_user_support"
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:background="@drawable/btn_setting"
-            android:paddingHorizontal="40dp"
-            android:paddingVertical="16dp"
-            android:text="@string/setting_support"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginTop="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/btn_notification_settings" />
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/btn_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <View
-            android:layout_width="328dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="10dp"
-            android:background="#E4E4E4"
-            app:layout_constraintEnd_toEndOf="@+id/btn_user_support"
-            app:layout_constraintStart_toStartOf="@+id/btn_user_support"
-            app:layout_constraintTop_toBottomOf="@+id/btn_user_support" />
-
-        <TextView
-            android:id="@+id/btn_open_license"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_setting"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:background="@drawable/btn_setting"
-            android:paddingHorizontal="40dp"
-            android:paddingVertical="16dp"
-            android:text="@string/setting_openlicense"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginTop="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/btn_user_support" />
+            android:layout_height="640dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/bottom_sheet_background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_item_Title">
 
-        <View
-            android:layout_width="328dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="10dp"
-            android:background="#E4E4E4"
-            app:layout_constraintEnd_toEndOf="@+id/btn_open_license"
-            app:layout_constraintStart_toStartOf="@+id/btn_open_license"
-            app:layout_constraintTop_toBottomOf="@+id/btn_open_license" />
+            <TextView
+                android:id="@+id/btn_notification_settings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="40dp"
+                android:paddingHorizontal="40dp"
+                android:paddingVertical="16dp"
+                android:text="@string/setting_alarm_setting"
+                android:textColor="#444444"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_editor_absoluteX="16dp" />
 
-        <TextView
-            android:id="@+id/btn_genral_condition"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:background="@drawable/btn_setting"
-            android:paddingHorizontal="40dp"
-            android:paddingVertical="16dp"
-            android:text="@string/setting_terms"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginTop="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/btn_open_license" />
+            <View
+                android:layout_width="328dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:background="#E4E4E4"
+                app:layout_constraintEnd_toEndOf="@+id/btn_notification_settings"
+                app:layout_constraintStart_toStartOf="@+id/btn_notification_settings"
+                app:layout_constraintTop_toBottomOf="@+id/btn_notification_settings" />
 
-        <View
-            android:layout_width="328dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="10dp"
-            android:background="#E4E4E4"
-            app:layout_constraintEnd_toEndOf="@+id/btn_genral_condition"
-            app:layout_constraintStart_toStartOf="@+id/btn_genral_condition"
-            app:layout_constraintTop_toBottomOf="@+id/btn_genral_condition" />
+            <TextView
+                android:id="@+id/btn_user_support"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="20dp"
+                android:paddingHorizontal="40dp"
+                android:paddingVertical="16dp"
+                android:text="@string/setting_support"
+                android:textColor="#444444"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/btn_notification_settings"
+                tools:layout_editor_absoluteX="16dp" />
 
-        <TextView
-            android:id="@+id/btn_logout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:background="@drawable/btn_setting"
-            android:paddingHorizontal="40dp"
-            android:paddingVertical="16dp"
-            android:text="@string/setting_logout"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginTop="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/btn_genral_condition" />
+            <View
+                android:layout_width="328dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:background="#E4E4E4"
+                app:layout_constraintEnd_toEndOf="@+id/btn_user_support"
+                app:layout_constraintStart_toStartOf="@+id/btn_user_support"
+                app:layout_constraintTop_toBottomOf="@+id/btn_user_support" />
 
-        <View
-            android:layout_width="328dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="10dp"
-            android:background="#E4E4E4"
-            app:layout_constraintEnd_toEndOf="@+id/btn_logout"
-            app:layout_constraintStart_toStartOf="@+id/btn_logout"
-            app:layout_constraintTop_toBottomOf="@+id/btn_logout" />
+            <TextView
+                android:id="@+id/btn_open_license"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="20dp"
+                android:paddingHorizontal="40dp"
+                android:paddingVertical="16dp"
+                android:text="@string/setting_openlicense"
+                android:textColor="#444444"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/btn_user_support"
+                tools:layout_editor_absoluteX="16dp" />
 
-        <TextView
-            android:id="@+id/btn_delete_account"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:background="@drawable/btn_setting"
-            android:paddingHorizontal="40dp"
-            android:paddingVertical="15dp"
-            android:text="@string/setting_delet_account"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginTop="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/btn_logout" />
+            <View
+                android:layout_width="328dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:background="#E4E4E4"
+                app:layout_constraintEnd_toEndOf="@+id/btn_open_license"
+                app:layout_constraintStart_toStartOf="@+id/btn_open_license"
+                app:layout_constraintTop_toBottomOf="@+id/btn_open_license" />
 
-        <View
-            android:layout_width="328dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="10dp"
-            android:background="#E4E4E4"
-            app:layout_constraintEnd_toEndOf="@+id/btn_delete_account"
-            app:layout_constraintStart_toStartOf="@+id/btn_delete_account"
-            app:layout_constraintTop_toBottomOf="@+id/btn_delete_account" />
+            <TextView
+                android:id="@+id/btn_genral_condition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="20dp"
+                android:paddingHorizontal="40dp"
+                android:paddingVertical="16dp"
+                android:text="@string/setting_terms"
+                android:textColor="#444444"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/btn_open_license"
+                tools:layout_editor_absoluteX="16dp" />
+
+            <View
+                android:layout_width="328dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:background="#E4E4E4"
+                app:layout_constraintEnd_toEndOf="@+id/btn_genral_condition"
+                app:layout_constraintStart_toStartOf="@+id/btn_genral_condition"
+                app:layout_constraintTop_toBottomOf="@+id/btn_genral_condition" />
+
+            <TextView
+                android:id="@+id/btn_logout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="20dp"
+                android:paddingHorizontal="40dp"
+                android:paddingVertical="16dp"
+                android:text="@string/setting_logout"
+                android:textColor="#444444"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/btn_genral_condition"
+                tools:layout_editor_absoluteX="16dp" />
+
+            <View
+                android:layout_width="328dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:background="#E4E4E4"
+                app:layout_constraintEnd_toEndOf="@+id/btn_logout"
+                app:layout_constraintStart_toStartOf="@+id/btn_logout"
+                app:layout_constraintTop_toBottomOf="@+id/btn_logout" />
+
+            <TextView
+                android:id="@+id/btn_delete_account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="20dp"
+                android:paddingHorizontal="40dp"
+                android:paddingVertical="15dp"
+                android:text="@string/setting_delet_account"
+                android:textColor="#444444"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/btn_logout"
+                tools:layout_editor_absoluteX="16dp" />
+
+            <View
+                android:layout_width="328dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:background="#E4E4E4"
+                app:layout_constraintEnd_toEndOf="@+id/btn_delete_account"
+                app:layout_constraintStart_toStartOf="@+id/btn_delete_account"
+                app:layout_constraintTop_toBottomOf="@+id/btn_delete_account" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
