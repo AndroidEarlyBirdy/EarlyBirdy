@@ -38,9 +38,9 @@ class SigninActivity : MainActivity() {
     private fun observeData(){
         viewModel.signinState.observe(this) {
             when (it) {
-                is SigninNavigation.AlreadySignin -> {
-                    navigateToMainActivity(this)
-                }
+//                is SigninNavigation.AlreadySignin -> {
+//                    navigateToMainActivity(this)
+//                }
 
                 is SigninNavigation.EmptyEmail -> {
                     binding.tilEmail.error = "이메일을 입력해주세요"
