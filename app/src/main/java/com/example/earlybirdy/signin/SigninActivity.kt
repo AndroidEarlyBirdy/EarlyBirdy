@@ -51,13 +51,13 @@ class SigninActivity : MainActivity() {
                 }
 
                 is SigninNavigation.SigninSuccess -> {
-                    showToast(this, "로그인 성공")
+                    showToast(this, "로그인에 성공하였습니다")
                     navigateToMainActivity(this)
                     finish()
                 }
 
                 is SigninNavigation.SigninFailed -> {
-                    showToast(this, "로그인 실패!")
+                    showToast(this, "로그인에 실패하였습니다")
                 }
             }
         }
@@ -94,20 +94,6 @@ class SigninActivity : MainActivity() {
         }
     }
 
-    // 알림 권한 설정 함수
-//    private fun askPermissions(){
-//        if (ActivityCompat.checkSelfPermission(
-//                this,
-//                android.Manifest.permission.POST_NOTIFICATIONS
-//            ) != PackageManager.PERMISSION_GRANTED
-//        ) {
-//            val permissions = arrayOf(
-//                android.Manifest.permission.SCHEDULE_EXACT_ALARM,
-//                android.Manifest.permission.POST_NOTIFICATIONS
-//            )
-//            ActivityCompat.requestPermissions(this, permissions, MY_PERMISSION_ACCESS_ALL)
-//        }
-//    }
     private fun askPermissions() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
             if (ActivityCompat.checkSelfPermission(
@@ -142,7 +128,6 @@ class SigninActivity : MainActivity() {
             }
         }
     }
-
 
     override fun onBackPressed() {
         AlertDialog.Builder(this)
