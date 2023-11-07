@@ -177,6 +177,10 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun noti() {
+
+    }
+
     private fun loadDataFromFirestore() {
         // 오늘의 날짜를 구합니다.
         val today = Calendar.getInstance()
@@ -243,7 +247,6 @@ class HomeFragment : Fragment() {
                     binding.btnLeftArrow.visibility = View.VISIBLE
                     binding.btnRightArrow.visibility = View.VISIBLE
                 }
-
 
                 updateProgress()
                 adapter.notifyDataSetChanged()
