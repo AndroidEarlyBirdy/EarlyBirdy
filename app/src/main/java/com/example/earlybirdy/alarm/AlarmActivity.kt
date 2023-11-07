@@ -33,15 +33,11 @@ class AlarmActivity : MainActivity() {
             binding.tpSetTime.minute = pref.getInt("minute", 0)
 
             binding.switchAlarm.isChecked = pref.getBoolean("alarmSwitch", false)
-            binding.switchRingtone.isChecked = pref.getBoolean("ringtoneSwitch", false)
-            binding.switchVibe.isChecked = pref.getBoolean("vibeSwitch", false)
         }else{
             binding.tpSetTime.hour = 4
             binding.tpSetTime.minute = 0
 
             binding.switchAlarm.isChecked  = false
-            binding.switchRingtone.isChecked = false
-            binding.switchVibe.isChecked = false
         }
 
         setTimeChangedListener()
@@ -90,8 +86,6 @@ class AlarmActivity : MainActivity() {
         editTime.putInt("minute", binding.tpSetTime.minute)
 
         editTime.putBoolean("alarmSwitch", binding.switchAlarm.isChecked)
-        editTime.putBoolean("ringtoneSwitch", binding.switchRingtone.isChecked)
-        editTime.putBoolean("vibeSwitch", binding.switchVibe.isChecked)
 
         editTime.apply()
     }

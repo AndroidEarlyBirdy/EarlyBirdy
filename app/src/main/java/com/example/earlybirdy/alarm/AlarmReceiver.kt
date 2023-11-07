@@ -25,9 +25,6 @@ class AlarmReceiver : BroadcastReceiver() {
     private fun sendNotifivation(context: Context){
         val pref = context.getSharedPreferences("alarmSetting", 0)
 
-        val ringPref = pref.getBoolean("ringtoneSwitch", false)
-        val vibePref = pref.getBoolean("vibeSwitch", false)
-
         val manager = context.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
 
         val builder: NotificationCompat.Builder
