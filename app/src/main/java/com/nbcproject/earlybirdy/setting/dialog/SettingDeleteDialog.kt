@@ -1,10 +1,11 @@
-package com.nbcproject.earlybirdy.setting
+package com.nbcproject.earlybirdy.setting.dialog
 
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import com.nbcproject.earlybirdy.databinding.ActivitySettingDeleteDialogBinding
+import com.nbcproject.earlybirdy.setting.SettingActivity
 
 class SettingDeleteDialog(
     context: Context
