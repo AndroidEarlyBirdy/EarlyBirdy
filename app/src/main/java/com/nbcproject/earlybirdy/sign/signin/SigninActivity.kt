@@ -1,4 +1,4 @@
-package com.nbcproject.earlybirdy.signin
+package com.nbcproject.earlybirdy.sign.signin
 
 import android.content.pm.PackageManager
 import android.os.Build
@@ -7,10 +7,10 @@ import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
-import com.nbcproject.earlybirdy.R
 import com.nbcproject.earlybirdy.databinding.ActivitySigninBinding
 import com.nbcproject.earlybirdy.main.MainActivity
 import com.nbcproject.earlybirdy.sealedclass.SigninNavigation
+import com.nbcproject.earlybirdy.sign.signin.viewmodel.SigninViewModel
 import com.nbcproject.earlybirdy.util.navigateToMainActivity
 import com.nbcproject.earlybirdy.util.navigateToSendEmailActivity
 import com.nbcproject.earlybirdy.util.navigateToSignupActivity

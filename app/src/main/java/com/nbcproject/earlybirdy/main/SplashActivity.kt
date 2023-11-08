@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
-import com.nbcproject.earlybirdy.signin.SigninActivity
+import com.nbcproject.earlybirdy.sign.signin.SigninActivity
 import com.nbcproject.earlybirdy.util.navigateToMainActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.nbcproject.earlybirdy.R
