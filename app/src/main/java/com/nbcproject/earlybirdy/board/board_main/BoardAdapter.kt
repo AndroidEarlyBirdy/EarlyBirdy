@@ -23,7 +23,6 @@ class BoardAdapter(context: Context) : RecyclerView.Adapter<BoardAdapter.Holder>
 
         fun onClick(view: View, boardData: BoardDto)
         fun deleteItem(view:View, boardData: BoardDto)
-
     }
 
     var itemClick: ItemClick? = null
@@ -71,9 +70,6 @@ class BoardAdapter(context: Context) : RecyclerView.Adapter<BoardAdapter.Holder>
         fun bind(item: BoardDto) = with(binding) { //클릭이벤트추가부분
             itemView.setOnClickListener {
                 itemClick?.onClick(it, item)
-            }
-            ivDelete.setOnClickListener {
-                itemClick?.deleteItem(it, item)
             }
             tvWriter.text = item.writer
             etContentsTitle.text = item.contentsTitle
