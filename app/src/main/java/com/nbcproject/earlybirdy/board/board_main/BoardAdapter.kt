@@ -23,7 +23,6 @@ class BoardAdapter(context: Context) : RecyclerView.Adapter<BoardAdapter.Holder>
 
         fun onClick(view: View, boardData: BoardDto)
         fun deleteItem(view:View, boardData: BoardDto)
-
     }
 
     var itemClick: ItemClick? = null
@@ -72,19 +71,16 @@ class BoardAdapter(context: Context) : RecyclerView.Adapter<BoardAdapter.Holder>
             itemView.setOnClickListener {
                 itemClick?.onClick(it, item)
             }
-            ivDelete.setOnClickListener {
-                itemClick?.deleteItem(it, item)
-            }
             tvWriter.text = item.writer
             etContentsTitle.text = item.contentsTitle
 
-            val imageRef = storageRef.child(item.bid).child(item.bid)
-
-            imageRef.downloadUrl.addOnSuccessListener {
-                Glide.with(bContext)
-                    .load(it)
-                    .into(binding.ivContentsPoto)
-            }
+//            val imageRef = storageRef.child(item.bid).child(item.bid)
+//
+//            imageRef.downloadUrl.addOnSuccessListener {
+//                Glide.with(bContext)
+//                    .load(it)
+//                    .into(binding.ivContentsPoto)
+//            }
         }
     }
 

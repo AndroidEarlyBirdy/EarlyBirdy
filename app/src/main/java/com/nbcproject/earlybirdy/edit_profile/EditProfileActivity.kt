@@ -26,10 +26,10 @@ class EditProfileActivity : MainActivity() {
     private lateinit var user: FirebaseUser
     val db = Firebase.firestore
     private val imageMap = mapOf(
-        1 to R.drawable.img_profile_man1,
-        2 to R.drawable.img_profile_woman1,
-        3 to R.drawable.img_profile_man2,
-        4 to R.drawable.img_profile_woman2,
+        1 to R.drawable.ic_person1,
+        2 to R.drawable.ic_person2,
+        3 to R.drawable.ic_person3,
+        4 to R.drawable.ic_person4,
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,7 +76,6 @@ class EditProfileActivity : MainActivity() {
         }
 
         loadUserData()
-        overridePendingTransition(R.anim.slide_left_enter, R.anim.slide_right_exit)
     }
 
 
@@ -90,18 +89,16 @@ class EditProfileActivity : MainActivity() {
             binding.tilProfileNickname.error = "닉네임을 입력해주세요"
 
         } else {
-
-            updateUserData(user.uid, profile, nickname)
-            navigateToMainActivity(this)
-            showToast(this@EditProfileActivity, "회원 정보 수정 완료!")
-
-            finish()
+                updateUserData(user.uid, profile, nickname)
+                showToast(this@EditProfileActivity, "회원 정보 수정 완료!")
+                finish()
         }
 
     }
 
-    private fun updateUserData(uid: String, profile: Int?, nickname: String?) {
+    private fun updateUserData(uid: String, profile: Int, nickname: String?) {
 
+       if(profile > 0)
         db.collection("UserDto").document(uid).update(
             mapOf(
                 "profile" to profile,
@@ -111,10 +108,21 @@ class EditProfileActivity : MainActivity() {
             showToast(this@EditProfileActivity,"회원정보 업데이트 완료!")
         }.addOnFailureListener{e ->
             Log.e("error","Error updating document", e)
-        }
+        } else {
+           db.collection("UserDto").document(uid).update(
+               mapOf(
+                   "nickname" to nickname
+               )
+           ).addOnSuccessListener {
+               showToast(this@EditProfileActivity,"회원정보 업데이트 완료!")
+           }.addOnFailureListener{e ->
+               Log.e("error","Error updating document", e)
+           }
+       }
     }
     private fun loadUserData() {
         val uid = user.uid
+
 
         db.collection("UserDto").document(uid).get()
             .addOnSuccessListener { document ->
@@ -134,11 +142,30 @@ class EditProfileActivity : MainActivity() {
     }
 
     private fun setImageByFixedValue(fixedValue: Int) {
+        val uid = user.uid
+        val profileImageRef = fireStore.collection("UserDto").document(uid)
         val imageResourceId = imageMap[fixedValue]
         if (imageResourceId != null) {
             binding.imgProflileProfile.setImageResource(imageResourceId)
         } else {
-            binding.imgProflileProfile.setImageResource(R.drawable.img_profile_add)
+            profileImageRef.get()
+                .addOnSuccessListener { document ->
+                    if (document != null && document.exists()) {
+                        val imageResId = document.getLong("profile")?.toInt()
+                        if (imageResId != null) {
+                            binding.imgProflileProfile.setImageResource(imageResId)
+                        }
+
+                    } else {
+                        val imageResId = document.getLong("profile")?.toInt()
+                        return@addOnSuccessListener binding.imgProflileProfile.setImageResource(imageResId!!)
+
+                    }
+                }
+                .addOnFailureListener { exception ->
+
+                    binding.imgProflileProfile.setImageResource(R.drawable.ic_person4)
+                }
         }
     }
 

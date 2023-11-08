@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nbcproject.earlybirdy.databinding.ItemBoardCommentBinding
 import com.nbcproject.earlybirdy.dto.CommentDto
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class CommentAdapter(context: Context) : RecyclerView.Adapter<CommentAdapter.Holder>() {
 
@@ -59,15 +61,16 @@ class CommentAdapter(context: Context) : RecyclerView.Adapter<CommentAdapter.Hol
 
     inner class Holder(val binding: ItemBoardCommentBinding) : RecyclerView.ViewHolder(binding.root) {
 
+        // 타임스템프 변환
+        private val dateFormat = SimpleDateFormat("yy.MM.dd.HH.mm.ss", Locale.getDefault())
+
         fun bind(item: CommentDto) = with(binding) { //클릭이벤트추가부분
             ivDeleteComment.setOnClickListener {
                 itemClick?.deleteItem(it, item)
             }
             tvWriter.text = item.writer
-            tvCommentTime.text = item.commentTime.toString()
+            tvCommentTime.text = item.commentTime?.toDate()?.let { dateFormat.format(it) }
             tvComment.text = item.comments
         }
     }
-
-
 }

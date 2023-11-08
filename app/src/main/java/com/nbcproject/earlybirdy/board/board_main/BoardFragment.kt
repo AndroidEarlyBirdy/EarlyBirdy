@@ -83,13 +83,20 @@ class BoardFragment : Fragment() {
         }
 
         binding.icReload.setOnClickListener {
-            loadData()
-            loadMyBoardData()
+            if (binding.tvBoard.isSelected){
+                loadData()
+            }else if (binding.tvMyBoard.isSelected){
+                loadMyBoardData()
+            }
         }
         binding.tvBoard.setOnClickListener {
+            binding.tvBoard.isSelected = true
+            binding.tvMyBoard.isSelected = false
             loadData()
         }
         binding.tvMyBoard.setOnClickListener {
+            binding.tvBoard.isSelected = false
+            binding.tvMyBoard.isSelected = true
             loadMyBoardData()
         }
     }
