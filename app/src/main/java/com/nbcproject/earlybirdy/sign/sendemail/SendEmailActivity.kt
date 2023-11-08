@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.nbcproject.earlybirdy.databinding.ActivitySendEmailBinding
 import com.nbcproject.earlybirdy.main.MainActivity
 import com.nbcproject.earlybirdy.util.navigateToSigninActivity
-import com.nbcproject.earlybirdy.util.navigateToSignupActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.nbcproject.earlybirdy.sign.sendemail.viewmodel.SendEmailViewModel
 import com.nbcproject.earlybirdy.sign.sendemail.viewmodel.SendEmailViewModelFactory
