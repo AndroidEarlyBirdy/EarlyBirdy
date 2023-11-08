@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.earlybirdy'
+    namespace 'com.nbcproject.earlybirdy'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.earlybirdy"
+        applicationId "com.nbcproject.earlybirdy"
         minSdk 24
         targetSdk 33
         versionCode 1
@@ -32,13 +32,14 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    viewBinding {
-        enabled = true
-    }
+
     dataBinding {
         enabled = true
     }
 
+    viewBinding {
+        enabled = true
+    }
 }
 
 dependencies {
