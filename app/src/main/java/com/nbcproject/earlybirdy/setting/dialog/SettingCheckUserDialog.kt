@@ -63,6 +63,7 @@ class SettingCheckUserDialog(
             }
     }
 
+//    private fun checkAuth(email: String, password: String) {
     //    private fun checkAuth(email: String, password: String) {
 //        auth.signInWithEmailAndPassword(email, password)
 //            .addOnCompleteListener { task ->
@@ -106,7 +107,6 @@ class SettingCheckUserDialog(
                 }
             }
     }
-
 
     private fun deleteUser() {
         val user = auth.currentUser

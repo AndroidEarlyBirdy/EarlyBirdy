@@ -42,22 +42,22 @@ class SignupDialog (
 
         binding.ivSignupDialog1.setOnClickListener{
             selectedImageId = 1
-            binding.ivSignupDialogSelect.setImageResource(R.drawable.img_profile_man1)
+            binding.ivSignupDialogSelect.setImageResource(R.drawable.ic_person1)
         }
 
         binding.ivSignupDialog2.setOnClickListener{
             selectedImageId = 2
-            binding.ivSignupDialogSelect.setImageResource(R.drawable.img_profile_woman1)
+            binding.ivSignupDialogSelect.setImageResource(R.drawable.ic_person2)
         }
 
         binding.ivSignupDialog3.setOnClickListener{
             selectedImageId = 3
-            binding.ivSignupDialogSelect.setImageResource(R.drawable.img_profile_man2)
+            binding.ivSignupDialogSelect.setImageResource(R.drawable.ic_person3)
         }
 
         binding.ivSignupDialog4.setOnClickListener{
             selectedImageId = 4
-            binding.ivSignupDialogSelect.setImageResource(R.drawable.img_profile_woman2)
+            binding.ivSignupDialogSelect.setImageResource(R.drawable.ic_person4)
         }
 
         binding.btnSignupDialogSave.setOnClickListener {
