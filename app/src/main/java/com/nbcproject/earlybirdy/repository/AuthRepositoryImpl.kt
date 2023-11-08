@@ -6,6 +6,7 @@ import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.nbcproject.earlybirdy.sealedclass.CheckAuth
+import com.nbcproject.earlybirdy.sealedclass.CheckDelete
 
 class AuthRepositoryImpl : AuthRepository {
     private val auth = FirebaseAuth.getInstance()
@@ -13,6 +14,9 @@ class AuthRepositoryImpl : AuthRepository {
 
     private var _checkAuthState = MutableLiveData<CheckAuth>()
     val checkAuthState : LiveData<CheckAuth> get() = _checkAuthState
+
+    private var _checkDeleteAuth = MutableLiveData<CheckDelete>()
+    val checkDeleteAuth : LiveData<CheckDelete> get() = _checkDeleteAuth
 
     override fun signOut() {
         if (user != null) {
@@ -36,5 +40,13 @@ class AuthRepositoryImpl : AuthRepository {
                     }
                 }
             }
+    }
+
+    override fun deleteUser() {
+        user?.delete()?.addOnCompleteListener {
+            if (it.isSuccessful) {
+                _checkDeleteAuth.value = CheckDelete.DeleteSuccess
+            }
+        }
     }
 }

@@ -3,6 +3,7 @@ package com.nbcproject.earlybirdy.setting.dialog
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import com.nbcproject.earlybirdy.databinding.ActivitySettingLoginDialogBinding
 import com.nbcproject.earlybirdy.util.navigateToSigninActivity
@@ -10,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.nbcproject.earlybirdy.sealedclass.CheckAuth
+import com.nbcproject.earlybirdy.sealedclass.CheckDelete
 import com.nbcproject.earlybirdy.setting.viewmodel.SettingViewModel
 
 class SettingCheckUserDialog(
@@ -19,7 +21,7 @@ class SettingCheckUserDialog(
 
     private lateinit var binding: ActivitySettingLoginDialogBinding
     private val auth = FirebaseAuth.getInstance()
-    private val fireStore = Firebase.firestore
+    val user = auth.currentUser
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,6 +64,23 @@ class SettingCheckUserDialog(
                 else -> {}
             }
         }
+        settingViewModel.checkDeleteAuth.observe(context as LifecycleOwner) {
+            when (it) {
+                CheckDelete.DeleteSuccess -> {
+                    user?.let { it1 -> settingViewModel.checkDeleteData(it1.uid) }
+                }
+                else -> {}
+            }
+        }
+        settingViewModel.checkDeleteData.observe(context as LifecycleOwner) {
+            when (it) {
+                CheckDelete.DeleteSuccess -> {
+                    navigateToSigninActivity(context)
+                    dismiss()
+                }
+                else -> {}
+            }
+        }
     }
 
     private fun loadUserData(uid: String) {
@@ -74,18 +93,6 @@ class SettingCheckUserDialog(
 
 
     private fun deleteUser() {
-        val user = auth.currentUser
-        user?.delete()
-            ?.addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    fireStore.collection("UserDto").document(user.uid)
-                        .delete()
-                        .addOnSuccessListener {
-                            navigateToSigninActivity(context)
-                            dismiss()
-                        }
-
-                }
-            }
+        settingViewModel.checkDeleteAuth()
     }
 }
