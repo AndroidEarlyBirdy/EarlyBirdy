@@ -1,13 +1,11 @@
-package com.nbcproject.earlybirdy.setting
+package com.nbcproject.earlybirdy.repository
 
-import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 
-class SettingViewModel : ViewModel() {
+class AuthRepositoryImpl : AuthRepository {
     private val auth = FirebaseAuth.getInstance()
     val user = auth.currentUser
-
-    fun signOut() {
+    override fun signOut() {
         if (user != null) {
             auth.signOut()
         }

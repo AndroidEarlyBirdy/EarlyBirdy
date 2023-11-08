@@ -1,4 +1,4 @@
-package com.nbcproject.earlybirdy.setting
+package com.nbcproject.earlybirdy.setting.dialog
 
 import android.app.Dialog
 import android.content.Context
@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.nbcproject.earlybirdy.setting.SettingActivity
 
 class SettingCheckUserDialog(
     context: Context,
