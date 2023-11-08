@@ -21,7 +21,9 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.Locale
 import java.util.UUID
 
 class BoardReadActivity : AppCompatActivity() {
@@ -103,8 +105,12 @@ class BoardReadActivity : AppCompatActivity() {
 
     // 게시글 읽기
     private fun readBoard() = with(binding) {
+
+        val dateFormat = SimpleDateFormat("yy.MM.dd.HH.mm.ss", Locale.getDefault())
+
         tvNickname.text = BoardData.writer
         etContentsTitle.text = BoardData.contentsTitle
+        tvCreatedDatetime.text = BoardData.createdTime?.toDate()?.let { dateFormat.format(it) }
         etContents.text = BoardData.contents
 
         val imageRef = storageRef.child(BoardData.bid).child(BoardData.bid)
