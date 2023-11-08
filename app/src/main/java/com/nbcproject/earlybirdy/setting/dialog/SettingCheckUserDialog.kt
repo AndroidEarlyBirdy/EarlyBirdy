@@ -3,13 +3,10 @@ package com.nbcproject.earlybirdy.setting.dialog
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import com.nbcproject.earlybirdy.databinding.ActivitySettingLoginDialogBinding
 import com.nbcproject.earlybirdy.util.navigateToSigninActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import com.nbcproject.earlybirdy.sealedclass.CheckAuth
 import com.nbcproject.earlybirdy.sealedclass.CheckDelete
 import com.nbcproject.earlybirdy.setting.viewmodel.SettingViewModel
@@ -90,7 +87,6 @@ class SettingCheckUserDialog(
     private fun checkAuth(email: String, password: String) {
         settingViewModel.checkAuth(email, password)
     }
-
 
     private fun deleteUser() {
         settingViewModel.checkDeleteAuth()
