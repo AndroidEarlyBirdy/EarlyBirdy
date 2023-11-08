@@ -15,6 +15,9 @@ class UserRepositoryImpl : UserRepository {
     private var _attendanceListData = MutableLiveData<List<AttendanceDto>>()
     val attendanceListData : LiveData<List<AttendanceDto>> get() = _attendanceListData
 
+    private var _userEmail = MutableLiveData<String>()
+    val userEmail : LiveData<String> get() = _userEmail
+
     override fun getMyPageUserData(userId: String) {
         var user = MyPageData()
         fireStore.collection("UserDto").document(userId).
@@ -46,5 +49,15 @@ class UserRepositoryImpl : UserRepository {
             _attendanceListData.value = demoList
 
         }
+    }
+
+    override fun getUserEmail(userId: String) {
+        fireStore.collection("UserDto").document(userId).get()
+            .addOnSuccessListener { document ->
+                if (document != null) {
+                    val loadEmail = document.getString("email") ?: ""
+                    _userEmail.value = loadEmail
+                }
+            }
     }
 }

@@ -24,52 +24,53 @@ import com.nbcproject.earlybirdy.util.Constants.Companion.supportUrl
 class SettingActivity : MainActivity() {
     private lateinit var binding: ActivitySettingBinding
     private lateinit var settingDeleteDialog: SettingDeleteDialog
-    private lateinit var settingViewModel : SettingViewModel
+    private lateinit var settingViewModel: SettingViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySettingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        settingDeleteDialog = SettingDeleteDialog(this@SettingActivity)
-        settingViewModel = ViewModelProvider(this, SettingViewModelFactory())[SettingViewModel::class.java]
+        settingDeleteDialog = SettingDeleteDialog(this@SettingActivity, settingViewModel)
+        settingViewModel =
+            ViewModelProvider(this, SettingViewModelFactory())[SettingViewModel::class.java]
 
-        setOnclickListener()
+        setOnclickListeners()
     }
 
-    private fun setOnclickListener() {
+    private fun setOnclickListeners() = with(binding) {
         //알림 설정 버튼
-        binding.btnNotificationSettings.setOnClickListener {
-            presentNotificationSetting(this)
+        btnNotificationSettings.setOnClickListener {
+            presentNotificationSetting(this@SettingActivity)
         }
 
         //고객지원 구글폼으로 연결
-        binding.btnUserSupport.setOnClickListener {
+        btnUserSupport.setOnClickListener {
             intentToSupportLink()
         }
 
         //오픈 라이선스 구글폼으로 연결
-        binding.btnOpenLicense.setOnClickListener {
+        btnOpenLicense.setOnClickListener {
             intentToOpenLicenseUrlLink()
         }
 
         //약관 구글폼으로 연결
-        binding.btnGenralCondition.setOnClickListener {
+        btnGenralCondition.setOnClickListener {
             intentToGeneralConditionLink()
         }
 
         //로그아웃 버튼
-        binding.btnLogout.setOnClickListener {
+        btnLogout.setOnClickListener {
             signOut()
         }
 
         //회원 탈퇴 버튼
-        binding.btnDeleteAccount.setOnClickListener {
+        btnDeleteAccount.setOnClickListener {
             settingDeleteDialog.show()
         }
 
         //뒤로가기 버튼
-        binding.ivBack.setOnClickListener {
+        ivBack.setOnClickListener {
             finish()
         }
 
@@ -96,7 +97,7 @@ class SettingActivity : MainActivity() {
         try {
             startActivity(browserIntent)
         } catch (e: ActivityNotFoundException) {
-            showToast(this, R.string.setting_connect_error_toast.toString())
+            showToast(this, getString(R.string.setting_connect_error_toast))
         }
     }
 
@@ -105,7 +106,7 @@ class SettingActivity : MainActivity() {
         try {
             startActivity(browserIntent)
         } catch (e: ActivityNotFoundException) {
-            showToast(this, R.string.setting_connect_error_toast.toString())
+            showToast(this, getString(R.string.setting_connect_error_toast))
         }
     }
 
@@ -114,7 +115,7 @@ class SettingActivity : MainActivity() {
         try {
             startActivity(browserIntent)
         } catch (e: ActivityNotFoundException) {
-            showToast(this, R.string.setting_connect_error_toast.toString())
+            showToast(this, getString(R.string.setting_connect_error_toast))
         }
     }
 
