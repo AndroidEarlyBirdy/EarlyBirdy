@@ -3,6 +3,7 @@ package com.nbcproject.earlybirdy.setting.dialog
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
+import androidx.lifecycle.LifecycleOwner
 import com.nbcproject.earlybirdy.databinding.ActivitySettingLoginDialogBinding
 import com.nbcproject.earlybirdy.util.navigateToSigninActivity
 import com.google.firebase.auth.EmailAuthProvider
@@ -12,7 +13,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.nbcproject.earlybirdy.setting.viewmodel.SettingViewModel
 
-class SettingCheckUserDialog(context: Context, private val settingViewModel: SettingViewModel) : Dialog(context) {
+class SettingCheckUserDialog(private val context: Context, private val settingViewModel: SettingViewModel) : Dialog(context) {
 
     private lateinit var binding: ActivitySettingLoginDialogBinding
     private val auth = FirebaseAuth.getInstance()
@@ -39,7 +40,9 @@ class SettingCheckUserDialog(context: Context, private val settingViewModel: Set
     }
 
     private fun observeData() {
-
+        settingViewModel.userEmail.observe(context as LifecycleOwner) {
+            binding.titSldEmail.setText(it)
+        }
     }
 
     private fun loadUserData(uid: String) {

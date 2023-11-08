@@ -6,7 +6,7 @@ import android.os.Bundle
 import com.nbcproject.earlybirdy.databinding.ActivitySettingDeleteDialogBinding
 import com.nbcproject.earlybirdy.setting.viewmodel.SettingViewModel
 
-class SettingDeleteDialog(context: Context, private val settingViewModel: SettingViewModel) : Dialog(context) {
+class SettingDeleteDialog(private val context: Context, private val settingViewModel: SettingViewModel) : Dialog(context) {
 
     private lateinit var binding: ActivitySettingDeleteDialogBinding
     private lateinit var settingLoginDialog: SettingCheckUserDialog

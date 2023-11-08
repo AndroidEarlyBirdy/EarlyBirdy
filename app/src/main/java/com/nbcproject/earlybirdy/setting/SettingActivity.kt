@@ -31,9 +31,9 @@ class SettingActivity : MainActivity() {
         binding = ActivitySettingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        settingDeleteDialog = SettingDeleteDialog(this@SettingActivity, settingViewModel)
         settingViewModel =
             ViewModelProvider(this, SettingViewModelFactory())[SettingViewModel::class.java]
+        settingDeleteDialog = SettingDeleteDialog(this@SettingActivity, settingViewModel)
 
         setOnclickListeners()
     }
