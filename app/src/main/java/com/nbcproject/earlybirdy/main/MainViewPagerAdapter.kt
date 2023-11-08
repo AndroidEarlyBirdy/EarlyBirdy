@@ -7,8 +7,8 @@ import com.nbcproject.earlybirdy.R
 import com.nbcproject.earlybirdy.RankingFragment
 import com.nbcproject.earlybirdy.board.board_main.BoardFragment
 import com.nbcproject.earlybirdy.home.HomeFragment
-
 import com.nbcproject.earlybirdy.my_page.MyPageFragment
+
 
 
 class MainViewPagerAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {

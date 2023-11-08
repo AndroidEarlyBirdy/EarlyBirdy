@@ -29,10 +29,10 @@ class SignupActivity : MainActivity() {
     //val storage = Firebase.storage
 
     private val imageMap = mapOf(
-        1 to R.drawable.img_profile_man1,
-        2 to R.drawable.img_profile_woman1,
-        3 to R.drawable.img_profile_man2,
-        4 to R.drawable.img_profile_woman2,
+        1 to R.drawable.ic_person1,
+        2 to R.drawable.ic_person2,
+        3 to R.drawable.ic_person3,
+        4 to R.drawable.ic_person4,
     )
     private lateinit var signupDialog: SignupDialog
 

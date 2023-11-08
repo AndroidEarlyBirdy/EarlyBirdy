@@ -21,7 +21,9 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.Locale
 import java.util.UUID
 
 class BoardReadActivity : AppCompatActivity() {
@@ -75,21 +77,21 @@ class BoardReadActivity : AppCompatActivity() {
             finish()
         }
 
-        if (auth.currentUser!!.uid == BoardData.uid) { // 삭제와 수정 둘 다 uid 검증 필요
-            binding.tvUpdate.setOnClickListener {
+        binding.tvUpdate.setOnClickListener {
+            if (auth.currentUser?.uid == BoardData.uid){
                 val boardWriteIntent = Intent(this, BoardWriteActivity::class.java)
                 boardWriteIntent.putExtra("boardType", 2)
                 startActivity(boardWriteIntent)
                 finish()
+            }else{
+                showToast(this, "작성자만 게시글을 수정할 수 있습니다")
             }
-
-            binding.tvDelete.setOnClickListener {
-//                deleteBoardData(BoardData)
-//                finish()
-            }
-        } else {
-            showToast(this, "작성자만 내용 수정이 가능합니다.")
         }
+
+        binding.tvDelete.setOnClickListener {
+                deleteBoardData(BoardData)
+        }
+
 
         binding.tvAddComment.setOnClickListener {
             writeComment()
@@ -103,8 +105,12 @@ class BoardReadActivity : AppCompatActivity() {
 
     // 게시글 읽기
     private fun readBoard() = with(binding) {
+
+        val dateFormat = SimpleDateFormat("yy.MM.dd.HH.mm.ss", Locale.getDefault())
+
         tvNickname.text = BoardData.writer
         etContentsTitle.text = BoardData.contentsTitle
+        tvCreatedDatetime.text = BoardData.createdTime?.toDate()?.let { dateFormat.format(it) }
         etContents.text = BoardData.contents
 
         val imageRef = storageRef.child(BoardData.bid).child(BoardData.bid)
@@ -121,10 +127,21 @@ class BoardReadActivity : AppCompatActivity() {
     // 게시글 삭제
     private fun deleteBoardData(boardData: BoardDto) {
         val user = auth.currentUser
-        if (user!!.uid == boardData.uid){
+        if (user!!.uid == boardData.uid) {
             fireStore.collection("BoardDto").document(boardData.bid).delete()
                 .addOnSuccessListener {
+                    fireStore.collection("BoardDto").document(BoardData.bid).collection("CommentDto")
+                        .document().delete()
+                        .addOnSuccessListener {
+                            showToast(this, "게시글이 삭제되었습니다.")
+                            finish()
+                        }
+                }.addOnFailureListener {
+                    showToast(this, "게시글 삭제에 실패했습니다.")
+
                 }
+        } else {
+            showToast(this, "작성자만 게시글을 삭제할 수 있습니다")
         }
     }
 
@@ -149,10 +166,14 @@ class BoardReadActivity : AppCompatActivity() {
     // 댓글 삭제
     private fun deleteCommentData(commentData: CommentDto) {
         val user = auth.currentUser
-        if (user!!.uid == commentData.uid){
-            fireStore.collection("BoardDto").document(BoardData.bid).collection("CommentDto").document(commentData.cid).delete()
+        if (user!!.uid == commentData.uid) {
+            fireStore.collection("BoardDto").document(BoardData.bid).collection("CommentDto")
+                .document(commentData.cid).delete()
                 .addOnSuccessListener {
+                    cdata.remove(commentData)
                 }
+        } else {
+            showToast(this, "댓글 작성자만 댓글을 삭제할 수 있습니다")
         }
     }
 
@@ -212,10 +233,10 @@ class BoardReadActivity : AppCompatActivity() {
                     commentTime,
                     comments
                 )
-            db.collection("BoardDto").document(BoardData.bid).collection("CommentDto").document(commentIndex)
+            db.collection("BoardDto").document(BoardData.bid).collection("CommentDto")
+                .document(commentIndex)
                 .set(commentDto)
                 .addOnSuccessListener { documentReference ->
-                    //binding.etComment.
                 }
                 .addOnFailureListener { e ->
                 }
