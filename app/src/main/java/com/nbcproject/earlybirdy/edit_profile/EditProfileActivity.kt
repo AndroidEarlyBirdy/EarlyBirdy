@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.nbcproject.earlybirdy.databinding.ActivityEditProfileBinding
 import com.nbcproject.earlybirdy.signup.EditProfileDialog
 import android.util.Log
+import com.example.earlybirdy.edit_profile.EditProfileActivityDialog
 import com.nbcproject.earlybirdy.R
 import com.nbcproject.earlybirdy.main.MainActivity
 import com.nbcproject.earlybirdy.util.navigateToMainActivity

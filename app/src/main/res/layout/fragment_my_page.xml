@@ -155,23 +155,28 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="40dp"
+            android:layout_marginBottom="16dp"
             android:background="@color/white"
             app:cardCornerRadius="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintlayout_status"
-            app:strokeColor="@color/black">
+            app:strokeColor="@color/black"
+            tools:layout_editor_absoluteX="16dp">
 
             <ImageView
                 android:id="@+id/imageView_rightTop"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_gravity="top|end"
-                android:tooltipText="오늘의 목표 달성도에 따라서 달력의 마크 색상이 달라집니다."
-                android:src="@drawable/ic_question_mark" />
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"
+                android:src="@drawable/ic_question_mark"
+                android:tooltipText="오늘의 목표 달성도에 따라서 달력의 마크 색상이 달라집니다." />
 
             <com.prolificinteractive.materialcalendarview.MaterialCalendarView
                 android:id="@+id/calendarView"
                 android:layout_width="match_parent"
-                android:layout_height="350dp"
+                android:layout_height="340dp"
                 android:layout_marginTop="30dp"
                 app:mcv_selectionColor="@color/white"
                 app:mcv_selectionMode="none" />

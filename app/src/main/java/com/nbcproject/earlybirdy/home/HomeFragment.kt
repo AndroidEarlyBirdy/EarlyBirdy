@@ -471,6 +471,7 @@ class HomeFragment : Fragment() {
         client.get(weatherstackEndpoint, params, object : JsonHttpResponseHandler() {
             override fun onSuccess(statusCode: Int, headers: Array<Header>?, response: JSONObject?) {
                 val weatherData = WeatherData().fromJson(response)
+                Log.d("WEATHER", weatherData.toString())
                 if (weatherData != null) {
                     updateWeather(weatherData)
 //                    val iconUrl = weatherData.iconUrl // 날씨 아이콘 URL 가져오기
@@ -480,7 +481,7 @@ class HomeFragment : Fragment() {
 //                        .into(binding.icWeather)
 //                    Log.d("아이콘", binding.icWeather.toString())
                     // 날씨 정보 및 온도 업데이트
-                    //binding.tvTemperature.text = weatherData.tempString + " ℃"
+                    binding.tvTemperature.text = weatherData.tempString + " ℃"
                 }
             }
 

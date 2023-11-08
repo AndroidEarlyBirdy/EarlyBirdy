@@ -68,32 +68,30 @@
         android:id="@+id/btn_signup_dialog_cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/signupdialog_cancel"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:paddingHorizontal="10dp"
-        android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="16dp"
+        android:paddingHorizontal="10dp"
+        android:text="@string/signupdialog_cancel"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:backgroundTint="#DBDBDA"
-        app:layout_constraintTop_toBottomOf="@id/iv_signup_dialog3"
         app:layout_constraintBottom_toBottomOf="parent"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_signup_dialog3" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_signup_dialog_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:paddingHorizontal="10dp"
         android:layout_marginEnd="16dp"
+        android:paddingHorizontal="10dp"
         android:text="@string/signupdialog_save"
+        android:textSize="16sp"
         android:textStyle="bold"
-        android:textSize="20sp"
         app:backgroundTint="#FE7246"
-        app:layout_constraintTop_toBottomOf="@id/iv_signup_dialog4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintTop_toBottomOf="@id/iv_signup_dialog4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

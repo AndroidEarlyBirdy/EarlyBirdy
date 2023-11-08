@@ -36,10 +36,10 @@ class SendEmailActivity : MainActivity() {
                 navigateToSigninActivity(this)
         }
 
-        // 회원가입 페이지로 이동
-        binding.tvBtnSignup.setOnClickListener {
-            navigateToSignupActivity(this)
-        }
+//        // 회원가입 페이지로 이동
+//        binding.tvBtnSignup.setOnClickListener {
+//            navigateToSignupActivity(this)
+//        }
     }
 
     override fun onBackPressed() {

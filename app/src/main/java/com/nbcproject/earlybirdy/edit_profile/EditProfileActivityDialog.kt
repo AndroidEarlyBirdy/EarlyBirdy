@@ -1,4 +1,4 @@
-package com.nbcproject.earlybirdy.edit_profile
+package com.example.earlybirdy.edit_profile
 
 import android.app.Dialog
 import android.content.Context
@@ -14,10 +14,11 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.nbcproject.earlybirdy.R
 
 class EditProfileActivityDialog (
     context: Context,
-) : Dialog(context) {
+) : Dialog(context, R.style.Theme_TransparentBackground) {
     private lateinit var binding: ActivityEditProfileDialogBinding
     private lateinit var user: FirebaseUser
     val db = Firebase.firestore

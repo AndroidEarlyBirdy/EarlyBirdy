@@ -2,9 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cl_epd"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:background="@drawable/dialog_radius_background"
+    android:paddingHorizontal="16dp"
+    android:paddingVertical="16dp">
 
     <TextView
         android:id="@+id/tv_epd_email"
@@ -13,6 +16,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="@string/signin_email"
+        android:textColor="#444444"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,15 +26,18 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="5dp"
-        app:layout_constraintTop_toBottomOf="@+id/tv_epd_email"
+        app:boxBackgroundMode="none"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/tv_epd_email">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tit_epd_email"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_dialog_item"
+            android:enabled="false"
+            android:inputType="none"
             android:textColor="#CC999999" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -42,6 +49,7 @@
         android:layout_marginTop="16dp"
         android:maxLength="15"
         android:text="@string/signin_pw"
+        android:textColor="#444444"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/til_epd_email" />
@@ -52,8 +60,8 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="5dp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_epd_password"
         app:passwordToggleEnabled="true"
         app:passwordToggleTint="#FFBF24">
@@ -62,9 +70,12 @@
             android:id="@+id/tit_epd_password"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@drawable/ic_dialog_item"
+            android:enabled="false"
             android:hint="@string/signin_under15pw"
             android:inputType="textPassword"
-            android:textColor="#CC999999" />
+            android:textColor="#CC999999"
+            android:textSize="12sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -73,16 +84,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="12dp"
         android:background="@drawable/btn_sign_background"
         android:text="@string/editprofiledialog_certification"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/til_epd_password"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/til_epd_password" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
