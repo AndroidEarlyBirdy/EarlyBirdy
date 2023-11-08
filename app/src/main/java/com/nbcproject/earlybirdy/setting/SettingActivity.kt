@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
 import com.nbcproject.earlybirdy.R
@@ -19,6 +20,7 @@ import com.nbcproject.earlybirdy.util.Constants.Companion.genralconditionUrl
 import com.nbcproject.earlybirdy.util.Constants.Companion.openlicenseUrl
 import com.nbcproject.earlybirdy.util.navigateToSigninActivity
 import com.nbcproject.earlybirdy.util.showToast
+
 import com.nbcproject.earlybirdy.util.Constants.Companion.supportUrl
 
 class SettingActivity : MainActivity() {

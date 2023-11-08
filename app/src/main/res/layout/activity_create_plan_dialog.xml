@@ -22,35 +22,33 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:background="@drawable/dialog_edittext_background"
-         />
+        />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_create_plan_dialog_cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/creatplan_cancel"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:paddingHorizontal="60dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:paddingHorizontal="60dp"
+        android:text="@string/creatplan_cancel"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:backgroundTint="#DBDBDA"
-        app:layout_constraintTop_toBottomOf="@+id/et_create_plan_dialog"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_create_plan_dialog" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_create_plan_dialog_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:paddingHorizontal="60dp"
-        android:layout_marginStart="16dp"
         android:text="@string/creatplan_save"
+        android:textSize="16sp"
         android:textStyle="bold"
-        android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/btn_create_plan_dialog_cancel"
         app:backgroundTint="#FE7246"
-        app:layout_constraintTop_toBottomOf="@+id/et_create_plan_dialog"
-        />
+        app:layout_constraintStart_toEndOf="@+id/btn_create_plan_dialog_cancel"
+        app:layout_constraintTop_toBottomOf="@+id/et_create_plan_dialog" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
