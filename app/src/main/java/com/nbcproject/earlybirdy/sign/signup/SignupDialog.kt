@@ -1,4 +1,4 @@
-package com.nbcproject.earlybirdy.signup
+package com.nbcproject.earlybirdy.sign.signup
 
 import android.app.Dialog
 import android.content.Context

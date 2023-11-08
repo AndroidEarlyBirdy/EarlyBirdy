@@ -1,4 +1,4 @@
-package com.nbcproject.earlybirdy.signin
+package com.nbcproject.earlybirdy.sign.signin.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

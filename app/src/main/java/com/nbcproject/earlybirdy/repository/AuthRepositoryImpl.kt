@@ -49,4 +49,8 @@ class AuthRepositoryImpl : AuthRepository {
             }
         }
     }
+
+    override fun sendEmail(email : String) {
+        auth.sendPasswordResetEmail(email)
+    }
 }

@@ -34,7 +34,7 @@
             android:name=".board.board_write.BoardWriteActivity"
             android:exported="false" />
         <activity
-            android:name=".signin.sendemail.SendEmailActivity"
+            android:name=".sign.sendemail.SendEmailActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
@@ -58,11 +58,11 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".signin.SigninActivity"
+            android:name=".sign.signin.SigninActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".signup.SignupActivity"
+            android:name=".sign.signup.SignupActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
