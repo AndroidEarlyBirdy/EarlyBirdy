@@ -66,6 +66,8 @@ class BoardReadActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         database = Firebase.database.reference
 
+        getUserNicknameData()
+
         setOnClickListener()
         readBoard()
         initCommentView() // 댓글
@@ -95,6 +97,7 @@ class BoardReadActivity : AppCompatActivity() {
 
         binding.tvAddComment.setOnClickListener {
             writeComment()
+            binding.etComment.text = null
         }
 
         binding.tvLoadComment.setOnClickListener {
@@ -154,6 +157,8 @@ class BoardReadActivity : AppCompatActivity() {
         rvComment.layoutManager = cmanager
         rvComment.adapter = commentAdapter
 
+//        rvComment.isNestedScrollingEnabled = false
+
         commentAdapter.itemClick = object : CommentAdapter.ItemClick {
             override fun deleteItem(view: View, commentData: CommentDto) {
                 deleteCommentData(commentData)
@@ -204,12 +209,11 @@ class BoardReadActivity : AppCompatActivity() {
 
     // 댓글에 들어갈 작성자 닉네임 불러오기
     fun getUserNicknameData() {
-        var user = auth.currentUser
+        val user = auth.currentUser
         fireStore.collection("UserDto").document(user!!.uid).addSnapshotListener { value, _ ->
             if (value != null) {
                 nickname = value.getString("nickname")
             }
-            binding.tvWriter.text = nickname
         }
     }
 

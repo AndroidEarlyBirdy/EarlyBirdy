@@ -512,7 +512,7 @@ class HomeFragment : Fragment() {
 
     companion object {
         fun newInstance() = HomeFragment()
-        const val API_KEY: String = "fdc4d1525e506a285b467adc61c77416"
+        const val API_KEY: String = "" //fdc4d1525e506a285b467adc61c77416
         const val WEATHER_URL: String = "https://api.weatherstack.com/current"
         const val MIN_TIME: Long = 5000
         const val MIN_DISTANCE: Float = 1000F
