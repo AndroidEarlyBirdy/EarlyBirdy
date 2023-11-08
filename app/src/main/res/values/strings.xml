@@ -222,8 +222,12 @@
     <string name="itemranking_exp">경험치량</string>
     
     <!--Setting Activity Toast 메세지-->
-    <string name="setting_connect_error_toast">"연결 오류 발생</string>
+    <string name="setting_connect_error_toast">연결 오류 발생</string>
     <string name="setting_logout_toast">로그아웃 되었습니다. 로그인 페이지로 이동합니다.</string>
+
+    <!--Setting Dialog Warning Text-->
+    <string name="setting_auth_fail">비밀번호가 틀립니다.</string>
+    <string name="setting_auth_fail_else">재인증에 실패했습니다.</string>
 
     <!--Board 권한 설정-->
     <string name="modify_permissionRequired"></string>
