@@ -113,10 +113,10 @@ class RankingFragment : Fragment() {
 
     private fun getProfileImage(profile: Int): Int {
         return when (profile) {
-            1 -> R.drawable.img_profile_man1
-            2 -> R.drawable.img_profile_woman1
-            3 -> R.drawable.img_profile_man2
-            4 -> R.drawable.img_profile_woman2
+            1 -> R.drawable.ic_person1
+            2 -> R.drawable.ic_person2
+            3 -> R.drawable.ic_person3
+            4 -> R.drawable.ic_person4
             else -> R.drawable.img_profile_add // 기본값 리소스 ID
         }
 

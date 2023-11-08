@@ -25,11 +25,6 @@ class AlarmReceiver : BroadcastReceiver() {
     private fun sendNotifivation(context: Context){
         val pref = context.getSharedPreferences("alarmSetting", 0)
 
-        val ringPref = pref.getBoolean("ringtoneSwitch", false)
-        val vibePref = pref.getBoolean("vibeSwitch", false)
-        Log.d("ring1", "${ringPref}")
-        Log.d("vibe1", "${vibePref}")
-
         val manager = context.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
 
         val builder: NotificationCompat.Builder
@@ -46,28 +41,13 @@ class AlarmReceiver : BroadcastReceiver() {
                 description = "Alarm channel Description"
                 setShowBadge(true)
                 // 소리 끄기 스위치의 상태에 따라 소리 설정
-                if (!ringPref) {
-                    Log.d("ring2", "${ringPref}")
-                    val uri: Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-                    val audioAttributes = AudioAttributes.Builder()
-                        .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                        .setUsage(AudioAttributes.USAGE_ALARM)
-                        .build()
-                    setSound(uri, audioAttributes)
-                }else{
-                    Log.d("ring3", "${ringPref}")
-                    setSound(null, null)
-                }
-                // 진동 끄기 스위치의 상태에 따라 진동 설정
-                if (!vibePref) {
-                    Log.d("vibe2", "${vibePref}")
-                    enableVibration(true)
-                } else {
-                    Log.d("vibe3", "${vibePref}")
-//                    vibrationPattern = longArrayOf(0)
-                    enableVibration(false)
-                }
-                 // 진동 설정
+                val uri: Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+                val audioAttributes = AudioAttributes.Builder()
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                    .setUsage(AudioAttributes.USAGE_ALARM)
+                    .build()
+                setSound(uri, audioAttributes)
+                enableVibration(true)
             }
             // 채널을 NotificationManager에 등록
             manager.createNotificationChannel(channel)
