@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.provider.Settings
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
+import com.example.earlybirdy.setting.SettingDeleteDialog
 import com.nbcproject.earlybirdy.R
 import com.nbcproject.earlybirdy.databinding.ActivitySettingBinding
 import com.nbcproject.earlybirdy.main.MainActivity
