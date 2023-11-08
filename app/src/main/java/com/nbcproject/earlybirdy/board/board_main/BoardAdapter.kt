@@ -74,13 +74,13 @@ class BoardAdapter(context: Context) : RecyclerView.Adapter<BoardAdapter.Holder>
             tvWriter.text = item.writer
             etContentsTitle.text = item.contentsTitle
 
-            val imageRef = storageRef.child(item.bid).child(item.bid)
-
-            imageRef.downloadUrl.addOnSuccessListener {
-                Glide.with(bContext)
-                    .load(it)
-                    .into(binding.ivContentsPoto)
-            }
+//            val imageRef = storageRef.child(item.bid).child(item.bid)
+//
+//            imageRef.downloadUrl.addOnSuccessListener {
+//                Glide.with(bContext)
+//                    .load(it)
+//                    .into(binding.ivContentsPoto)
+//            }
         }
     }
 
