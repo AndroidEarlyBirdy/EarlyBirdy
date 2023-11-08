@@ -12,7 +12,6 @@ import com.nbcproject.earlybirdy.main.MainActivity
 import com.nbcproject.earlybirdy.signin.sendemail.SendEmailActivity
 import com.nbcproject.earlybirdy.resetpassword.ResetPasswordActivity
 import com.nbcproject.earlybirdy.setting.SettingActivity
-import com.nbcproject.earlybirdy.setting.SettingDetailActivity
 import com.nbcproject.earlybirdy.signin.SigninActivity
 import com.nbcproject.earlybirdy.signup.SignupActivity
 
@@ -58,12 +57,6 @@ fun navigateToSendEmailActivity(context: Context) {
 // 알람 액티비티로 이동 함수
 fun navigateToAlarmActivity(context: Context) {
     val intent = Intent(context, AlarmActivity::class.java)
-    context.startActivity(intent)
-}
-
-fun navigateToDetail(title: String, context:Context) {
-    val intent = Intent(context, SettingDetailActivity::class.java)
-    intent.putExtra(Constants.SETTING_TITLE_KEY, title)
     context.startActivity(intent)
 }
 

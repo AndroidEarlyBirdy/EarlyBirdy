@@ -7,14 +7,11 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
-import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
 import com.nbcproject.earlybirdy.R
 import com.nbcproject.earlybirdy.databinding.ActivitySettingBinding
 import com.nbcproject.earlybirdy.main.MainActivity
-import com.nbcproject.earlybirdy.my_page.MyPageViewModel
-import com.nbcproject.earlybirdy.my_page.MyPageViewModelFactory
 import com.nbcproject.earlybirdy.setting.dialog.SettingDeleteDialog
 import com.nbcproject.earlybirdy.setting.viewmodel.SettingViewModel
 import com.nbcproject.earlybirdy.setting.viewmodel.SettingViewModelFactory
