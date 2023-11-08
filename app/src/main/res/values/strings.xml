@@ -2,6 +2,7 @@
     <string name="app_name">EarlyBirdy</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tab_rank">Rank</string>
     <string name="tab_board">Board</string>
     <string name="tab_home">Home</string>
     <string name="tab_mypage">Mypage</string>
@@ -21,10 +22,10 @@
     <string name="creatplan_save">저장</string>
 
     <!--프로필 수정-->
-    <string name="editprofile_save">저장하기</string>
+
     <string name="editprfile_edit">프로필 수정</string>
     <string name="editprofile_nikname_edit">닉네임 수정</string>
-    <string name="editprofile_enter_nickname">닉네임을 입력해주세요</string>
+
     <string name="editprofile_edit_email">이메일 수정</string>
     <string name="editprofile_enter_email">이메일을 입력해주세요</string>
     <string name="editprofile_pw">비밀번호</string>
@@ -104,4 +105,129 @@
     <string name="settingdetail_detail_name">내용페이지 이름</string>
     <string name="settingdetail_detail">내용</string>
     <string name="setting_alarm_setting">알림설정</string>
+
+
+    <!--명언-->
+        <string-array name="quotes">
+            <item>아침은 모든 일의 시작이다.</item>
+            <item>아침 일찍 일어나는 새가 벌레를 잡는다.</item>
+            <item>아침은 새로운 일의 시작이고 성공의 첫 걸음이다.</item>
+            <item>아침에 일어나기 싫다면, 일어나서 그 이유를 찾아보라.</item>
+            <item>하루는 아침에 일어나서 생각한 만큼 이루어진다.</item>
+            <item>아침이 오면 무엇이든지 할 수 있다.</item>
+            <item>아침이면 새로운 날의 찬스가 주어진다.</item>
+            <item>아침에 해야 할 일을 지금 하면, 오후에 더 많은 시간이 생긴다.</item>
+            <item>늦게 일어나서 아침을 짧게 하지 마라.</item>
+            <item>이른 아침은 입에 황금을 물고 있다.</item>
+        </string-array>
+
+
+
+    <!--보드리드 액티비티-->
+    <string name="boardread_title">게시글</string>
+    <string name="boardread_edit">글수정</string>
+    <string name="boardread_delet">글삭제</string>
+    <string name="boardread_writer">작성자</string>
+    <string name="boardread_sample_nickname">임시 닉네임</string>
+    <string name="boardread_creat_time">작성 시간</string>
+    <string name="boardread_creat_detail">내용</string>
+    <string name="boardread_contents_title">제목</string>
+    <string name="boardread_enter_title">제목을 입력해주세요</string>
+    <string name="boardread_enter_contents">게시글을 작성해주세요</string>
+    <string name="boardread_comment">댓글</string>
+    <string name="boardread_enter_comment">내용을 입력해주세요</string>
+    <string name="boardread_post">게시</string>
+    <string name="boardread_like">추천</string>
+
+    <!--보드라이트 액티비티-->
+    <string name="boardwrite_title">게시글 작성</string>
+    <string name="boardwrite_community_delet">글삭제</string>
+    <string name="boardwrite_add_picture">사진첨부</string>
+    <string name="boardwrite_creat_contents">게시글작성</string>
+    <string name="boardwrite_contents">내용</string>
+    <string name="boardwrite_contents_title">제목</string>
+    <string name="boardwrite_enter_title">제목을 입력해주세요</string>
+    <string name="boardwrite_enter_contents">게시글을 작성해주세요</string>
+
+    <!--셋팅디테일 액티비티-->
+    <string name="activitydetail_title">설정항목</string>
+    <string name="activitydetail_contents">내용</string>
+
+    <!--에딧프로파일 액티비티-->
+
+    <!--에딧프로파일다이얼로그 액티비티-->
+    <string name="editprofiledialog_certification">사용자 인증</string>
+
+    <!--프로파일다이얼로그 액티비티-->
+    <string name="profiledialog_cancel">취소</string>
+    <string name="profiledialog_save">저장</string>
+
+    <!--비번 수정 액티비티-->
+    <string name="resetpw_pw_check_enter">비밀번호를 다시 입력하세요</string>
+
+    <!--셋팅디테일다이얼로그 액티비티-->
+    <string name="settingdeletedialog_account_delet">정말로 탈퇴하시겠습니까?</string>
+    <string name="settingdeletedialog_yes">확인</string>
+    <string name="settingdeletedialog_cancel">취소</string>
+
+    <!--셋팅로그인다이얼로그 액티비티-->
+    <string name="settinglogindialog_certification">사용자 인증</string>
+
+    <!--사인업다이얼로그 액티비티-->
+    <string name="signupdialog_cancel">취소</string>
+    <string name="signupdialog_save">저장</string>
+
+    <!--경험치 다이얼로그 액티비티-->
+    <string name="dialogexp_complit">미션 완료!</string>
+    <string name="dialogexp_check">확인</string>
+
+    <!--투두실패 액티비티-->
+    <string name="failtoadd_cancel">닫기</string>
+    <string name="failtoadd_message">이미 지난 날짜에는 Todo를 작성할 수 없습니다.</string>
+
+    <!--보드 프래그먼트-->
+    <string name="board_title">자유게시판</string>
+    <string name="board_community_defalt">전체보기</string>
+    <string name="board_my_post">내글보기</string>
+    <string name="board_post">게시글작성</string>
+
+    <!--홈 프래그먼트-->
+    <string name="home_select_goal">목표를 채워주세요</string>
+
+    <!--랭킹 프래그먼트-->
+    <string name="ranking_title">랭킹보드</string>
+    <string name="ranking_community">자유게시판</string>
+    <string name="ranking_challenge_community">챌린지게시판</string>
+    <string name="ranking_rankingboard">랭킹보드</string>
+
+    <!--에딧프로파일 프래그먼트-->
+    <string name="editprfile_change_pw">비밀번호 변경하기</string>
+
+    <!--아이템보드 프래그먼트-->
+    <string name="itemboard_writer">작성자</string>
+    <string name="itemboard_title">글 제목</string>
+
+    <!--챌린지아이템 프래그먼트-->
+    <string name="itemchallenge_title">챌린지게시판</string>
+    <string name="itemchallenge_community">자유게시판</string>
+    <string name="itemchallenge_challenge_community">챌린지게시판</string>
+    <string name="itemchallenge_rankingboard">랭킹보드</string>
+    <string name="itemchallenge_nickname">닉네임</string>
+    <string name="itemchallenge_contents">내용</string>
+
+    <!--랭킹아이템 프래그먼트-->
+    <string name="itemranking_rank">순위</string>
+    <string name="itemranking_nickname">닉네임</string>
+    <string name="itemranking_exp">경험치량</string>
+    
+    <!--Setting Activity Toast 메세지-->
+    <string name="setting_connect_error_toast">"연결 오류 발생</string>
+    <string name="setting_logout_toast">로그아웃 되었습니다. 로그인 페이지로 이동합니다.</string>
+
+    <!--Board 권한 설정-->
+    <string name="modify_permissionRequired"></string>
+    <string name="modify_profilePermission"></string>
+    <string name="modify_agree"></string>
+    <string name="modify_cancel"></string>
+
 </resources>

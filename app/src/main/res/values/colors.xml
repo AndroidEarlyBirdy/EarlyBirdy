@@ -5,6 +5,11 @@
     <color name="icon1">#3B3B3B</color>
     <color name="icon2">#FFBF24</color>
 
+    <color name="date1">#FFE7AD</color>
+    <color name="date2">#FFBF24</color>
+    <color name="date3">#FF7246</color>
+    <color name="date4">#FF4646</color>
+
     <color name="togglebtn_color">#FFBF24</color>
     <color name="setting_round">#C8C8C8</color>
     <color name="yellow_orange">#FFBF24</color>

@@ -69,6 +69,15 @@
             android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <View
+            android:layout_width="328dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="#E4E4E4"
+            app:layout_constraintEnd_toEndOf="@+id/btn_notification_settings"
+            app:layout_constraintStart_toStartOf="@+id/btn_notification_settings"
+            app:layout_constraintTop_toBottomOf="@+id/btn_notification_settings" />
+
         <TextView
             android:id="@+id/btn_user_support"
             android:layout_width="match_parent"
@@ -81,8 +90,16 @@
             android:textSize="18sp"
             android:textStyle="bold"
             android:layout_marginTop="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/btn_notification_settings"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/btn_notification_settings" />
+
+        <View
+            android:layout_width="328dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="#E4E4E4"
+            app:layout_constraintEnd_toEndOf="@+id/btn_user_support"
+            app:layout_constraintStart_toStartOf="@+id/btn_user_support"
+            app:layout_constraintTop_toBottomOf="@+id/btn_user_support" />
 
         <TextView
             android:id="@+id/btn_open_license"
@@ -96,8 +113,16 @@
             android:textSize="18sp"
             android:textStyle="bold"
             android:layout_marginTop="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/btn_user_support"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/btn_user_support" />
+
+        <View
+            android:layout_width="328dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="#E4E4E4"
+            app:layout_constraintEnd_toEndOf="@+id/btn_open_license"
+            app:layout_constraintStart_toStartOf="@+id/btn_open_license"
+            app:layout_constraintTop_toBottomOf="@+id/btn_open_license" />
 
         <TextView
             android:id="@+id/btn_genral_condition"
@@ -111,8 +136,16 @@
             android:textSize="18sp"
             android:textStyle="bold"
             android:layout_marginTop="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/btn_open_license"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/btn_open_license" />
+
+        <View
+            android:layout_width="328dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="#E4E4E4"
+            app:layout_constraintEnd_toEndOf="@+id/btn_genral_condition"
+            app:layout_constraintStart_toStartOf="@+id/btn_genral_condition"
+            app:layout_constraintTop_toBottomOf="@+id/btn_genral_condition" />
 
         <TextView
             android:id="@+id/btn_logout"
@@ -126,8 +159,16 @@
             android:textSize="18sp"
             android:textStyle="bold"
             android:layout_marginTop="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/btn_genral_condition"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/btn_genral_condition" />
+
+        <View
+            android:layout_width="328dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="#E4E4E4"
+            app:layout_constraintEnd_toEndOf="@+id/btn_logout"
+            app:layout_constraintStart_toStartOf="@+id/btn_logout"
+            app:layout_constraintTop_toBottomOf="@+id/btn_logout" />
 
         <TextView
             android:id="@+id/btn_delete_account"
@@ -141,8 +182,17 @@
             android:textSize="18sp"
             android:textStyle="bold"
             android:layout_marginTop="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/btn_logout"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/btn_logout" />
+
+        <View
+            android:layout_width="328dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="#E4E4E4"
+            app:layout_constraintEnd_toEndOf="@+id/btn_delete_account"
+            app:layout_constraintStart_toStartOf="@+id/btn_delete_account"
+            app:layout_constraintTop_toBottomOf="@+id/btn_delete_account" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
