@@ -12,7 +12,7 @@ import com.nbcproject.earlybirdy.main.MainActivity
 import com.nbcproject.earlybirdy.sign.sendemail.SendEmailActivity
 import com.nbcproject.earlybirdy.resetpassword.ResetPasswordActivity
 import com.nbcproject.earlybirdy.setting.SettingActivity
-import com.nbcproject.earlybirdy.sign.signin.SigninActivity
+import com.nbcproject.earlybirdy.sign.signin.SignInActivity
 import com.nbcproject.earlybirdy.sign.signup.SignupActivity
 
 // 메인 액티비티로 이동 함수
@@ -23,7 +23,7 @@ fun navigateToMainActivity(context: Context) {
 
 // 로그인 액티비티로 이동 함수
 fun navigateToSigninActivity(context: Context) {
-    val intent = Intent(context, SigninActivity::class.java)
+    val intent = Intent(context, SignInActivity::class.java)
     context.startActivity(intent)
 }
 

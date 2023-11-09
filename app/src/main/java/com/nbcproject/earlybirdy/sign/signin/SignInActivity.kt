@@ -3,24 +3,25 @@ package com.nbcproject.earlybirdy.sign.signin
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.ViewModelProvider
+import com.nbcproject.earlybirdy.R
 import com.nbcproject.earlybirdy.databinding.ActivitySigninBinding
 import com.nbcproject.earlybirdy.main.MainActivity
-import com.nbcproject.earlybirdy.sealedclass.SigninNavigation
-import com.nbcproject.earlybirdy.sign.signin.viewmodel.SigninViewModel
+import com.nbcproject.earlybirdy.sealedclass.SignInNavigation
+import com.nbcproject.earlybirdy.sign.signin.viewmodel.SignInViewModel
+import com.nbcproject.earlybirdy.sign.signin.viewmodel.SignInViewModelFactory
 import com.nbcproject.earlybirdy.util.navigateToMainActivity
 import com.nbcproject.earlybirdy.util.navigateToSendEmailActivity
 import com.nbcproject.earlybirdy.util.navigateToSignupActivity
 import com.nbcproject.earlybirdy.util.showToast
 
-class SigninActivity : MainActivity() {
+class SignInActivity : MainActivity() {
 
     private val binding by lazy { ActivitySigninBinding.inflate(layoutInflater) }
-    private val viewModel: SigninViewModel by viewModels()
-
+    private lateinit var signInViewModel: SignInViewModel
     private val MY_PERMISSION_ACCESS_ALL = 100
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
@@ -28,35 +29,23 @@ class SigninActivity : MainActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        signInViewModel =
+            ViewModelProvider(this, SignInViewModelFactory())[SignInViewModel::class.java]
+
         observeData()
         setOnClickListener()
         askPermissions()
-
     }
 
-    private fun observeData(){
-        viewModel.signinState.observe(this) {
+    private fun observeData() {
+        signInViewModel.signInState.observe(this) {
             when (it) {
-//                is SigninNavigation.AlreadySignin -> {
-//                    navigateToMainActivity(this)
-//                }
-
-                is SigninNavigation.EmptyEmail -> {
-                    binding.tilEmail.error = "이메일을 입력해주세요"
-                }
-
-                is SigninNavigation.EmptyPassword -> {
-                    binding.tilPassword.error = "비밀번호를 입력해주세요"
-                }
-
-                is SigninNavigation.SigninSuccess -> {
-                    showToast(this, "로그인에 성공하였습니다")
+                is SignInNavigation.SignInSuccess -> {
                     navigateToMainActivity(this)
-                    finish()
                 }
 
-                is SigninNavigation.SigninFailed -> {
-                    showToast(this, "로그인에 실패하였습니다")
+                is SignInNavigation.SignInFailed -> {
+                    showToast(this, getString(R.string.login_fail_toast))
                 }
             }
         }
@@ -66,7 +55,6 @@ class SigninActivity : MainActivity() {
         // 비밀번호를 잊으셨나요?
         binding.tvBtnResetPassword.setOnClickListener {
             navigateToSendEmailActivity(this)
-            finish()
         }
 
         //로그인
@@ -77,15 +65,12 @@ class SigninActivity : MainActivity() {
         // 나가기 = 앱 종료
         binding.tvFinish.setOnClickListener {
             moveTaskToBack(true)
-            finish()
             android.os.Process.killProcess(android.os.Process.myPid())
         }
 
         // 회원가입 페이지로 이동
         binding.tvBtnSignup.setOnClickListener {
-            //val intent = Intent(Intent.ACTION_VIEW, Uri.parse("${}"))
             navigateToSignupActivity(this)
-            finish()
         }
     }
 
@@ -126,14 +111,14 @@ class SigninActivity : MainActivity() {
 
     override fun onBackPressed() {
         AlertDialog.Builder(this)
-            .setTitle("종료 확인")
-            .setMessage("앱을 종료하시겠습니까?")
-            .setPositiveButton("예") { _, _ ->
+            .setTitle(getString(R.string.login_exit_dialog_title))
+            .setMessage(getString(R.string.login_exit_dialog_content))
+            .setPositiveButton(getString(R.string.login_exit_dialog_positive_button)) { _, _ ->
                 moveTaskToBack(true)
                 finish()
                 android.os.Process.killProcess(android.os.Process.myPid())
             }
-            .setNegativeButton("아니오") { _, _ ->
+            .setNegativeButton(R.string.login_exit_dialog_negative_button) { _, _ ->
             }
             .create()
             .show()
@@ -145,6 +130,12 @@ class SigninActivity : MainActivity() {
         val email = binding.titEmail.text.toString()
         val password = binding.titPassword.text.toString()
 
-        viewModel.signin(email, password)
+        if (email.isEmpty()) { // 이메일 입력 여부
+            binding.tilEmail.error = getString(R.string.login_empty_email)
+        } else if (password.isEmpty()) {
+            binding.tilPassword.error = getString(R.string.login_empty_password)
+        } else {
+            signInViewModel.signIn(email, password)
+        }
     }
 }

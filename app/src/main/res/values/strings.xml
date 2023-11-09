@@ -235,4 +235,13 @@
     <string name="modify_agree"></string>
     <string name="modify_cancel"></string>
 
+    <!--로그인 Activity-->
+    <string name="login_fail_toast">로그인에 실패하였습니다</string>
+    <string name="login_empty_email">이메일을 입력해주세요</string>
+    <string name="login_empty_password">비밀번호를 입력해주세요</string>
+    <string name="login_exit_dialog_title">종료 확인</string>
+    <string name="login_exit_dialog_content">앱을 종료하시겠습니까?</string>
+    <string name="login_exit_dialog_positive_button">예</string>
+    <string name="login_exit_dialog_negative_button">아니오</string>
+
 </resources>
