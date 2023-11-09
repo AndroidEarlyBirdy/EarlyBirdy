@@ -50,37 +50,4 @@ class ExpDialog (
             dismiss()
         }
     }
-
-//    private fun shareScreen() {
-//        // 화면을 캡쳐하여 Bitmap으로 가져옵니다.
-//        val screenshot = takeScreenshot()
-//
-//        // Bitmap 이미지를 이미지 파일로 저장하지 않고 곧바로 공유합니다.
-//        shareBitmap(screenshot)
-//    }
-//
-//    private fun takeScreenshot(): Bitmap {
-//        val rootView = window!!.decorView
-//        rootView.isDrawingCacheEnabled = true
-//        return rootView.drawingCache
-//    }
-//
-//    private fun shareBitmap(bitmap: Bitmap) {
-//        val shareIntent = Intent(Intent.ACTION_SEND)
-//
-//        // 이미지를 ByteArray로 변환합니다.
-//        val stream = ByteArrayOutputStream()
-//        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
-//        val byteArray = stream.toByteArray()
-//
-//        // ByteArray를 공유 인텐트에 첨부합니다.
-//        shareIntent.type = "image/*"
-//        shareIntent.putExtra(Intent.EXTRA_STREAM, byteArray)
-//
-//        // 공유 앱을 선택하는 다이얼로그를 표시합니다.
-//        context.startActivity(Intent.createChooser(shareIntent, "Share img"))
-//    }
-
-
-
 }
