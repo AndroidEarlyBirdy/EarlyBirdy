@@ -5,68 +5,67 @@
     android:id="@+id/item_board"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="5dp">
+    android:layout_marginTop="8dp"
+    android:background="@drawable/ic_board_list">
 
-    <!--    <ImageView-->
-    <!--        android:id="@+id/iv_contentsPoto"-->
-    <!--        android:layout_width="80dp"-->
-    <!--        android:layout_height="80dp"-->
-    <!--        android:layout_margin="5dp"-->
-    <!--        android:src="@drawable/bg_calendar_date1"-->
-    <!--        android:scaleType="centerCrop"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"/>-->
+    <ImageView
+        android:id="@+id/iv_contentsPoto"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_margin="5dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_calendar_date1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/et_contentsTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="20dp"
         android:hint="글 제목"
-        android:textColor="@color/black"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        android:textColor="#444444"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/tv_writer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="5dp"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="20dp"
         android:hint="작성자"
         android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@+id/et_contentsTitle"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_contentsTitle" />
 
-    <!-- 따봉 및 따봉 수 -->
-<!--    <ImageView-->
-<!--        android:id="@+id/iv_comment"-->
-<!--        android:layout_width="20dp"-->
-<!--        android:layout_height="20dp"-->
-<!--        android:src="@drawable/ic_like"-->
-<!--        android:layout_marginTop="5dp"-->
-<!--        android:layout_marginStart="5dp"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/iv_contentsPoto"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/et_contentsTitle" />-->
-<!--    <TextView-->
-<!--        android:id="@+id/tv_like"-->
-<!--        android:layout_width="20dp"-->
-<!--        android:layout_height="20dp"-->
-<!--        android:text="20"-->
-<!--        android:layout_marginTop="5dp"-->
-<!--        android:layout_marginStart="5dp"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/iv_comment"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/et_contentsTitle" />-->
+    <ImageView
+        android:id="@+id/iv_comment"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/ic_comment"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tv_like" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginHorizontal="3dp"
-        android:layout_marginBottom="5dp"
-        android:background="@color/icon1"
-        app:layout_constraintTop_toBottomOf="@+id/tv_writer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+    <TextView
+        android:id="@+id/tv_like"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="20"
+        android:textColor="@color/icon2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
