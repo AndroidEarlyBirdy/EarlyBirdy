@@ -83,22 +83,20 @@ class BoardWriteActivity : AppCompatActivity() {
         binding.btnAddPicture.setOnClickListener {
             when {
                 //갤러리 접근 권한이 있는 경우
-                ContextCompat.checkSelfPermission(
-                    this,
-                    android.Manifest.permission.READ_EXTERNAL_STORAGE
-                ) == PackageManager.PERMISSION_GRANTED -> {
+                ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED -> {
                     navigateGallery()
                 }
-
-                shouldShowRequestPermissionRationale(android.Manifest.permission.READ_EXTERNAL_STORAGE)
-                -> {
-                    showPermissionContextPopup()
+                ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED -> {
+                    navigateGallery()
                 }
-                //갤러리 접근 권한 설정
-                else -> requestPermissions(
-                    arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),
-                    1000
-                )
+//                shouldShowRequestPermissionRationale(android.Manifest.permission.READ_EXTERNAL_STORAGE) -> {
+//                    showPermissionContextPopup()
+//                }
+//                //갤러리 접근 권한 설정
+//                else -> requestPermissions(
+//                    arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),
+//                    1000
+//                )
             }
         }
     }
