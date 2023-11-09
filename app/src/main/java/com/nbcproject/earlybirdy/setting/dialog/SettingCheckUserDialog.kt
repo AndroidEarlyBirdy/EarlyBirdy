@@ -50,11 +50,6 @@ class SettingCheckUserDialog(
                 is CheckAuth.SuccessAuth -> {
                     deleteUser()
                 }
-
-                is CheckAuth.InvalidCredential -> {
-                    binding.tilSldPassword.error = context.getString(R.string.setting_auth_fail)
-                }
-
                 is CheckAuth.ElseException -> {
                     binding.tilSldPassword.error = context.getString(R.string.setting_auth_fail_else)
                 }
