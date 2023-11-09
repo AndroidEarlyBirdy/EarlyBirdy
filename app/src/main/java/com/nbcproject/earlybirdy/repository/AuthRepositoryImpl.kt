@@ -5,9 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.nbcproject.earlybirdy.R
 import com.nbcproject.earlybirdy.sealedclass.CheckAuth
+import com.nbcproject.earlybirdy.sealedclass.CheckChangePassword
 import com.nbcproject.earlybirdy.sealedclass.CheckDelete
 import com.nbcproject.earlybirdy.sealedclass.SignInNavigation
+import com.nbcproject.earlybirdy.util.showToast
 
 class AuthRepositoryImpl : AuthRepository {
     private val auth = FirebaseAuth.getInstance()
@@ -21,6 +24,9 @@ class AuthRepositoryImpl : AuthRepository {
 
     private var _signInState = MutableLiveData<SignInNavigation>()
     val signInState : LiveData<SignInNavigation> get() = _signInState
+
+    private var _changePasswordState = MutableLiveData<CheckChangePassword>()
+    val changePasswordState : LiveData<CheckChangePassword> get() = _changePasswordState
 
     override fun signOut() {
         if (user != null) {
@@ -36,12 +42,7 @@ class AuthRepositoryImpl : AuthRepository {
                 if (task.isSuccessful) {
                     _checkAuthState.value = CheckAuth.SuccessAuth
                 } else {
-                    val exception = task.exception
-                    if (exception is FirebaseAuthInvalidCredentialsException) {
-                        _checkAuthState.value = CheckAuth.InvalidCredential
-                    } else {
                         _checkAuthState.value = CheckAuth.ElseException
-                    }
                 }
             }
     }
@@ -66,6 +67,13 @@ class AuthRepositoryImpl : AuthRepository {
                 } else {
                     _signInState.value = SignInNavigation.SignInFailed
                 }
+            }
+    }
+
+    override fun changePassword(password: String) {
+        user?.updatePassword(password)
+            ?.addOnFailureListener {
+                _changePasswordState.value = CheckChangePassword.ChangeFailed
             }
     }
 }

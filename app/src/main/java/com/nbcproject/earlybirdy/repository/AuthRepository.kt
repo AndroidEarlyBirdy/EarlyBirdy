@@ -6,4 +6,5 @@ interface AuthRepository {
     fun deleteUser()
     fun sendEmail(email : String)
     fun signIn(email : String, password : String)
+    fun changePassword(password : String)
 }
