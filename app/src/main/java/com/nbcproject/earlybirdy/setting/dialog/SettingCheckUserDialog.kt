@@ -7,6 +7,7 @@ import androidx.lifecycle.LifecycleOwner
 import com.nbcproject.earlybirdy.databinding.ActivitySettingLoginDialogBinding
 import com.nbcproject.earlybirdy.util.navigateToSigninActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.nbcproject.earlybirdy.R
 import com.nbcproject.earlybirdy.sealedclass.CheckAuth
 import com.nbcproject.earlybirdy.sealedclass.CheckDelete
 import com.nbcproject.earlybirdy.setting.viewmodel.SettingViewModel
@@ -46,36 +47,32 @@ class SettingCheckUserDialog(
         }
         settingViewModel.checkAuth.observe(context as LifecycleOwner) {
             when (it) {
-                CheckAuth.SuccessAuth -> {
+                is CheckAuth.SuccessAuth -> {
                     deleteUser()
                 }
 
-                CheckAuth.InvalidCredential -> {
-                    binding.tilSldPassword.error = "비밀번호가 틀립니다."
+                is CheckAuth.InvalidCredential -> {
+                    binding.tilSldPassword.error = context.getString(R.string.setting_auth_fail)
                 }
 
-                CheckAuth.ElseException -> {
-                    binding.tilSldPassword.error = "재인증에 실패했습니다."
+                is CheckAuth.ElseException -> {
+                    binding.tilSldPassword.error = context.getString(R.string.setting_auth_fail_else)
                 }
-
-                else -> {}
             }
         }
         settingViewModel.checkDeleteAuth.observe(context as LifecycleOwner) {
             when (it) {
-                CheckDelete.DeleteSuccess -> {
+                is CheckDelete.DeleteSuccess -> {
                     user?.let { it1 -> settingViewModel.checkDeleteData(it1.uid) }
                 }
-                else -> {}
             }
         }
         settingViewModel.checkDeleteData.observe(context as LifecycleOwner) {
             when (it) {
-                CheckDelete.DeleteSuccess -> {
+                is CheckDelete.DeleteSuccess -> {
                     navigateToSigninActivity(context)
                     dismiss()
                 }
-                else -> {}
             }
         }
     }

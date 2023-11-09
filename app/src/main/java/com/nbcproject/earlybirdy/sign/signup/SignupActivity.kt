@@ -26,7 +26,6 @@ class SignupActivity : MainActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
     val db = Firebase.firestore
-    //val storage = Firebase.storage
 
     private val imageMap = mapOf(
         1 to R.drawable.ic_person1,

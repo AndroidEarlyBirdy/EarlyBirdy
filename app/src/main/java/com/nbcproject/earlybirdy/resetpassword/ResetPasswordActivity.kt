@@ -3,7 +3,6 @@ package com.nbcproject.earlybirdy.resetpassword
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import com.nbcproject.earlybirdy.main.MainActivity
 import com.nbcproject.earlybirdy.signup.EditProfileDialog
 import com.nbcproject.earlybirdy.util.navigateToEditProfileActivity
@@ -16,7 +15,6 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.nbcproject.earlybirdy.databinding.ActivityResetPasswordBinding
 
@@ -28,7 +26,6 @@ class ResetPasswordActivity : MainActivity() {
     private lateinit var database: DatabaseReference
     private lateinit var fireStore: FirebaseFirestore
     private lateinit var user: FirebaseUser
-    val db = Firebase.firestore
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -88,10 +85,6 @@ class ResetPasswordActivity : MainActivity() {
 
         changePassword()
         navigateToMainActivity(this)
-        showToast(this@ResetPasswordActivity,"비밀번호 수정 완료!")
-
-        finish()
-
     }
 
 
@@ -101,15 +94,13 @@ class ResetPasswordActivity : MainActivity() {
         val credential = EmailAuthProvider
             .getCredential("user@example.com", "password123")
         user.reauthenticate(credential)
-        user!!.updatePassword(newPassword)
+        user.updatePassword(newPassword)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Log.d("password", "User password updated.")
                 }
             }
             .addOnFailureListener {
                 showToast(this, "비밀번호변경에 실패하였습니다.")
-                Log.e("fail","${it}")
             }
     }
 }
