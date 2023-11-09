@@ -172,24 +172,4 @@ class SignupActivity : MainActivity() {
         }
     }
 
-//    private fun profileUpload(){
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
-//            checkPermission(Manifest.permission.READ_MEDIA_IMAGES)
-//        }else{
-//            checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-//        }
-//    }
-
-//    private fun openAlbum() {
-//        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-//        startActivityForResult(intent, IMAGE_PICKER_REQUEST_CODE)
-//    }
-//
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//        if (requestCode == IMAGE_PICKER_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
-//            selectImgUri = data.data ?: return
-//            binding.ivProfile.setImageURI(selectImgUri)
-//        }
-//    }
 }
