@@ -29,12 +29,14 @@
         <activity
             android:name=".board.board_read.BoardReadActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".board.board_write.BoardWriteActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name=".sign.sendemail.SendEmailActivity"
+            android:name=".signin.sendemail.SendEmailActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
@@ -58,11 +60,11 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".sign.signin.SignInActivity"
+            android:name=".signin.SigninActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".sign.signup.SignupActivity"
+            android:name=".signup.SignupActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
