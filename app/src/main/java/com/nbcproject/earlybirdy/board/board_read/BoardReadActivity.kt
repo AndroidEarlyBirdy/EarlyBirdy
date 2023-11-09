@@ -1,7 +1,9 @@
 package com.nbcproject.earlybirdy.board.board_read
 
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -21,6 +23,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import com.nbcproject.earlybirdy.R
+import com.nbcproject.earlybirdy.util.Constants
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -94,6 +98,9 @@ class BoardReadActivity : AppCompatActivity() {
                 deleteBoardData(BoardData)
         }
 
+        binding.tvClaim.setOnClickListener {
+            intentToGeneralConditionLink()
+        }
 
         binding.tvAddComment.setOnClickListener {
             writeComment()
@@ -104,6 +111,16 @@ class BoardReadActivity : AppCompatActivity() {
             initCommentView()
         }
 
+    }
+
+    // 신고하기 구글폼으로 이동
+    private fun intentToGeneralConditionLink() {
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(Constants.claimUrl))
+        try {
+            startActivity(browserIntent)
+        } catch (e: ActivityNotFoundException) {
+            showToast(this, getString(R.string.setting_connect_error_toast))
+        }
     }
 
     // 게시글 읽기
