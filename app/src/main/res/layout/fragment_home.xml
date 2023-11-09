@@ -5,90 +5,96 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".home.HomeFragment">
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <ImageView
             android:id="@+id/imageView3"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="442dp"
             android:background="@drawable/bg_gr3"
-            app:layout_constraintBottom_toBottomOf="@+id/progress_bar"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
 
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            style="@style/CircularDeterminateProgressBar"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:background="@drawable/ic_glassbackground"
+            android:id="@+id/constraintLayout3"
             android:layout_width="320dp"
             android:layout_height="320dp"
-            android:layout_marginTop="32dp"
-            android:background="@drawable/ic_glassbackground"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView7"
-            tools:progress="60" />
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView7">
+
+        <com.dinuscxj.progressbar.CircleProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="280dp"
+            android:layout_height="280dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:progress_end_color="@color/date3"
+            app:progress_start_color="@color/icon2"
+            app:progress_stroke_cap="round"
+            app:progress_stroke_width="26dp"
+            app:progress_text_size="0sp"
+            app:style="solid_line" />
 
         <TextView
             android:id="@+id/tv_progress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textSize="34sp"
-            app:layout_constraintBottom_toBottomOf="@+id/progress_bar"
+            android:textSize="40sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/progress_bar"
+            app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintStart_toStartOf="@+id/progress_bar"
             app:layout_constraintTop_toTopOf="@+id/progress_bar"
+            app:layout_constraintVertical_bias="0.46"
             tools:text="60%" />
 
+            <ImageView
+                android:id="@+id/ic_progress_question"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"
+                android:src="@drawable/ic_question_mark"
+                android:tooltipText="오늘의 목표 달성도와 출석하기로 프로그레스바 진행도가 증가합니다."
+                app:layout_constraintEnd_toEndOf="@+id/progress_bar"
+                app:layout_constraintTop_toTopOf="@+id/progress_bar" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <TextView
+            android:id="@+id/tv_title_alarm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/home_goodmorning"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout3"
+            tools:textColor="#444444" />
+
         <ImageView
-            android:id="@+id/ic_progress_question"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:src="@drawable/ic_question_mark"
-            android:tooltipText="오늘의 목표 달성도와 출석하기로 프로그레스바 진행도가 증가합니다."
-            app:layout_constraintEnd_toEndOf="@+id/progress_bar"
-            app:layout_constraintTop_toTopOf="@+id/progress_bar" />
-
-
-    <TextView
-        android:id="@+id/tv_title_alarm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/home_goodmorning"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progress_bar"
-        tools:textColor="#444444" />
-<!--        <ImageView-->
-<!--            android:id="@+id/ic_morning_question"-->
-<!--            android:layout_width="30dp"-->
-<!--            android:layout_height="30dp"-->
-<!--            android:layout_marginEnd="45dp"-->
-<!--            android:tooltipText="시간을 누르면 알람을 설정할 수 있고 출석하기 버튼을 눌러 활기찬 아침을 시작하세요!"-->
-<!--            android:src="@drawable/ic_question_mark"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="@+id/tv_title_alarm"-->
-<!--            app:layout_constraintBottom_toBottomOf="@+id/tv_title_alarm"/>-->
-
-    <ImageView
-        android:id="@+id/iv_go_alarm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="41dp"
-        android:layout_marginTop="9dp"
-        android:src="@drawable/ic_list_background"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_title_alarm" />
-
+            android:id="@+id/iv_go_alarm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="41dp"
+            android:layout_marginTop="9dp"
+            android:layout_marginEnd="42dp"
+            android:src="@drawable/ic_list_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title_alarm" />
     <TextView
         android:id="@+id/tv_alarm"
         android:layout_width="wrap_content"
@@ -101,7 +107,6 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/iv_go_alarm"
         app:layout_constraintTop_toTopOf="@+id/iv_go_alarm" />
-
     <ImageButton
         android:id="@+id/btn_attend"
         android:layout_width="wrap_content"
@@ -113,19 +118,18 @@
         app:layout_constraintEnd_toEndOf="@+id/iv_go_alarm"
         app:layout_constraintTop_toTopOf="@+id/iv_go_alarm" />
 
-    <TextView
-        android:id="@+id/tv_todaygoal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/home_today_goal"
-        android:textSize="18sp"
-        tools:textColor="#444444"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_go_alarm" />
-
+        <TextView
+            android:id="@+id/tv_todaygoal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/home_today_goal"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_go_alarm"
+            tools:textColor="#444444" />
     <ImageButton
         android:id="@+id/btn_create"
         android:layout_width="wrap_content"
@@ -136,110 +140,89 @@
         app:layout_constraintStart_toEndOf="@+id/tv_todaygoal"
         app:layout_constraintTop_toTopOf="@+id/tv_todaygoal"
         app:layout_constraintBottom_toBottomOf="@id/tv_todaygoal"/>
-
-<!--        <ImageView-->
-<!--            android:id="@+id/ic_goal_question"-->
-<!--            android:layout_width="30dp"-->
-<!--            android:layout_height="30dp"-->
-<!--            android:tooltipText="+버튼을 눌러서 오늘의 목표를 추가할 수 있습니다. 그리고 좌우로 슬라이드하여 오늘의 목표를 볼 수 있습니다."-->
-<!--            android:layout_marginEnd="45dp"-->
-<!--            android:src="@drawable/ic_question_mark"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="@+id/btn_create"-->
-<!--            app:layout_constraintBottom_toBottomOf="@+id/btn_create"/>-->
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_todo_main"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_todaygoal" />
-
-        <TextView
-            android:visibility="gone"
-            android:id="@+id/tv_EmptyListMessage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="16dp"
-            android:text="@string/home_select_goal"
-            android:textColor="#444444"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/rv_todo_main"
-            app:layout_constraintStart_toStartOf="@+id/rv_todo_main"
-            app:layout_constraintTop_toTopOf="@+id/rv_todo_main" />
-
-        <ImageButton
-            android:id="@+id/btn_LeftArrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/btn_leftarrow"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/rv_todo_main" />
-
-        <ImageButton
-            android:id="@+id/btn_RightArrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/btn_rightarrow"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/rv_todo_main" />
-
-        <ImageView
-            android:id="@+id/imageView7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:src="@drawable/ic_topbackground"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.505"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_famous"
-            android:layout_width="230dp"
-            android:layout_height="44dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="12dp"
-            android:gravity="center_vertical"
-            android:maxLines="3"
-            android:text="text"
-            app:layout_constraintStart_toStartOf="@+id/imageView7"
-            app:layout_constraintTop_toTopOf="@+id/imageView7" />
-
-        <ImageView
-            android:id="@+id/ic_weather"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_centerVertical="true"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="12dp"
-            android:elevation="2dp"
-            android:src="@drawable/circular_progress"
-            app:layout_constraintBottom_toTopOf="@+id/tv_temperature"
-            app:layout_constraintEnd_toEndOf="@+id/imageView7"
-            app:layout_constraintTop_toTopOf="@+id/imageView7" />
-
-        <TextView
-            android:id="@+id/tv_temperature"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/imageView7"
-            app:layout_constraintTop_toBottomOf="@+id/ic_weather"
-            tools:text="00 ℃" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_todo_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_todaygoal" />
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tv_EmptyListMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:text="@string/home_select_goal"
+        android:textColor="#444444"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/rv_todo_main"
+        app:layout_constraintStart_toStartOf="@+id/rv_todo_main"
+        app:layout_constraintTop_toTopOf="@+id/rv_todo_main" />
+    <ImageButton
+        android:id="@+id/btn_LeftArrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/btn_leftarrow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/rv_todo_main" />
+    <ImageButton
+        android:id="@+id/btn_RightArrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/btn_rightarrow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/rv_todo_main" />
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:src="@drawable/ic_topbackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/tv_famous"
+        android:layout_width="230dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:gravity="center_vertical"
+        android:maxLines="3"
+        android:text="text"
+        app:layout_constraintStart_toStartOf="@+id/imageView7"
+        app:layout_constraintTop_toTopOf="@+id/imageView7" />
+    <ImageView
+        android:id="@+id/ic_weather"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="12dp"
+        android:elevation="2dp"
+        android:src="@drawable/circular_progress"
+        app:layout_constraintBottom_toTopOf="@+id/tv_temperature"
+        app:layout_constraintEnd_toEndOf="@+id/imageView7"
+        app:layout_constraintTop_toTopOf="@+id/imageView7" />
+    <TextView
+        android:id="@+id/tv_temperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/imageView7"
+        app:layout_constraintTop_toBottomOf="@+id/ic_weather"
+        tools:text="00 ℃" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
