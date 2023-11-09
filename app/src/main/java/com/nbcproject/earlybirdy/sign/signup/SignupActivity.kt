@@ -14,6 +14,7 @@ import com.nbcproject.earlybirdy.util.showToast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.ktx.firestore
@@ -147,6 +148,9 @@ class SignupActivity : MainActivity() {
                                     }
                                     if (it is FirebaseAuthInvalidCredentialsException) {
                                         binding.tilEmail.error = "유효하지 않은 이메일 형식입니다"
+                                    }
+                                    if (it is FirebaseAuthWeakPasswordException){
+                                        binding.tilPassword.error = "6자 이상의 비밀번호를 입력하여 주세요"
                                     }
                                 }
                         } else {
