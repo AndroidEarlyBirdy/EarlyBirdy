@@ -4,13 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-import com.nbcproject.earlybirdy.R
 import com.nbcproject.earlybirdy.sealedclass.CheckAuth
 import com.nbcproject.earlybirdy.sealedclass.CheckChangePassword
 import com.nbcproject.earlybirdy.sealedclass.CheckDelete
 import com.nbcproject.earlybirdy.sealedclass.SignInNavigation
-import com.nbcproject.earlybirdy.util.showToast
 
 class AuthRepositoryImpl : AuthRepository {
     private val auth = FirebaseAuth.getInstance()
