@@ -41,6 +41,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:elevation="1dp"
+            android:background="#00FFFFFF"
             android:src="@drawable/img_profile_add111"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -130,8 +131,8 @@
 
         <ImageView
             android:id="@+id/iv_profile_border1"
-            android:layout_width="165dp"
-            android:layout_height="125dp"
+            android:layout_width="155dp"
+            android:layout_height="155dp"
             android:src="@drawable/ic_5th_board"
             app:layout_constraintBottom_toBottomOf="@+id/iv_profile"
             app:layout_constraintEnd_toEndOf="parent"
