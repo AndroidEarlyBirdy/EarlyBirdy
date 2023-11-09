@@ -87,8 +87,6 @@ class HomeFragment : Fragment() {
         firestore = FirebaseFirestore.getInstance()
         auth = FirebaseAuth.getInstance()
         user = auth.currentUser!!
-        expDialog = ExpDialog(requireContext())
-
         alarmDialog = AlarmDialog(requireContext())
 
         adapter = HomeFragmentAdapter()
@@ -314,7 +312,7 @@ class HomeFragment : Fragment() {
                 val currentMinutes = convertToMinutes(currentTime)
                 val alarmMinutes = convertToMinutes(alarmTime)
                 val data = calculateTime(alarmMinutes, currentMinutes)
-
+                expDialog = ExpDialog(requireContext(), data)
                 firestore?.collection("UserDto")?.document(user.uid)
                     ?.update("exp", FieldValue.increment(data.toLong()))
                     ?.addOnSuccessListener {

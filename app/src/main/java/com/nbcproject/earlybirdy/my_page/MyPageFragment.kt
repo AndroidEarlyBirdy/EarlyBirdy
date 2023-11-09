@@ -127,23 +127,7 @@ class MyPageFragment : Fragment() {
             2 -> binding.ivProfile.setImageResource(R.drawable.ic_person2)
             3 -> binding.ivProfile.setImageResource(R.drawable.ic_person3)
             4 -> binding.ivProfile.setImageResource(R.drawable.ic_person4)
-            else -> profileImageRef.get()
-                .addOnSuccessListener { document ->
-                    if (document != null && document.exists()) {
-                        val imageResId = document.getLong("profile")?.toInt()
-                        if (imageResId != null) {
-                            binding.ivProfile.setImageResource(imageResId)
-                        }
-                    } else {
-                        val imageResId = document.getLong("profile")?.toInt()
-                        binding.ivProfile.setImageResource(imageResId!!)
-                    }
-                }
-                .addOnFailureListener { exception ->
-                    // 파이어베이스에서 프로필 이미지 데이터를 가져오는 도중 에러가 발생한 경우
-                    // 기본 이미지로 설정
-                    binding.ivProfile.setImageResource(R.drawable.img_profile_add)
-                }
+            else -> binding.ivProfile.setImageResource(R.drawable.ic_person1)
         }
     }
 
