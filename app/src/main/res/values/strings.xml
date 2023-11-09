@@ -92,6 +92,7 @@
     <string name="home_goodmorning">활기찬 아침</string>
     <string name="home_time">8:00 AM</string>
     <string name="home_today_goal">오늘의 목표</string>
+    <string name="home_today_percent">데일리 성과</string>
 
     <!--마이 페이지-->
     <string name="mypage_nickname">닉네임</string>
@@ -220,10 +221,27 @@
     <string name="itemranking_nickname">닉네임</string>
     <string name="itemranking_exp">경험치량</string>
     
-    <!--Board 갤러리 접근 권한 관련-->
+    <!--Setting Activity Toast 메세지-->
+    <string name="setting_connect_error_toast">연결 오류 발생</string>
+    <string name="setting_logout_toast">로그아웃 되었습니다. 로그인 페이지로 이동합니다.</string>
+
+    <!--Setting Dialog Warning Text-->
+    <string name="setting_auth_fail">비밀번호가 틀립니다.</string>
+    <string name="setting_auth_fail_else">재인증에 실패했습니다.</string>
+
+    <!--Board 권한 설정-->
     <string name="modify_permissionRequired"></string>
     <string name="modify_profilePermission"></string>
     <string name="modify_agree"></string>
     <string name="modify_cancel"></string>
+
+    <!--로그인 Activity-->
+    <string name="login_fail_toast">로그인에 실패하였습니다</string>
+    <string name="login_empty_email">이메일을 입력해주세요</string>
+    <string name="login_empty_password">비밀번호를 입력해주세요</string>
+    <string name="login_exit_dialog_title">종료 확인</string>
+    <string name="login_exit_dialog_content">앱을 종료하시겠습니까?</string>
+    <string name="login_exit_dialog_positive_button">예</string>
+    <string name="login_exit_dialog_negative_button">아니오</string>
 
 </resources>

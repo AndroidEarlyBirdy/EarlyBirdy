@@ -27,11 +27,11 @@
         android:layout_marginTop="16dp"
         android:paddingHorizontal="60dp"
         android:text="@string/failtoadd_cancel"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:backgroundTint="#DBDBDA"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_message" />
 
 
