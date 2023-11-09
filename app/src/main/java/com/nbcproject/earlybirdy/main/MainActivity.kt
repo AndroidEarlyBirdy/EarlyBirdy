@@ -30,8 +30,8 @@ open class MainActivity : AppCompatActivity(){
         if (!isNetworkConnected(this)) {
             AlertDialog.Builder(this)
                 .setTitle("경고")
-                .setMessage("인터넷에 연결되어 있지 않습니다. Wi-Fi 설정을 확인해주세요.")
-                .setPositiveButton("Wi-Fi 설정") { _, _ ->
+                .setMessage("인터넷에 연결되어 있지 않습니다. 인터넷 설정을 확인해주세요.")
+                .setPositiveButton("인터넷 설정") { _, _ ->
                     // 사용자가 "Wi-Fi 설정" 버튼을 누르면, Wi-Fi 설정 화면으로 이동합니다.
                     startActivity(Intent(Settings.ACTION_WIFI_SETTINGS))
                 }

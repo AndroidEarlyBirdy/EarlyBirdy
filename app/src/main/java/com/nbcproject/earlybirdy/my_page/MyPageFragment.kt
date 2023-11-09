@@ -127,7 +127,7 @@ class MyPageFragment : Fragment() {
             2 -> binding.ivProfile.setImageResource(R.drawable.ic_person2)
             3 -> binding.ivProfile.setImageResource(R.drawable.ic_person3)
             4 -> binding.ivProfile.setImageResource(R.drawable.ic_person4)
-            else -> binding.ivProfile.setImageResource(R.drawable.img_profile_add111)
+            else -> binding.ivProfile.setImageResource(R.drawable.ic_person1)
         }
     }
 
