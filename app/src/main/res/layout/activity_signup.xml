@@ -29,7 +29,7 @@
         android:adjustViewBounds="true"
         android:padding="1dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/img_profile_add"
+        android:src="@drawable/ic_person1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageView4"

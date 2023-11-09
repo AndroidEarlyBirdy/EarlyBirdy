@@ -4,7 +4,6 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -24,13 +23,14 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.nbcproject.earlybirdy.R
+import com.nbcproject.earlybirdy.main.MainActivity
 import com.nbcproject.earlybirdy.util.Constants
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import java.util.UUID
 
-class BoardReadActivity : AppCompatActivity() {
+class BoardReadActivity : MainActivity() {
     private val binding by lazy { ActivityBoardReadBinding.inflate(layoutInflater) }
 
     private lateinit var auth: FirebaseAuth

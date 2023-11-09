@@ -31,7 +31,6 @@ class EditProfileActivity : MainActivity() {
         2 to R.drawable.ic_person2,
         3 to R.drawable.ic_person3,
         4 to R.drawable.ic_person4,
-        0 to R.drawable.img_profile_add111
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
