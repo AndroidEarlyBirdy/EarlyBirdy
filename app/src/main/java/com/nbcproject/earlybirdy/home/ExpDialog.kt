@@ -7,7 +7,7 @@ import android.os.Bundle
 import com.nbcproject.earlybirdy.databinding.DialogExpBinding
 
 class ExpDialog (
-    context: Context,
+    context: Context, private val data: Int
 ) : Dialog(context) {
 
     private lateinit var binding : DialogExpBinding
@@ -21,7 +21,7 @@ class ExpDialog (
     }
     private fun initViews() = with(binding) {
 
-        binding.tvFhdExp2.text = ""
+        binding.tvFhdExp2.text = "EXP ${data} 획득!"
 
         binding.icFhdShare.setOnClickListener {
             val sendText = "share test"
