@@ -6,7 +6,6 @@ import com.nbcproject.earlybirdy.data.MyPageData
 import com.nbcproject.earlybirdy.dto.AttendanceDto
 import com.google.firebase.firestore.FirebaseFirestore
 import com.nbcproject.earlybirdy.sealedclass.CheckDelete
-import com.nbcproject.earlybirdy.util.navigateToSigninActivity
 
 class UserRepositoryImpl : UserRepository {
     private val fireStore = FirebaseFirestore.getInstance()
@@ -71,9 +70,6 @@ class UserRepositoryImpl : UserRepository {
             .delete()
             .addOnSuccessListener {
                 _checkDeleteData.value = CheckDelete.DeleteSuccess
-            }
-            .addOnFailureListener {
-                _checkDeleteData.value = CheckDelete.DeleteFail
             }
     }
 }

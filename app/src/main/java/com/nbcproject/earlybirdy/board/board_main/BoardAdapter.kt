@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.nbcproject.earlybirdy.databinding.ItemBoardBinding
 import com.nbcproject.earlybirdy.dto.BoardDto
 import com.google.firebase.storage.FirebaseStorage
