@@ -25,6 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import com.nbcproject.earlybirdy.data.BoardData
 import com.nbcproject.earlybirdy.main.MainActivity
 import java.util.Date
 import java.util.UUID
@@ -252,7 +253,7 @@ class BoardWriteActivity : MainActivity() {
         val contentsTitle = binding.etContentsTitle.text.toString()
         val contents = binding.etContents.text.toString()
 
-        var contentsPhoto: String? = null
+        var contentsPhoto: String? = boardData.contentsPhoto
 
         if (photoCheck){
             var imagesRef = storage!!.reference.child(boardData.bid).child(boardData.bid)
@@ -299,6 +300,7 @@ class BoardWriteActivity : MainActivity() {
                         boardData.createdTime,
                         contentsTitle,
                         contents,
+                        contentsPhoto
                     )
                 db.collection("BoardDto").document(boardData.bid)
                     .set(boardDto)
