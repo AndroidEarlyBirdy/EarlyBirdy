@@ -158,6 +158,16 @@ class BoardWriteActivity : MainActivity() {
         val contentsTitle = binding.etContentsTitle.text.toString()
         val contents = binding.etContents.text.toString()
 
+        var storage: FirebaseStorage? = FirebaseStorage.getInstance()
+        var fileName = boardIndex
+
+        var imagesRef = storage!!.reference.child(boardIndex).child(fileName)
+        imagesRef.putFile(imgUri).addOnSuccessListener {
+            showToast(this@BoardWriteActivity, "성공")
+        }.addOnFailureListener {
+            Log.d("error",it.toString())
+        }
+
         if (contentsTitle.isEmpty()) {
             binding.etContentsTitle.error = "제목을 입력해주세요"
         } else if (contents.isEmpty()) {
@@ -170,7 +180,7 @@ class BoardWriteActivity : MainActivity() {
                     nickname!!,
                     createdTime,
                     contentsTitle,
-                    contents
+                    contents,
                 )
             db.collection("BoardDto").document(boardIndex)
                 .set(boardDto)
@@ -180,15 +190,6 @@ class BoardWriteActivity : MainActivity() {
                 }
                 .addOnFailureListener { e ->
                 }
-        }
-
-        var storage: FirebaseStorage? = FirebaseStorage.getInstance()
-        var fileName = boardIndex
-        var imagesRef = storage!!.reference.child(boardIndex).child(fileName)
-        imagesRef.putFile(imgUri).addOnSuccessListener {
-            showToast(this@BoardWriteActivity, "성공")
-        }.addOnFailureListener {
-            Log.d("error",it.toString())
         }
 
     }
@@ -216,6 +217,12 @@ class BoardWriteActivity : MainActivity() {
         val contentsTitle = binding.etContentsTitle.text.toString()
         val contents = binding.etContents.text.toString()
 
+        var imagesRef = storage!!.reference.child(boardData.bid).child(boardData.bid)
+        imagesRef.putFile(imgUri).addOnSuccessListener {
+            showToast(this@BoardWriteActivity, "성공")
+        }.addOnFailureListener {
+            Log.d("error",it.toString())
+        }
         if (contentsTitle.isEmpty()) {
             binding.etContentsTitle.error = "제목을 입력해주세요"
         } else if (contents.isEmpty()) {
@@ -228,7 +235,7 @@ class BoardWriteActivity : MainActivity() {
                     nickname!!,
                     boardData.createdTime,
                     contentsTitle,
-                    contents
+                    contents,
                 )
             db.collection("BoardDto").document(boardData.bid)
                 .set(boardDto)
@@ -238,12 +245,7 @@ class BoardWriteActivity : MainActivity() {
                 .addOnFailureListener { e ->
                 }
 
-            var imagesRef = storage!!.reference.child(boardData.bid).child(boardData.bid)
-            imagesRef.putFile(imgUri).addOnSuccessListener {
-                showToast(this@BoardWriteActivity, "성공")
-            }.addOnFailureListener {
-                Log.d("error",it.toString())
-            }
+
         }
     }
 }

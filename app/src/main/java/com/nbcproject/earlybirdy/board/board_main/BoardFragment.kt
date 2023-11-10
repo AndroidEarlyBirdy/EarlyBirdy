@@ -116,7 +116,7 @@ class BoardFragment : Fragment() {
                             item.writer,
                             item.createdTime,
                             item.contentsTitle,
-                            item.contents
+                            item.contents,
                         )
                         data.add(boardItam)
                         Log.d("board", boardItam.toString())

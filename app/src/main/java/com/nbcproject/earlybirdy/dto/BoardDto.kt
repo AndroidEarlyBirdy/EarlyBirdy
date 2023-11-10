@@ -1,5 +1,6 @@
 package com.nbcproject.earlybirdy.dto
 
+import android.net.Uri
 import com.google.firebase.Timestamp
 
 data class BoardDto(

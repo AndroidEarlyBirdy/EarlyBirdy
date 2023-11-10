@@ -174,7 +174,7 @@ class BoardReadActivity : MainActivity() {
         rvComment.layoutManager = cmanager
         rvComment.adapter = commentAdapter
 
-//        rvComment.isNestedScrollingEnabled = false
+        rvComment.isNestedScrollingEnabled = false
 
         commentAdapter.itemClick = object : CommentAdapter.ItemClick {
             override fun deleteItem(view: View, commentData: CommentDto) {
