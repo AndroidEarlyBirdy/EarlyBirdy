@@ -63,9 +63,6 @@ class SignupDialog (
         binding.btnSignupDialogSave.setOnClickListener {
             if(selectedImageId != 0) {
                 onSaveClickListener?.invoke(selectedImageId)
-
-            } else {
-                dismiss()
             }
             dismiss()
         }
