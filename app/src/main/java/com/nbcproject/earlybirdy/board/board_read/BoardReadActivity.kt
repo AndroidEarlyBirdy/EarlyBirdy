@@ -133,7 +133,7 @@ class BoardReadActivity : MainActivity() {
         tvCreatedDatetime.text = BoardData.createdTime?.toDate()?.let { dateFormat.format(it) }
         etContents.text = BoardData.contents
         if (BoardData.contentsPhoto != null) {
-            Glide.with(this@BoardReadActivity).load(BoardData.contentsPhoto).error(R.drawable.bg_calendar_date3)
+            Glide.with(this@BoardReadActivity).load(BoardData.contentsPhoto).error(R.drawable.ic_logo)
                 .into(binding.ivPicture)
         }else{
             binding.ivPicture.visibility = View.GONE

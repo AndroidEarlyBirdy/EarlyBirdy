@@ -81,7 +81,7 @@ class BoardAdapter(context: Context) : RecyclerView.Adapter<BoardAdapter.Holder>
             tvWriter.text = item.writer
             etContentsTitle.text = item.contentsTitle
 
-            Glide.with(bContext).load(item.contentsPhoto).fallback(R.drawable.bg_calendar_date1).error(R.drawable.bg_calendar_date3).into(ivContentsPoto)
+            Glide.with(bContext).load(item.contentsPhoto).fallback(R.drawable.ic_logo).error(R.drawable.ic_logo).into(ivContentsPoto)
 
 //            val imageRef = storageRef.child(item.bid).child(item.bid)
 //
