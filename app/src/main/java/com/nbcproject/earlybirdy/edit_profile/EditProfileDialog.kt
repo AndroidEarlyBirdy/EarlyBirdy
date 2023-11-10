@@ -11,7 +11,7 @@ import com.nbcproject.earlybirdy.databinding.ActivityProfileDialogBinding
 
 class EditProfileDialog (
     context: Context,
-) : Dialog(context) {
+) : Dialog(context, R.style.Theme_TransparentBackground) {
     private lateinit var binding: ActivityProfileDialogBinding
     private var selectedEditProfileImageId: Int = 0
     private var lastSelectedEditProfileImageId: Int = 0

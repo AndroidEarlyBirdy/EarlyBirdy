@@ -31,9 +31,9 @@
         <ImageView
             android:id="@+id/iv_back"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="24dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="32dp"
             android:src="@drawable/btn_back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -42,10 +42,10 @@
             android:id="@+id/tv_Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="32dp"
             android:text="게시글 보기"
             android:textColor="@color/white"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -71,6 +71,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_svContents"
+                android:background="@drawable/bottom_sheet_background"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
