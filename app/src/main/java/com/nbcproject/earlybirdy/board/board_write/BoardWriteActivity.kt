@@ -39,12 +39,13 @@ class BoardWriteActivity : MainActivity() {
     private val storage = FirebaseStorage.getInstance()
 
     private var nickname: String? = ""
-    private var contentsPhoto: String? = null
 
     private var imgUri: Uri = "".toUri()
     private val IMAGE_PICKER_REQUEST_CODE = 1
 
     val storageRef = storage.reference
+
+    var photoCheck: Boolean = false
 
     private val boardType: Int by lazy {
         intent.getIntExtra("boardType", 1)
@@ -56,6 +57,8 @@ class BoardWriteActivity : MainActivity() {
 
         auth = FirebaseAuth.getInstance()
         database = Firebase.database.reference
+
+        photoCheck = false
 
         if (boardType == 2) {
             readBoard()
@@ -83,10 +86,17 @@ class BoardWriteActivity : MainActivity() {
         binding.btnAddPicture.setOnClickListener {
             when {
                 //갤러리 접근 권한이 있는 경우
-                ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED -> {
+                ContextCompat.checkSelfPermission(
+                    this,
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE
+                ) == PackageManager.PERMISSION_GRANTED -> {
                     navigateGallery()
                 }
-                ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED -> {
+
+                ContextCompat.checkSelfPermission(
+                    this,
+                    android.Manifest.permission.READ_MEDIA_IMAGES
+                ) == PackageManager.PERMISSION_GRANTED -> {
                     navigateGallery()
                 }
 //                shouldShowRequestPermissionRationale(android.Manifest.permission.READ_EXTERNAL_STORAGE) -> {
@@ -120,9 +130,10 @@ class BoardWriteActivity : MainActivity() {
                     val selectedImageUri: Uri? = data.data
                     if (selectedImageUri != null) {
                         binding.ivPicture.setImageURI(selectedImageUri)
-                        contentsPhoto = selectedImageUri.toString()
                         imgUri = selectedImageUri
+                        photoCheck = true
                     } else {
+                        photoCheck = false
                         showToast(this@BoardWriteActivity, "사진을 가져오지 못했습니다.")
                     }
                 }
@@ -158,39 +169,65 @@ class BoardWriteActivity : MainActivity() {
         val contentsTitle = binding.etContentsTitle.text.toString()
         val contents = binding.etContents.text.toString()
 
-        if (contentsTitle.isEmpty()) {
-            binding.etContentsTitle.error = "제목을 입력해주세요"
-        } else if (contents.isEmpty()) {
-            binding.etContents.error = "내용을 입력해주세요"
-        } else {
-            val boardDto =
-                BoardDto(
-                    boardIndex,
-                    user!!.uid,
-                    nickname!!,
-                    createdTime,
-                    contentsTitle,
-                    contents
-                )
-            db.collection("BoardDto").document(boardIndex)
-                .set(boardDto)
-                .addOnSuccessListener { documentReference ->
-                    Log.d("boardDto", "${boardDto}")
-                    finish()
-                }
-                .addOnFailureListener { e ->
-                }
-        }
+        var contentsPhoto: String? = null
 
         var storage: FirebaseStorage? = FirebaseStorage.getInstance()
         var fileName = boardIndex
-        var imagesRef = storage!!.reference.child(boardIndex).child(fileName)
-        imagesRef.putFile(imgUri).addOnSuccessListener {
-            showToast(this@BoardWriteActivity, "성공")
-        }.addOnFailureListener {
-            Log.d("error",it.toString())
-        }
 
+        if (photoCheck){
+            var imagesRef = storage!!.reference.child(boardIndex).child(fileName)
+
+            imagesRef.putFile(imgUri).addOnSuccessListener { taskSnapshot ->
+                taskSnapshot.metadata?.reference?.downloadUrl?.addOnSuccessListener { it ->
+
+                    contentsPhoto = it.toString()
+
+                    if (contentsTitle.isEmpty()) {
+                        binding.etContentsTitle.error = "제목을 입력해주세요"
+                    } else if (contents.isEmpty()) {
+                        binding.etContents.error = "내용을 입력해주세요"
+                    } else {
+                        val boardDto =
+                            BoardDto(
+                                boardIndex,
+                                user!!.uid,
+                                nickname!!,
+                                createdTime,
+                                contentsTitle,
+                                contents,
+                                contentsPhoto
+                            )
+                        db.collection("BoardDto").document(boardIndex)
+                            .set(boardDto)
+                            .addOnSuccessListener { documentReference ->
+                                finish()
+                            }
+                    }
+                }
+            }
+        }else{
+            if (contentsTitle.isEmpty()) {
+                binding.etContentsTitle.error = "제목을 입력해주세요"
+            } else if (contents.isEmpty()) {
+                binding.etContents.error = "내용을 입력해주세요"
+            } else {
+                val boardDto =
+                    BoardDto(
+                        boardIndex,
+                        user!!.uid,
+                        nickname!!,
+                        createdTime,
+                        contentsTitle,
+                        contents,
+                    )
+                db.collection("BoardDto").document(boardIndex)
+                    .set(boardDto)
+                    .addOnSuccessListener { documentReference ->
+                        Log.d("boardDto", "${boardDto}")
+                        finish()
+                    }
+            }
+        }
     }
 
     // BoardReadActivity에서 페이지를 이동했을 경우 화면에 해당 게시물의 내용을 띄움
@@ -199,7 +236,8 @@ class BoardWriteActivity : MainActivity() {
         binding.etContentsTitle.setText(BoardReadActivity.BoardData.contentsTitle)
         binding.etContents.setText(BoardReadActivity.BoardData.contents)
 
-        val imageRef = storageRef.child(BoardReadActivity.BoardData.bid).child(BoardReadActivity.BoardData.bid)
+        val imageRef =
+            storageRef.child(BoardReadActivity.BoardData.bid).child(BoardReadActivity.BoardData.bid)
 
         imageRef.downloadUrl.addOnSuccessListener {
             Glide.with(this)
@@ -210,39 +248,64 @@ class BoardWriteActivity : MainActivity() {
 
     // 게시글 수정 시 업데이트
     private fun updateBoard() {
-        val user = auth.currentUser
-
         val boardData = BoardReadActivity.BoardData
         val contentsTitle = binding.etContentsTitle.text.toString()
         val contents = binding.etContents.text.toString()
 
-        if (contentsTitle.isEmpty()) {
-            binding.etContentsTitle.error = "제목을 입력해주세요"
-        } else if (contents.isEmpty()) {
-            binding.etContents.error = "내용을 입력해주세요"
-        } else {
-            val boardDto =
-                BoardDto(
-                    boardData.bid,
-                    boardData.uid,
-                    nickname!!,
-                    boardData.createdTime,
-                    contentsTitle,
-                    contents
-                )
-            db.collection("BoardDto").document(boardData.bid)
-                .set(boardDto)
-                .addOnSuccessListener {
-                    finish()
-                }
-                .addOnFailureListener { e ->
-                }
+        var contentsPhoto: String? = null
 
+        if (photoCheck){
             var imagesRef = storage!!.reference.child(boardData.bid).child(boardData.bid)
-            imagesRef.putFile(imgUri).addOnSuccessListener {
-                showToast(this@BoardWriteActivity, "성공")
-            }.addOnFailureListener {
-                Log.d("error",it.toString())
+
+            imagesRef.putFile(imgUri).addOnSuccessListener { taskSnapshot ->
+                taskSnapshot.metadata?.reference?.downloadUrl?.addOnSuccessListener { it ->
+
+                    contentsPhoto = it.toString()
+
+                    if (contentsTitle.isEmpty()) {
+                        binding.etContentsTitle.error = "제목을 입력해주세요"
+                    } else if (contents.isEmpty()) {
+                        binding.etContents.error = "내용을 입력해주세요"
+                    } else {
+                        val boardDto =
+                            BoardDto(
+                                boardData.bid,
+                                boardData.uid,
+                                nickname!!,
+                                boardData.createdTime,
+                                contentsTitle,
+                                contents,
+                                contentsPhoto
+                            )
+                        db.collection("BoardDto").document(boardData.bid)
+                            .set(boardDto)
+                            .addOnSuccessListener { documentReference ->
+                                finish()
+                            }
+                    }
+                }
+            }
+        }else{
+            if (contentsTitle.isEmpty()) {
+                binding.etContentsTitle.error = "제목을 입력해주세요"
+            } else if (contents.isEmpty()) {
+                binding.etContents.error = "내용을 입력해주세요"
+            } else {
+                val boardDto =
+                    BoardDto(
+                        boardData.bid,
+                        boardData.uid,
+                        nickname!!,
+                        boardData.createdTime,
+                        contentsTitle,
+                        contents,
+                    )
+                db.collection("BoardDto").document(boardData.bid)
+                    .set(boardDto)
+                    .addOnSuccessListener { documentReference ->
+                        Log.d("boardDto", "${boardDto}")
+                        finish()
+                    }
             }
         }
     }

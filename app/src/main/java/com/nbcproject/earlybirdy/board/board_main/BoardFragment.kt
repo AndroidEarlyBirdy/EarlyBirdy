@@ -29,6 +29,8 @@ class BoardFragment : Fragment() {
 
     private val data: MutableList<BoardDto> = mutableListOf()
 
+    private var boardCheck: Boolean = false
+
     private val boardAdapter by lazy {
         BoardAdapter(bContext)
     }
@@ -49,6 +51,8 @@ class BoardFragment : Fragment() {
 
         auth = FirebaseAuth.getInstance()
         database = Firebase.database.reference
+
+        boardCheck = false
 
         initView()
         setOnClickListener()
@@ -82,23 +86,23 @@ class BoardFragment : Fragment() {
             navigateToBoardWriteActivity(requireContext())
         }
 
-        binding.icReload.setOnClickListener {
-            if (binding.tvBoard.isSelected){
-                loadData()
-            }else if (binding.tvMyBoard.isSelected){
-                loadMyBoardData()
-            }
-        }
         binding.tvBoard.setOnClickListener {
-            binding.tvBoard.isSelected = true
-            binding.tvMyBoard.isSelected = false
+            boardCheck = false
             loadData()
         }
         binding.tvMyBoard.setOnClickListener {
-            binding.tvBoard.isSelected = false
-            binding.tvMyBoard.isSelected = true
+            boardCheck = true
             loadMyBoardData()
         }
+
+        binding.icReload.setOnClickListener {
+            if (!boardCheck){
+                loadData()
+            }else if (boardCheck){
+                loadMyBoardData()
+            }
+        }
+
     }
 
     // 전체보기
@@ -116,7 +120,8 @@ class BoardFragment : Fragment() {
                             item.writer,
                             item.createdTime,
                             item.contentsTitle,
-                            item.contents
+                            item.contents,
+                            item.contentsPhoto
                         )
                         data.add(boardItam)
                         Log.d("board", boardItam.toString())
@@ -145,6 +150,7 @@ class BoardFragment : Fragment() {
                                 item.createdTime,
                                 item.contentsTitle,
                                 item.contents,
+                                item.contentsPhoto
                             )
                             data.add(boardItam)
                             Log.d("board", boardItam.toString())
