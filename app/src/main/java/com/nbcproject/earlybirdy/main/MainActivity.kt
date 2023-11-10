@@ -123,7 +123,7 @@ open class MainActivity : AppCompatActivity(){
             // 아이콘 변경
             when (position) {
                 0 -> tab.setIcon(R.drawable.ic_home)
-                1 -> tab.setIcon(R.drawable.ic_board)
+                1 -> tab.setIcon(R.drawable.ic_rank)
                 2 -> tab.setIcon(R.drawable.ic_board)
                 3 -> tab.setIcon(R.drawable.ic_mypage)
             }
