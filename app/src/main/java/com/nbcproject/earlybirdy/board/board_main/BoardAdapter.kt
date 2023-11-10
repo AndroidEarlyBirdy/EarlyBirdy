@@ -2,11 +2,15 @@ package com.nbcproject.earlybirdy.board.board_main
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.firebase.firestore.AggregateSource
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.nbcproject.earlybirdy.databinding.ItemBoardBinding
 import com.nbcproject.earlybirdy.dto.BoardDto
 import com.google.firebase.storage.FirebaseStorage
@@ -73,6 +77,12 @@ class BoardAdapter(context: Context) : RecyclerView.Adapter<BoardAdapter.Holder>
             }
             tvWriter.text = item.writer
             etContentsTitle.text = item.contentsTitle
+            Firebase.firestore.collection("BoardDto").document(item.bid).collection("CommentDto").count().get(
+                AggregateSource.SERVER).addOnCompleteListener {
+                if (it.isSuccessful) {
+                    tvLike.text = it.result.count.toString()
+                }
+            }
 
             val imageRef = storageRef.child(item.bid).child(item.bid)
 

@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.result.ActivityResult
@@ -26,10 +25,11 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import com.nbcproject.earlybirdy.main.MainActivity
 import java.util.Date
 import java.util.UUID
 
-class BoardWriteActivity : AppCompatActivity() {
+class BoardWriteActivity : MainActivity() {
     private val binding by lazy { ActivityBoardWriteBinding.inflate(layoutInflater) }
 
     private lateinit var auth: FirebaseAuth
