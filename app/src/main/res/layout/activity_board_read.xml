@@ -204,7 +204,7 @@
                         android:layout_height="160dp"
                         android:src="@drawable/bg_calendar_date1"
                         android:scaleType="fitCenter"
-                        android:layout_marginVertical="10dp"
+                        android:layout_marginTop="10dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/view_createdLine" />
@@ -225,6 +225,7 @@
                         android:id="@+id/view_commentLine"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
+                        android:layout_marginVertical="10dp"
                         android:background="#E4E4E4"
                         android:layout_marginHorizontal="16dp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -242,7 +243,7 @@
                         android:textSize="18sp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/et_contents" />
+                        app:layout_constraintTop_toBottomOf="@+id/view_commentLine" />
 
                     <TextView
                         android:id="@+id/tv_loadComment"
