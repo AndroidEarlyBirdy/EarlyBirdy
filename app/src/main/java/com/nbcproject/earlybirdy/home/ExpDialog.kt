@@ -30,10 +30,10 @@ class ExpDialog (
                 binding.tvFhdExp.text = "다음 번에는 더 나은 결과를 얻을 거에요!"
             }
             20 -> {
-                binding.tvFhdExp.text = "좋습니다! 앞으로 한걸음 남았습니다!."
+                binding.tvFhdExp.text = "좋습니다! 앞으로 한걸음 남았습니다!"
             }
             30 -> {
-                binding.tvFhdExp.text = "당신은 오늘의 최고 성과에 도달하셨습니다!."
+                binding.tvFhdExp.text = "당신은 오늘의 최고 성과에 도달하셨습니다!"
             }
             else -> {
                 binding.tvFhdExp.text = "내일은 더 노력해서 미라클모닝을 해봐요!"
