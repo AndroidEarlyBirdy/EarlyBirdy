@@ -77,6 +77,7 @@ class BoardAdapter(context: Context) : RecyclerView.Adapter<BoardAdapter.Holder>
             }
             tvWriter.text = item.writer
             etContentsTitle.text = item.contentsTitle
+
             Firebase.firestore.collection("BoardDto").document(item.bid).collection("CommentDto").count().get(
                 AggregateSource.SERVER).addOnCompleteListener {
                 if (it.isSuccessful) {
