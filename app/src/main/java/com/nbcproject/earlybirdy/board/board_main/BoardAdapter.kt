@@ -81,17 +81,19 @@ class BoardAdapter(context: Context) : RecyclerView.Adapter<BoardAdapter.Holder>
             tvWriter.text = item.writer
             etContentsTitle.text = item.contentsTitle
 
-            val imageRef = storageRef.child(item.bid).child(item.bid)
+            Glide.with(bContext).load(item.contentsPhoto).fallback(R.drawable.bg_calendar_date1).error(R.drawable.bg_calendar_date3).into(ivContentsPoto)
 
-            imageRef.downloadUrl.addOnSuccessListener {
-                Glide.with(bContext)
-                    .load(it)
-                    .into(binding.ivContentsPoto)
-            }.addOnFailureListener {
-                if (it is StorageException){
-                    ivContentsPoto.setImageURI(Uri.parse(R.drawable.bg_calendar_date1.toString()))
-                }
-            }
+//            val imageRef = storageRef.child(item.bid).child(item.bid)
+//
+//            imageRef.downloadUrl.addOnSuccessListener {
+//                Glide.with(bContext)
+//                    .load(it)
+//                    .into(binding.ivContentsPoto)
+//            }.addOnFailureListener {
+//                if (it is StorageException){
+//                    ivContentsPoto.setImageURI(Uri.parse(R.drawable.bg_calendar_date1.toString()))
+//                }
+//            }
 
             Firebase.firestore.collection("BoardDto").document(item.bid).collection("CommentDto")
                 .count().get(

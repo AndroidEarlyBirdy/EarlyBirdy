@@ -10,4 +10,5 @@ data class BoardDto(
     val createdTime: Timestamp? = null,
     val contentsTitle: String= "",
     val contents: String= "",
+    val contentsPhoto: String? = null
 )
