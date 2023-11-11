@@ -57,10 +57,10 @@ class ResetPasswordActivity : MainActivity() {
                 if (binding.titPassword.text.toString() == binding.titPasswordCheck.text.toString()
                 ) {
                     binding.tilPasswordCheck.error =
-                        getString(R.string.reset_password_match_password)
+                        getString(R.string.edittext_match_password)
                 } else {
                     binding.tilPasswordCheck.error =
-                        getString(R.string.reset_password_unmatch_password)
+                        getString(R.string.edittext_unmatch_password)
                 }
             }
         })
@@ -84,7 +84,7 @@ class ResetPasswordActivity : MainActivity() {
         if (password.isBlank()) {
             binding.tilPassword.error = getString(R.string.reset_password_enter_password)
         } else if (password != passwordCheck) {
-            binding.tilPasswordCheck.error = getString(R.string.reset_password_unmatch_password)
+            binding.tilPasswordCheck.error = getString(R.string.edittext_unmatch_password)
         }
 
         changePassword()
