@@ -32,6 +32,7 @@ class SignupActivity : MainActivity() {
         2 to R.drawable.ic_person2,
         3 to R.drawable.ic_person3,
         4 to R.drawable.ic_person4,
+        0 to R.drawable.img_profile_add111
     )
     private lateinit var signupDialog: SignupDialog
 
@@ -156,7 +157,7 @@ class SignupActivity : MainActivity() {
         if (imageResourceId != null) {
             binding.ivProfile.setImageResource(imageResourceId)
         } else {
-            binding.ivProfile.setImageResource(R.drawable.img_profile_add)
+            binding.ivProfile.setImageResource(R.drawable.img_profile_add111)
         }
     }
 

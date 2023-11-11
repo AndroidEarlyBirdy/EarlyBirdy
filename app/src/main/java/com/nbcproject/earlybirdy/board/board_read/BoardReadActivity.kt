@@ -4,7 +4,6 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -24,13 +23,14 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.nbcproject.earlybirdy.R
+import com.nbcproject.earlybirdy.main.MainActivity
 import com.nbcproject.earlybirdy.util.Constants
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import java.util.UUID
 
-class BoardReadActivity : AppCompatActivity() {
+class BoardReadActivity : MainActivity() {
     private val binding by lazy { ActivityBoardReadBinding.inflate(layoutInflater) }
 
     private lateinit var auth: FirebaseAuth
@@ -84,18 +84,18 @@ class BoardReadActivity : AppCompatActivity() {
         }
 
         binding.tvUpdate.setOnClickListener {
-            if (auth.currentUser?.uid == BoardData.uid){
+            if (auth.currentUser?.uid == BoardData.uid) {
                 val boardWriteIntent = Intent(this, BoardWriteActivity::class.java)
                 boardWriteIntent.putExtra("boardType", 2)
                 startActivity(boardWriteIntent)
                 finish()
-            }else{
+            } else {
                 showToast(this, "작성자만 게시글을 수정할 수 있습니다")
             }
         }
 
         binding.tvDelete.setOnClickListener {
-                deleteBoardData(BoardData)
+            deleteBoardData(BoardData)
         }
 
         binding.tvClaim.setOnClickListener {
@@ -132,16 +132,14 @@ class BoardReadActivity : AppCompatActivity() {
         etContentsTitle.text = BoardData.contentsTitle
         tvCreatedDatetime.text = BoardData.createdTime?.toDate()?.let { dateFormat.format(it) }
         etContents.text = BoardData.contents
-
-        val imageRef = storageRef.child(BoardData.bid).child(BoardData.bid)
-
-        imageRef.downloadUrl.addOnSuccessListener {
-            Glide.with(this@BoardReadActivity)
-                .load(it)
+        if (BoardData.contentsPhoto != null) {
+            Glide.with(this@BoardReadActivity).load(BoardData.contentsPhoto).error(R.drawable.ic_logo)
                 .into(binding.ivPicture)
-        }.addOnFailureListener {
+        }else{
             binding.ivPicture.visibility = View.GONE
         }
+
+
     }
 
     // 게시글 삭제
@@ -150,7 +148,8 @@ class BoardReadActivity : AppCompatActivity() {
         if (user!!.uid == boardData.uid) {
             fireStore.collection("BoardDto").document(boardData.bid).delete()
                 .addOnSuccessListener {
-                    fireStore.collection("BoardDto").document(BoardData.bid).collection("CommentDto")
+                    fireStore.collection("BoardDto").document(BoardData.bid)
+                        .collection("CommentDto")
                         .document().delete()
                         .addOnSuccessListener {
                             showToast(this, "게시글이 삭제되었습니다.")
@@ -174,7 +173,7 @@ class BoardReadActivity : AppCompatActivity() {
         rvComment.layoutManager = cmanager
         rvComment.adapter = commentAdapter
 
-//        rvComment.isNestedScrollingEnabled = false
+        rvComment.isNestedScrollingEnabled = false
 
         commentAdapter.itemClick = object : CommentAdapter.ItemClick {
             override fun deleteItem(view: View, commentData: CommentDto) {

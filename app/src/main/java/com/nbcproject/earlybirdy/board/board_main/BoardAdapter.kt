@@ -2,7 +2,7 @@ package com.nbcproject.earlybirdy.board.board_main
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.util.Log
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +14,8 @@ import com.google.firebase.ktx.Firebase
 import com.nbcproject.earlybirdy.databinding.ItemBoardBinding
 import com.nbcproject.earlybirdy.dto.BoardDto
 import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageException
+import com.nbcproject.earlybirdy.R
 
 class BoardAdapter(context: Context) : RecyclerView.Adapter<BoardAdapter.Holder>() {
 
@@ -26,7 +28,7 @@ class BoardAdapter(context: Context) : RecyclerView.Adapter<BoardAdapter.Holder>
     interface ItemClick {
 
         fun onClick(view: View, boardData: BoardDto)
-        fun deleteItem(view:View, boardData: BoardDto)
+        fun deleteItem(view: View, boardData: BoardDto)
     }
 
     var itemClick: ItemClick? = null
@@ -36,6 +38,7 @@ class BoardAdapter(context: Context) : RecyclerView.Adapter<BoardAdapter.Holder>
         list.addAll(items)
         notifyDataSetChanged()
     }
+
     @SuppressLint("NotifyDataSetChanged")
     fun removeList(position: Int) {
         list.removeAt(position)
@@ -77,14 +80,31 @@ class BoardAdapter(context: Context) : RecyclerView.Adapter<BoardAdapter.Holder>
             }
             tvWriter.text = item.writer
             etContentsTitle.text = item.contentsTitle
-            Firebase.firestore.collection("BoardDto").document(item.bid).collection("CommentDto").count().get(
-                AggregateSource.SERVER).addOnCompleteListener {
-                if (it.isSuccessful) {
-                    tvLike.text = it.result.count.toString()
+
+            Glide.with(bContext).load(item.contentsPhoto).fallback(R.drawable.ic_logo).error(R.drawable.ic_logo).into(ivContentsPoto)
+
+//            val imageRef = storageRef.child(item.bid).child(item.bid)
+//
+//            imageRef.downloadUrl.addOnSuccessListener {
+//                Glide.with(bContext)
+//                    .load(it)
+//                    .into(binding.ivContentsPoto)
+//            }.addOnFailureListener {
+//                if (it is StorageException){
+//                    ivContentsPoto.setImageURI(Uri.parse(R.drawable.bg_calendar_date1.toString()))
+//                }
+//            }
+
+            Firebase.firestore.collection("BoardDto").document(item.bid).collection("CommentDto")
+                .count().get(
+                    AggregateSource.SERVER
+                ).addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        tvLike.text = it.result.count.toString()
+                    }
                 }
-            }
+
         }
     }
-
 
 }

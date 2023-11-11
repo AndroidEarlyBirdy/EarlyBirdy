@@ -75,18 +75,21 @@ class RankingFragment : Fragment() {
                             0 -> {
                                 binding?.iv1st?.setImageResource(userList[i].profile ?: 0)
                                 binding?.tv1st?.text = userList[i].nickname
+                                binding?.tv1exp?.text = userList[i].exp.toString()
                                 Log.d("프로필 불러오기", userList[i].profile.toString())
                             }
 
                             1 -> {
                                 binding?.iv2nd?.setImageResource(userList[i].profile ?: 0)
                                 binding?.tv2nd?.text = userList[i].nickname
+                                binding?.tv2exp?.text = userList[i].exp.toString()
                                 Log.d("2번 프로필 불러오기", userList[i].profile.toString())
                             }
 
                             2 -> {
                                 binding?.iv3rd?.setImageResource(userList[i].profile ?: 0)
                                 binding?.tv3rd?.text = userList[i].nickname
+                                binding?.tv3exp?.text = userList[i].exp.toString()
                             }
                         }
                     }

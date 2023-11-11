@@ -147,26 +147,25 @@ class EditProfileActivity : MainActivity() {
         val profileImageRef = fireStore.collection("UserDto").document(uid)
         val imageResourceId = imageMap[fixedValue]
         if (imageResourceId != null) {
-            binding.imgProflileProfile.setImageResource(imageResourceId)
-        } else {
-            profileImageRef.get()
-                .addOnSuccessListener { document ->
-                    if (document != null && document.exists()) {
-                        val imageResId = document.getLong("profile")?.toInt()
-                        if (imageResId != null) {
-                            binding.imgProflileProfile.setImageResource(imageResId)
+            if (imageResourceId > 0) {
+                binding.imgProflileProfile.setImageResource(imageResourceId)
+            } else {
+                profileImageRef.get()
+                    .addOnSuccessListener { document ->
+                        if (document != null && document.exists()) {
+                            val imageResId = document.getLong("profile")?.toInt()
+                            if (imageResId != null) {
+                                binding.imgProflileProfile.setImageResource(imageResId)
+                            }
+                        } else {
+                            binding.imgProflileProfile.setImageResource(R.drawable.img_profile_add111)
                         }
-
-                    } else {
-                        val imageResId = document.getLong("profile")?.toInt()
-                        return@addOnSuccessListener binding.imgProflileProfile.setImageResource(imageResId!!)
-
                     }
-                }
-                .addOnFailureListener { exception ->
+                    .addOnFailureListener { exception ->
 
-                    binding.imgProflileProfile.setImageResource(R.drawable.ic_person4)
-                }
+                        binding.imgProflileProfile.setImageResource(R.drawable.ic_person4)
+                    }
+            }
         }
     }
 
