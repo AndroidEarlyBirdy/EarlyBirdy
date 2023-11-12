@@ -273,5 +273,9 @@
     <string name="blank_title">제목을 입력해주세요</string>
     <string name="blank_content">내용을 입력해주세요</string>
 
+    <!--CreatePlanActivity -->
+    <string name="dialog_plan_limit">오늘의 목표는 3개까지 작성 가능합니다</string>
+    <string name="dialog_passed_date">이미 지난 날짜에는 Todo를 작성할 수 없습니다</string>
+    <string name="toast_blank_plan">오늘의 계획을 입력하세요</string>
 
 </resources>

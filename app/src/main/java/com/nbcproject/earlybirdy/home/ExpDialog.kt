@@ -40,11 +40,7 @@ class ExpDialog (
             }
         }
 
-        binding.tvFhdExp3.text = "EXP ${data} 획득!"
-
-//        binding.icFhdShare.setOnClickListener() {
-//            shareScreen()
-//        }
+        binding.tvFhdExp3.text = "EXP $data 획득!"
 
         binding.btnFhdOk.setOnClickListener {
             dismiss()
