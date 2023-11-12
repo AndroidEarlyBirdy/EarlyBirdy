@@ -22,6 +22,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import com.nbcproject.earlybirdy.R
 import com.nbcproject.earlybirdy.main.MainActivity
 import java.util.Date
 import java.util.UUID
@@ -122,7 +123,7 @@ class BoardWriteActivity : MainActivity() {
                         photoCheck = true
                     } else {
                         photoCheck = false
-                        showToast(this@BoardWriteActivity, "사진을 가져오지 못했습니다.")
+                        showToast(this@BoardWriteActivity, getString(R.string.get_photo_error))
                     }
                 }
             }
@@ -146,11 +147,10 @@ class BoardWriteActivity : MainActivity() {
 
         var contentsPhoto: String?
 
-        val storage: FirebaseStorage? = FirebaseStorage.getInstance()
-        val fileName = boardIndex
+        val storage: FirebaseStorage = FirebaseStorage.getInstance()
 
         if (photoCheck){
-            val imagesRef = storage!!.reference.child(boardIndex).child(fileName)
+            val imagesRef = storage.reference.child(boardIndex).child(boardIndex)
 
             imagesRef.putFile(imgUri).addOnSuccessListener { taskSnapshot ->
                 taskSnapshot.metadata?.reference?.downloadUrl?.addOnSuccessListener { it ->
@@ -158,9 +158,9 @@ class BoardWriteActivity : MainActivity() {
                     contentsPhoto = it.toString()
 
                     if (contentsTitle.isEmpty()) {
-                        binding.etContentsTitle.error = "제목을 입력해주세요"
+                        binding.etContentsTitle.error = getString(R.string.blank_title)
                     } else if (contents.isEmpty()) {
-                        binding.etContents.error = "내용을 입력해주세요"
+                        binding.etContents.error = getString(R.string.blank_content)
                     } else {
                         val boardDto =
                             BoardDto(
@@ -174,7 +174,7 @@ class BoardWriteActivity : MainActivity() {
                             )
                         db.collection("BoardDto").document(boardIndex)
                             .set(boardDto)
-                            .addOnSuccessListener { documentReference ->
+                            .addOnSuccessListener {
                                 finish()
                             }
                     }
@@ -182,9 +182,9 @@ class BoardWriteActivity : MainActivity() {
             }
         }else{
             if (contentsTitle.isEmpty()) {
-                binding.etContentsTitle.error = "제목을 입력해주세요"
+                binding.etContentsTitle.error = getString(R.string.blank_title)
             } else if (contents.isEmpty()) {
-                binding.etContents.error = "내용을 입력해주세요"
+                binding.etContents.error = getString(R.string.blank_content)
             } else {
                 val boardDto =
                     BoardDto(
@@ -237,9 +237,9 @@ class BoardWriteActivity : MainActivity() {
                     contentsPhoto = it.toString()
 
                     if (contentsTitle.isEmpty()) {
-                        binding.etContentsTitle.error = "제목을 입력해주세요"
+                        binding.etContentsTitle.error = getString(R.string.blank_title)
                     } else if (contents.isEmpty()) {
-                        binding.etContents.error = "내용을 입력해주세요"
+                        binding.etContents.error = getString(R.string.blank_content)
                     } else {
                         updateBoardDatabase(boardData, contentsTitle, contents, contentsPhoto)
                     }
@@ -247,9 +247,9 @@ class BoardWriteActivity : MainActivity() {
             }
         } else {
             if (contentsTitle.isEmpty()) {
-                binding.etContentsTitle.error = "제목을 입력해주세요"
+                binding.etContentsTitle.error = getString(R.string.blank_title)
             } else if (contents.isEmpty()) {
-                binding.etContents.error = "내용을 입력해주세요"
+                binding.etContents.error = getString(R.string.blank_content)
             } else {
                 updateBoardDatabase(boardData, contentsTitle, contents, contentsPhoto)
             }
