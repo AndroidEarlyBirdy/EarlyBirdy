@@ -25,7 +25,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import com.nbcproject.earlybirdy.data.BoardData
 import com.nbcproject.earlybirdy.main.MainActivity
 import java.util.Date
 import java.util.UUID
