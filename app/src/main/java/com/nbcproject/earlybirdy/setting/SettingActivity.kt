@@ -15,8 +15,8 @@ import com.nbcproject.earlybirdy.main.MainActivity
 import com.nbcproject.earlybirdy.setting.dialog.SettingDeleteDialog
 import com.nbcproject.earlybirdy.setting.viewmodel.SettingViewModel
 import com.nbcproject.earlybirdy.setting.viewmodel.SettingViewModelFactory
-import com.nbcproject.earlybirdy.util.Constants.Companion.genralconditionUrl
-import com.nbcproject.earlybirdy.util.Constants.Companion.openlicenseUrl
+import com.nbcproject.earlybirdy.util.Constants.Companion.generalConditionUrl
+import com.nbcproject.earlybirdy.util.Constants.Companion.openLicenseUrl
 import com.nbcproject.earlybirdy.util.navigateToSigninActivity
 import com.nbcproject.earlybirdy.util.showToast
 
@@ -52,12 +52,12 @@ class SettingActivity : MainActivity() {
 
         //오픈 라이선스 구글폼으로 연결
         btnOpenLicense.setOnClickListener {
-            intentToLink(openlicenseUrl)
+            intentToLink(openLicenseUrl)
         }
 
         //약관 구글폼으로 연결
         btnGenralCondition.setOnClickListener {
-            intentToLink(genralconditionUrl)
+            intentToLink(generalConditionUrl)
         }
 
         //로그아웃 버튼

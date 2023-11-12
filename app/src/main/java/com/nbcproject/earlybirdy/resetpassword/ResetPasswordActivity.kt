@@ -5,7 +5,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import androidx.lifecycle.ViewModelProvider
 import com.nbcproject.earlybirdy.main.MainActivity
-import com.nbcproject.earlybirdy.signup.EditProfileDialog
+import com.nbcproject.earlybirdy.edit_profile.EditProfileDialog
 import com.nbcproject.earlybirdy.util.navigateToEditProfileActivity
 import com.nbcproject.earlybirdy.util.navigateToMainActivity
 import com.nbcproject.earlybirdy.util.showToast
