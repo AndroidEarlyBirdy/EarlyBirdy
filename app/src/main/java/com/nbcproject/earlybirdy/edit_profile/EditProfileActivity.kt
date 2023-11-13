@@ -157,7 +157,4 @@ class EditProfileActivity : MainActivity() {
             }
         }
     }
-
-
-
 }
