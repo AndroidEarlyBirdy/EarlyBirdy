@@ -116,7 +116,7 @@ class BoardReadActivity : MainActivity() {
     // 게시글 읽기
     private fun readBoard() = with(binding) {
 
-        val dateFormat = SimpleDateFormat("yy.MM.dd.HH.mm.ss", Locale.getDefault())
+        val dateFormat = SimpleDateFormat("yy.MM.dd", Locale.getDefault())
 
         tvNickname.text = BoardData.writer
         etContentsTitle.text = BoardData.contentsTitle

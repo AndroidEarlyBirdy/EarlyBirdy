@@ -63,7 +63,7 @@
             android:layout_marginTop="5dp"
             android:text="@string/board_community_defalt"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textSize="15sp"
             android:textStyle="bold"
             app:backgroundTint="@color/white"
             app:layout_constraintEnd_toStartOf="@+id/tv_myBoard"

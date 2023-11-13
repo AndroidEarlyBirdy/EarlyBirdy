@@ -188,8 +188,8 @@
 
     <!--보드 프래그먼트-->
     <string name="board_title">자유게시판</string>
-    <string name="board_community_defalt">전체보기</string>
-    <string name="board_my_post">내글보기</string>
+    <string name="board_community_defalt">전체글</string>
+    <string name="board_my_post">내글</string>
     <string name="board_post">게시글작성</string>
 
     <!--홈 프래그먼트-->
