@@ -142,13 +142,12 @@
             android:id="@+id/tv_finish"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="135dp"
-            android:layout_marginBottom="24dp"
             android:text="@string/signin_out"
             android:textColor="#ABABAB"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tv_btn_signup"
             app:layout_constraintTop_toBottomOf="@+id/btn_signin" />
 
         <TextView
@@ -161,6 +160,7 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/tv_finish"
             app:layout_constraintStart_toEndOf="@+id/tv_finish"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tv_finish" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
