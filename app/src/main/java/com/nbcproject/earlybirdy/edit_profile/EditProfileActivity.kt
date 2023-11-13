@@ -13,6 +13,8 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.nbcproject.earlybirdy.edit_profile.dialog.EditProfileActivityDialog
+import com.nbcproject.earlybirdy.edit_profile.dialog.EditProfileDialog
 
 class EditProfileActivity : MainActivity() {
     private lateinit var binding: ActivityEditProfileBinding
