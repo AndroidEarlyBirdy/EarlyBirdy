@@ -120,7 +120,7 @@
                 android:layout_marginEnd="4dp"
                 android:src="@drawable/ic_question_mark"
                 android:tooltipText="오늘의 목표 달성도와 출석하기로 프로그레스바 진행도가 증가합니다."
-                app:layout_constraintEnd_toEndOf="@+id/progress_bar"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/progress_bar" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
