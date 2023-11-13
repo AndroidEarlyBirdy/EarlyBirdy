@@ -75,6 +75,7 @@ class BoardWriteActivity : MainActivity() {
 
             if (boardType == 1) {
                 createdBoard()
+                binding.btnCreatContents.isEnabled = false
             } else {
                 updateBoard()
             }
