@@ -148,7 +148,7 @@ class EditProfileActivity : MainActivity() {
                                 binding.imgProflileProfile.setImageResource(imageResId)
                             }
                         } else {
-                            binding.imgProflileProfile.setImageResource(R.drawable.img_profile_add111)
+                            binding.imgProflileProfile.setImageResource(R.drawable.ic_person1)
                         }
                     }
                     .addOnFailureListener {
