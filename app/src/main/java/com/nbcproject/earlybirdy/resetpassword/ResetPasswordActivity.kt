@@ -86,9 +86,10 @@ class ResetPasswordActivity : MainActivity() {
         } else if (password != passwordCheck) {
             binding.tilPasswordCheck.error = getString(R.string.edittext_unmatch_password)
         }
-
-        changePassword()
-        navigateToMainActivity(this)
+        else {
+            changePassword()
+            navigateToMainActivity(this)
+        }
     }
 
     private fun changePassword() {

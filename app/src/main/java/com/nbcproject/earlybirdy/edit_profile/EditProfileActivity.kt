@@ -2,7 +2,6 @@ package com.nbcproject.earlybirdy.edit_profile
 
 import android.os.Bundle
 import com.nbcproject.earlybirdy.databinding.ActivityEditProfileBinding
-import android.util.Log
 import com.nbcproject.earlybirdy.R
 import com.nbcproject.earlybirdy.main.MainActivity
 import com.nbcproject.earlybirdy.util.showToast
@@ -82,7 +81,6 @@ class EditProfileActivity : MainActivity() {
     private fun onSaveButtonClick() {
         val profile = editProfileDialog.getSelectedEditProfileImageId()  // 이미지 객체 정보
         val nickname = binding.etProfileNickname.text.toString()
-//        val email = binding.etProfileEmail.text.toString()
 
         // 빈칸 확인
         if (nickname.isBlank()) {
@@ -106,8 +104,6 @@ class EditProfileActivity : MainActivity() {
             )
         ).addOnSuccessListener {
             showToast(this@EditProfileActivity,"회원정보 업데이트 완료!")
-        }.addOnFailureListener{e ->
-            Log.e("error","Error updating document", e)
         } else {
            db.collection("UserDto").document(uid).update(
                mapOf(
@@ -115,8 +111,6 @@ class EditProfileActivity : MainActivity() {
                )
            ).addOnSuccessListener {
                showToast(this@EditProfileActivity,"회원정보 업데이트 완료!")
-           }.addOnFailureListener{e ->
-               Log.e("error","Error updating document", e)
            }
        }
     }
@@ -157,8 +151,7 @@ class EditProfileActivity : MainActivity() {
                             binding.imgProflileProfile.setImageResource(R.drawable.img_profile_add111)
                         }
                     }
-                    .addOnFailureListener { exception ->
-
+                    .addOnFailureListener {
                         binding.imgProflileProfile.setImageResource(R.drawable.ic_person4)
                     }
             }
