@@ -2,7 +2,6 @@ package com.nbcproject.earlybirdy.board.board_main
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,16 +12,11 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.nbcproject.earlybirdy.databinding.ItemBoardBinding
 import com.nbcproject.earlybirdy.dto.BoardDto
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageException
 import com.nbcproject.earlybirdy.R
 
 class BoardAdapter(context: Context) : RecyclerView.Adapter<BoardAdapter.Holder>() {
 
     private val list = ArrayList<BoardDto>()
-    private val storage = FirebaseStorage.getInstance()
-    val storageRef = storage.reference
-
     var bContext = context
 
     interface ItemClick {
@@ -36,12 +30,6 @@ class BoardAdapter(context: Context) : RecyclerView.Adapter<BoardAdapter.Holder>
     @SuppressLint("NotifyDataSetChanged")
     fun addItems(items: List<BoardDto>) {
         list.addAll(items)
-        notifyDataSetChanged()
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    fun removeList(position: Int) {
-        list.removeAt(position)
         notifyDataSetChanged()
     }
 
@@ -82,18 +70,6 @@ class BoardAdapter(context: Context) : RecyclerView.Adapter<BoardAdapter.Holder>
             etContentsTitle.text = item.contentsTitle
 
             Glide.with(bContext).load(item.contentsPhoto).fallback(R.drawable.ic_logo).error(R.drawable.ic_logo).into(ivContentsPoto)
-
-//            val imageRef = storageRef.child(item.bid).child(item.bid)
-//
-//            imageRef.downloadUrl.addOnSuccessListener {
-//                Glide.with(bContext)
-//                    .load(it)
-//                    .into(binding.ivContentsPoto)
-//            }.addOnFailureListener {
-//                if (it is StorageException){
-//                    ivContentsPoto.setImageURI(Uri.parse(R.drawable.bg_calendar_date1.toString()))
-//                }
-//            }
 
             Firebase.firestore.collection("BoardDto").document(item.bid).collection("CommentDto")
                 .count().get(

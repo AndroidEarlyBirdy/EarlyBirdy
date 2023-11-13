@@ -23,10 +23,11 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_epd_email"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         app:boxBackgroundMode="none"
+        app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_epd_email">
@@ -47,7 +48,6 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="16dp"
-        android:maxLength="15"
         android:text="@string/signin_pw"
         android:textColor="#444444"
         android:textStyle="bold"
@@ -56,10 +56,11 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_epd_password"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="5dp"
+        app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_epd_password"
@@ -73,6 +74,7 @@
             android:background="@drawable/ic_dialog_item"
             android:hint="@string/signin_under15pw"
             android:inputType="textPassword"
+            android:maxLength="15"
             android:textColor="#CC999999"
             android:textSize="12sp" />
     </com.google.android.material.textfield.TextInputLayout>

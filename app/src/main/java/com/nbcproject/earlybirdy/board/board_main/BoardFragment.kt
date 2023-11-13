@@ -25,10 +25,9 @@ class BoardFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
+
     private val fireStore = FirebaseFirestore.getInstance()
-
     private val data: MutableList<BoardDto> = mutableListOf()
-
     private var boardCheck: Boolean = false
 
     private val boardAdapter by lazy {
@@ -70,7 +69,7 @@ class BoardFragment : Fragment() {
 
         boardAdapter.itemClick = object : BoardAdapter.ItemClick {
             override fun onClick(view: View, data: BoardDto) {
-                startActivity(BoardReadActivity.BoardReadIntent(context, data))
+                startActivity(BoardReadActivity.boardReadIntent(context, data))
             }
 
             override fun deleteItem(view: View, boardData: BoardDto) {

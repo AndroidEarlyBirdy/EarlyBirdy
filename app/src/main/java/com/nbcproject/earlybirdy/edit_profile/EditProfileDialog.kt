@@ -1,4 +1,4 @@
-package com.nbcproject.earlybirdy.signup
+package com.nbcproject.earlybirdy.edit_profile
 
 import android.app.Dialog
 import android.content.Context
@@ -64,9 +64,6 @@ class EditProfileDialog (
         binding.btnProfileDialogSave.setOnClickListener {
             if(selectedEditProfileImageId != 0) {
                 onSaveClickListener?.invoke(selectedEditProfileImageId)
-
-            } else {
-                dismiss()
             }
             dismiss()
         }
