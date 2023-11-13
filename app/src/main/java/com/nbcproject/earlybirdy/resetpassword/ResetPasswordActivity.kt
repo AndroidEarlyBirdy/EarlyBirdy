@@ -43,7 +43,7 @@ class ResetPasswordActivity : MainActivity() {
         }
 
         icRpBack.setOnClickListener {
-            navigateToEditProfileActivity(this@ResetPasswordActivity)
+            finish()
         }
 
         titPasswordCheck.addTextChangedListener(object : TextWatcher {
@@ -98,6 +98,6 @@ class ResetPasswordActivity : MainActivity() {
     }
 
     override fun onBackPressed() {
-        navigateToEditProfileActivity(this)
+        finish()
     }
 }
