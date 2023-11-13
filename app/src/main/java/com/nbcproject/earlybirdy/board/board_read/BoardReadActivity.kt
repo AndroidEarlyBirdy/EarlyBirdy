@@ -3,9 +3,13 @@ package com.nbcproject.earlybirdy.board.board_read
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.nbcproject.earlybirdy.board.board_write.BoardWriteActivity
@@ -21,6 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.nbcproject.earlybirdy.R
+import com.nbcproject.earlybirdy.databinding.DialogOptionBinding
 import com.nbcproject.earlybirdy.main.MainActivity
 import com.nbcproject.earlybirdy.util.Constants
 import java.text.SimpleDateFormat
@@ -73,24 +78,29 @@ class BoardReadActivity : MainActivity() {
             finish()
         }
 
-        binding.tvUpdate.setOnClickListener {
-            if (auth.currentUser?.uid == BoardData.uid) {
-                val boardWriteIntent = Intent(this, BoardWriteActivity::class.java)
-                boardWriteIntent.putExtra("boardType", 2)
-                startActivity(boardWriteIntent)
-                finish()
-            } else {
-                showToast(this, getString(R.string.edit_board_error))
-            }
+        binding.btnMore.setOnClickListener {
+            // 다이얼로그를 표시하는 메서드 호출
+            showMoreOptionsDialog()
         }
 
-        binding.tvDelete.setOnClickListener {
-            deleteBoardData(BoardData)
-        }
-
-        binding.tvClaim.setOnClickListener {
-            intentToGeneralConditionLink()
-        }
+//        binding.tvUpdate.setOnClickListener {
+//            if (auth.currentUser?.uid == BoardData.uid) {
+//                val boardWriteIntent = Intent(this, BoardWriteActivity::class.java)
+//                boardWriteIntent.putExtra("boardType", 2)
+//                startActivity(boardWriteIntent)
+//                finish()
+//            } else {
+//                showToast(this, getString(R.string.edit_board_error))
+//            }
+//        }
+//
+//        binding.tvDelete.setOnClickListener {
+//            deleteBoardData(BoardData)
+//        }
+//
+//        binding.tvClaim.setOnClickListener {
+//            intentToGeneralConditionLink()
+//        }
 
         binding.tvAddComment.setOnClickListener {
             writeComment()
@@ -102,6 +112,54 @@ class BoardReadActivity : MainActivity() {
         }
 
     }
+
+    private fun showMoreOptionsDialog() {
+        val dialogBinding = DialogOptionBinding.inflate(layoutInflater)
+
+        val dialogBuilder = AlertDialog.Builder(this)
+        dialogBuilder.setView(dialogBinding.root)
+
+        val alertDialog = dialogBuilder.create()
+        alertDialog.window?.setGravity(Gravity.BOTTOM)
+
+        //배경 투명으로 지정
+        alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        val claimButton = dialogBinding.btnClaim
+        val deleteButton = dialogBinding.btnDelete
+        val updateButton = dialogBinding.btnUpdate
+//        val cancelButton = dialogBinding.btnCancle
+
+        claimButton.setOnClickListener {
+            intentToGeneralConditionLink()
+            alertDialog.dismiss()
+        }
+
+        deleteButton.setOnClickListener {
+            deleteBoardData(BoardData)
+            alertDialog.dismiss()
+        }
+
+        updateButton.setOnClickListener {
+            if (auth.currentUser?.uid == BoardData.uid) {
+                val boardWriteIntent = Intent(this, BoardWriteActivity::class.java)
+                boardWriteIntent.putExtra("boardType", 2)
+                startActivity(boardWriteIntent)
+                finish()
+            } else {
+                showToast(this, getString(R.string.edit_board_error))
+            }
+            alertDialog.dismiss()
+        }
+
+//        cancelButton.setOnClickListener {
+//            // 취소 버튼 클릭 처리
+//            alertDialog.dismiss()
+//        }
+
+        alertDialog.show()
+    }
+
 
     // 신고하기 구글폼으로 이동
     private fun intentToGeneralConditionLink() {
