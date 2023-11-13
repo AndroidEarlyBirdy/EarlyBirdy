@@ -19,6 +19,8 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.nbcproject.earlybirdy.R
 import com.nbcproject.earlybirdy.databinding.FragmentMyPageBinding
+import com.nbcproject.earlybirdy.my_page.viewmodel.MyPageViewModel
+import com.nbcproject.earlybirdy.my_page.viewmodel.MyPageViewModelFactory
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import java.util.Calendar
 import java.util.TimeZone

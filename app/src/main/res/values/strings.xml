@@ -64,7 +64,7 @@
     <string name="signin_email">이메일</string>
     <string name="signin_enter_email">이메일을 입력하세요</string>
     <string name="signin_pw">비밀번호</string>
-    <string name="signin_under15pw">15자 이하의 비밀번호를 입력하세요</string>
+    <string name="signin_under15pw">비밀번호를 입력하세요</string>
     <string name="signin_find_pw">비밀번호를 잊으셨나요?</string>
     <string name="signin_login">로그인</string>
     <string name="signin_google_login">구글로 로그인 임시</string>
@@ -72,9 +72,9 @@
     <string name="signin_signup">회원가입</string>
 
     <!--회원가입 액티비티-->
-    <string name="signup_enter_nickname">12자 이하의 닉네임을 입력하세요</string>
+    <string name="signup_enter_nickname">닉네임을 입력하세요</string>
     <string name="signup_enter_email">example@example.com</string>
-    <string name="signup_under15pw">15자 이하의 비밀번호를 입력하세요</string>
+    <string name="signup_under15pw">비밀번호를 입력하세요</string>
     <string name="signup_pw_check">비밀번호 재입력</string>
     <string name="signup_signup">회원가입</string>
     <string name="signup_google_login">구글로 로그인 임시</string>
@@ -188,8 +188,8 @@
 
     <!--보드 프래그먼트-->
     <string name="board_title">자유게시판</string>
-    <string name="board_community_defalt">전체보기</string>
-    <string name="board_my_post">내글보기</string>
+    <string name="board_community_defalt">전체글</string>
+    <string name="board_my_post">내글</string>
     <string name="board_post">게시글작성</string>
 
     <!--홈 프래그먼트-->
