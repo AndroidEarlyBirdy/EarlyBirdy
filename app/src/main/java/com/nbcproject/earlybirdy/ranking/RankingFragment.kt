@@ -60,7 +60,7 @@ class RankingFragment : Fragment() {
 
                     // 나의 등수를 나타내는 처리
                     if (user != null && user.uid == currentuser?.uid) {
-                        binding?.tvMyProfile?.setImageResource(user.profile ?: 0)
+                        binding?.ivMyProfile?.setImageResource(user.profile ?: 0)
                         Log.d("유저 프로필", user.profile.toString())
                         binding?.tvMyExp?.text = "${user.exp}"
                         binding?.tvMyName?.text = user.nickname
