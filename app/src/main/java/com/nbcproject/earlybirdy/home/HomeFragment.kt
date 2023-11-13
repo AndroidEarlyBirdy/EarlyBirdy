@@ -104,7 +104,7 @@ class HomeFragment : Fragment() {
             }
         }
 
-        binding.ivGoAlarm.setOnClickListener {
+        binding.clAttend.setOnClickListener {
             alarmDialog.show()
         }
 
