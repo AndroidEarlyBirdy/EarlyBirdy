@@ -32,6 +32,7 @@ import com.loopj.android.http.RequestParams
 import com.nbcproject.earlybirdy.R
 import com.nbcproject.earlybirdy.databinding.FragmentHomeBinding
 import com.nbcproject.earlybirdy.databinding.ItemTodoMainBinding
+import com.nbcproject.earlybirdy.home.alarm.AlarmDialog
 import cz.msebera.android.httpclient.Header
 import org.json.JSONObject
 import java.text.SimpleDateFormat
@@ -472,13 +473,6 @@ class HomeFragment : Fragment() {
                 Log.d("WEATHER", weatherData.toString())
                 if (weatherData != null) {
                     updateWeather(weatherData)
-//                    val iconUrl = weatherData.iconUrl // 날씨 아이콘 URL 가져오기
-//                    // Glide를 사용하여 이미지 로딩
-//                    Glide.with(this@HomeFragment)
-//                        .load(iconUrl)
-//                        .into(binding.icWeather)
-//                    Log.d("아이콘", binding.icWeather.toString())
-                    // 날씨 정보 및 온도 업데이트
                     binding.tvTemperature.text = weatherData.tempString + " ℃"
                 }
             }

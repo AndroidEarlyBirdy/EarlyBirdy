@@ -3,7 +3,6 @@ package com.nbcproject.earlybirdy.sign.signup
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import com.nbcproject.earlybirdy.R
 import com.nbcproject.earlybirdy.databinding.ActivitySignupBinding
 import com.nbcproject.earlybirdy.dto.UserDto
@@ -26,7 +25,7 @@ class SignupActivity : MainActivity() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
-    val db = Firebase.firestore
+    private val fireStore = Firebase.firestore
 
     private val imageMap = mapOf(
         1 to R.drawable.ic_person1,
@@ -36,7 +35,6 @@ class SignupActivity : MainActivity() {
         0 to R.drawable.img_profile_add111
     )
     private lateinit var signupDialog: SignupDialog
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,12 +61,11 @@ class SignupActivity : MainActivity() {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                if (binding.titPassword.getText().toString()
-                        .equals(binding.titPasswordCheck.getText().toString())
+                if (binding.titPassword.text.toString() == binding.titPasswordCheck.text.toString()
                 ) {
-                    binding.tilPasswordCheck.error = "비밀번호가 일치합니다"
+                    binding.tilPasswordCheck.error = getString(R.string.edittext_match_password)
                 } else {
-                    binding.tilPasswordCheck.error = "일치하지 않습니다"
+                    binding.tilPasswordCheck.error = getString(R.string.edittext_unmatch_password)
                 }
             }
         })
@@ -78,11 +75,9 @@ class SignupActivity : MainActivity() {
             onStart()
         }
 
-
         // 로그인 페이지로 이동
         binding.tvBtnSignin.setOnClickListener {
             navigateToSigninActivity(this)
-            finish()
         }
     }
 
@@ -91,13 +86,12 @@ class SignupActivity : MainActivity() {
     }
 
     // 회원가입 함수
-    public override fun onStart() { // 이미 로그인 페이지에서 로그인 여부 체크가 들어가기 때문에 굳이?
+    public override fun onStart() {
         super.onStart()
         val user = auth.currentUser
         user?.reload() // 최신 유저 정보 갱신
         if (user != null) { // 로그인 여부 체크
             navigateToMainActivity(this)
-            showToast(this, "이미 로그인 중입니다")
         } else {
             val profile = signupDialog.getSelectedImageId()  // 이미지 객체 정보
             val nickname = binding.titNickname.text.toString()
@@ -107,60 +101,55 @@ class SignupActivity : MainActivity() {
 
             // 빈칸 확인
             if (nickname.isBlank()) {
-                binding.tilNickname.error = "닉네임을 입력해주세요"
+                binding.tilNickname.error = getString(R.string.error_nickname)
             } else if (email.isBlank()) {
-                binding.tilEmail.error = "이메일을 입력해주세요"
+                binding.tilEmail.error = getString(R.string.error_email)
             } else if (password.isBlank()) {
-                binding.tilPassword.error = "비밀번호를 입력해주세요"
-            } else if (!password.equals(passwordCheck)) {
-                binding.tilPasswordCheck.error = "일치하지 않습니다"
+                binding.tilPassword.error = getString(R.string.error_password)
+            } else if (password != passwordCheck) {
+                binding.tilPasswordCheck.error = getString(R.string.error_password_check)
             } else {
                 // 닉네임 중복 처리 확인
-                db.collection("UserDto").whereEqualTo("nickname", nickname)
+                fireStore.collection("UserDto").whereEqualTo("nickname", nickname)
                     .get()
                     .addOnSuccessListener { documentReference ->
-                        Log.d("docuTest", "${documentReference.documents}")
                         if (documentReference.documents.isEmpty()) {
                             // auth 회원가입
                             auth.createUserWithEmailAndPassword(email, password)
                                 .addOnCompleteListener(this) { task ->
                                     if (task.isSuccessful) {
-                                        val user = auth.currentUser
-                                        // firestore DB에 저장
-                                        val userDto =
-                                            UserDto(user!!.uid, profile, nickname, email, 0)
-
-                                        db.collection("UserDto").document(user.uid)
-                                            .set(userDto)
-                                            .addOnSuccessListener { documentReference ->
-                                                Log.d("documentReference", "$documentReference")
-                                            }
-                                            .addOnFailureListener { e ->
-                                            }
-
-                                        showToast(this, "회원가입 성공 & 자동로그인")
-                                        navigateToMainActivity(this)
-                                        finish()
+                                        saveDataOnDB(profile,nickname,email)
                                     }
                                 }.addOnFailureListener { // 이메일 중복 체크
                                     if (it is FirebaseAuthUserCollisionException) {
-                                        binding.tilEmail.error = "이미 가입된 이메일입니다"
+                                        binding.tilEmail.error = getString(R.string.error_already_signed_email)
                                     }
                                     if (it is FirebaseAuthInvalidCredentialsException) {
-                                        binding.tilEmail.error = "유효하지 않은 이메일 형식입니다"
+                                        binding.tilEmail.error = getString(R.string.error_invalid_email)
                                     }
                                     if (it is FirebaseAuthWeakPasswordException){
-                                        binding.tilPassword.error = "6자 이상의 비밀번호를 입력하여 주세요"
+                                        binding.tilPassword.error = getString(R.string.error_invalid_password)
                                     }
                                 }
                         } else {
-                            binding.tilNickname.error = "이미 가입된 닉네임 입니다."
+                            binding.tilNickname.error = getString(R.string.error_already_made_nickname)
                         }
-                    }
-                    .addOnFailureListener { e ->
                     }
             }
         }
+    }
+
+    // firestore DB에 저장
+    private fun saveDataOnDB(profile : Int, nickname : String, email : String){
+        val user = auth.currentUser
+        val userDto =
+            UserDto(user!!.uid, profile, nickname, email, 0)
+
+        fireStore.collection("UserDto").document(user.uid).set(userDto)
+
+        showToast(this, getString(R.string.signup_success))
+        navigateToMainActivity(this)
+        finish()
     }
 
     private fun setImageByFixedValue(fixedValue: Int) {

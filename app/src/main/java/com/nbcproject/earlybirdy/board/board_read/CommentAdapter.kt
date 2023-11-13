@@ -1,7 +1,6 @@
 package com.nbcproject.earlybirdy.board.board_read
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,15 +10,12 @@ import com.nbcproject.earlybirdy.dto.CommentDto
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-class CommentAdapter(context: Context) : RecyclerView.Adapter<CommentAdapter.Holder>() {
+class CommentAdapter : RecyclerView.Adapter<CommentAdapter.Holder>() {
 
     private val list = ArrayList<CommentDto>()
 
-    //var cContext = context
-
     interface ItemClick {
         fun deleteItem(view: View, commentData: CommentDto)
-
     }
 
     var itemClick: ItemClick? = null
@@ -27,11 +23,6 @@ class CommentAdapter(context: Context) : RecyclerView.Adapter<CommentAdapter.Hol
     @SuppressLint("NotifyDataSetChanged")
     fun addItems(items: List<CommentDto>) {
         list.addAll(items)
-        notifyDataSetChanged()
-    }
-    @SuppressLint("NotifyDataSetChanged")
-    fun removeList(position: Int) {
-        list.removeAt(position)
         notifyDataSetChanged()
     }
 

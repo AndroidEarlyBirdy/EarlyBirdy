@@ -56,10 +56,6 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".alarm.AlarmActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".sign.signin.SignInActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
@@ -90,7 +86,7 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".alarm.AlarmReceiver"
+            android:name=".home.alarm.AlarmReceiver"
             android:enabled="true"
             android:exported="false">
             <intent-filter>

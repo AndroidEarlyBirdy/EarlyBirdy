@@ -1,4 +1,4 @@
-package com.nbcproject.earlybirdy.alarm
+package com.nbcproject.earlybirdy.home.alarm
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
