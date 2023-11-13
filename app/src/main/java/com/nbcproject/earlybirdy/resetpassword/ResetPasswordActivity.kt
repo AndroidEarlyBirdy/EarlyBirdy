@@ -5,7 +5,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import androidx.lifecycle.ViewModelProvider
 import com.nbcproject.earlybirdy.main.MainActivity
-import com.nbcproject.earlybirdy.edit_profile.EditProfileDialog
+import com.nbcproject.earlybirdy.edit_profile.dialog.EditProfileDialog
 import com.nbcproject.earlybirdy.util.navigateToEditProfileActivity
 import com.nbcproject.earlybirdy.util.navigateToMainActivity
 import com.nbcproject.earlybirdy.util.showToast
@@ -43,7 +43,7 @@ class ResetPasswordActivity : MainActivity() {
         }
 
         icRpBack.setOnClickListener {
-            navigateToEditProfileActivity(this@ResetPasswordActivity)
+            finish()
         }
 
         titPasswordCheck.addTextChangedListener(object : TextWatcher {
@@ -86,9 +86,10 @@ class ResetPasswordActivity : MainActivity() {
         } else if (password != passwordCheck) {
             binding.tilPasswordCheck.error = getString(R.string.edittext_unmatch_password)
         }
-
-        changePassword()
-        navigateToMainActivity(this)
+        else {
+            changePassword()
+            navigateToMainActivity(this)
+        }
     }
 
     private fun changePassword() {
@@ -97,6 +98,6 @@ class ResetPasswordActivity : MainActivity() {
     }
 
     override fun onBackPressed() {
-        navigateToEditProfileActivity(this)
+        finish()
     }
 }

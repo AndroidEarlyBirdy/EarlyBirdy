@@ -60,7 +60,7 @@ class RankingFragment : Fragment() {
 
                     // 나의 등수를 나타내는 처리
                     if (user != null && user.uid == currentuser?.uid) {
-                        binding?.tvMyProfile?.setImageResource(user.profile ?: 0)
+                        binding?.ivMyProfile?.setImageResource(user.profile ?: 0)
                         Log.d("유저 프로필", user.profile.toString())
                         binding?.tvMyExp?.text = "${user.exp}"
                         binding?.tvMyName?.text = user.nickname
@@ -118,7 +118,7 @@ class RankingFragment : Fragment() {
             2 -> R.drawable.ic_person2
             3 -> R.drawable.ic_person3
             4 -> R.drawable.ic_person4
-            else -> R.drawable.img_profile_add // 기본값 리소스 ID
+            else -> R.drawable.ic_person1 // 기본값 리소스 ID
         }
 
     }

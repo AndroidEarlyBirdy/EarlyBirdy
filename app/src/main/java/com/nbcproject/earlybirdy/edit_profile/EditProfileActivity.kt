@@ -2,7 +2,6 @@ package com.nbcproject.earlybirdy.edit_profile
 
 import android.os.Bundle
 import com.nbcproject.earlybirdy.databinding.ActivityEditProfileBinding
-import android.util.Log
 import com.nbcproject.earlybirdy.R
 import com.nbcproject.earlybirdy.main.MainActivity
 import com.nbcproject.earlybirdy.util.showToast
@@ -13,6 +12,8 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.nbcproject.earlybirdy.edit_profile.dialog.EditProfileActivityDialog
+import com.nbcproject.earlybirdy.edit_profile.dialog.EditProfileDialog
 
 class EditProfileActivity : MainActivity() {
     private lateinit var binding: ActivityEditProfileBinding
@@ -80,7 +81,6 @@ class EditProfileActivity : MainActivity() {
     private fun onSaveButtonClick() {
         val profile = editProfileDialog.getSelectedEditProfileImageId()  // 이미지 객체 정보
         val nickname = binding.etProfileNickname.text.toString()
-//        val email = binding.etProfileEmail.text.toString()
 
         // 빈칸 확인
         if (nickname.isBlank()) {
@@ -104,8 +104,6 @@ class EditProfileActivity : MainActivity() {
             )
         ).addOnSuccessListener {
             showToast(this@EditProfileActivity,"회원정보 업데이트 완료!")
-        }.addOnFailureListener{e ->
-            Log.e("error","Error updating document", e)
         } else {
            db.collection("UserDto").document(uid).update(
                mapOf(
@@ -113,8 +111,6 @@ class EditProfileActivity : MainActivity() {
                )
            ).addOnSuccessListener {
                showToast(this@EditProfileActivity,"회원정보 업데이트 완료!")
-           }.addOnFailureListener{e ->
-               Log.e("error","Error updating document", e)
            }
        }
     }
@@ -152,17 +148,13 @@ class EditProfileActivity : MainActivity() {
                                 binding.imgProflileProfile.setImageResource(imageResId)
                             }
                         } else {
-                            binding.imgProflileProfile.setImageResource(R.drawable.img_profile_add111)
+                            binding.imgProflileProfile.setImageResource(R.drawable.ic_person1)
                         }
                     }
-                    .addOnFailureListener { exception ->
-
+                    .addOnFailureListener {
                         binding.imgProflileProfile.setImageResource(R.drawable.ic_person4)
                     }
             }
         }
     }
-
-
-
 }

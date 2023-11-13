@@ -19,6 +19,8 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.nbcproject.earlybirdy.R
 import com.nbcproject.earlybirdy.databinding.FragmentMyPageBinding
+import com.nbcproject.earlybirdy.my_page.viewmodel.MyPageViewModel
+import com.nbcproject.earlybirdy.my_page.viewmodel.MyPageViewModelFactory
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import java.util.Calendar
 import java.util.TimeZone
@@ -43,6 +45,12 @@ class MyPageFragment : Fragment() {
 
     //ViewModel
     private lateinit var myPageViewModel: MyPageViewModel
+    private lateinit var myPageContext : Context
+
+    override fun onAttach(context: Context) {
+        myPageContext = context
+        super.onAttach(context)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -88,7 +96,6 @@ class MyPageFragment : Fragment() {
                 binding.pbExp.max = currentMapExp!!
                 binding.tvExperience.text = "$currentExp / $currentMapExp xp"
 
-//                setProfileImage(myUser.profile!!)
                 myUser.profile?.let { setProfileImage(it) }
                 updateLevelImage(currentLevel!!)
             }
@@ -130,26 +137,6 @@ class MyPageFragment : Fragment() {
             else -> binding.ivProfile.setImageResource(R.drawable.ic_person1)
         }
     }
-
-//    //String 값을 CalendarDay로 전환
-//    private fun convertStringToCalendarDay(dateString: String): CalendarDay? {
-//        val dateFormat = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault())
-//        return try {
-//            val date = dateFormat.parse(dateString)
-//            val calendar = Calendar.getInstance()
-//            if (date != null) {
-//                calendar.time = date
-//            }
-//            val year = calendar.get(Calendar.YEAR)
-//            val month = calendar.get(Calendar.MONTH) + 1
-//            val day = calendar.get(Calendar.DAY_OF_MONTH)
-//
-//            CalendarDay.from(year, month, day)
-//        } catch (e: Exception) {
-//            null
-//        }
-//    }
-
 
     private fun loadAttendanceData() {
         firestore.collection("UserDto")
@@ -210,7 +197,7 @@ class MyPageFragment : Fragment() {
                                 goalAchievedDates[day]?.toInt() ?: 0 == 1 -> R.drawable.bg_calendar_date2
                                 else -> R.drawable.bg_calendar_date1
                             }
-                            decorators.add(DayDecorator(day, requireContext(), decoratorDrawableResId))
+                            decorators.add(DayDecorator(day, myPageContext, decoratorDrawableResId))
                         }
                         calendarView.addDecorators(decorators)
                     }
@@ -255,24 +242,6 @@ class MyPageFragment : Fragment() {
         _binding = null
         super.onDestroyView()
     }
-
-//    //날짜 Custom Decorator
-//    class Decorator(dates: List<CalendarDay>, context: Context) : DayViewDecorator {
-//
-//        private val selectedDates = dates
-//
-//        @SuppressLint("UseCompatLoadingForDrawables")
-//        private val drawable = context.getDrawable(R.drawable.bg_calendar_date)
-//        override fun shouldDecorate(day: CalendarDay?): Boolean {
-//            return selectedDates.contains(day)
-//        }
-//
-//        override fun decorate(view: DayViewFacade?) {
-//            if (drawable != null) {
-//                view?.setBackgroundDrawable(drawable)
-//            }
-//        }
-//    }
 }
 
 // 경험치 관련 작업을 아래로 옮김
@@ -286,7 +255,6 @@ fun initializeUIWithLocalExp(localExp: Int): Map<String, Int> {
 
     val expMap = mapOf("exp" to tempExp, "level" to tempLevel, "maxExp" to calculateMaxExpForLevel(tempLevel))
     return expMap
-//        _expMap.value = expMap
 }
 
 private fun calculateMaxExpForLevel(level: Int) : Int{

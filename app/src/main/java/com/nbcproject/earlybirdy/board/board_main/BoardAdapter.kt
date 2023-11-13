@@ -83,4 +83,5 @@ class BoardAdapter(context: Context) : RecyclerView.Adapter<BoardAdapter.Holder>
         }
     }
 
+
 }
