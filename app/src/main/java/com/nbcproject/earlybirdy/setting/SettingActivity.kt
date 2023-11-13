@@ -15,8 +15,8 @@ import com.nbcproject.earlybirdy.main.MainActivity
 import com.nbcproject.earlybirdy.setting.dialog.SettingDeleteDialog
 import com.nbcproject.earlybirdy.setting.viewmodel.SettingViewModel
 import com.nbcproject.earlybirdy.setting.viewmodel.SettingViewModelFactory
-import com.nbcproject.earlybirdy.util.Constants.Companion.genralconditionUrl
-import com.nbcproject.earlybirdy.util.Constants.Companion.openlicenseUrl
+import com.nbcproject.earlybirdy.util.Constants.Companion.generalConditionUrl
+import com.nbcproject.earlybirdy.util.Constants.Companion.openLicenseUrl
 import com.nbcproject.earlybirdy.util.navigateToSigninActivity
 import com.nbcproject.earlybirdy.util.showToast
 
@@ -47,17 +47,17 @@ class SettingActivity : MainActivity() {
 
         //고객지원 구글폼으로 연결
         btnUserSupport.setOnClickListener {
-            intentToSupportLink()
+            intentToLink(supportUrl)
         }
 
         //오픈 라이선스 구글폼으로 연결
         btnOpenLicense.setOnClickListener {
-            intentToOpenLicenseUrlLink()
+            intentToLink(openLicenseUrl)
         }
 
         //약관 구글폼으로 연결
         btnGenralCondition.setOnClickListener {
-            intentToGeneralConditionLink()
+            intentToLink(generalConditionUrl)
         }
 
         //로그아웃 버튼
@@ -91,28 +91,8 @@ class SettingActivity : MainActivity() {
         }
     }
 
-    private fun intentToSupportLink() {
-        val supportLink = supportUrl
-
-        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(supportLink))
-        try {
-            startActivity(browserIntent)
-        } catch (e: ActivityNotFoundException) {
-            showToast(this, getString(R.string.setting_connect_error_toast))
-        }
-    }
-
-    private fun intentToOpenLicenseUrlLink() {
-        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(openlicenseUrl))
-        try {
-            startActivity(browserIntent)
-        } catch (e: ActivityNotFoundException) {
-            showToast(this, getString(R.string.setting_connect_error_toast))
-        }
-    }
-
-    private fun intentToGeneralConditionLink() {
-        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(genralconditionUrl))
+    private fun intentToLink(settingUrl : String) {
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(settingUrl))
         try {
             startActivity(browserIntent)
         } catch (e: ActivityNotFoundException) {

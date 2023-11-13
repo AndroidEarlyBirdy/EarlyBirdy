@@ -1,4 +1,4 @@
-package com.nbcproject.earlybirdy.home
+package com.nbcproject.earlybirdy.home.alarm
 
 import android.annotation.SuppressLint
 import android.app.AlarmManager
@@ -10,8 +10,11 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import androidx.annotation.RequiresApi
-import com.nbcproject.earlybirdy.alarm.AlarmReceiver
 import com.nbcproject.earlybirdy.databinding.DialogAlarmBinding
+import com.nbcproject.earlybirdy.util.SharedPreferenceKeys.Companion.alarmSetting
+import com.nbcproject.earlybirdy.util.SharedPreferenceKeys.Companion.alarmSwitch
+import com.nbcproject.earlybirdy.util.SharedPreferenceKeys.Companion.hour
+import com.nbcproject.earlybirdy.util.SharedPreferenceKeys.Companion.minute
 import java.util.Calendar
 
 class AlarmDialog(context: Context):Dialog(context) {
@@ -31,13 +34,13 @@ class AlarmDialog(context: Context):Dialog(context) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        val pref = context.getSharedPreferences("alarmSetting", 0)
+        val pref = context.getSharedPreferences(alarmSetting, 0)
 
         if (pref != null) {
-            binding.tpSetTime.hour = pref.getInt("hour", 4)
-            binding.tpSetTime.minute = pref.getInt("minute", 0)
+            binding.tpSetTime.hour = pref.getInt(hour, 4)
+            binding.tpSetTime.minute = pref.getInt(minute, 0)
 
-            binding.switchAlarm.isChecked = pref.getBoolean("alarmSwitch", false)
+            binding.switchAlarm.isChecked = pref.getBoolean(alarmSwitch, false)
         }else{
             binding.tpSetTime.hour = 4
             binding.tpSetTime.minute = 0
@@ -72,7 +75,7 @@ class AlarmDialog(context: Context):Dialog(context) {
     }
 
     private fun setTimeChangedListener() {
-        binding.tpSetTime.setOnTimeChangedListener { view, hourOfDay, minute ->
+        binding.tpSetTime.setOnTimeChangedListener { _, hourOfDay, _ ->
             if (hourOfDay > 7 || hourOfDay < 4) {
                 binding.tpSetTime.hour = 4
 
@@ -84,13 +87,13 @@ class AlarmDialog(context: Context):Dialog(context) {
     }
 
     private fun saveTime() {
-        val dPref = context.getSharedPreferences("alarmSetting", Context.MODE_PRIVATE)
+        val dPref = context.getSharedPreferences(alarmSetting, Context.MODE_PRIVATE)
         val editTime = dPref.edit()
 
-        editTime.putInt("hour", binding.tpSetTime.hour)
-        editTime.putInt("minute", binding.tpSetTime.minute)
+        editTime.putInt(hour, binding.tpSetTime.hour)
+        editTime.putInt(minute, binding.tpSetTime.minute)
 
-        editTime.putBoolean("alarmSwitch", binding.switchAlarm.isChecked)
+        editTime.putBoolean(alarmSwitch, binding.switchAlarm.isChecked)
 
         editTime.apply()
     }

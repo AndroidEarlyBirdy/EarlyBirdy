@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.widget.Toast
+import com.nbcproject.earlybirdy.R
 import com.nbcproject.earlybirdy.data.Todo
 import com.nbcproject.earlybirdy.databinding.ActivityCreatePlanDialogBinding
 import com.prolificinteractive.materialcalendarview.CalendarDay
@@ -62,7 +63,7 @@ class CreatePlanDialog(
                         }
                         dismiss()
                     } else {
-                        Toast.makeText(context, "오늘의 계획을 입력하세요.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, R.string.toast_blank_plan, Toast.LENGTH_SHORT).show()
                     }
                 }
 
@@ -79,7 +80,7 @@ class CreatePlanDialog(
                                 dismiss()
                             }
                             else {
-                                Toast.makeText(context, "오늘의 계획을 입력하세요.", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(context, R.string.toast_blank_plan, Toast.LENGTH_SHORT).show()
                             }
                         }
                     }

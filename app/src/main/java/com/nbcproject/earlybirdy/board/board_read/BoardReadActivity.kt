@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -21,7 +20,6 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
 import com.nbcproject.earlybirdy.R
 import com.nbcproject.earlybirdy.main.MainActivity
 import com.nbcproject.earlybirdy.util.Constants
@@ -35,28 +33,20 @@ class BoardReadActivity : MainActivity() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
-    val db = Firebase.firestore
+    private val db = Firebase.firestore
     private val fireStore = FirebaseFirestore.getInstance()
-
     private var nickname: String? = ""
-
     private val cdata: MutableList<CommentDto> = mutableListOf()
-
     private val commentAdapter by lazy {
-        CommentAdapter(this)
+        CommentAdapter()
     }
-
-    private val storage = FirebaseStorage.getInstance()
-    val storageRef = storage.reference
-
-    //private lateinit var cContext: Context
     private lateinit var cmanager: LinearLayoutManager
 
     companion object {
         //나중에 위치 받아서 값 설정하기
         // 위치 사용될 변수
         lateinit var BoardData: BoardDto
-        fun BoardReadIntent(context: Context?, boardData: BoardDto) =
+        fun boardReadIntent(context: Context?, boardData: BoardDto) =
             Intent(context, BoardReadActivity::class.java).apply {
                 BoardData = boardData
             }
@@ -90,7 +80,7 @@ class BoardReadActivity : MainActivity() {
                 startActivity(boardWriteIntent)
                 finish()
             } else {
-                showToast(this, "작성자만 게시글을 수정할 수 있습니다")
+                showToast(this, getString(R.string.edit_board_error))
             }
         }
 
@@ -152,15 +142,13 @@ class BoardReadActivity : MainActivity() {
                         .collection("CommentDto")
                         .document().delete()
                         .addOnSuccessListener {
-                            showToast(this, "게시글이 삭제되었습니다.")
                             finish()
                         }
                 }.addOnFailureListener {
-                    showToast(this, "게시글 삭제에 실패했습니다.")
-
+                    showToast(this, getString(R.string.delete_board_error))
                 }
         } else {
-            showToast(this, "작성자만 게시글을 삭제할 수 있습니다")
+            showToast(this, getString(R.string.delete_board_user_error))
         }
     }
 
@@ -194,7 +182,7 @@ class BoardReadActivity : MainActivity() {
                     cdata.remove(commentData)
                 }
         } else {
-            showToast(this, "댓글 작성자만 댓글을 삭제할 수 있습니다")
+            showToast(this, getString(R.string.delete_reply_user_error))
         }
     }
 
@@ -215,7 +203,6 @@ class BoardReadActivity : MainActivity() {
                             citem.comments
                         )
                         cdata.add(commentItam)
-                        Log.d("comment", commentItam.toString())
                     }
                 }
                 cdata.sortBy { it.commentTime } // 날짜순 정렬
@@ -224,7 +211,7 @@ class BoardReadActivity : MainActivity() {
     }
 
     // 댓글에 들어갈 작성자 닉네임 불러오기
-    fun getUserNicknameData() {
+    private fun getUserNicknameData() {
         val user = auth.currentUser
         fireStore.collection("UserDto").document(user!!.uid).addSnapshotListener { value, _ ->
             if (value != null) {
@@ -243,7 +230,7 @@ class BoardReadActivity : MainActivity() {
         val comments = binding.etComment.text.toString()
 
         if (comments.isEmpty()) {
-            binding.etComment.error = "댓글을 입력해주세요"
+            binding.etComment.error = getString(R.string.reply_blank_error)
         } else {
             val commentDto =
                 CommentDto(
@@ -256,10 +243,6 @@ class BoardReadActivity : MainActivity() {
             db.collection("BoardDto").document(BoardData.bid).collection("CommentDto")
                 .document(commentIndex)
                 .set(commentDto)
-                .addOnSuccessListener { documentReference ->
-                }
-                .addOnFailureListener { e ->
-                }
         }
     }
 }

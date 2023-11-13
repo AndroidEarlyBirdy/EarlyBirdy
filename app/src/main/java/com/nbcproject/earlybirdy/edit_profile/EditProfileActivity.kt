@@ -2,12 +2,9 @@ package com.nbcproject.earlybirdy.edit_profile
 
 import android.os.Bundle
 import com.nbcproject.earlybirdy.databinding.ActivityEditProfileBinding
-import com.nbcproject.earlybirdy.signup.EditProfileDialog
 import android.util.Log
-import com.example.earlybirdy.edit_profile.EditProfileActivityDialog
 import com.nbcproject.earlybirdy.R
 import com.nbcproject.earlybirdy.main.MainActivity
-import com.nbcproject.earlybirdy.util.navigateToMainActivity
 import com.nbcproject.earlybirdy.util.showToast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -129,15 +126,12 @@ class EditProfileActivity : MainActivity() {
             .addOnSuccessListener { document ->
                 if (document != null) {
                     val nickname = document.getString("nickname") ?: ""
-                    val email = document.getString("email") ?: ""
                     val profile = document.getLong("profile")?.toInt() ?: 0
                     setImageByFixedValue(profile)
                     binding.etProfileNickname.setText(nickname)
-//                    binding.etProfileEmail.setText(email)
                 }
             }
             .addOnFailureListener { e ->
-                Log.e("loadUserData", "사용자 정보 로딩 실패", e)
                 showToast(this, "사용자 정보 로딩에 실패했습니다.")
             }
     }
