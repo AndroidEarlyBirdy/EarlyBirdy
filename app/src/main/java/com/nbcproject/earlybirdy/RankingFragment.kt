@@ -117,7 +117,7 @@ class RankingFragment : Fragment() {
             2 -> R.drawable.ic_person2
             3 -> R.drawable.ic_person3
             4 -> R.drawable.ic_person4
-            else -> R.drawable.img_profile_add // 기본값 리소스 ID
+            else -> R.drawable.ic_person1 // 기본값 리소스 ID
         }
 
     }
