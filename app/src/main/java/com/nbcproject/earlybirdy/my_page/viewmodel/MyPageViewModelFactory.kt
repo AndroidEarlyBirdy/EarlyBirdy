@@ -1,4 +1,4 @@
-package com.nbcproject.earlybirdy.my_page
+package com.nbcproject.earlybirdy.my_page.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

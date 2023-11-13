@@ -109,7 +109,7 @@
             android:adjustViewBounds="true"
             android:padding="1dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/img_profile_add"
+            android:src="@drawable/ic_person1"
             app:layout_constraintStart_toStartOf="@+id/btn_roundboard"
             app:layout_constraintTop_toTopOf="@+id/btn_roundboard"
             app:shapeAppearanceOverlay="@style/RoundedShapeAppearanceOverlay"
