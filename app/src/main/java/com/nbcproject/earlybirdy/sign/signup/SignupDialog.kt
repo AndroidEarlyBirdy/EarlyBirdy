@@ -8,10 +8,8 @@ import android.os.Bundle
 import com.nbcproject.earlybirdy.R
 import com.nbcproject.earlybirdy.databinding.ActivitySignupDialogBinding
 
+class SignupDialog (context: Context) : Dialog(context) {
 
-class SignupDialog (
-    context: Context,
-) : Dialog(context) {
     private lateinit var binding: ActivitySignupDialogBinding
     private var selectedImageId: Int = 0
     private var lastSelectedImageId: Int = 0
@@ -63,9 +61,6 @@ class SignupDialog (
         binding.btnSignupDialogSave.setOnClickListener {
             if(selectedImageId != 0) {
                 onSaveClickListener?.invoke(selectedImageId)
-
-            } else {
-                dismiss()
             }
             dismiss()
         }

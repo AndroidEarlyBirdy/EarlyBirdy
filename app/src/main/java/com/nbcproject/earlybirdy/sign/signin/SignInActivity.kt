@@ -1,5 +1,6 @@
 package com.nbcproject.earlybirdy.sign.signin
 
+import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -9,6 +10,7 @@ import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProvider
 import com.nbcproject.earlybirdy.R
 import com.nbcproject.earlybirdy.databinding.ActivitySigninBinding
+import com.nbcproject.earlybirdy.home.HomeFragment
 import com.nbcproject.earlybirdy.main.MainActivity
 import com.nbcproject.earlybirdy.sealedclass.SignInNavigation
 import com.nbcproject.earlybirdy.sign.signin.viewmodel.SignInViewModel
@@ -78,31 +80,36 @@ class SignInActivity : MainActivity() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
             if (ActivityCompat.checkSelfPermission(
                     this,
-                    android.Manifest.permission.READ_EXTERNAL_STORAGE
-                ) != PackageManager.PERMISSION_GRANTED ||
-                ActivityCompat.checkSelfPermission(
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(
                     this,
-                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
                 ) != PackageManager.PERMISSION_GRANTED
             ) {
                 val permissions = arrayOf(
-                    android.Manifest.permission.READ_EXTERNAL_STORAGE,
-                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    android.Manifest.permission.SCHEDULE_EXACT_ALARM,
-                    android.Manifest.permission.POST_NOTIFICATIONS
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.SCHEDULE_EXACT_ALARM,
+                    Manifest.permission.POST_NOTIFICATIONS,
+                    Manifest.permission.ACCESS_FINE_LOCATION
                 )
                 ActivityCompat.requestPermissions(this, permissions, MY_PERMISSION_ACCESS_ALL)
             }
         } else {
             if (ActivityCompat.checkSelfPermission(
                     this,
-                    android.Manifest.permission.READ_MEDIA_IMAGES
+                    Manifest.permission.READ_MEDIA_IMAGES
                 ) != PackageManager.PERMISSION_GRANTED
             ) {
                 val permissions = arrayOf(
-                    android.Manifest.permission.READ_MEDIA_IMAGES,
-                    android.Manifest.permission.SCHEDULE_EXACT_ALARM,
-                    android.Manifest.permission.POST_NOTIFICATIONS
+                    Manifest.permission.READ_MEDIA_IMAGES,
+                    Manifest.permission.SCHEDULE_EXACT_ALARM,
+                    Manifest.permission.POST_NOTIFICATIONS
                 )
                 ActivityCompat.requestPermissions(this, permissions, MY_PERMISSION_ACCESS_ALL)
             }

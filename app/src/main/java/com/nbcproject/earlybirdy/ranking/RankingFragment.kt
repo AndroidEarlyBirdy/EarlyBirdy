@@ -1,4 +1,4 @@
-package com.nbcproject.earlybirdy
+package com.nbcproject.earlybirdy.ranking
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,6 +12,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import com.nbcproject.earlybirdy.R
 
 class RankingFragment : Fragment() {
     var auth: FirebaseAuth? = null
