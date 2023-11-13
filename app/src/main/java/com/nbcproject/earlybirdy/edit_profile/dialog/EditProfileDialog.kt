@@ -1,4 +1,4 @@
-package com.nbcproject.earlybirdy.edit_profile
+package com.nbcproject.earlybirdy.edit_profile.dialog
 
 import android.app.Dialog
 import android.content.Context

@@ -1,4 +1,4 @@
-package com.nbcproject.earlybirdy.create_plan
+package com.nbcproject.earlybirdy.create_plan.dialog
 
 import android.app.Dialog
 import android.content.Context
