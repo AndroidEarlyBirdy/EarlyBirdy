@@ -5,11 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".home.HomeFragment">
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <ImageView
             android:id="@+id/imageView3"
             android:layout_width="match_parent"
@@ -21,15 +19,14 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:background="@drawable/ic_glassbackground"
-            android:padding="16dp"
+            android:id="@+id/constraintLayout3"
+            android:layout_width="320dp"
+            android:layout_height="320dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_famous">
+            app:layout_constraintTop_toBottomOf="@+id/imageView7">
 
             <com.dinuscxj.progressbar.CircleProgressBar
                 android:id="@+id/progress_bar"
@@ -78,7 +75,7 @@
             android:id="@+id/tv_title_alarm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="50dp"
             android:layout_marginTop="16dp"
             android:text="@string/home_goodmorning"
             android:textSize="16sp"
@@ -89,15 +86,15 @@
 
         <ImageView
             android:id="@+id/iv_go_alarm"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
+            android:layout_marginStart="41dp"
             android:layout_marginTop="9dp"
+            android:layout_marginEnd="42dp"
             android:src="@drawable/ic_list_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_title_alarm" />
-
         <TextView
             android:id="@+id/tv_alarm"
             android:layout_width="wrap_content"
@@ -110,7 +107,6 @@
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/iv_go_alarm"
             app:layout_constraintTop_toTopOf="@+id/iv_go_alarm" />
-
         <ImageButton
             android:id="@+id/btn_attend"
             android:layout_width="wrap_content"
@@ -126,7 +122,7 @@
             android:id="@+id/tv_todaygoal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="50dp"
             android:layout_marginTop="32dp"
             android:text="@string/home_today_goal"
             android:textSize="16sp"
@@ -134,38 +130,27 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_go_alarm"
             tools:textColor="#444444" />
-
         <ImageButton
             android:id="@+id/btn_create"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="13dp"
             android:background="@android:color/transparent"
             android:src="@drawable/btn_plus"
-            app:layout_constraintBottom_toBottomOf="@id/tv_todaygoal"
             app:layout_constraintStart_toEndOf="@+id/tv_todaygoal"
-            app:layout_constraintTop_toTopOf="@+id/tv_todaygoal" />
-
-        <ImageButton
-            android:id="@+id/btn_LeftArrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:src="@drawable/btn_leftarrow"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/rv_todo_main"
-            app:layout_constraintBottom_toBottomOf="@+id/rv_todo_main"/>
-
+            app:layout_constraintTop_toTopOf="@+id/tv_todaygoal"
+            app:layout_constraintBottom_toBottomOf="@id/tv_todaygoal"/>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_todo_main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="12dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_todaygoal" />
-
         <TextView
+            android:visibility="gone"
             android:id="@+id/tv_EmptyListMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -174,68 +159,69 @@
             android:text="@string/home_select_goal"
             android:textColor="#444444"
             android:textSize="16sp"
-            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/rv_todo_main"
             app:layout_constraintStart_toStartOf="@+id/rv_todo_main"
             app:layout_constraintTop_toTopOf="@+id/rv_todo_main" />
-
-
-
+        <ImageButton
+            android:id="@+id/btn_LeftArrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/btn_leftarrow"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/rv_todo_main" />
         <ImageButton
             android:id="@+id/btn_RightArrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
             android:background="@android:color/transparent"
             android:src="@drawable/btn_rightarrow"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/rv_todo_main"
-            app:layout_constraintBottom_toBottomOf="@+id/rv_todo_main"/>
-
+            app:layout_constraintTop_toTopOf="@+id/rv_todo_main" />
         <ImageView
-            android:id="@+id/iv_famous"
-            android:layout_width="match_parent"
+            android:id="@+id/imageView7"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:src="@drawable/ic_topbackground"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.505"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
         <TextView
             android:id="@+id/tv_famous"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="230dp"
+            android:layout_height="44dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
             android:gravity="center_vertical"
             android:maxLines="3"
             android:text="text"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_famous"
-            app:layout_constraintEnd_toStartOf="@+id/ic_weather"
-            app:layout_constraintStart_toStartOf="@+id/iv_famous"
-            app:layout_constraintTop_toTopOf="@+id/iv_famous" />
-
+            app:layout_constraintStart_toStartOf="@+id/imageView7"
+            app:layout_constraintTop_toTopOf="@+id/imageView7" />
         <ImageView
             android:id="@+id/ic_weather"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_centerVertical="true"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="12dp"
             android:elevation="2dp"
             android:src="@drawable/circular_progress"
             app:layout_constraintBottom_toTopOf="@+id/tv_temperature"
-            app:layout_constraintEnd_toEndOf="@+id/iv_famous"
-            app:layout_constraintTop_toTopOf="@+id/iv_famous" />
-
+            app:layout_constraintEnd_toEndOf="@+id/imageView7"
+            app:layout_constraintTop_toTopOf="@+id/imageView7" />
         <TextView
             android:id="@+id/tv_temperature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/ic_weather"
-            app:layout_constraintStart_toStartOf="@+id/ic_weather"
+            app:layout_constraintEnd_toEndOf="@+id/imageView7"
             app:layout_constraintTop_toBottomOf="@+id/ic_weather"
             tools:text="00 ℃" />
     </androidx.constraintlayout.widget.ConstraintLayout>
