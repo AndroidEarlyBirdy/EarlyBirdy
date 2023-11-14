@@ -16,11 +16,11 @@
 <table>
   <tbody>
     <tr>
-      <td align="center"><a href="https://github.com/AgileCatch"><img src=https://avatars.githubusercontent.com/u/133902344?v=4" width="100px;"><br /><sub><b>김지견</b></sub></a><br /></a></td>
-      <td align="center"><a href="https://github.com/minji05"><img src="https://avatars.githubusercontent.com/u/139108875?v=4" width="100px;"><br /><sub><b>박승윤</b></sub></a><br /></a></td>
-      <td align="center"><a href="https://github.com/LeeChoongHwan"><img src="https://avatars.githubusercontent.com/u/65258441?v=4" width="100px;"><br /><sub><b>신민지</b></sub></a><br /></a></td>
-      <td align="center"><a href="https://github.com/junghyunsick"><img src="https://avatars.githubusercontent.com/u/86705733?v=4" width="100px;"><br /><sub><b>이동희</b></sub></a><br /></a></td>
-      <td align="center"><a href="https://github.com/junghyunsick"><img src="https://avatars.githubusercontent.com/u/102038187?v=4" width="100px;"><br /><sub><b>이충환</b></sub></a><br /></a></td>
+      <td align="center"><a href="https://github.com/Odin5din"><img src=https://avatars.githubusercontent.com/u/133902344?v=4" width="100px;"><br /><sub><b>김지견</b></sub></a><br /></a></td>
+      <td align="center"><a href="https://github.com/SeungYoonPark"><img src="https://avatars.githubusercontent.com/u/139108875?v=4" width="100px;"><br /><sub><b>박승윤</b></sub></a><br /></a></td>
+      <td align="center"><a href="https://github.com/minji05"><img src="https://avatars.githubusercontent.com/u/65258441?v=4" width="100px;"><br /><sub><b>신민지</b></sub></a><br /></a></td>
+      <td align="center"><a href="https://github.com/LeeDonghee0917"><img src="https://avatars.githubusercontent.com/u/86705733?v=4" width="100px;"><br /><sub><b>이동희</b></sub></a><br /></a></td>
+      <td align="center"><a href="https://github.com/LeeChoongHwan"><img src="https://avatars.githubusercontent.com/u/102038187?v=4" width="100px;"><br /><sub><b>이충환</b></sub></a><br /></a></td>
      <tr/>
   </tbody>
 </table>
