@@ -53,7 +53,7 @@ class CommentAdapter : RecyclerView.Adapter<CommentAdapter.Holder>() {
     inner class Holder(val binding: ItemBoardCommentBinding) : RecyclerView.ViewHolder(binding.root) {
 
         // 타임스템프 변환
-        private val dateFormat = SimpleDateFormat("yy.MM.dd", Locale.getDefault())
+        private val dateFormat = SimpleDateFormat("yy.MM.dd.HH.mm", Locale.getDefault())
 
         fun bind(item: CommentDto) = with(binding) { //클릭이벤트추가부분
             ivDeleteComment.setOnClickListener {

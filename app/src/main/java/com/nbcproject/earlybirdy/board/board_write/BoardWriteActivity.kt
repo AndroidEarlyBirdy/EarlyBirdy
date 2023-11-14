@@ -37,6 +37,7 @@ class BoardWriteActivity : MainActivity() {
     private val storage = FirebaseStorage.getInstance()
 
     private var nickname: String? = ""
+    private var porfile: Int? = 0
 
     private var imgUri: Uri = "".toUri()
 
@@ -62,7 +63,7 @@ class BoardWriteActivity : MainActivity() {
         }
 
         setOnClickListener()
-        getUserNicknameData()
+        getUserData()
     }
 
     // 클릭 리스너 함수
@@ -101,11 +102,12 @@ class BoardWriteActivity : MainActivity() {
         }
     }
 
-    private fun getUserNicknameData() {
+    private fun getUserData() {
         var user = auth.currentUser
         fireStore.collection("UserDto").document(user!!.uid).addSnapshotListener { value, _ ->
             if (value != null) {
                 nickname = value.getString("nickname")
+                porfile = value.getLong("profile")?.toInt()
             }
             binding.tvWriter.text = nickname
         }
@@ -150,7 +152,7 @@ class BoardWriteActivity : MainActivity() {
 
         val storage: FirebaseStorage = FirebaseStorage.getInstance()
 
-        if (photoCheck){
+        if (photoCheck) {
             val imagesRef = storage.reference.child(boardIndex).child(boardIndex)
 
             imagesRef.putFile(imgUri).addOnSuccessListener { taskSnapshot ->
@@ -168,6 +170,7 @@ class BoardWriteActivity : MainActivity() {
                                 boardIndex,
                                 user!!.uid,
                                 nickname!!,
+                                porfile,
                                 createdTime,
                                 contentsTitle,
                                 contents,
@@ -181,7 +184,7 @@ class BoardWriteActivity : MainActivity() {
                     }
                 }
             }
-        }else{
+        } else {
             if (contentsTitle.isEmpty()) {
                 binding.etContentsTitle.error = getString(R.string.blank_title)
             } else if (contents.isEmpty()) {
@@ -192,6 +195,7 @@ class BoardWriteActivity : MainActivity() {
                         boardIndex,
                         user!!.uid,
                         nickname!!,
+                        porfile,
                         createdTime,
                         contentsTitle,
                         contents,
@@ -257,12 +261,18 @@ class BoardWriteActivity : MainActivity() {
         }
     }
 
-    private fun updateBoardDatabase(boardData : BoardDto, contentsTitle : String,contents : String, contentsPhoto : String?) {
+    private fun updateBoardDatabase(
+        boardData: BoardDto,
+        contentsTitle: String,
+        contents: String,
+        contentsPhoto: String?
+    ) {
         val boardDto =
             BoardDto(
                 boardData.bid,
                 boardData.uid,
                 nickname!!,
+                porfile,
                 boardData.createdTime,
                 contentsTitle,
                 contents,
