@@ -58,15 +58,15 @@ class RankingFragment : Fragment() {
                     Log.d("아아아 이름 되냐고로로", nickname)
 
 
-                    // 나의 등수를 나타내는 처리
-                    if (user != null && user.uid == currentuser?.uid) {
-                        binding?.ivMyProfile?.setImageResource(user.profile ?: 0)
-                        Log.d("유저 프로필", user.profile.toString())
-                        binding?.tvMyExp?.text = "${user.exp}"
-                        binding?.tvMyName?.text = user.nickname
-                        binding?.tvMyRank?.text = "${index + 1}등"
-                        Log.d("유저 이름", user.nickname)
-                    }
+//                    // 나의 등수를 나타내는 처리
+//                    if (user != null && user.uid == currentuser?.uid) {
+//                        binding?.ivMyProfile?.setImageResource(user.profile ?: 0)
+//                        Log.d("유저 프로필", user.profile.toString())
+//                        binding?.tvMyExp?.text = "${user.exp}"
+//                        binding?.tvMyName?.text = user.nickname
+//                        binding?.tvMyRank?.text = "${index + 1}등"
+//                        Log.d("유저 이름", user.nickname)
+//                    }
                 }
 
                 // 상위 3명의 사용자를 이미지뷰와 TextView에 설정
