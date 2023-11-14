@@ -40,11 +40,16 @@ class BoardReadActivity : MainActivity() {
     private lateinit var database: DatabaseReference
     private val db = Firebase.firestore
     private val fireStore = FirebaseFirestore.getInstance()
+
     private var nickname: String? = ""
+    private var profile: Int? = 1
+
     private val cdata: MutableList<CommentDto> = mutableListOf()
+
     private val commentAdapter by lazy {
         CommentAdapter()
     }
+
     private lateinit var cmanager: LinearLayoutManager
 
     companion object {
@@ -171,23 +176,48 @@ class BoardReadActivity : MainActivity() {
         }
     }
 
+//    private fun getWriterData() {
+//        fireStore.collection("UserDto").document(BoardData.uid).get().addOnSuccessListener {
+//            if (it != null) {
+//                nickname = it.getString("nickname")
+//                profile = it.getLong("profile")?.toInt()
+//            }
+//            binding.tvNickname.text = nickname
+//            when (profile) {
+//                1 -> binding.ivProfile.setImageResource(R.drawable.ic_person1)
+//                2 -> binding.ivProfile.setImageResource(R.drawable.ic_person2)
+//                3 -> binding.ivProfile.setImageResource(R.drawable.ic_person3)
+//                4 -> binding.ivProfile.setImageResource(R.drawable.ic_person4)
+//                else -> binding.ivProfile.setImageResource(R.drawable.ic_person1)
+//            }
+//        }
+//    }
+
     // 게시글 읽기
     private fun readBoard() = with(binding) {
 
-        val dateFormat = SimpleDateFormat("yy.MM.dd", Locale.getDefault())
+        val dateFormat = SimpleDateFormat("yy.MM.dd.HH.mm", Locale.getDefault())
 
         tvNickname.text = BoardData.writer
         etContentsTitle.text = BoardData.contentsTitle
         tvCreatedDatetime.text = BoardData.createdTime?.toDate()?.let { dateFormat.format(it) }
         etContents.text = BoardData.contents
-        if (BoardData.contentsPhoto != null) {
-            Glide.with(this@BoardReadActivity).load(BoardData.contentsPhoto).error(R.drawable.ic_logo)
-                .into(binding.ivPicture)
-        }else{
-            binding.ivPicture.visibility = View.GONE
+
+        when (BoardData.profile) {
+            1 -> binding.ivProfile.setImageResource(R.drawable.ic_person1)
+            2 -> binding.ivProfile.setImageResource(R.drawable.ic_person2)
+            3 -> binding.ivProfile.setImageResource(R.drawable.ic_person3)
+            4 -> binding.ivProfile.setImageResource(R.drawable.ic_person4)
+            else -> binding.ivProfile.setImageResource(R.drawable.ic_person1)
         }
 
-
+        if (BoardData.contentsPhoto != null) {
+            Glide.with(this@BoardReadActivity).load(BoardData.contentsPhoto)
+                .error(R.drawable.ic_logo)
+                .into(binding.ivPicture)
+        } else {
+            binding.ivPicture.visibility = View.GONE
+        }
     }
 
     // 게시글 삭제
