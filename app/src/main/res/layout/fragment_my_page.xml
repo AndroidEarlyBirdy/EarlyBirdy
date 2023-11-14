@@ -47,17 +47,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_setting" />
 
-        <!--        <com.google.android.material.imageview.ShapeableImageView-->
-        <!--            android:id="@+id/iv_profile"-->
-        <!--            android:layout_width="110dp"-->
-        <!--            android:layout_height="110dp"-->
-        <!--            android:elevation="1dp"-->
-        <!--            android:src="@drawable/ic_person1"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:layout_constraintTop_toBottomOf="@+id/iv_setting"-->
-        <!--            app:shapeAppearanceOverlay="@style/circle" />-->
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintlayout_status"
             android:layout_width="match_parent"
@@ -72,7 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="55dp"
-                android:text="@string/mypage_nickname"
+                android:text="@string/mypage_tv_nickname"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -83,7 +72,7 @@
                 android:id="@+id/tv_level"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/mypage_level"
+                android:text="@string/mypage_tv_level"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/tv_experience"
@@ -97,7 +86,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="@string/mypage_exp"
+                android:text="@string/mypage_tv_exp"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -165,14 +154,14 @@
             tools:layout_editor_absoluteX="16dp">
 
             <ImageView
-                android:id="@+id/imageView_rightTop"
+                android:id="@+id/iv_tooltip"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="top|end"
                 android:layout_marginTop="8dp"
                 android:layout_marginRight="8dp"
                 android:src="@drawable/ic_question_mark"
-                android:tooltipText="오늘의 목표 달성도에 따라서 달력의 마크 색상이 달라집니다." />
+                android:tooltipText="@string/mypage_tt_grass" />
 
             <com.prolificinteractive.materialcalendarview.MaterialCalendarView
                 android:id="@+id/calendarView"

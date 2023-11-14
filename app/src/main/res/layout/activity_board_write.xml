@@ -31,12 +31,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="게시글 작성"
+        android:text="@string/title_boardwrite"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/btn_creatContents"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="20dp"
+        android:text="@string/board_tv_write"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -48,7 +61,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_Title">
 
-
         <EditText
             android:id="@+id/et_contentsTitle"
             android:layout_width="0dp"
@@ -58,7 +70,7 @@
             android:layout_marginTop="28dp"
             android:layout_marginEnd="16dp"
             android:backgroundTint="#ABABAB"
-            android:hint="제목을 입력해주세요"
+            android:hint="@string/boardwrite_et_contentsTitle"
             android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -88,7 +100,7 @@
             android:layout_marginEnd="16dp"
             android:backgroundTint="#FFFFFF"
             android:gravity="top"
-            android:hint="게시글을 작성해주세요"
+            android:hint="@string/boardwrite_et_contents"
             android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -119,7 +131,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="작성자"
+                android:text="@string/itemboard_tv_writer"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -129,29 +141,11 @@
                 android:id="@+id/tv_writer"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp"
-                android:hint="작성자"
+                android:hint="@string/itemboard_tv_writer"
                 android:textColor="#444444"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_writerName"
                 app:layout_constraintEnd_toEndOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/btn_creatContents"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="20dp"
-        android:text="완료"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

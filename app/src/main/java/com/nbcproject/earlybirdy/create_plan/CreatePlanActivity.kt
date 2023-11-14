@@ -107,10 +107,10 @@ class CreatePlanActivity : MainActivity(), CreatePlanDialog.DialogCreateListener
                     ).show()
                 }
                 else {
-                    CreateFailDialog(this@CreatePlanActivity, getString(R.string.dialog_plan_limit)).show()
+                    CreateFailDialog(this@CreatePlanActivity, getString(R.string.createPlan_tv_3limit)).show()
                 }
             } else {
-                CreateFailDialog(this@CreatePlanActivity, getString(R.string.dialog_passed_date)).show()
+                CreateFailDialog(this@CreatePlanActivity, getString(R.string.createPlan_tv_passeddate)).show()
             }
 
         }
