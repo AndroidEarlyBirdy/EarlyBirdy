@@ -51,7 +51,7 @@ class SettingCheckUserDialog(
                     deleteUser()
                 }
                 is CheckAuth.ElseException -> {
-                    binding.tilSldPassword.error = context.getString(R.string.setting_auth_fail_else)
+                    binding.tilSldPassword.error = context.getString(R.string.setCheckUser_error_mismatchAccount)
                 }
             }
         }

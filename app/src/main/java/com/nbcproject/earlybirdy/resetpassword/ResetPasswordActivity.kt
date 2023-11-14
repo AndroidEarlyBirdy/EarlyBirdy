@@ -57,10 +57,10 @@ class ResetPasswordActivity : MainActivity() {
                 if (binding.titPassword.text.toString() == binding.titPasswordCheck.text.toString()
                 ) {
                     binding.tilPasswordCheck.error =
-                        getString(R.string.edittext_match_password)
+                        getString(R.string.util_error_matchPassword)
                 } else {
                     binding.tilPasswordCheck.error =
-                        getString(R.string.edittext_unmatch_password)
+                        getString(R.string.util_error_mismatchPassword)
                 }
             }
         })
@@ -70,7 +70,7 @@ class ResetPasswordActivity : MainActivity() {
         resetPasswordViewModel.changePasswordState.observe(this@ResetPasswordActivity) {
             when(it) {
                 is CheckChangePassword.ChangeFailed -> {
-                    showToast(this, getString(R.string.reset_password_fail))
+                    showToast(this, getString(R.string.resetPassword_toast_failedPassword))
                 }
             }
         }
@@ -82,9 +82,9 @@ class ResetPasswordActivity : MainActivity() {
 
         // 빈칸 확인
         if (password.isBlank()) {
-            binding.tilPassword.error = getString(R.string.reset_password_enter_password)
+            binding.tilPassword.error = getString(R.string.util_error_emptyPassword)
         } else if (password != passwordCheck) {
-            binding.tilPasswordCheck.error = getString(R.string.edittext_unmatch_password)
+            binding.tilPasswordCheck.error = getString(R.string.util_error_mismatchPassword)
         }
         else {
             changePassword()
