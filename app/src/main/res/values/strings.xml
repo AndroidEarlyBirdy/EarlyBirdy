@@ -196,7 +196,7 @@
     <string name="home_select_goal">목표를 채워주세요</string>
 
     <!--랭킹 프래그먼트-->
-    <string name="ranking_title">랭킹보드</string>
+    <string name="ranking_title">랭킹보드</string>ㅅ
     <string name="ranking_community">자유게시판</string>
     <string name="ranking_challenge_community">챌린지게시판</string>
     <string name="ranking_rankingboard">랭킹보드</string>
