@@ -41,7 +41,7 @@
                 android:layout_marginEnd="5dp"
                 android:gravity="center_vertical"
                 android:maxLines="3"
-                android:text="text"
+                android:text="@string/home_tv_famous"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/ic_weather"
                 app:layout_constraintStart_toStartOf="parent"
@@ -69,7 +69,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/ic_weather"
                 app:layout_constraintStart_toStartOf="@+id/ic_weather"
                 app:layout_constraintTop_toBottomOf="@+id/ic_weather"
-                tools:text="00 ℃" />
+                tools:text="@string/home_tv_temperature" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -110,7 +110,7 @@
                 app:layout_constraintStart_toStartOf="@+id/progress_bar"
                 app:layout_constraintTop_toTopOf="@+id/progress_bar"
                 app:layout_constraintVertical_bias="0.46"
-                tools:text="60%" />
+                tools:text="@string/home_tv_progressBar" />
 
             <ImageView
                 android:id="@+id/ic_progress_question"
@@ -119,7 +119,7 @@
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="4dp"
                 android:src="@drawable/ic_question_mark"
-                android:tooltipText="오늘의 목표 달성도와 출석하기로 프로그레스바 진행도가 증가합니다."
+                android:tooltipText="@string/home_tt_progressBar"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/progress_bar" />
 
@@ -131,7 +131,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="@string/home_goodmorning"
+            android:text="@string/home_tv_goodMorning"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -155,7 +155,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="16dp"
                 android:layout_marginStart="16dp"
-                android:text="@string/home_time"
+                android:text="@string/home_tv_setAlarm"
                 android:textColor="#80000000"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -181,7 +181,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
-            android:text="@string/home_today_goal"
+            android:text="@string/home_tv_todayGoals"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -226,7 +226,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
-            android:text="@string/home_select_goal"
+            android:text="@string/home_tv_emptyGoals"
             android:textColor="#444444"
             android:textSize="16sp"
             android:visibility="gone"

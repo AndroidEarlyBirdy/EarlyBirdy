@@ -76,7 +76,7 @@ class AlarmReceiver : BroadcastReceiver() {
             setContentTitle(
                 "${pref.getInt("hour", 0).toString()} : ${pref.getInt("minute", 0).toString()}"
             )
-            setContentText("Gooood Morning~~~")
+            setContentText("좋은 아침입니다 이제 일어날 시간이에요!!")
             setLargeIcon(bitmap) // 큰 이미지
             addAction( // 버튼 추가
                 R.mipmap.ic_launcher,

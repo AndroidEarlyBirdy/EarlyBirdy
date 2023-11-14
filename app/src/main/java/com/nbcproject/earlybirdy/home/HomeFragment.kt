@@ -71,7 +71,6 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.d("이곳은", "onCreateView")
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         // 파이어스토어 인스턴스 초기화
         firestore = FirebaseFirestore.getInstance()

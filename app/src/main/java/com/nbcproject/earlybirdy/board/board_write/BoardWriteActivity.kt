@@ -126,7 +126,7 @@ class BoardWriteActivity : MainActivity() {
                         photoCheck = true
                     } else {
                         photoCheck = false
-                        showToast(this@BoardWriteActivity, getString(R.string.get_photo_error))
+                        showToast(this@BoardWriteActivity, getString(R.string.boardwrite_tv_failedGetPhoto))
                     }
                 }
             }
@@ -161,9 +161,9 @@ class BoardWriteActivity : MainActivity() {
                     contentsPhoto = it.toString()
 
                     if (contentsTitle.isEmpty()) {
-                        binding.etContentsTitle.error = getString(R.string.blank_title)
+                        binding.etContentsTitle.error = getString(R.string.boardwrite_error_emptyContentsTitle)
                     } else if (contents.isEmpty()) {
-                        binding.etContents.error = getString(R.string.blank_content)
+                        binding.etContents.error = getString(R.string.boardwrite_error_emptyContents)
                     } else {
                         val boardDto =
                             BoardDto(
@@ -186,9 +186,9 @@ class BoardWriteActivity : MainActivity() {
             }
         } else {
             if (contentsTitle.isEmpty()) {
-                binding.etContentsTitle.error = getString(R.string.blank_title)
+                binding.etContentsTitle.error = getString(R.string.boardwrite_error_emptyContentsTitle)
             } else if (contents.isEmpty()) {
-                binding.etContents.error = getString(R.string.blank_content)
+                binding.etContents.error = getString(R.string.boardwrite_error_emptyContents)
             } else {
                 val boardDto =
                     BoardDto(
@@ -242,9 +242,9 @@ class BoardWriteActivity : MainActivity() {
                     contentsPhoto = it.toString()
 
                     if (contentsTitle.isEmpty()) {
-                        binding.etContentsTitle.error = getString(R.string.blank_title)
+                        binding.etContentsTitle.error = getString(R.string.boardwrite_error_emptyContentsTitle)
                     } else if (contents.isEmpty()) {
-                        binding.etContents.error = getString(R.string.blank_content)
+                        binding.etContents.error = getString(R.string.boardwrite_error_emptyContents)
                     } else {
                         updateBoardDatabase(boardData, contentsTitle, contents, contentsPhoto)
                     }
@@ -252,9 +252,9 @@ class BoardWriteActivity : MainActivity() {
             }
         } else {
             if (contentsTitle.isEmpty()) {
-                binding.etContentsTitle.error = getString(R.string.blank_title)
+                binding.etContentsTitle.error = getString(R.string.boardwrite_error_emptyContentsTitle)
             } else if (contents.isEmpty()) {
-                binding.etContents.error = getString(R.string.blank_content)
+                binding.etContents.error = getString(R.string.boardwrite_error_emptyContents)
             } else {
                 updateBoardDatabase(boardData, contentsTitle, contents, contentsPhoto)
             }

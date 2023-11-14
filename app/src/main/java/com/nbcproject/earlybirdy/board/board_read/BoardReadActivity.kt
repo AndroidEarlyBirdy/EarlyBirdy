@@ -152,7 +152,7 @@ class BoardReadActivity : MainActivity() {
                 startActivity(boardWriteIntent)
                 finish()
             } else {
-                showToast(this, getString(R.string.edit_board_error))
+                showToast(this, getString(R.string.boardread_error_updateBoard))
             }
             alertDialog.dismiss()
         }
@@ -172,7 +172,7 @@ class BoardReadActivity : MainActivity() {
         try {
             startActivity(browserIntent)
         } catch (e: ActivityNotFoundException) {
-            showToast(this, getString(R.string.setting_connect_error_toast))
+            showToast(this, getString(R.string.util_toast_connectError))
         }
     }
 
@@ -233,10 +233,10 @@ class BoardReadActivity : MainActivity() {
                             finish()
                         }
                 }.addOnFailureListener {
-                    showToast(this, getString(R.string.delete_board_error))
+                    showToast(this, getString(R.string.boardread_error_failedDeleteBoard))
                 }
         } else {
-            showToast(this, getString(R.string.delete_board_user_error))
+            showToast(this, getString(R.string.boardread_error_deleteBoard))
         }
     }
 
@@ -270,7 +270,7 @@ class BoardReadActivity : MainActivity() {
                     cdata.remove(commentData)
                 }
         } else {
-            showToast(this, getString(R.string.delete_reply_user_error))
+            showToast(this, getString(R.string.boardread_error_deleteCommentr))
         }
     }
 
@@ -318,7 +318,7 @@ class BoardReadActivity : MainActivity() {
         val comments = binding.etComment.text.toString()
 
         if (comments.isEmpty()) {
-            binding.etComment.error = getString(R.string.reply_blank_error)
+            binding.etComment.error = getString(R.string.boardread_error_emptyComment)
         } else {
             val commentDto =
                 CommentDto(

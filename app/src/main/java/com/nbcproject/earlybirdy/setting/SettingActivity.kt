@@ -96,7 +96,7 @@ class SettingActivity : MainActivity() {
         try {
             startActivity(browserIntent)
         } catch (e: ActivityNotFoundException) {
-            showToast(this, getString(R.string.setting_connect_error_toast))
+            showToast(this, getString(R.string.util_toast_connectError))
         }
     }
 

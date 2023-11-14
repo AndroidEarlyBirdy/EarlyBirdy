@@ -84,11 +84,10 @@ class EditProfileActivity : MainActivity() {
 
         // 빈칸 확인
         if (nickname.isBlank()) {
-            binding.tilProfileNickname.error = "닉네임을 입력해주세요"
-
+            binding.tilProfileNickname.error = getString(R.string.util_error_emptyNickname)
         } else {
                 updateUserData(user.uid, profile, nickname)
-                showToast(this@EditProfileActivity, "회원 정보 수정 완료!")
+                showToast(this@EditProfileActivity, getString(R.string.editProfile_toast_updateSuccess))
                 finish()
         }
 
@@ -103,20 +102,19 @@ class EditProfileActivity : MainActivity() {
                 "nickname" to nickname,
             )
         ).addOnSuccessListener {
-            showToast(this@EditProfileActivity,"회원정보 업데이트 완료!")
+            showToast(this@EditProfileActivity,getString(R.string.editProfile_toast_updateSuccess))
         } else {
            db.collection("UserDto").document(uid).update(
                mapOf(
                    "nickname" to nickname
                )
            ).addOnSuccessListener {
-               showToast(this@EditProfileActivity,"회원정보 업데이트 완료!")
+               showToast(this@EditProfileActivity,getString(R.string.editProfile_toast_updateSuccess))
            }
        }
     }
     private fun loadUserData() {
         val uid = user.uid
-
 
         db.collection("UserDto").document(uid).get()
             .addOnSuccessListener { document ->
@@ -128,7 +126,7 @@ class EditProfileActivity : MainActivity() {
                 }
             }
             .addOnFailureListener { e ->
-                showToast(this, "사용자 정보 로딩에 실패했습니다.")
+                showToast(this, getString(R.string.editProfile_toast_loadUserDataFailed))
             }
     }
 
