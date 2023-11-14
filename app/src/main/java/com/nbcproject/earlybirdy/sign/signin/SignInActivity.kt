@@ -47,7 +47,7 @@ class SignInActivity : MainActivity() {
                 }
 
                 is SignInNavigation.SignInFailed -> {
-                    showToast(this, getString(R.string.login_fail_toast))
+                    showToast(this, getString(R.string.signIn_error_failedSign))
                 }
             }
         }
@@ -118,14 +118,14 @@ class SignInActivity : MainActivity() {
 
     override fun onBackPressed() {
         AlertDialog.Builder(this)
-            .setTitle(getString(R.string.login_exit_dialog_title))
-            .setMessage(getString(R.string.login_exit_dialog_content))
-            .setPositiveButton(getString(R.string.login_exit_dialog_positive_button)) { _, _ ->
+            .setTitle(getString(R.string.signIn_tv_exitTitle))
+            .setMessage(getString(R.string.signIn_tv_exitContent))
+            .setPositiveButton(getString(R.string.signIn_tv_exitDone)) { _, _ ->
                 moveTaskToBack(true)
                 finish()
                 android.os.Process.killProcess(android.os.Process.myPid())
             }
-            .setNegativeButton(R.string.login_exit_dialog_negative_button) { _, _ ->
+            .setNegativeButton(R.string.signIn_tv_exitCancel) { _, _ ->
             }
             .create()
             .show()
