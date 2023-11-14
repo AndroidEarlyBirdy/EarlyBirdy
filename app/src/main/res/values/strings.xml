@@ -1,19 +1,76 @@
 <resources>
+    <!-- 타이틀 -->
     <string name="app_name">EarlyBirdy</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="tab_rank">Rank</string>
     <string name="tab_board">Board</string>
     <string name="tab_home">Home</string>
     <string name="tab_mypage">Mypage</string>
+    <string name="title_resetPassword">비밀번호 재설정</string>
+    <string name="title_sendEmail">비밀번호 찾기</string>
 
-    <!--알람 액티비티-->
-    <string name="alarm_cancel">취소</string>
+    <!-- Sign/재인증/탈퇴/변경 등 AUTH 공통 -->
+    <string name="util_tv_email">이메일</string>
+    <string name="util_tv_password">비밀번호</string>
+    <string name="util_tv_goSignIn">로그인</string>
+    <string name="util_tv_goSignUp">회원가입</string>
+
+    <string name="util_et_nickname">닉네임을 입력하세요</string>
+    <string name="util_et_email">example@example.com</string>
+    <string name="util_et_password">비밀번호를 입력하세요</string>
+    <string name="util_et_passwordCheck">비밀번호를 다시 입력하세요</string>
+
+    <string name="util_btn_cancel">취소</string>
+    <string name="util_btn_done">확인</string>
+    <string name="util_btn_save">저장</string>
+    <string name="util_btn_check">사용자 인증</string>
+
+    <string name="util_error_emptyEmail">이메일을 입력해주세요</string>
+    <string name="util_error_emptyPassword">비밀번호를 입력해주세요</string>
+    <string name="util_error_mismatchPassword">비밀번호가 일치하지 않습니다</string>
+    <string name="util_error_matchPassword">비밀번호가 일치합니다</string>
+
+    <!-- SignInActivity -->
+    <string name="signIn_tv_findPassword">비밀번호를 잊으셨나요?</string>
+    <string name="signIn_tv_exit">나가기</string>
+
+    <!-- SignUpActivity -->
+    <string name="signUp_tv_alreadyAccount">이미 계정이 있으신가요?</string>
+
+    <string name="signUp_error_emptyNickname">닉네임을 입력해주세요</string>
+    <string name="signUp_error_alreadyNickname">이미 가입된 닉네임 입니다</string>
+    <string name="signUp_error_alreadyEmail">이미 가입된 이메일 입니다</string>
+    <string name="signUp_error_invalidEmail">유효하지 않은 이메일 형식입니다</string>
+    <string name="signUp_error_6underPassword">6자 이상의 비밀번호를 입력해주세요</string>
+
+    <string name="signUp_toast_signUpSuccess">회원가입에 성공하였습니다</string>
+
+    <!-- EditProfileActivity -->
+    <string name="editProfile_tv_updateNickname">닉네임 수정</string>
+    <string name="editProfile_btn_updatePassword">비밀번호 변경하기</string>
+
+    <!-- activity_setting_login_dialog -->
+    <string name="sign_error_mismatchAccount">재인증에 실패하였습니다</string>
+
+    <!-- activity_setting_delete_dialog -->
+    <string name="deleteDialog_tv_check">정말로 탈퇴하시겠습니까?</string>
+
+    <!-- ResetPasswordActivity -->
+    <string name="resetPassword_tv_checkPassword">비밀번호 확인</string>
+    <string name="resetPassword_btn_updatePassword">재설정</string>
+
+    <!-- SendEmailActivity -->
+    <string name="sendEmail_tv_email">회원가입 한 이메일을 입력해주세요</string>
+    <string name="sendEmail_btn_send">보내기</string>
+
+    <!-- activity_create_plan_dialog -->
+    <string name="createPlan_et_setAGoal">오늘의 목표를 입력해주세요</string>
+
+    <!-- dialog_exp -->
+    <!-- 임시 텍스트 뷰 내용 2개 -->
+
+    <!-- dialog_alarm -->
     <string name="alarm_edit">알람 편집</string>
-    <string name="alarm_save">저장</string>
-    <string name="alarm_alarmSetting">알람 끄기</string>
-    <string name="alarm_ringtone">소리 끄기</string>
-    <string name="alarm_vibration">진동 끄기</string>
+    <string name="alarm_setAlarm">알람 끄기</string>
 
     <!--크리에이트 플랜-->
     <string name="createplan_today_goal">오늘의 목표</string>
@@ -22,7 +79,6 @@
     <string name="creatplan_save">저장</string>
 
     <!--프로필 수정-->
-
     <string name="editprfile_edit">프로필 수정</string>
     <string name="editprofile_nikname_edit">닉네임 수정</string>
 
@@ -59,27 +115,74 @@
     <string name="setting_logout">로그아웃</string>
     <string name="setting_delet_account">회원탈퇴</string>
 
-    <!--로그인 액티비티-->
-    <string name="signin_logo">EarlyBirdy</string>
-    <string name="signin_email">이메일</string>
-    <string name="signin_enter_email">이메일을 입력하세요</string>
-    <string name="signin_pw">비밀번호</string>
-    <string name="signin_under15pw">비밀번호를 입력하세요</string>
-    <string name="signin_find_pw">비밀번호를 잊으셨나요?</string>
-    <string name="signin_login">로그인</string>
-    <string name="signin_google_login">구글로 로그인 임시</string>
-    <string name="signin_out">나가기</string>
-    <string name="signin_signup">회원가입</string>
+    <!--SignupActivity-->
+    <string name="error_nickname">닉네임을 입력해주세요</string>
+    <string name="error_email">이메일을 입력해주세요</string>
+    <string name="error_password">비밀번호를 입력해주세요</string>
+    <string name="error_password_check">일치하지 않습니다</string>
+    <string name="error_already_signed_email">이미 가입된 이메일입니다</string>
+    <string name="error_invalid_email">유효하지 않은 이메일 형식입니다</string>
+    <string name="error_invalid_password">6자 이상의 비밀번호를 입력하여 주세요</string>
+    <string name="error_already_made_nickname">이미 가입된 닉네임 입니다.</string>
+    <string name="signup_success">회원가입 성공 &amp; 자동로그인</string>
 
-    <!--회원가입 액티비티-->
-    <string name="signup_enter_nickname">닉네임을 입력하세요</string>
-    <string name="signup_enter_email">example@example.com</string>
-    <string name="signup_under15pw">비밀번호를 입력하세요</string>
-    <string name="signup_pw_check">비밀번호 재입력</string>
-    <string name="signup_signup">회원가입</string>
-    <string name="signup_google_login">구글로 로그인 임시</string>
-    <string name="signup_have_accout">이미 계정이 있으신가요?</string>
-    <string name="signup_login">로그인</string>
+    <!--로그인 Activity-->
+    <string name="login_fail_toast">로그인에 실패하였습니다</string>
+    <string name="login_empty_email">이메일을 입력해주세요</string>
+    <string name="login_empty_password">비밀번호를 입력해주세요</string>
+    <string name="login_exit_dialog_title">종료 확인</string>
+    <string name="login_exit_dialog_content">앱을 종료하시겠습니까?</string>
+    <string name="login_exit_dialog_positive_button">예</string>
+    <string name="login_exit_dialog_negative_button">아니오</string>
+
+<!--    &lt;!&ndash;로그인 액티비티&ndash;&gt;-->
+<!--    <string name="signin_logo">EarlyBirdy</string>-->
+<!--    <string name="signin_email">이메일</string>-->
+<!--    <string name="signin_enter_email">이메일을 입력하세요</string>-->
+<!--    <string name="signin_pw">비밀번호</string>-->
+<!--    <string name="signin_under15pw">비밀번호를 입력하세요</string>-->
+<!--    <string name="signin_login">로그인</string>-->
+<!--    <string name="signin_google_login">구글로 로그인 임시</string>-->
+
+
+<!--    &lt;!&ndash;회원가입 액티비티&ndash;&gt;-->
+<!--    <string name="signup_enter_nickname">닉네임을 입력하세요</string>-->
+<!--    <string name="signup_pw_check">비밀번호 재입력</string>-->
+<!--    <string name="signup_signup">회원가입</string>-->
+<!--    <string name="signup_google_login">구글로 로그인 임시</string>-->
+
+<!--    <string name="signup_login">로그인</string>-->
+
+<!--    &lt;!&ndash;에딧프로파일다이얼로그 액티비티&ndash;&gt;-->
+<!--    <string name="editprofiledialog_certification">사용자 인증</string>-->
+
+<!--    &lt;!&ndash;셋팅로그인다이얼로그 액티비티&ndash;&gt;-->
+<!--    <string name="settinglogindialog_certification">사용자 인증</string>-->
+
+<!--    &lt;!&ndash;사인업다이얼로그 액티비티&ndash;&gt;-->
+<!--    <string name="signupdialog_cancel">취소</string>-->
+<!--    <string name="signupdialog_save">저장</string>-->
+
+    <!--비번 수정 액티비티-->
+    <string name="resetpw_pw_check_enter">비밀번호를 다시 입력하세요</string>
+
+    <!--셋팅디테일다이얼로그 액티비티-->
+    <string name="settingdeletedialog_account_delet">정말로 탈퇴하시겠습니까?</string>
+    <string name="settingdeletedialog_yes">확인</string>
+    <string name="settingdeletedialog_cancel">취소</string>
+
+    <!--에딧프로파일 프래그먼트-->
+    <string name="editprfile_change_pw">비밀번호 변경하기</string>
+
+    <!--Setting Dialog Warning Text-->
+    <string name="setting_auth_fail">비밀번호가 틀립니다.</string>
+    <string name="setting_auth_fail_else">재인증에 실패했습니다.</string>
+
+    <!--ResetPassword Activity / Signup Activity-->
+    <string name="edittext_match_password">비밀번호가 일치합니다.</string>
+    <string name="edittext_unmatch_password">비밀번호가 일치하지 않습니다.</string>
+    <string name="reset_password_enter_password">비밀번호를 입력해주세요</string>
+    <string name="reset_password_fail">비밀번호 변경에 실패하였습니다</string>
 
     <!--테스트 액티비티-->
     <string name="board_login_page">로그인 페이지</string>
@@ -107,7 +210,6 @@
     <string name="settingdetail_detail">내용</string>
     <string name="setting_alarm_setting">알림설정</string>
 
-
     <!--명언-->
         <string-array name="quotes">
             <item>아침은 모든 일의 시작이다.</item>
@@ -121,8 +223,6 @@
             <item>늦게 일어나서 아침을 짧게 하지 마라.</item>
             <item>이른 아침은 입에 황금을 물고 있다.</item>
         </string-array>
-
-
 
     <!--보드리드 액티비티-->
     <string name="boardread_title">게시글</string>
@@ -152,31 +252,11 @@
 
     <!--셋팅디테일 액티비티-->
     <string name="activitydetail_title">설정항목</string>
-    <string name="activitydetail_contents">내용</string>
-
-    <!--에딧프로파일 액티비티-->
-
-    <!--에딧프로파일다이얼로그 액티비티-->
-    <string name="editprofiledialog_certification">사용자 인증</string>
+    <string name="activitydetail_contents">내용</string>`
 
     <!--프로파일다이얼로그 액티비티-->
     <string name="profiledialog_cancel">취소</string>
     <string name="profiledialog_save">저장</string>
-
-    <!--비번 수정 액티비티-->
-    <string name="resetpw_pw_check_enter">비밀번호를 다시 입력하세요</string>
-
-    <!--셋팅디테일다이얼로그 액티비티-->
-    <string name="settingdeletedialog_account_delet">정말로 탈퇴하시겠습니까?</string>
-    <string name="settingdeletedialog_yes">확인</string>
-    <string name="settingdeletedialog_cancel">취소</string>
-
-    <!--셋팅로그인다이얼로그 액티비티-->
-    <string name="settinglogindialog_certification">사용자 인증</string>
-
-    <!--사인업다이얼로그 액티비티-->
-    <string name="signupdialog_cancel">취소</string>
-    <string name="signupdialog_save">저장</string>
 
     <!--경험치 다이얼로그 액티비티-->
     <string name="dialogexp_complit">미션 완료!</string>
@@ -201,9 +281,6 @@
     <string name="ranking_challenge_community">챌린지게시판</string>
     <string name="ranking_rankingboard">랭킹보드</string>
 
-    <!--에딧프로파일 프래그먼트-->
-    <string name="editprfile_change_pw">비밀번호 변경하기</string>
-
     <!--아이템보드 프래그먼트-->
     <string name="itemboard_writer">작성자</string>
     <string name="itemboard_title">글 제목</string>
@@ -225,41 +302,11 @@
     <string name="setting_connect_error_toast">연결 오류 발생</string>
     <string name="setting_logout_toast">로그아웃 되었습니다. 로그인 페이지로 이동합니다.</string>
 
-    <!--Setting Dialog Warning Text-->
-    <string name="setting_auth_fail">비밀번호가 틀립니다.</string>
-    <string name="setting_auth_fail_else">재인증에 실패했습니다.</string>
-
     <!--Board 권한 설정-->
     <string name="modify_permissionRequired"></string>
     <string name="modify_profilePermission"></string>
     <string name="modify_agree"></string>
     <string name="modify_cancel"></string>
-
-    <!--로그인 Activity-->
-    <string name="login_fail_toast">로그인에 실패하였습니다</string>
-    <string name="login_empty_email">이메일을 입력해주세요</string>
-    <string name="login_empty_password">비밀번호를 입력해주세요</string>
-    <string name="login_exit_dialog_title">종료 확인</string>
-    <string name="login_exit_dialog_content">앱을 종료하시겠습니까?</string>
-    <string name="login_exit_dialog_positive_button">예</string>
-    <string name="login_exit_dialog_negative_button">아니오</string>
-
-    <!--ResetPassword Activity / Signup Activity-->
-    <string name="edittext_match_password">비밀번호가 일치합니다.</string>
-    <string name="edittext_unmatch_password">비밀번호가 일치하지 않습니다.</string>
-    <string name="reset_password_enter_password">비밀번호를 입력해주세요</string>
-    <string name="reset_password_fail">비밀번호 변경에 실패하였습니다</string>
-
-    <!--SignupActivity-->
-    <string name="error_nickname">닉네임을 입력해주세요</string>
-    <string name="error_email">이메일을 입력해주세요</string>
-    <string name="error_password">비밀번호를 입력해주세요</string>
-    <string name="error_password_check">일치하지 않습니다</string>
-    <string name="error_already_signed_email">이미 가입된 이메일입니다</string>
-    <string name="error_invalid_email">유효하지 않은 이메일 형식입니다</string>
-    <string name="error_invalid_password">6자 이상의 비밀번호를 입력하여 주세요</string>
-    <string name="error_already_made_nickname">이미 가입된 닉네임 입니다.</string>
-    <string name="signup_success">회원가입 성공 &amp; 자동로그인</string>
 
     <!--BoardReadActivity-->
     <string name="edit_board_error">작성자만 게시글을 수정할 수 있습니다</string>

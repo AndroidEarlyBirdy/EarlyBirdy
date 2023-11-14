@@ -138,9 +138,9 @@ class SignInActivity : MainActivity() {
         val password = binding.titPassword.text.toString()
 
         if (email.isEmpty()) { // 이메일 입력 여부
-            binding.tilEmail.error = getString(R.string.login_empty_email)
+            binding.tilEmail.error = getString(R.string.util_error_emptyEmail)
         } else if (password.isEmpty()) {
-            binding.tilPassword.error = getString(R.string.login_empty_password)
+            binding.tilPassword.error = getString(R.string.util_error_emptyPassword)
         } else {
             signInViewModel.signIn(email, password)
         }

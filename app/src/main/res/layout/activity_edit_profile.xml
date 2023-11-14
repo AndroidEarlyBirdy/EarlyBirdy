@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
-            android:text="저장"
+            android:text="@string/util_btn_save"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -163,7 +163,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="24dp"
-            android:text="@string/editprfile_edit"
+            android:text="@string/editProfile_tv_updateNickname"
             android:textColor="#444444"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -191,7 +191,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/ic_dialog_item"
-                android:hint="닉네임을 입력해 주세요." />
+                android:hint="@string/util_et_nickname" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.appcompat.widget.AppCompatButton
@@ -202,7 +202,7 @@
             android:layout_marginEnd="42dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/btn_sign_background"
-            android:text="@string/editprfile_change_pw"
+            android:text="@string/editProfile_btn_updatePassword"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold"
