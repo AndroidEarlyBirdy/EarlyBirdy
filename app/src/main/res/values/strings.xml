@@ -24,6 +24,7 @@
     <string name="util_btn_save">저장</string>
     <string name="util_btn_check">사용자 인증</string>
 
+    <string name="util_error_emptyNickname">닉네임을 입력해주세요</string>
     <string name="util_error_emptyEmail">이메일을 입력해주세요</string>
     <string name="util_error_emptyPassword">비밀번호를 입력해주세요</string>
     <string name="util_error_mismatchPassword">비밀번호가 일치하지 않습니다</string>
@@ -42,18 +43,17 @@
 
     <!-- SignUpActivity -->
     <string name="signUp_tv_alreadyAccount">이미 계정이 있으신가요?</string>
-
-    <string name="signUp_error_emptyNickname">닉네임을 입력해주세요</string>
     <string name="signUp_error_alreadyNickname">이미 가입된 닉네임 입니다</string>
     <string name="signUp_error_alreadyEmail">이미 가입된 이메일 입니다</string>
     <string name="signUp_error_invalidEmail">유효하지 않은 이메일 형식입니다</string>
     <string name="signUp_error_6underPassword">6자 이상의 비밀번호를 입력해주세요</string>
-
     <string name="signUp_toast_signUpSuccess">회원가입에 성공하였습니다</string>
 
     <!-- EditProfileActivity -->
     <string name="editProfile_tv_updateNickname">닉네임 수정</string>
     <string name="editProfile_btn_updatePassword">비밀번호 변경하기</string>
+    <string name="editProfile_toast_updateSuccess">회원정보를 수정하였습니다</string>
+    <string name="editProfile_toast_loadUserDataFailed">사용자 정보 로딩에 실패했습니다</string>
 
     <!-- EditProfileActivityDialog -->
     <string name="editProfileDialog_toast_matchPassword">비밀번호가 확인되었습니다</string>

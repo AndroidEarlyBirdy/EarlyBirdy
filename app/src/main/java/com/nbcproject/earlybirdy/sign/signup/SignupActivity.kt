@@ -101,7 +101,7 @@ class SignupActivity : MainActivity() {
 
             // 빈칸 확인
             if (nickname.isBlank()) {
-                binding.tilNickname.error = getString(R.string.signUp_error_emptyNickname)
+                binding.tilNickname.error = getString(R.string.util_error_emptyNickname)
             } else if (email.isBlank()) {
                 binding.tilEmail.error = getString(R.string.util_error_emptyEmail)
             } else if (password.isBlank()) {
