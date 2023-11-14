@@ -101,7 +101,6 @@ class BoardFragment : Fragment() {
                 loadMyBoardData()
             }
         }
-
     }
 
     // 전체보기
@@ -117,6 +116,7 @@ class BoardFragment : Fragment() {
                             item.bid,
                             item.uid,
                             item.writer,
+                            item.profile,
                             item.createdTime,
                             item.contentsTitle,
                             item.contents,
@@ -146,6 +146,7 @@ class BoardFragment : Fragment() {
                                 item.bid,
                                 item.uid,
                                 item.writer,
+                                item.profile,
                                 item.createdTime,
                                 item.contentsTitle,
                                 item.contents,
