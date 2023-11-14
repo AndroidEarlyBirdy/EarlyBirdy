@@ -80,7 +80,7 @@ class SettingCheckUserDialog(
         if (password.isNotEmpty()){
             settingViewModel.checkAuth(email, password)
         }else{
-            binding.tilSldPassword.error = context.getString(R.string.login_empty_password)
+            binding.tilSldPassword.error = context.getString(R.string.util_et_password)
         }
     }
 

@@ -55,6 +55,10 @@
     <string name="editProfile_tv_updateNickname">닉네임 수정</string>
     <string name="editProfile_btn_updatePassword">비밀번호 변경하기</string>
 
+    <!-- EditProfileActivityDialog -->
+    <string name="editProfileDialog_toast_matchPassword">비밀번호가 확인되었습니다</string>
+    <string name="editProfileDialog_toast_mismatchPassword">비밀번호가 올바르지 않습니다</string>
+
     <!-- activity_setting_login_dialog -->
     <string name="sign_error_mismatchAccount">재인증에 실패하였습니다</string>
 
