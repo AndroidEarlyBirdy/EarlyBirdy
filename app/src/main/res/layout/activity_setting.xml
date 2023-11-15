@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <ImageView
             android:id="@+id/imageView6"
             android:layout_width="match_parent"
@@ -40,7 +39,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
 
         <ImageView
             android:id="@+id/iv_back"
@@ -77,8 +75,9 @@
                 tools:layout_editor_absoluteX="16dp" />
 
             <View
-                android:layout_width="328dp"
+                android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_marginHorizontal="35dp"
                 android:layout_marginTop="10dp"
                 android:background="#E4E4E4"
                 app:layout_constraintEnd_toEndOf="@+id/btn_notification_settings"
@@ -101,8 +100,9 @@
                 tools:layout_editor_absoluteX="16dp" />
 
             <View
-                android:layout_width="328dp"
+                android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_marginHorizontal="35dp"
                 android:layout_marginTop="10dp"
                 android:background="#E4E4E4"
                 app:layout_constraintEnd_toEndOf="@+id/btn_user_support"
@@ -125,8 +125,9 @@
                 tools:layout_editor_absoluteX="16dp" />
 
             <View
-                android:layout_width="328dp"
+                android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_marginHorizontal="35dp"
                 android:layout_marginTop="10dp"
                 android:background="#E4E4E4"
                 app:layout_constraintEnd_toEndOf="@+id/btn_open_license"
@@ -149,8 +150,9 @@
                 tools:layout_editor_absoluteX="16dp" />
 
             <View
-                android:layout_width="328dp"
+                android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_marginHorizontal="35dp"
                 android:layout_marginTop="10dp"
                 android:background="#E4E4E4"
                 app:layout_constraintEnd_toEndOf="@+id/btn_genral_condition"
@@ -173,8 +175,9 @@
                 tools:layout_editor_absoluteX="16dp" />
 
             <View
-                android:layout_width="328dp"
+                android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_marginHorizontal="35dp"
                 android:layout_marginTop="10dp"
                 android:background="#E4E4E4"
                 app:layout_constraintEnd_toEndOf="@+id/btn_logout"
@@ -197,8 +200,9 @@
                 tools:layout_editor_absoluteX="16dp" />
 
             <View
-                android:layout_width="328dp"
+                android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_marginHorizontal="35dp"
                 android:layout_marginTop="10dp"
                 android:background="#E4E4E4"
                 app:layout_constraintEnd_toEndOf="@+id/btn_delete_account"

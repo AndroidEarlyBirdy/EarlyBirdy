@@ -171,7 +171,7 @@
                     android:layout_height="160dp"
                     android:layout_marginTop="24dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/bg_calendar_date1"
+                    android:src="@drawable/ic_no_photos"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/et_contents" />

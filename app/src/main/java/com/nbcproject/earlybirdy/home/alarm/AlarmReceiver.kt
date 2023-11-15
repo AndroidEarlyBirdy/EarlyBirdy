@@ -80,7 +80,7 @@ class AlarmReceiver : BroadcastReceiver() {
             setLargeIcon(bitmap) // 큰 이미지
             addAction( // 버튼 추가
                 R.mipmap.ic_launcher,
-                "Action",
+                "확인",
                 pendingIntent
             )
         }
