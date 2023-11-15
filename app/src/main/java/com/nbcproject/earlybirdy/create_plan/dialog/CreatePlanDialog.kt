@@ -63,7 +63,7 @@ class CreatePlanDialog(
                         }
                         dismiss()
                     } else {
-                        Toast.makeText(context, R.string.toast_blank_plan, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, R.string.createPlan_toast_inputPlan, Toast.LENGTH_SHORT).show()
                     }
                 }
 
@@ -80,7 +80,7 @@ class CreatePlanDialog(
                                 dismiss()
                             }
                             else {
-                                Toast.makeText(context, R.string.toast_blank_plan, Toast.LENGTH_SHORT).show()
+                                Toast.makeText(context, R.string.createPlan_toast_inputPlan, Toast.LENGTH_SHORT).show()
                             }
                         }
                     }

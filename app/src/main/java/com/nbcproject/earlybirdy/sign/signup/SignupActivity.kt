@@ -63,9 +63,9 @@ class SignupActivity : MainActivity() {
             override fun afterTextChanged(s: Editable?) {
                 if (binding.titPassword.text.toString() == binding.titPasswordCheck.text.toString()
                 ) {
-                    binding.tilPasswordCheck.error = getString(R.string.edittext_match_password)
+                    binding.tilPasswordCheck.error = getString(R.string.util_error_matchPassword)
                 } else {
-                    binding.tilPasswordCheck.error = getString(R.string.edittext_unmatch_password)
+                    binding.tilPasswordCheck.error = getString(R.string.util_error_mismatchPassword)
                 }
             }
         })
@@ -101,13 +101,13 @@ class SignupActivity : MainActivity() {
 
             // 빈칸 확인
             if (nickname.isBlank()) {
-                binding.tilNickname.error = getString(R.string.error_nickname)
+                binding.tilNickname.error = getString(R.string.util_error_emptyNickname)
             } else if (email.isBlank()) {
-                binding.tilEmail.error = getString(R.string.error_email)
+                binding.tilEmail.error = getString(R.string.util_error_emptyEmail)
             } else if (password.isBlank()) {
-                binding.tilPassword.error = getString(R.string.error_password)
+                binding.tilPassword.error = getString(R.string.util_error_emptyPassword)
             } else if (password != passwordCheck) {
-                binding.tilPasswordCheck.error = getString(R.string.error_password_check)
+                binding.tilPasswordCheck.error = getString(R.string.util_error_mismatchPassword)
             } else {
                 // 닉네임 중복 처리 확인
                 fireStore.collection("UserDto").whereEqualTo("nickname", nickname)
@@ -122,17 +122,17 @@ class SignupActivity : MainActivity() {
                                     }
                                 }.addOnFailureListener { // 이메일 중복 체크
                                     if (it is FirebaseAuthUserCollisionException) {
-                                        binding.tilEmail.error = getString(R.string.error_already_signed_email)
+                                        binding.tilEmail.error = getString(R.string.signUp_error_alreadyEmail)
                                     }
                                     if (it is FirebaseAuthInvalidCredentialsException) {
-                                        binding.tilEmail.error = getString(R.string.error_invalid_email)
+                                        binding.tilEmail.error = getString(R.string.signUp_error_invalidEmail)
                                     }
                                     if (it is FirebaseAuthWeakPasswordException){
-                                        binding.tilPassword.error = getString(R.string.error_invalid_password)
+                                        binding.tilPassword.error = getString(R.string.signUp_error_6underPassword)
                                     }
                                 }
                         } else {
-                            binding.tilNickname.error = getString(R.string.error_already_made_nickname)
+                            binding.tilNickname.error = getString(R.string.signUp_error_alreadyNickname)
                         }
                     }
             }
@@ -147,7 +147,7 @@ class SignupActivity : MainActivity() {
 
         fireStore.collection("UserDto").document(user.uid).set(userDto)
 
-        showToast(this, getString(R.string.signup_success))
+        showToast(this, getString(R.string.signUp_toast_signUpSuccess))
         navigateToMainActivity(this)
         finish()
     }

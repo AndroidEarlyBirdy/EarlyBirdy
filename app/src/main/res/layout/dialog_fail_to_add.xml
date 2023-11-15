@@ -16,7 +16,7 @@
         android:layout_marginTop="16dp"
         android:paddingVertical="5dp"
         android:gravity="center"
-        android:text="@string/failtoadd_message"
+        android:text="@string/createPlanFailDialog_tv_message"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:paddingHorizontal="60dp"
-        android:text="@string/failtoadd_cancel"
+        android:text="@string/createPlanFailDialog_tv_cancel"
         android:textSize="16sp"
         android:textStyle="bold"
         app:backgroundTint="#DBDBDA"

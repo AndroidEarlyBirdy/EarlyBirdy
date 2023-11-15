@@ -7,7 +7,7 @@
     tools:context=".sign.signin.SignInActivity">
 
     <ImageView
-        android:id="@+id/imageView9"
+        android:id="@+id/iv_gradation"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@drawable/bg_gr3"
@@ -20,23 +20,35 @@
         android:layout_height="wrap_content"
         android:layout_margin="80dp"
         android:layout_marginTop="24dp"
-        android:text="@string/signin_logo"
+        android:text="@string/app_name"
         android:textColor="@color/white"
         android:textSize="36sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout5"
+        app:layout_constraintBottom_toTopOf="@+id/cl_signContents"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout5"
+        android:id="@+id/cl_signContents"
         android:layout_width="match_parent"
-        android:layout_height="430dp"
+        android:layout_height="0dp"
         android:layout_marginTop="240dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView9"
+        app:layout_constraintTop_toTopOf="@+id/iv_gradation"
         tools:layout_editor_absoluteX="-16dp">
+
+        <TextView
+            android:id="@+id/tv_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/util_tv_email"
+            android:textColor="#444444"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_email"
@@ -54,7 +66,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/ic_dialog_item"
-                android:hint="example@example.com"
+                android:hint="@string/util_et_email"
                 android:textColor="#CC999999" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -65,7 +77,7 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="@string/signin_pw"
+            android:text="@string/util_tv_password"
             android:textColor="#444444"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -92,7 +104,7 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/ic_dialog_item"
                 android:maxLength="15"
-                android:hint="@string/signin_under15pw"
+                android:hint="@string/util_et_password"
                 android:inputType="textPassword"
                 android:textColor="#CC999999" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -103,7 +115,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
-            android:text="@string/signin_find_pw"
+            android:text="@string/signIn_tv_findPassword"
             android:textColor="#FF4646"
             android:textSize="12sp"
             android:textStyle="bold"
@@ -117,7 +129,7 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="32dp"
             android:background="@drawable/btn_sign_background"
-            android:text="@string/signin_login"
+            android:text="@string/util_tv_goSignIn"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -127,22 +139,10 @@
             app:layout_constraintTop_toBottomOf="@+id/til_password" />
 
         <TextView
-            android:id="@+id/tv_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
-            android:text="@string/signin_email"
-            android:textColor="#444444"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
             android:id="@+id/tv_finish"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/signin_out"
+            android:text="@string/signIn_tv_exit"
             android:textColor="#ABABAB"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -155,7 +155,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:text="@string/signin_signup"
+            android:text="@string/util_tv_goSignUp"
             android:textColor="#ABABAB"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/tv_finish"

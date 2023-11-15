@@ -29,7 +29,7 @@ class SendEmailActivity : MainActivity() {
         btnSend.setOnClickListener {
             val emailAddress = binding.titSendEmail.text.toString()
             if (emailAddress.isBlank()) {
-                binding.tilSendEmail.error = getString(R.string.error_email)
+                binding.tilSendEmail.error = getString(R.string.util_error_emptyEmail)
             }
             else {
                 sendEmailViewModel.sendEmail(emailAddress)
