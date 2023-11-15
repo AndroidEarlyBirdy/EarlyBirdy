@@ -47,15 +47,12 @@ class RankingFragment : Fragment() {
 
                     var profileValue = document.get("profile", Int::class.java) ?: 0
                     val profile = getProfileImage(profileValue)
-                    Log.d("가져오기", (profileValue.toString()))
                     val nickname = document.getString("nickname") ?: ""
                     val email = document.getString("email") ?: ""
                     val exp = document.getLong("exp")?.toInt() ?: 0
 
-                    Log.d("asdf", uid)
                     val user = UserDto(uid, profile, nickname, email, exp)
                     userList.add(user)
-                    Log.d("아아아 이름 되냐고로로", nickname)
 
 
 //                    // 나의 등수를 나타내는 처리
@@ -77,14 +74,12 @@ class RankingFragment : Fragment() {
                                 binding?.iv1st?.setImageResource(userList[i].profile ?: 0)
                                 binding?.tv1st?.text = userList[i].nickname
                                 binding?.tv1exp?.text = userList[i].exp.toString()
-                                Log.d("프로필 불러오기", userList[i].profile.toString())
                             }
 
                             1 -> {
                                 binding?.iv2nd?.setImageResource(userList[i].profile ?: 0)
                                 binding?.tv2nd?.text = userList[i].nickname
                                 binding?.tv2exp?.text = userList[i].exp.toString()
-                                Log.d("2번 프로필 불러오기", userList[i].profile.toString())
                             }
 
                             2 -> {

@@ -107,7 +107,6 @@
             app:strokeColor="#9E9E9E"
             app:strokeWidth="1.5dp" />
 
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_community"
             android:layout_width="match_parent"

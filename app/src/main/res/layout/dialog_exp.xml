@@ -9,15 +9,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_gravity="center">
 
-    <!--    <ImageView-->
-<!--        android:id="@+id/ic_fhd_share"-->
-<!--        android:layout_width="30dp"-->
-<!--        android:layout_height="30dp"-->
-<!--        android:layout_margin="16dp"-->
-<!--        android:src="@drawable/ic_dialog_share"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"/>-->
-
     <TextView
         android:id="@+id/tv_fhd_exp"
         android:layout_width="wrap_content"
@@ -44,7 +35,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_fhd_exp" />
-
 
     <com.airbnb.lottie.LottieAnimationView
         android:layout_width="150dp"
