@@ -3,17 +3,16 @@ package com.nbcproject.earlybirdy.util
 import android.content.Context
 import android.content.Intent
 import android.widget.Toast
-import com.nbcproject.earlybirdy.alarm.AlarmActivity
 import com.nbcproject.earlybirdy.board.board_read.BoardReadActivity
 import com.nbcproject.earlybirdy.board.board_write.BoardWriteActivity
 import com.nbcproject.earlybirdy.create_plan.CreatePlanActivity
 import com.nbcproject.earlybirdy.edit_profile.EditProfileActivity
 import com.nbcproject.earlybirdy.main.MainActivity
-import com.nbcproject.earlybirdy.signin.sendemail.SendEmailActivity
+import com.nbcproject.earlybirdy.sign.sendemail.SendEmailActivity
 import com.nbcproject.earlybirdy.resetpassword.ResetPasswordActivity
 import com.nbcproject.earlybirdy.setting.SettingActivity
-import com.nbcproject.earlybirdy.signin.SigninActivity
-import com.nbcproject.earlybirdy.signup.SignupActivity
+import com.nbcproject.earlybirdy.sign.signin.SignInActivity
+import com.nbcproject.earlybirdy.sign.signup.SignupActivity
 
 // 메인 액티비티로 이동 함수
 fun navigateToMainActivity(context: Context) {
@@ -23,7 +22,7 @@ fun navigateToMainActivity(context: Context) {
 
 // 로그인 액티비티로 이동 함수
 fun navigateToSigninActivity(context: Context) {
-    val intent = Intent(context, SigninActivity::class.java)
+    val intent = Intent(context, SignInActivity::class.java)
     context.startActivity(intent)
 }
 
@@ -51,12 +50,6 @@ fun navigateToSettingActivity(context: Context) {
 // 비밀번호 재설정 액티비티로 이동 함수
 fun navigateToSendEmailActivity(context: Context) {
     val intent = Intent(context, SendEmailActivity::class.java)
-    context.startActivity(intent)
-}
-
-// 알람 액티비티로 이동 함수
-fun navigateToAlarmActivity(context: Context) {
-    val intent = Intent(context, AlarmActivity::class.java)
     context.startActivity(intent)
 }
 

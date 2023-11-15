@@ -1,293 +1,203 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <!--    배경 그라데이션 이미지-->
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@drawable/bg_gr3"
-        app:layout_constraintBottom_toBottomOf="@+id/guideline"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_end="340dp" />
-
-
-    <TextView
-        android:id="@+id/tv_item_Title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="84dp"
-        android:text="@string/ranking_title"
-        android:textColor="@color/white"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="561dp"
-        android:layout_marginTop="80dp"
-        android:background="@drawable/ic_roundig"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_item_Title"
-        app:layout_constraintVertical_bias="1.0"
-        tools:layout_editor_absoluteX="0dp">
-
-        <TextView
-            android:id="@+id/btn_board"
-            android:layout_width="101dp"
-            android:layout_height="32dp"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/btn_setting"
-            android:gravity="center"
-            android:text="@string/ranking_community"
-            android:textSize="13sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/btn_challenge"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/btn_challenge"
-            android:layout_width="101dp"
-            android:layout_height="32dp"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/btn_setting"
-            android:gravity="center"
-            android:text="@string/ranking_challenge_community"
-            android:textSize="13sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/btn_creatContents"
-            android:layout_width="101dp"
-            android:layout_height="32dp"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/btn_setting"
-            android:gravity="center"
-            android:text="@string/ranking_rankingboard"
-            android:textColor="@color/yellow_orange"
-            android:textSize="13sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btn_challenge"
-            app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/crown_gold"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:id="@+id/iv_gradation"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/bg_gr3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_item_Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:background="@drawable/crown_gold"
+            android:text="@string/title_ranking"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_challenge" />
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/crown_silver"
-            android:layout_width="28dp"
-            android:layout_height="35dp"
-
-            android:layout_marginTop="29dp"
-            android:background="@drawable/crown_silver"
-            app:layout_constraintEnd_toStartOf="@+id/crown_gold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_board" />
-
-        <ImageView
-            android:id="@+id/crown_bronze"
-            android:layout_width="28dp"
-            android:layout_height="35dp"
-
-            android:layout_marginTop="28dp"
-            android:layout_marginEnd="6dp"
-            android:background="@drawable/crown_bronze"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/crown_gold"
-            app:layout_constraintTop_toBottomOf="@+id/btn_creatContents" />
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/iv_1st"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:adjustViewBounds="true"
-            android:padding="1dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/img_profile_add"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/crown_gold"
-            app:shapeAppearanceOverlay="@style/RoundedShapeAppearanceOverlay"
-            app:strokeColor="@color/white"
-            app:strokeWidth="3dp" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_2nd"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="20dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="70dp"
+            android:layout_marginEnd="32dp"
             android:adjustViewBounds="true"
             android:padding="1dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/img_profile_add"
+            android:src="@drawable/ic_person1"
             app:layout_constraintEnd_toStartOf="@+id/iv_1st"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/crown_silver"
+            app:layout_constraintTop_toBottomOf="@+id/tv_item_Title"
             app:shapeAppearanceOverlay="@style/RoundedShapeAppearanceOverlay"
             app:strokeColor="@color/white"
             app:strokeWidth="3dp" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_3rd"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginEnd="20dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
 
 
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="70dp"
             android:adjustViewBounds="true"
             android:padding="1dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/img_profile_add"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/ic_person1"
             app:layout_constraintStart_toEndOf="@+id/iv_1st"
-            app:layout_constraintTop_toBottomOf="@+id/crown_bronze"
+            app:layout_constraintTop_toBottomOf="@+id/tv_item_Title"
             app:shapeAppearanceOverlay="@style/RoundedShapeAppearanceOverlay"
             app:strokeColor="@color/white"
             app:strokeWidth="3dp" />
 
-        <TextView
-            android:id="@+id/tv_1st"
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_1st"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="50dp"
+            android:adjustViewBounds="true"
+            android:padding="1dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_person1"
+            app:layout_constraintEnd_toEndOf="@+id/iv_gradation"
+            app:layout_constraintStart_toStartOf="@+id/iv_gradation"
+            app:layout_constraintTop_toBottomOf="@+id/tv_item_Title"
+            app:shapeAppearanceOverlay="@style/RoundedShapeAppearanceOverlay"
+            app:strokeColor="@color/ic_main_background"
+            app:strokeWidth="3dp" />
+
+        <ImageView
+            android:id="@+id/iv_1background"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_1st" />
+            android:layout_marginTop="80dp"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_1st"
+            app:layout_constraintEnd_toEndOf="@+id/iv_1st"
+            app:layout_constraintStart_toStartOf="@+id/iv_1st"
+            app:layout_constraintTop_toTopOf="@+id/iv_1st"
+            app:srcCompat="@drawable/ic_1" />
+
+        <ImageView
+            android:id="@+id/iv_2background"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_2nd"
+            app:layout_constraintEnd_toEndOf="@+id/iv_2nd"
+            app:layout_constraintStart_toStartOf="@+id/iv_2nd"
+            app:layout_constraintTop_toTopOf="@+id/iv_2nd"
+            app:srcCompat="@drawable/ic_2" />
+
+        <ImageView
+            android:id="@+id/iv_3background"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_3rd"
+            app:layout_constraintEnd_toEndOf="@+id/iv_3rd"
+            app:layout_constraintStart_toStartOf="@+id/iv_3rd"
+            app:layout_constraintTop_toTopOf="@+id/iv_3rd"
+            app:srcCompat="@drawable/ic_3" />
 
         <TextView
             android:id="@+id/tv_2nd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="22dp"
-            android:text="TextView"
-            app:layout_constraintEnd_toStartOf="@+id/tv_1st"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_2nd" />
+            android:text="@string/ranking_tv_nickname"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/iv_2background"
+            app:layout_constraintHorizontal_bias="0.478"
+            app:layout_constraintStart_toStartOf="@+id/iv_2background"
+            app:layout_constraintTop_toBottomOf="@+id/iv_2background" />
 
         <TextView
             android:id="@+id/tv_3rd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="21dp"
-            android:text="TextView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_1st"
-            app:layout_constraintTop_toBottomOf="@+id/iv_3rd" />
+            android:text="@string/ranking_tv_nickname"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/iv_3background"
+            app:layout_constraintStart_toStartOf="@+id/iv_3background"
+            app:layout_constraintTop_toBottomOf="@+id/iv_3background" />
+
+        <TextView
+            android:id="@+id/tv_1st"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ranking_tv_nickname"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/iv_1background"
+            app:layout_constraintStart_toStartOf="@+id/iv_1background"
+            app:layout_constraintTop_toBottomOf="@+id/iv_1background" />
+
+        <TextView
+            android:id="@+id/tv_2exp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ranking_tv_exp"
+            app:layout_constraintEnd_toEndOf="@+id/tv_2nd"
+            app:layout_constraintStart_toStartOf="@+id/tv_2nd"
+            app:layout_constraintTop_toBottomOf="@+id/tv_2nd" />
+
+        <TextView
+            android:id="@+id/tv_3exp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ranking_tv_exp"
+            app:layout_constraintEnd_toEndOf="@+id/tv_3rd"
+            app:layout_constraintStart_toStartOf="@+id/tv_3rd"
+            app:layout_constraintTop_toBottomOf="@+id/tv_3rd" />
+
+        <TextView
+            android:id="@+id/tv_1exp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ranking_tv_exp"
+            app:layout_constraintEnd_toEndOf="@+id/tv_1st"
+            app:layout_constraintStart_toStartOf="@+id/tv_1st"
+            app:layout_constraintTop_toBottomOf="@+id/tv_1st" />
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_rank"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginTop="16dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/ic_rank_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_1st">
+            app:layout_constraintTop_toBottomOf="@+id/tv_1exp">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_ranking"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="400dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/cl_rank"
+                app:layout_constraintStart_toStartOf="@+id/cl_rank"
+                app:layout_constraintTop_toTopOf="@+id/cl_rank"
                 tools:listitem="@layout/item_rangking" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/tv_myRank"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:background="@drawable/btn_setting"
-        android:paddingHorizontal="40dp"
-        android:paddingVertical="16dp"
-        android:text="순위"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="68dp"
-        android:layout_height="68dp"
-        android:layout_marginTop="190dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        app:srcCompat="@drawable/ic_dot" />
-
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/tv_myProfile"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="90dp"
-        android:adjustViewBounds="true"
-        android:padding="1dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/img_profile_add"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_myRank"
-        app:layout_constraintStart_toStartOf="@+id/tv_myRank"
-        app:layout_constraintTop_toTopOf="@+id/tv_myRank"
-        app:shapeAppearanceOverlay="@style/RoundedShapeAppearanceOverlay"
-        app:strokeColor="@color/white"
-        app:strokeWidth="3dp" />
-
-    <TextView
-        android:id="@+id/tv_myName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:text="닉네임"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_myRank"
-        app:layout_constraintStart_toStartOf="@+id/tv_myProfile"
-        app:layout_constraintTop_toTopOf="@+id/tv_myRank" />
-
-    <TextView
-        android:id="@+id/tv_myExp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:text="경험치량"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_myName"
-        app:layout_constraintEnd_toEndOf="@+id/tv_myRank"
-        app:layout_constraintTop_toTopOf="@+id/tv_myName" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

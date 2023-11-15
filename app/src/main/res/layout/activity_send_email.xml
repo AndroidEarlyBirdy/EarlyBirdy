@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".signin.sendemail.SendEmailActivity">
+    tools:context=".sign.sendemail.SendEmailActivity">
 
     <ImageView
         android:layout_width="match_parent"
@@ -21,34 +21,40 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.5" />
 
+
     <TextView
         android:id="@+id/tv_reset_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/sendemail_find_pw"
+        android:layout_marginTop="32dp"
+        android:text="@string/title_sendEmail"
         android:textColor="@color/white"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:textStyle="bold"
-        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout4"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="60dp"
-        android:background="@drawable/ic_roundig"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/bottom_sheet_background"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_reset_password">
+        app:layout_constraintTop_toBottomOf="@+id/tv_reset_password"
+        app:layout_constraintVertical_bias="1.0"
+        tools:layout_editor_absoluteX="0dp">
 
         <TextView
             android:id="@+id/tv_send_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="50dp"
-            android:text="@string/sendemail_singup_email"
+            android:text="@string/sendEmail_tv_email"
+            android:textColor="#444444"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -59,13 +65,15 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="5dp"
+            app:hintEnabled="false"
             app:layout_constraintTop_toBottomOf="@+id/tv_send_email">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/tit_send_email"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="@string/sendemail_example"
+                android:background="@drawable/ic_dialog_item"
+                android:hint="@string/util_et_email"
                 android:inputType="textEmailAddress"
                 android:textColor="#CC999999" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -75,39 +83,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginBottom="16dp"
             android:background="@drawable/btn_sign_background"
-            android:text="@string/sendemail_send"
+            android:text="@string/sendEmail_btn_send"
             android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@+id/til_send_email" />
-
-        <TextView
-            android:id="@+id/tv_finish"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="80dp"
-            android:layout_marginBottom="15dp"
-            android:text="@string/sendemail_out"
-            android:textColor="#ABABAB"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/tv_btn_signup"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_btn_signup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="80dp"
-            android:layout_marginBottom="15dp"
-            android:text="@string/sendemail_signup"
-            android:textColor="#ABABAB"
+            android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_finish" />
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/tv_finish"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:src="@drawable/ic_profile_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,11 +1,15 @@
 package com.nbcproject.earlybirdy.board.board_read
 
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Bundle
-import android.util.Log
+import android.view.Gravity
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.nbcproject.earlybirdy.board.board_write.BoardWriteActivity
@@ -20,39 +24,39 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
+import com.nbcproject.earlybirdy.R
+import com.nbcproject.earlybirdy.databinding.DialogOptionBinding
+import com.nbcproject.earlybirdy.main.MainActivity
+import com.nbcproject.earlybirdy.util.Constants
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import java.util.UUID
 
-class BoardReadActivity : AppCompatActivity() {
+class BoardReadActivity : MainActivity() {
     private val binding by lazy { ActivityBoardReadBinding.inflate(layoutInflater) }
 
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
-    val db = Firebase.firestore
+    private val db = Firebase.firestore
     private val fireStore = FirebaseFirestore.getInstance()
 
     private var nickname: String? = ""
+    private var profile: Int? = 1
 
     private val cdata: MutableList<CommentDto> = mutableListOf()
 
     private val commentAdapter by lazy {
-        CommentAdapter(this)
+        CommentAdapter()
     }
 
-    private val storage = FirebaseStorage.getInstance()
-    val storageRef = storage.reference
-
-    //private lateinit var cContext: Context
     private lateinit var cmanager: LinearLayoutManager
 
     companion object {
         //나중에 위치 받아서 값 설정하기
         // 위치 사용될 변수
         lateinit var BoardData: BoardDto
-        fun BoardReadIntent(context: Context?, boardData: BoardDto) =
+        fun boardReadIntent(context: Context?, boardData: BoardDto) =
             Intent(context, BoardReadActivity::class.java).apply {
                 BoardData = boardData
             }
@@ -66,6 +70,8 @@ class BoardReadActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         database = Firebase.database.reference
 
+        getUserNicknameData()
+
         setOnClickListener()
         readBoard()
         initCommentView() // 댓글
@@ -77,24 +83,33 @@ class BoardReadActivity : AppCompatActivity() {
             finish()
         }
 
-        binding.tvUpdate.setOnClickListener {
-            if (auth.currentUser?.uid == BoardData.uid){
-                val boardWriteIntent = Intent(this, BoardWriteActivity::class.java)
-                boardWriteIntent.putExtra("boardType", 2)
-                startActivity(boardWriteIntent)
-                finish()
-            }else{
-                showToast(this, "작성자만 게시글을 수정할 수 있습니다")
-            }
+        binding.btnMore.setOnClickListener {
+            // 다이얼로그를 표시하는 메서드 호출
+            showMoreOptionsDialog()
         }
 
-        binding.tvDelete.setOnClickListener {
-                deleteBoardData(BoardData)
-        }
-
+//        binding.tvUpdate.setOnClickListener {
+//            if (auth.currentUser?.uid == BoardData.uid) {
+//                val boardWriteIntent = Intent(this, BoardWriteActivity::class.java)
+//                boardWriteIntent.putExtra("boardType", 2)
+//                startActivity(boardWriteIntent)
+//                finish()
+//            } else {
+//                showToast(this, getString(R.string.edit_board_error))
+//            }
+//        }
+//
+//        binding.tvDelete.setOnClickListener {
+//            deleteBoardData(BoardData)
+//        }
+//
+//        binding.tvClaim.setOnClickListener {
+//            intentToGeneralConditionLink()
+//        }
 
         binding.tvAddComment.setOnClickListener {
             writeComment()
+            binding.etComment.text = null
         }
 
         binding.tvLoadComment.setOnClickListener {
@@ -103,23 +118,104 @@ class BoardReadActivity : AppCompatActivity() {
 
     }
 
+    private fun showMoreOptionsDialog() {
+        val dialogBinding = DialogOptionBinding.inflate(layoutInflater)
+
+        val dialogBuilder = AlertDialog.Builder(this)
+        dialogBuilder.setView(dialogBinding.root)
+
+        val alertDialog = dialogBuilder.create()
+        alertDialog.window?.setGravity(Gravity.BOTTOM)
+
+        //배경 투명으로 지정
+        alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        val claimButton = dialogBinding.btnClaim
+        val deleteButton = dialogBinding.btnDelete
+        val updateButton = dialogBinding.btnUpdate
+//        val cancelButton = dialogBinding.btnCancle
+
+        claimButton.setOnClickListener {
+            intentToGeneralConditionLink()
+            alertDialog.dismiss()
+        }
+
+        deleteButton.setOnClickListener {
+            deleteBoardData(BoardData)
+            alertDialog.dismiss()
+        }
+
+        updateButton.setOnClickListener {
+            if (auth.currentUser?.uid == BoardData.uid) {
+                val boardWriteIntent = Intent(this, BoardWriteActivity::class.java)
+                boardWriteIntent.putExtra("boardType", 2)
+                startActivity(boardWriteIntent)
+                finish()
+            } else {
+                showToast(this, getString(R.string.boardread_error_updateBoard))
+            }
+            alertDialog.dismiss()
+        }
+
+//        cancelButton.setOnClickListener {
+//            // 취소 버튼 클릭 처리
+//            alertDialog.dismiss()
+//        }
+
+        alertDialog.show()
+    }
+
+
+    // 신고하기 구글폼으로 이동
+    private fun intentToGeneralConditionLink() {
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(Constants.claimUrl))
+        try {
+            startActivity(browserIntent)
+        } catch (e: ActivityNotFoundException) {
+            showToast(this, getString(R.string.util_toast_connectError))
+        }
+    }
+
+//    private fun getWriterData() {
+//        fireStore.collection("UserDto").document(BoardData.uid).get().addOnSuccessListener {
+//            if (it != null) {
+//                nickname = it.getString("nickname")
+//                profile = it.getLong("profile")?.toInt()
+//            }
+//            binding.tvNickname.text = nickname
+//            when (profile) {
+//                1 -> binding.ivProfile.setImageResource(R.drawable.ic_person1)
+//                2 -> binding.ivProfile.setImageResource(R.drawable.ic_person2)
+//                3 -> binding.ivProfile.setImageResource(R.drawable.ic_person3)
+//                4 -> binding.ivProfile.setImageResource(R.drawable.ic_person4)
+//                else -> binding.ivProfile.setImageResource(R.drawable.ic_person1)
+//            }
+//        }
+//    }
+
     // 게시글 읽기
     private fun readBoard() = with(binding) {
 
-        val dateFormat = SimpleDateFormat("yy.MM.dd.HH.mm.ss", Locale.getDefault())
+        val dateFormat = SimpleDateFormat("yy.MM.dd.HH.mm", Locale.getDefault())
 
         tvNickname.text = BoardData.writer
         etContentsTitle.text = BoardData.contentsTitle
         tvCreatedDatetime.text = BoardData.createdTime?.toDate()?.let { dateFormat.format(it) }
         etContents.text = BoardData.contents
 
-        val imageRef = storageRef.child(BoardData.bid).child(BoardData.bid)
+        when (BoardData.profile) {
+            1 -> binding.ivProfile.setImageResource(R.drawable.ic_person1)
+            2 -> binding.ivProfile.setImageResource(R.drawable.ic_person2)
+            3 -> binding.ivProfile.setImageResource(R.drawable.ic_person3)
+            4 -> binding.ivProfile.setImageResource(R.drawable.ic_person4)
+            else -> binding.ivProfile.setImageResource(R.drawable.ic_person1)
+        }
 
-        imageRef.downloadUrl.addOnSuccessListener {
-            Glide.with(this@BoardReadActivity)
-                .load(it)
+        if (BoardData.contentsPhoto != null) {
+            Glide.with(this@BoardReadActivity).load(BoardData.contentsPhoto)
+                .error(R.drawable.ic_logo)
                 .into(binding.ivPicture)
-        }.addOnFailureListener {
+        } else {
             binding.ivPicture.visibility = View.GONE
         }
     }
@@ -130,18 +226,17 @@ class BoardReadActivity : AppCompatActivity() {
         if (user!!.uid == boardData.uid) {
             fireStore.collection("BoardDto").document(boardData.bid).delete()
                 .addOnSuccessListener {
-                    fireStore.collection("BoardDto").document(BoardData.bid).collection("CommentDto")
+                    fireStore.collection("BoardDto").document(BoardData.bid)
+                        .collection("CommentDto")
                         .document().delete()
                         .addOnSuccessListener {
-                            showToast(this, "게시글이 삭제되었습니다.")
                             finish()
                         }
                 }.addOnFailureListener {
-                    showToast(this, "게시글 삭제에 실패했습니다.")
-
+                    showToast(this, getString(R.string.boardread_error_failedDeleteBoard))
                 }
         } else {
-            showToast(this, "작성자만 게시글을 삭제할 수 있습니다")
+            showToast(this, getString(R.string.boardread_error_deleteBoard))
         }
     }
 
@@ -153,6 +248,8 @@ class BoardReadActivity : AppCompatActivity() {
         cmanager = LinearLayoutManager(this@BoardReadActivity, LinearLayoutManager.VERTICAL, false)
         rvComment.layoutManager = cmanager
         rvComment.adapter = commentAdapter
+
+        rvComment.isNestedScrollingEnabled = false
 
         commentAdapter.itemClick = object : CommentAdapter.ItemClick {
             override fun deleteItem(view: View, commentData: CommentDto) {
@@ -173,7 +270,7 @@ class BoardReadActivity : AppCompatActivity() {
                     cdata.remove(commentData)
                 }
         } else {
-            showToast(this, "댓글 작성자만 댓글을 삭제할 수 있습니다")
+            showToast(this, getString(R.string.boardread_error_deleteCommentr))
         }
     }
 
@@ -194,7 +291,6 @@ class BoardReadActivity : AppCompatActivity() {
                             citem.comments
                         )
                         cdata.add(commentItam)
-                        Log.d("comment", commentItam.toString())
                     }
                 }
                 cdata.sortBy { it.commentTime } // 날짜순 정렬
@@ -203,13 +299,12 @@ class BoardReadActivity : AppCompatActivity() {
     }
 
     // 댓글에 들어갈 작성자 닉네임 불러오기
-    fun getUserNicknameData() {
-        var user = auth.currentUser
+    private fun getUserNicknameData() {
+        val user = auth.currentUser
         fireStore.collection("UserDto").document(user!!.uid).addSnapshotListener { value, _ ->
             if (value != null) {
                 nickname = value.getString("nickname")
             }
-            binding.tvWriter.text = nickname
         }
     }
 
@@ -223,7 +318,7 @@ class BoardReadActivity : AppCompatActivity() {
         val comments = binding.etComment.text.toString()
 
         if (comments.isEmpty()) {
-            binding.etComment.error = "댓글을 입력해주세요"
+            binding.etComment.error = getString(R.string.boardread_error_emptyComment)
         } else {
             val commentDto =
                 CommentDto(
@@ -236,10 +331,6 @@ class BoardReadActivity : AppCompatActivity() {
             db.collection("BoardDto").document(BoardData.bid).collection("CommentDto")
                 .document(commentIndex)
                 .set(commentDto)
-                .addOnSuccessListener { documentReference ->
-                }
-                .addOnFailureListener { e ->
-                }
         }
     }
 }

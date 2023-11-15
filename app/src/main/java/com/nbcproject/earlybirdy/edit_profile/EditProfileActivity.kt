@@ -2,11 +2,8 @@ package com.nbcproject.earlybirdy.edit_profile
 
 import android.os.Bundle
 import com.nbcproject.earlybirdy.databinding.ActivityEditProfileBinding
-import com.nbcproject.earlybirdy.signup.EditProfileDialog
-import android.util.Log
 import com.nbcproject.earlybirdy.R
 import com.nbcproject.earlybirdy.main.MainActivity
-import com.nbcproject.earlybirdy.util.navigateToMainActivity
 import com.nbcproject.earlybirdy.util.showToast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -15,6 +12,8 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.nbcproject.earlybirdy.edit_profile.dialog.EditProfileActivityDialog
+import com.nbcproject.earlybirdy.edit_profile.dialog.EditProfileDialog
 
 class EditProfileActivity : MainActivity() {
     private lateinit var binding: ActivityEditProfileBinding
@@ -82,15 +81,13 @@ class EditProfileActivity : MainActivity() {
     private fun onSaveButtonClick() {
         val profile = editProfileDialog.getSelectedEditProfileImageId()  // 이미지 객체 정보
         val nickname = binding.etProfileNickname.text.toString()
-//        val email = binding.etProfileEmail.text.toString()
 
         // 빈칸 확인
         if (nickname.isBlank()) {
-            binding.tilProfileNickname.error = "닉네임을 입력해주세요"
-
+            binding.tilProfileNickname.error = getString(R.string.util_error_emptyNickname)
         } else {
                 updateUserData(user.uid, profile, nickname)
-                showToast(this@EditProfileActivity, "회원 정보 수정 완료!")
+                showToast(this@EditProfileActivity, getString(R.string.editProfile_toast_updateSuccess))
                 finish()
         }
 
@@ -105,39 +102,31 @@ class EditProfileActivity : MainActivity() {
                 "nickname" to nickname,
             )
         ).addOnSuccessListener {
-            showToast(this@EditProfileActivity,"회원정보 업데이트 완료!")
-        }.addOnFailureListener{e ->
-            Log.e("error","Error updating document", e)
+            showToast(this@EditProfileActivity,getString(R.string.editProfile_toast_updateSuccess))
         } else {
            db.collection("UserDto").document(uid).update(
                mapOf(
                    "nickname" to nickname
                )
            ).addOnSuccessListener {
-               showToast(this@EditProfileActivity,"회원정보 업데이트 완료!")
-           }.addOnFailureListener{e ->
-               Log.e("error","Error updating document", e)
+               showToast(this@EditProfileActivity,getString(R.string.editProfile_toast_updateSuccess))
            }
        }
     }
     private fun loadUserData() {
         val uid = user.uid
 
-
         db.collection("UserDto").document(uid).get()
             .addOnSuccessListener { document ->
                 if (document != null) {
                     val nickname = document.getString("nickname") ?: ""
-                    val email = document.getString("email") ?: ""
                     val profile = document.getLong("profile")?.toInt() ?: 0
                     setImageByFixedValue(profile)
                     binding.etProfileNickname.setText(nickname)
-//                    binding.etProfileEmail.setText(email)
                 }
             }
             .addOnFailureListener { e ->
-                Log.e("loadUserData", "사용자 정보 로딩 실패", e)
-                showToast(this, "사용자 정보 로딩에 실패했습니다.")
+                showToast(this, getString(R.string.editProfile_toast_loadUserDataFailed))
             }
     }
 
@@ -146,29 +135,24 @@ class EditProfileActivity : MainActivity() {
         val profileImageRef = fireStore.collection("UserDto").document(uid)
         val imageResourceId = imageMap[fixedValue]
         if (imageResourceId != null) {
-            binding.imgProflileProfile.setImageResource(imageResourceId)
-        } else {
-            profileImageRef.get()
-                .addOnSuccessListener { document ->
-                    if (document != null && document.exists()) {
-                        val imageResId = document.getLong("profile")?.toInt()
-                        if (imageResId != null) {
-                            binding.imgProflileProfile.setImageResource(imageResId)
+            if (imageResourceId > 0) {
+                binding.imgProflileProfile.setImageResource(imageResourceId)
+            } else {
+                profileImageRef.get()
+                    .addOnSuccessListener { document ->
+                        if (document != null && document.exists()) {
+                            val imageResId = document.getLong("profile")?.toInt()
+                            if (imageResId != null) {
+                                binding.imgProflileProfile.setImageResource(imageResId)
+                            }
+                        } else {
+                            binding.imgProflileProfile.setImageResource(R.drawable.ic_person1)
                         }
-
-                    } else {
-                        val imageResId = document.getLong("profile")?.toInt()
-                        return@addOnSuccessListener binding.imgProflileProfile.setImageResource(imageResId!!)
-
                     }
-                }
-                .addOnFailureListener { exception ->
-
-                    binding.imgProflileProfile.setImageResource(R.drawable.ic_person4)
-                }
+                    .addOnFailureListener {
+                        binding.imgProflileProfile.setImageResource(R.drawable.ic_person4)
+                    }
+            }
         }
     }
-
-
-
 }

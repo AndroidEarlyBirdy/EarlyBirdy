@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -10,11 +11,11 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/btn_setting"
+        android:background="@drawable/ic_row"
         android:paddingHorizontal="40dp"
         android:paddingVertical="16dp"
-        android:text="@string/itemranking_rank"
-        android:textSize="18sp"
+        android:text="@string/ranking_tv_rank"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,7 +30,7 @@
         android:adjustViewBounds="true"
         android:padding="1dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/img_profile_add"
+        android:src="@drawable/ic_person1"
         app:layout_constraintBottom_toBottomOf="@+id/tv_board1"
         app:layout_constraintStart_toStartOf="@+id/tv_board1"
         app:layout_constraintTop_toTopOf="@+id/tv_board1"
@@ -42,7 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
-        android:text="@string/itemranking_nickname"
+        android:text="@string/ranking_tv_nickname"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/tv_board1"
         app:layout_constraintStart_toStartOf="@+id/iv_4th"
@@ -53,9 +54,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:text="@string/itemranking_exp"
+        android:text="@string/ranking_tv_exp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_4thid"
         app:layout_constraintEnd_toEndOf="@+id/tv_board1"
         app:layout_constraintTop_toTopOf="@+id/tv_4thid" />
+
+    <ImageView
+        android:id="@+id/ic_star"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_4th"
+        app:layout_constraintStart_toStartOf="@+id/tv_board1"
+        app:layout_constraintTop_toTopOf="@+id/iv_4th"
+        app:srcCompat="@drawable/ic_star" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

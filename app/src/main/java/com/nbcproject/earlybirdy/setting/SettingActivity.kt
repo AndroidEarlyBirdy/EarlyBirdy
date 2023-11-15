@@ -15,61 +15,63 @@ import com.nbcproject.earlybirdy.main.MainActivity
 import com.nbcproject.earlybirdy.setting.dialog.SettingDeleteDialog
 import com.nbcproject.earlybirdy.setting.viewmodel.SettingViewModel
 import com.nbcproject.earlybirdy.setting.viewmodel.SettingViewModelFactory
-import com.nbcproject.earlybirdy.util.Constants.Companion.genralconditionUrl
-import com.nbcproject.earlybirdy.util.Constants.Companion.openlicenseUrl
+import com.nbcproject.earlybirdy.util.Constants.Companion.generalConditionUrl
+import com.nbcproject.earlybirdy.util.Constants.Companion.openLicenseUrl
 import com.nbcproject.earlybirdy.util.navigateToSigninActivity
 import com.nbcproject.earlybirdy.util.showToast
+
 import com.nbcproject.earlybirdy.util.Constants.Companion.supportUrl
 
 class SettingActivity : MainActivity() {
     private lateinit var binding: ActivitySettingBinding
     private lateinit var settingDeleteDialog: SettingDeleteDialog
-    private lateinit var settingViewModel : SettingViewModel
+    private lateinit var settingViewModel: SettingViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySettingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        settingDeleteDialog = SettingDeleteDialog(this@SettingActivity)
-        settingViewModel = ViewModelProvider(this, SettingViewModelFactory())[SettingViewModel::class.java]
+        settingViewModel =
+            ViewModelProvider(this, SettingViewModelFactory())[SettingViewModel::class.java]
+        settingDeleteDialog = SettingDeleteDialog(this@SettingActivity, settingViewModel)
 
-        setOnclickListener()
+        setOnclickListeners()
     }
 
-    private fun setOnclickListener() {
+    private fun setOnclickListeners() = with(binding) {
         //알림 설정 버튼
-        binding.btnNotificationSettings.setOnClickListener {
-            presentNotificationSetting(this)
+        btnNotificationSettings.setOnClickListener {
+            presentNotificationSetting(this@SettingActivity)
         }
 
         //고객지원 구글폼으로 연결
-        binding.btnUserSupport.setOnClickListener {
-            intentToSupportLink()
+        btnUserSupport.setOnClickListener {
+            intentToLink(supportUrl)
         }
 
         //오픈 라이선스 구글폼으로 연결
-        binding.btnOpenLicense.setOnClickListener {
-            intentToOpenLicenseUrlLink()
+        btnOpenLicense.setOnClickListener {
+            intentToLink(openLicenseUrl)
         }
 
         //약관 구글폼으로 연결
-        binding.btnGenralCondition.setOnClickListener {
-            intentToGeneralConditionLink()
+        btnGenralCondition.setOnClickListener {
+            intentToLink(generalConditionUrl)
         }
 
         //로그아웃 버튼
-        binding.btnLogout.setOnClickListener {
+        btnLogout.setOnClickListener {
             signOut()
         }
 
         //회원 탈퇴 버튼
-        binding.btnDeleteAccount.setOnClickListener {
+        btnDeleteAccount.setOnClickListener {
             settingDeleteDialog.show()
         }
 
         //뒤로가기 버튼
-        binding.ivBack.setOnClickListener {
+        ivBack.setOnClickListener {
             finish()
         }
 
@@ -89,32 +91,12 @@ class SettingActivity : MainActivity() {
         }
     }
 
-    private fun intentToSupportLink() {
-        val supportLink = supportUrl
-
-        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(supportLink))
+    private fun intentToLink(settingUrl : String) {
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(settingUrl))
         try {
             startActivity(browserIntent)
         } catch (e: ActivityNotFoundException) {
-            showToast(this, R.string.setting_connect_error_toast.toString())
-        }
-    }
-
-    private fun intentToOpenLicenseUrlLink() {
-        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(openlicenseUrl))
-        try {
-            startActivity(browserIntent)
-        } catch (e: ActivityNotFoundException) {
-            showToast(this, R.string.setting_connect_error_toast.toString())
-        }
-    }
-
-    private fun intentToGeneralConditionLink() {
-        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(genralconditionUrl))
-        try {
-            startActivity(browserIntent)
-        } catch (e: ActivityNotFoundException) {
-            showToast(this, R.string.setting_connect_error_toast.toString())
+            showToast(this, getString(R.string.util_toast_connectError))
         }
     }
 

@@ -7,22 +7,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.firebase.firestore.AggregateSource
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.nbcproject.earlybirdy.databinding.ItemBoardBinding
 import com.nbcproject.earlybirdy.dto.BoardDto
-import com.google.firebase.storage.FirebaseStorage
+import com.nbcproject.earlybirdy.R
 
 class BoardAdapter(context: Context) : RecyclerView.Adapter<BoardAdapter.Holder>() {
 
     private val list = ArrayList<BoardDto>()
-    private val storage = FirebaseStorage.getInstance()
-    val storageRef = storage.reference
-
     var bContext = context
 
     interface ItemClick {
 
         fun onClick(view: View, boardData: BoardDto)
-        fun deleteItem(view:View, boardData: BoardDto)
+        fun deleteItem(view: View, boardData: BoardDto)
     }
 
     var itemClick: ItemClick? = null
@@ -30,11 +30,6 @@ class BoardAdapter(context: Context) : RecyclerView.Adapter<BoardAdapter.Holder>
     @SuppressLint("NotifyDataSetChanged")
     fun addItems(items: List<BoardDto>) {
         list.addAll(items)
-        notifyDataSetChanged()
-    }
-    @SuppressLint("NotifyDataSetChanged")
-    fun removeList(position: Int) {
-        list.removeAt(position)
         notifyDataSetChanged()
     }
 
@@ -74,13 +69,17 @@ class BoardAdapter(context: Context) : RecyclerView.Adapter<BoardAdapter.Holder>
             tvWriter.text = item.writer
             etContentsTitle.text = item.contentsTitle
 
-            val imageRef = storageRef.child(item.bid).child(item.bid)
+            Glide.with(bContext).load(item.contentsPhoto).fallback(R.drawable.ic_logo).error(R.drawable.ic_logo).into(ivContentsPoto)
 
-            imageRef.downloadUrl.addOnSuccessListener {
-                Glide.with(bContext)
-                    .load(it)
-                    .into(binding.ivContentsPoto)
-            }
+            Firebase.firestore.collection("BoardDto").document(item.bid).collection("CommentDto")
+                .count().get(
+                    AggregateSource.SERVER
+                ).addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        tvLike.text = it.result.count.toString()
+                    }
+                }
+
         }
     }
 

@@ -8,14 +8,12 @@ import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.location.LocationListener
 import android.location.LocationManager
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,7 +21,6 @@ import com.nbcproject.earlybirdy.create_plan.CreatePlanActivity
 import com.nbcproject.earlybirdy.data.MyGoal
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.loopj.android.http.AsyncHttpClient
@@ -32,11 +29,10 @@ import com.loopj.android.http.RequestParams
 import com.nbcproject.earlybirdy.R
 import com.nbcproject.earlybirdy.databinding.FragmentHomeBinding
 import com.nbcproject.earlybirdy.databinding.ItemTodoMainBinding
+import com.nbcproject.earlybirdy.home.alarm.AlarmDialog
 import cz.msebera.android.httpclient.Header
 import org.json.JSONObject
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
-import java.time.LocalTime
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
@@ -62,16 +58,10 @@ class HomeFragment : Fragment() {
     private var completedAttendances: Int = 0 // 완료된 출석 수를 추적
     private var totalGoals: Int = 0 // 전체 목록 수를 추적
 
-    var attendindex: String? = null
+    private var attendIndex: String? = null
 
-    private lateinit var auth: FirebaseAuth
-    private lateinit var user: FirebaseUser
-    @RequiresApi(Build.VERSION_CODES.O)
-    val now = LocalDateTime.now()
-    @RequiresApi(Build.VERSION_CODES.O)
-    private val startOfDay = now.with(LocalTime.MIN)
-    @RequiresApi(Build.VERSION_CODES.O)
-    private val endOfDay = now.with(LocalTime.MAX)
+    val auth = FirebaseAuth.getInstance()
+    val user = auth.currentUser
 
     private lateinit var mLocationManager: LocationManager
     private lateinit var mLocationListener: LocationListener
@@ -81,14 +71,9 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.d("이곳은", "onCreateView")
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         // 파이어스토어 인스턴스 초기화
         firestore = FirebaseFirestore.getInstance()
-        auth = FirebaseAuth.getInstance()
-        user = auth.currentUser!!
-        expDialog = ExpDialog(requireContext())
-
         alarmDialog = AlarmDialog(requireContext())
 
         adapter = HomeFragmentAdapter()
@@ -105,7 +90,7 @@ class HomeFragment : Fragment() {
             }
         }
 
-        binding.ivGoAlarm.setOnClickListener {
+        binding.clAttend.setOnClickListener {
             alarmDialog.show()
         }
 
@@ -149,23 +134,24 @@ class HomeFragment : Fragment() {
                 // 체크박스 클릭 시 상태 업데이트
                 binding.checkBox.setOnClickListener {
                     val checked = checkBox.isChecked
-                    firestore?.collection("UserDto")?.document(user.uid)
-                        ?.collection("MyGoal")?.document("${item.goalId}")
-                        ?.update("check", checked)
-                        ?.addOnSuccessListener {
-                        }
-                        ?.addOnFailureListener {
-                        }
+                    if (user != null) {
+                        firestore?.collection("UserDto")?.document(user.uid)
+                            ?.collection("MyGoal")?.document("${item.goalId}")
+                            ?.update("check", checked)
+                            ?.addOnSuccessListener {
+                            }
+                            ?.addOnFailureListener {
+                            }
 
-                    // 경험치 업데이트
-                    val experienceChange = if (checked) 10 else -10
-                    firestore?.collection("UserDto")?.document(user.uid)
-                        ?.update("exp", FieldValue.increment(experienceChange.toLong()))
-                        ?.addOnSuccessListener {
-                        }
-                        ?.addOnFailureListener {
-                        }
-
+                        // 경험치 업데이트
+                        val experienceChange = if (checked) 10 else -10
+                        firestore?.collection("UserDto")?.document(user.uid)
+                            ?.update("exp", FieldValue.increment(experienceChange.toLong()))
+                            ?.addOnSuccessListener {
+                            }
+                            ?.addOnFailureListener {
+                            }
+                    }
                 }
             }
         }
@@ -194,57 +180,61 @@ class HomeFragment : Fragment() {
         val timeFormatter = SimpleDateFormat("yyyy.MM.dd")
         val dateTime = timeFormatter.format(today.time)
 
-        firestore?.collection("UserDto")?.document(user.uid)
-            ?.collection("Attendance")
-            ?.whereGreaterThanOrEqualTo("date", startOfDay)
-            ?.whereLessThanOrEqualTo("date", endOfDay)
-            ?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
-                val hasAttended = querySnapshot?.documents?.isNotEmpty()
-                if (hasAttended != null && hasAttended) {
-                    completedAttendances = 1
-                    binding.btnAttend.isEnabled = false
-                } else {
-                    completedAttendances = 0
-                    binding.btnAttend.isEnabled = true
-                }
-                updateProgress()
-                adapter.notifyDataSetChanged()
-            }
+        if (user != null) {
 
-        firestore?.collection("UserDto")?.document(user.uid)
-            ?.collection("MyGoal")
-            ?.whereGreaterThanOrEqualTo("date", startOfDay)
-            ?.whereLessThanOrEqualTo("date", endOfDay)
-            ?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
-                // ArrayList 비워줌
-                adapter.clearList()
-
-                completedGoals = 0
-                totalGoals = 0
-                for (snapshot in querySnapshot!!.documents) {
-                    var item = snapshot.toObject(MyGoal::class.java)
-                    if (item != null) {
-                        adapter.addToList(item)
-                        if (item.check) {
-                            completedGoals++
-                        }
-                        totalGoals++
+            firestore?.collection("UserDto")?.document(user.uid)
+                ?.collection("Attendance")
+                ?.whereGreaterThanOrEqualTo("date", startOfDay)
+                ?.whereLessThanOrEqualTo("date", endOfDay)
+                ?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
+                    val hasAttended = querySnapshot?.documents?.isNotEmpty()
+                    if (hasAttended != null && hasAttended) {
+                        completedAttendances = 1
+                        binding.btnAttend.isEnabled = false
+                    } else {
+                        completedAttendances = 0
+                        binding.btnAttend.isEnabled = true
                     }
+                    updateProgress()
+                    adapter.notifyDataSetChanged()
+
                 }
 
-                if (totalGoals == 0) {
-                    // RecyclerView 내용이 없을 때 화살표를 숨김
-                    binding.btnLeftArrow.visibility = View.GONE
-                    binding.btnRightArrow.visibility = View.GONE
-                } else {
-                    // RecyclerView 내용이 있을 때 화살표를 표시
-                    binding.btnLeftArrow.visibility = View.VISIBLE
-                    binding.btnRightArrow.visibility = View.VISIBLE
-                }
+            firestore?.collection("UserDto")?.document(user.uid)
+                ?.collection("MyGoal")
+                ?.whereGreaterThanOrEqualTo("date", startOfDay)
+                ?.whereLessThanOrEqualTo("date", endOfDay)
+                ?.addSnapshotListener { querySnapshot, _ ->
+                    // ArrayList 비워줌
+                    adapter.clearList()
 
-                updateProgress()
-                adapter.notifyDataSetChanged()
-            }
+                    completedGoals = 0
+                    totalGoals = 0
+                    for (snapshot in querySnapshot!!.documents) {
+                        var item = snapshot.toObject(MyGoal::class.java)
+                        if (item != null) {
+                            adapter.addToList(item)
+                            if (item.check) {
+                                completedGoals++
+                            }
+                            totalGoals++
+                        }
+                    }
+
+                    if (totalGoals == 0) {
+                        // RecyclerView 내용이 없을 때 화살표를 숨김
+                        binding.btnLeftArrow.visibility = View.GONE
+                        binding.btnRightArrow.visibility = View.GONE
+                    } else {
+                        // RecyclerView 내용이 있을 때 화살표를 표시
+                        binding.btnLeftArrow.visibility = View.VISIBLE
+                        binding.btnRightArrow.visibility = View.VISIBLE
+                    }
+
+                    updateProgress()
+                    adapter.notifyDataSetChanged()
+                }
+        }
 
     }
 
@@ -314,27 +304,30 @@ class HomeFragment : Fragment() {
                 val currentMinutes = convertToMinutes(currentTime)
                 val alarmMinutes = convertToMinutes(alarmTime)
                 val data = calculateTime(alarmMinutes, currentMinutes)
+                expDialog = ExpDialog(requireContext(), data)
 
-                firestore?.collection("UserDto")?.document(user.uid)
-                    ?.update("exp", FieldValue.increment(data.toLong()))
-                    ?.addOnSuccessListener {
-                    }
-                    ?.addOnFailureListener { }
+                if (user != null) {
+                    firestore?.collection("UserDto")?.document(user.uid)
+                        ?.update("exp", FieldValue.increment(data.toLong()))
+                        ?.addOnSuccessListener {
+                        }
+                        ?.addOnFailureListener { }
 
-                // homeViewModel.setSharedData(data)
+                    // homeViewModel.setSharedData(data)
 
-                attendindex = UUID.randomUUID().toString()
+                    attendIndex = UUID.randomUUID().toString()
 
-                firestore?.collection("UserDto")?.document(user.uid)
-                    ?.collection("Attendance")?.document("$attendindex")
-                    ?.set(
-                        hashMapOf(
-                            "AttendanceId" to attendindex,
-                            "date" to Timestamp.now(),
+                    firestore?.collection("UserDto")?.document(user.uid)
+                        ?.collection("Attendance")?.document("$attendIndex")
+                        ?.set(
+                            hashMapOf(
+                                "AttendanceId" to attendIndex,
+                                "date" to Timestamp.now(),
+                            )
                         )
-                    )
-                // 출석 버튼을 비활성화
-                binding.btnAttend.isEnabled = false
+                    // 출석 버튼을 비활성화
+                    binding.btnAttend.isEnabled = false
+                }
             }
             expDialog.show()
         }
@@ -353,13 +346,13 @@ class HomeFragment : Fragment() {
 
     private fun showRandomQuote() {
         val quotes = resources.getStringArray(R.array.quotes)
-        val randomIndex = (0 until quotes.size).random()
+        val randomIndex = (quotes.indices).random()
         val randomQuote = quotes[randomIndex]
         binding.tvFamous.text = randomQuote
     }
 
     @SuppressLint("SetTextI18n")
-    private fun loadTimeDate(): String? {
+    private fun loadTimeDate(): String {
         val pref: SharedPreferences =
             requireContext().getSharedPreferences("alarmSetting", Context.MODE_PRIVATE)
         val hour = pref.getInt("hour", 4)
@@ -374,10 +367,8 @@ class HomeFragment : Fragment() {
     private fun updateProgress() {
         val progress = calculateProgress()
 
-        if (binding != null) {
-            binding.progressBar.progress = progress
-            binding.tvProgress.text = "$progress%"
-        }
+        binding.progressBar.progress = progress
+        binding.tvProgress.text = "$progress%"
     }
 
     @SuppressLint("SetTextI18n")
@@ -394,11 +385,10 @@ class HomeFragment : Fragment() {
     }
 
     private fun calculateTime(alarmMinutes: Int, currentMinutes: Int): Int {
-        val timeDifference = currentMinutes - alarmMinutes
-        return when {
-            timeDifference in 0..5 -> 30
-            timeDifference in 6..10 -> 20
-            timeDifference in 11..15 -> 10
+        return when (currentMinutes - alarmMinutes) {
+            in 0..5 -> 30
+            in 6..10 -> 20
+            in 11..15 -> 10
             else -> 1
         }
     }
@@ -435,18 +425,11 @@ class HomeFragment : Fragment() {
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+            ) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
+            ) == PackageManager.PERMISSION_GRANTED
         ) {
-            // 권한이 없는 경우 권한 요청
-            ActivityCompat.requestPermissions(
-                requireActivity(),
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                WEATHER_REQUEST
-            )
-        } else {
             // 권한이 있는 경우 위치 업데이트 요청
             mLocationManager.requestLocationUpdates(
                 LocationManager.NETWORK_PROVIDER,
@@ -471,16 +454,10 @@ class HomeFragment : Fragment() {
         client.get(weatherstackEndpoint, params, object : JsonHttpResponseHandler() {
             override fun onSuccess(statusCode: Int, headers: Array<Header>?, response: JSONObject?) {
                 val weatherData = WeatherData().fromJson(response)
+                Log.d("WEATHER", weatherData.toString())
                 if (weatherData != null) {
                     updateWeather(weatherData)
-//                    val iconUrl = weatherData.iconUrl // 날씨 아이콘 URL 가져오기
-//                    // Glide를 사용하여 이미지 로딩
-//                    Glide.with(this@HomeFragment)
-//                        .load(iconUrl)
-//                        .into(binding.icWeather)
-//                    Log.d("아이콘", binding.icWeather.toString())
-                    // 날씨 정보 및 온도 업데이트
-                    //binding.tvTemperature.text = weatherData.tempString + " ℃"
+                    binding.tvTemperature.text = weatherData.tempString + " ℃"
                 }
             }
 
@@ -499,9 +476,7 @@ class HomeFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
-        if(mLocationManager!=null){
-            mLocationManager.removeUpdates(mLocationListener)
-        }
+        mLocationManager.removeUpdates(mLocationListener)
     }
 
     override fun onDestroyView() {
@@ -511,7 +486,7 @@ class HomeFragment : Fragment() {
 
     companion object {
         fun newInstance() = HomeFragment()
-        const val API_KEY: String = "fdc4d1525e506a285b467adc61c77416"
+        const val API_KEY: String = "" //fdc4d1525e506a285b467adc61c77416
         const val WEATHER_URL: String = "https://api.weatherstack.com/current"
         const val MIN_TIME: Long = 5000
         const val MIN_DISTANCE: Float = 1000F

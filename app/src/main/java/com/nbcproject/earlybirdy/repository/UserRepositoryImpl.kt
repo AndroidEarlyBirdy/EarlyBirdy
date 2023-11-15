@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.nbcproject.earlybirdy.data.MyPageData
 import com.nbcproject.earlybirdy.dto.AttendanceDto
 import com.google.firebase.firestore.FirebaseFirestore
+import com.nbcproject.earlybirdy.sealedclass.CheckDelete
 
 class UserRepositoryImpl : UserRepository {
     private val fireStore = FirebaseFirestore.getInstance()
@@ -14,6 +15,12 @@ class UserRepositoryImpl : UserRepository {
 
     private var _attendanceListData = MutableLiveData<List<AttendanceDto>>()
     val attendanceListData : LiveData<List<AttendanceDto>> get() = _attendanceListData
+
+    private var _userEmail = MutableLiveData<String>()
+    val userEmail : LiveData<String> get() = _userEmail
+
+    private val _checkDeleteData = MutableLiveData<CheckDelete>()
+    val checkDeleteData : LiveData<CheckDelete> get() = _checkDeleteData
 
     override fun getMyPageUserData(userId: String) {
         var user = MyPageData()
@@ -46,5 +53,23 @@ class UserRepositoryImpl : UserRepository {
             _attendanceListData.value = demoList
 
         }
+    }
+
+    override fun getUserEmail(userId: String) {
+        fireStore.collection("UserDto").document(userId).get()
+            .addOnSuccessListener { document ->
+                if (document != null) {
+                    val loadEmail = document.getString("email") ?: ""
+                    _userEmail.value = loadEmail
+                }
+            }
+    }
+
+    override fun deleteUserData(userId: String) {
+        fireStore.collection("UserDto").document(userId)
+            .delete()
+            .addOnSuccessListener {
+                _checkDeleteData.value = CheckDelete.DeleteSuccess
+            }
     }
 }

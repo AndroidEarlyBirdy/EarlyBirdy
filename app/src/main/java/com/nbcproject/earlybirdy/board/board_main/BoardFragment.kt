@@ -25,9 +25,10 @@ class BoardFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
-    private val fireStore = FirebaseFirestore.getInstance()
 
+    private val fireStore = FirebaseFirestore.getInstance()
     private val data: MutableList<BoardDto> = mutableListOf()
+    private var boardCheck: Boolean = false
 
     private val boardAdapter by lazy {
         BoardAdapter(bContext)
@@ -50,6 +51,8 @@ class BoardFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
         database = Firebase.database.reference
 
+        boardCheck = false
+
         initView()
         setOnClickListener()
 
@@ -66,7 +69,7 @@ class BoardFragment : Fragment() {
 
         boardAdapter.itemClick = object : BoardAdapter.ItemClick {
             override fun onClick(view: View, data: BoardDto) {
-                startActivity(BoardReadActivity.BoardReadIntent(context, data))
+                startActivity(BoardReadActivity.boardReadIntent(context, data))
             }
 
             override fun deleteItem(view: View, boardData: BoardDto) {
@@ -82,22 +85,21 @@ class BoardFragment : Fragment() {
             navigateToBoardWriteActivity(requireContext())
         }
 
-        binding.icReload.setOnClickListener {
-            if (binding.tvBoard.isSelected){
-                loadData()
-            }else if (binding.tvMyBoard.isSelected){
-                loadMyBoardData()
-            }
-        }
         binding.tvBoard.setOnClickListener {
-            binding.tvBoard.isSelected = true
-            binding.tvMyBoard.isSelected = false
+            boardCheck = false
             loadData()
         }
         binding.tvMyBoard.setOnClickListener {
-            binding.tvBoard.isSelected = false
-            binding.tvMyBoard.isSelected = true
+            boardCheck = true
             loadMyBoardData()
+        }
+
+        binding.icReload.setOnClickListener {
+            if (!boardCheck){
+                loadData()
+            }else if (boardCheck){
+                loadMyBoardData()
+            }
         }
     }
 
@@ -114,9 +116,11 @@ class BoardFragment : Fragment() {
                             item.bid,
                             item.uid,
                             item.writer,
+                            item.profile,
                             item.createdTime,
                             item.contentsTitle,
-                            item.contents
+                            item.contents,
+                            item.contentsPhoto
                         )
                         data.add(boardItam)
                         Log.d("board", boardItam.toString())
@@ -142,9 +146,11 @@ class BoardFragment : Fragment() {
                                 item.bid,
                                 item.uid,
                                 item.writer,
+                                item.profile,
                                 item.createdTime,
                                 item.contentsTitle,
                                 item.contents,
+                                item.contentsPhoto
                             )
                             data.add(boardItam)
                             Log.d("board", boardItam.toString())

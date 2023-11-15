@@ -7,20 +7,20 @@
     tools:context=".edit_profile.EditProfileActivity">
 
     <ImageView
+        android:id="@+id/imageView8"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@drawable/bg_gr3"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5"/>
+        app:layout_constraintGuide_begin="388dp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_profile_top"
@@ -31,51 +31,54 @@
 
         <ImageView
             android:id="@+id/img_profile_back"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="32dp"
             android:src="@drawable/ic_profile_back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.button.MaterialButton
+        <TextView
             android:id="@+id/btn_profile_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
-            android:text="저장"
+            android:text="@string/util_btn_save"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
-<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--            android:id="@+id/cl_profile_save"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="16dp"-->
-<!--            android:layout_marginEnd="16dp"-->
-<!--            android:clickable="true"-->
-<!--            android:focusable="true"-->
-<!--            android:onClick="onSaveButtonClick"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent">-->
+        <!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+        <!--            android:id="@+id/cl_profile_save"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginTop="16dp"-->
+        <!--            android:layout_marginEnd="16dp"-->
+        <!--            android:clickable="true"-->
+        <!--            android:focusable="true"-->
+        <!--            android:onClick="onSaveButtonClick"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent">-->
 
-<!--            <TextView-->
-<!--                android:id="@+id/tv_edit_save"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:clickable="true"-->
-<!--                android:focusable="true"-->
-<!--                android:text="@string/editprofile_save"-->
-<!--                android:textColor="@color/white"-->
-<!--                android:textSize="16sp"-->
-<!--                android:textStyle="bold"-->
-<!--                app:layout_constraintBottom_toBottomOf="@+id/cl_profile_save"-->
-<!--                app:layout_constraintEnd_toEndOf="@+id/cl_profile_save"-->
-<!--                app:layout_constraintStart_toStartOf="@+id/cl_profile_save"-->
-<!--                app:layout_constraintTop_toTopOf="@+id/cl_profile_save" />-->
-<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+        <!--            <TextView-->
+        <!--                android:id="@+id/tv_edit_save"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:clickable="true"-->
+        <!--                android:focusable="true"-->
+        <!--                android:text="@string/editprofile_save"-->
+        <!--                android:textColor="@color/white"-->
+        <!--                android:textSize="16sp"-->
+        <!--                android:textStyle="bold"-->
+        <!--                app:layout_constraintBottom_toBottomOf="@+id/cl_profile_save"-->
+        <!--                app:layout_constraintEnd_toEndOf="@+id/cl_profile_save"-->
+        <!--                app:layout_constraintStart_toStartOf="@+id/cl_profile_save"-->
+        <!--                app:layout_constraintTop_toTopOf="@+id/cl_profile_save" />-->
+        <!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/img_proflile_profile"
@@ -83,7 +86,7 @@
             android:layout_height="140dp"
             android:layout_margin="50dp"
             android:padding="1dp"
-            android:src="@drawable/img_profile_add"
+            android:src="@drawable/ic_person1"
             app:layout_constraintBottom_toBottomOf="@id/cl_profile_top"
             app:layout_constraintEnd_toEndOf="@id/cl_profile_top"
             app:layout_constraintStart_toStartOf="@id/cl_profile_top"
@@ -102,30 +105,11 @@
             android:src="@drawable/img_profile_camera"
             app:layout_constraintBottom_toBottomOf="@+id/img_proflile_profile"
             app:layout_constraintEnd_toEndOf="@+id/img_proflile_profile" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/tv_edit_profile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/editprfile_edit"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cl_profile_top" />
 
-    <View
-        android:id="@+id/line_profile_center"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="16dp"
-        android:background="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_edit_profile" />
-
-<!--    <TextView-->
+    <!--    <TextView-->
 <!--        android:id="@+id/tv_profile_nickname"-->
 <!--        android:layout_width="wrap_content"-->
 <!--        android:layout_height="wrap_content"-->
@@ -136,31 +120,7 @@
 <!--        app:layout_constraintStart_toStartOf="parent"-->
 <!--        app:layout_constraintTop_toBottomOf="@id/line_profile_center" />-->
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_profile_nickname"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginHorizontal="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/line_profile_center"
-
-        >
-<!--        app:layout_constraintBottom_toBottomOf="@id/tv_profile_nickname"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/tv_profile_nickname"-->
-<!--        app:layout_constraintTop_toTopOf="@id/tv_profile_nickname">-->
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/et_profile_nickname"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:hint="닉네임을 입력해 주세요." />
-    </com.google.android.material.textfield.TextInputLayout>
-
-<!--    <TextView-->
+    <!--    <TextView-->
 <!--        android:id="@+id/tv_profile_email"-->
 <!--        android:layout_width="wrap_content"-->
 <!--        android:layout_height="wrap_content"-->
@@ -190,17 +150,64 @@
 <!--            />-->
 <!--    </com.google.android.material.textfield.TextInputLayout>-->
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_password_change"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/btn_sign_background"
-        android:text="@string/editprfile_change_pw"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        android:layout_marginBottom="40dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/bottom_sheet_background"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/cl_profile_top">
+
+        <TextView
+            android:id="@+id/tv_edit_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/editProfile_tv_updateNickname"
+            android:textColor="#444444"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_profile_nickname"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            app:hintEnabled="false"
+            android:layout_marginTop="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_edit_profile">
+            <!--        app:layout_constraintBottom_toBottomOf="@id/tv_profile_nickname"-->
+            <!--        app:layout_constraintStart_toEndOf="@+id/tv_profile_nickname"-->
+            <!--        app:layout_constraintTop_toTopOf="@id/tv_profile_nickname">-->
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_profile_nickname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/ic_dialog_item"
+                android:hint="@string/util_et_nickname" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_password_change"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="41dp"
+            android:layout_marginEnd="42dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/btn_sign_background"
+            android:text="@string/editProfile_btn_updatePassword"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

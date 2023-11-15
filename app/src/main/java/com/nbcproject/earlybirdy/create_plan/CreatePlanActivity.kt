@@ -3,9 +3,6 @@ package com.nbcproject.earlybirdy.create_plan
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import android.util.AttributeSet
-import android.util.Log
-import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nbcproject.earlybirdy.R
 import com.nbcproject.earlybirdy.data.MyGoal
@@ -20,6 +17,8 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import com.nbcproject.earlybirdy.create_plan.dialog.CreateFailDialog
+import com.nbcproject.earlybirdy.create_plan.dialog.CreatePlanDialog
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.DayViewDecorator
 import com.prolificinteractive.materialcalendarview.DayViewFacade
@@ -71,12 +70,6 @@ class CreatePlanActivity : MainActivity(), CreatePlanDialog.DialogCreateListener
         initView()
     }
 
-    override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
-        return super.onCreateView(name, context, attrs)
-
-
-    }
-
     //달력 세팅
     private fun setCalendar() = with(binding) {
 
@@ -84,7 +77,6 @@ class CreatePlanActivity : MainActivity(), CreatePlanDialog.DialogCreateListener
 
         //오늘 날짜 Selected 되게 설정
         //오늘 계획 setting
-        Log.d("today", testList.toString())
         filterDate(CalendarDay.today())
         calendarView.selectedDate = CalendarDay.today()
         //날짜 변경 시
@@ -115,10 +107,10 @@ class CreatePlanActivity : MainActivity(), CreatePlanDialog.DialogCreateListener
                     ).show()
                 }
                 else {
-                    CreateFailDialog(this@CreatePlanActivity, "오늘의 목표는 3개까지 작성 가능합니다.").show()
+                    CreateFailDialog(this@CreatePlanActivity, getString(R.string.createPlan_tv_3limit)).show()
                 }
             } else {
-                CreateFailDialog(this@CreatePlanActivity, "이미 지난 날짜에는 Todo를 작성할 수 없습니다.").show()
+                CreateFailDialog(this@CreatePlanActivity, getString(R.string.createPlan_tv_passeddate)).show()
             }
 
         }
@@ -145,7 +137,7 @@ class CreatePlanActivity : MainActivity(), CreatePlanDialog.DialogCreateListener
     }
 
     override fun onDialogSaveClicked(todo: Todo) {
-        var attendIndex = UUID.randomUUID().toString()
+        val attendIndex = UUID.randomUUID().toString()
         todo.tid = attendIndex
 
         testList.add(todo)
@@ -221,7 +213,7 @@ class CreatePlanActivity : MainActivity(), CreatePlanDialog.DialogCreateListener
         fireStore.collection("UserDto").document(user.uid)
             .collection("MyGoal").get().addOnSuccessListener { value ->
                 for (snapshot in value!!.documents) {
-                    var item = snapshot.toObject(MyGoal::class.java)
+                    val item = snapshot.toObject(MyGoal::class.java)
                     if (item != null) {
                         val todo = Todo(
                             item.goalId,
@@ -230,10 +222,8 @@ class CreatePlanActivity : MainActivity(), CreatePlanDialog.DialogCreateListener
                             item.check
                         )
                         testList.add(todo)
-                        Log.d("todo", todo.toString())
                     }
                 }
-                Log.d("list", testList.toString())
                 setCalendar()
             }
 
