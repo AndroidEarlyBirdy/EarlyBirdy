@@ -30,20 +30,6 @@
         app:layout_constraintStart_toEndOf="@+id/tv_writer"
         app:layout_constraintTop_toTopOf="@+id/tv_writer" />
 
-    <TextView
-        android:id="@+id/tv_comment"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginHorizontal="3dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_writer" />
-
     <ImageView
         android:id="@+id/iv_deleteComment"
         android:layout_width="wrap_content"
@@ -54,11 +40,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/tv_comment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_writer" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginHorizontal="3dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginHorizontal="5dp"
+        android:layout_marginVertical="5dp"
         android:background="#E4E4E4"
         app:layout_constraintTop_toBottomOf="@+id/tv_comment"
         app:layout_constraintEnd_toEndOf="parent"
