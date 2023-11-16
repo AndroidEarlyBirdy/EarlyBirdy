@@ -45,8 +45,7 @@ EarlyBirdy 어플리케이션은 미라클 모닝 챌린지를 도와주는 어�
 |material-calendarview|캘린더 라이브러리|
 
 ## 아키텍쳐 구조
-![img_architecture](https://github.com/AndroidEarlyBirdy/EarlyBirdy/assets/86705733/32c5e151-1e1c-49f3-88c9-b18985cb86e0)
-
+![img_architecture](https://github.com/AndroidEarlyBirdy/EarlyBirdy/assets/86705733/9f91bc40-8c78-4b01-9d09-7055dc44159e)
 
 ## 사용한 라이선스
 |라이선|설명|주소|
