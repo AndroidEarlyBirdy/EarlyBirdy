@@ -30,7 +30,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_2nd"
             android:layout_width="80dp"
@@ -51,8 +50,6 @@
             android:id="@+id/iv_3rd"
             android:layout_width="80dp"
             android:layout_height="80dp"
-
-
             android:layout_marginStart="32dp"
             android:layout_marginTop="70dp"
             android:adjustViewBounds="true"
@@ -171,7 +168,6 @@
             app:layout_constraintEnd_toEndOf="@+id/tv_1st"
             app:layout_constraintStart_toStartOf="@+id/tv_1st"
             app:layout_constraintTop_toBottomOf="@+id/tv_1st" />
-
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_rank"
