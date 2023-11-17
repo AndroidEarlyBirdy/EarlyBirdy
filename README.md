@@ -44,7 +44,7 @@ EarlyBirdy 어플리케이션은 미라클 모닝 챌린지를 도와주는 어�
 |WeatherStack|날씨 API|
 |material-calendarview|캘린더 라이브러리|
 
-## 아키텍쳐 구조
+## 아키텍쳐 구조 (일부 반영)
 ![img_architecture](https://github.com/AndroidEarlyBirdy/EarlyBirdy/assets/86705733/9f91bc40-8c78-4b01-9d09-7055dc44159e)
 
 ## 사용한 라이선스
