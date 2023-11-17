@@ -4,6 +4,10 @@ EarlyBirdy 어플리케이션은 미라클 모닝 챌린지를 도와주는 어�
 
 # 📃 **Description**
 ## 서비스 주요 기능
+![img_main](https://github.com/AndroidEarlyBirdy/EarlyBirdy/assets/86705733/c85757ca-97db-492f-b87a-c0b6a66e0fb1)
+![img_exp](https://github.com/AndroidEarlyBirdy/EarlyBirdy/assets/86705733/b2541a4c-3f9b-43ba-923b-6772f31141d8)
+
+
 ## 서비스 전체 기능
 * 출석 기능: 정해진 알림 시간에 맞추어 시간 경과에 따라  출석 버튼을 누르면 경험치를 차등 지급하고 출석 여부를 보여주는 기능
 * 목표 설정 기능: 목표를 설정하고 달성도에 따라 원형 프로그래스 바로 달성도를 보여주는 기능
@@ -25,15 +29,33 @@ EarlyBirdy 어플리케이션은 미라클 모닝 챌린지를 도와주는 어�
 
 # 📝 **Design**
 ## 전체 시스템 구조
+![img_system](https://github.com/AndroidEarlyBirdy/EarlyBirdy/assets/86705733/e67d5934-c70f-467e-a829-4ee7c54ac71e)
+
 ## 사용한 라이브러리
 |라이브러리|설명|
 |---|---|
-|내용 1|설명 1|
-|내용 2|설명 2|
-|내용 3|설명 3|
-## 디렉토리 구조
+|Firebase firestore|DBMS|
+|Firebase Authentication|사용자 인증을 위한 백엔드 서비스 라이브러리|
+|Firebase Storage|파이어베이스 이미지 저장소|
+|Glide|이미지 로딩 라이브러리|
+|ViewModel|수명주기 고려 데이터를 저장, 관리 라이브러리|
+|ShapableImageView|이미지 뷰 라이브러리|
+|Lottie|안드로이드 애니메이션 라이브러리|
+|WeatherStack|날씨 API|
+|material-calendarview|캘린더 라이브러리|
+
 ## 아키텍쳐 구조
+![img_architecture](https://github.com/AndroidEarlyBirdy/EarlyBirdy/assets/86705733/9f91bc40-8c78-4b01-9d09-7055dc44159e)
+
 ## 사용한 라이선스
+|라이선|설명|주소|
+|---|---|---|
+|Circle ProgresBar|프로그래스 바 외부 라이브러리|https://github.com/dinuscxj/CircleProgressBar|
+|MaterialCalendar|캘린더 외부 라이브러리|https://github.com/prolificinteractive/material-calendarview|
+|WeatherStack|날씨 API|https://weatherstack.com/|
+|Profile Picture|프로필 사진 |<a href="https://www.flaticon.com/kr/free-icons/" title="사람들 아이콘">사람들 아이콘  제작자: Freepik - Flaticon</a>|
+|Glide|이미지 로딩 라이브러리|https://bumptech.github.io/glide/|
+|파이어베이스|DBMS, 사용자 인증, 이미지 저장소|https://firebase.google.com/?hl=ko|
 
 </br>
 
@@ -52,13 +74,8 @@ EarlyBirdy 어플리케이션은 미라클 모닝 챌린지를 도와주는 어�
 </br>
 
 # 👩‍💻 **기술 스택**
-<img src="https://img.shields.io/badge/Kotlin-7F52FF?style=flat-square&logo=Kotlin&logoColor=white"/> <img src="https://img.shields.io/badge/Android-3DDC84?style=flat-square&logo=Android&logoColor=white"/>
-<img src="https://img.shields.io/badge/AndroidStudio-3DDC84?style=flat-square&logo=AndroidStudio&logoColor=white"/>
-<img src="https://img.shields.io/badge/firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=white">
-<img src="https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white">
-<img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white">
-<img src="https://img.shields.io/badge/Figma-F24E1E?style=flat-square&logo=figma&logoColor=white">
-<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"><img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white"><img src="https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white">
+<img src="https://img.shields.io/badge/Kotlin-7F52FF?style=for-the-badge&logo=Kotlin&logoColor=white"><img src="https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=Android&logoColor=white"><img src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=white">
 
-<img src="https://img.shields.io/badge/Kotlin-7F52FF?style=for-the-badge&logo=Kotlin&logoColor=white"><img src="https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=Android&logoColor=white">
+<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"><img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white"><img src="https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white"><img src="https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white">
+
 </br>
