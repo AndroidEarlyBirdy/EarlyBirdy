@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.ktx.Firebase
 
 class BoardFragment : Fragment() {
@@ -95,9 +96,9 @@ class BoardFragment : Fragment() {
         }
 
         binding.icReload.setOnClickListener {
-            if (!boardCheck){
+            if (!boardCheck) {
                 loadData()
-            }else if (boardCheck){
+            } else if (boardCheck) {
                 loadMyBoardData()
             }
         }
@@ -105,7 +106,7 @@ class BoardFragment : Fragment() {
 
     // 전체보기
     private fun loadData() {
-        fireStore.collection("BoardDto").get()
+        fireStore.collection("BoardDto").orderBy("createdTime", Query.Direction.DESCENDING).get()
             .addOnSuccessListener { value ->
                 boardAdapter.clearList()
                 data.clear()
@@ -123,10 +124,8 @@ class BoardFragment : Fragment() {
                             item.contentsPhoto
                         )
                         data.add(boardItam)
-                        Log.d("board", boardItam.toString())
                     }
                 }
-                data.sortByDescending { it.createdTime } // 날짜순 정렬
                 boardAdapter.addItems(data)
             }
     }
