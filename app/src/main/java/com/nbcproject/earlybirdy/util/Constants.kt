@@ -6,5 +6,6 @@ class Constants {
         const val openLicenseUrl = "https://forms.gle/BjetAoT32rAZCXM38"
         const val generalConditionUrl = "https://forms.gle/T3qfmHqEkZBerZL56"
         const val claimUrl = "https://forms.gle/Yk1vuhrxWrTsbnbWA"
+
     }
 }
