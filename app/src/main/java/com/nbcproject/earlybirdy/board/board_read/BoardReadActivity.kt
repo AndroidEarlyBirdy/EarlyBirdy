@@ -331,6 +331,7 @@ class BoardReadActivity : MainActivity() {
             db.collection("BoardDto").document(BoardData.bid).collection("CommentDto")
                 .document(commentIndex)
                 .set(commentDto)
+            loadCommentData()
         }
     }
 }
