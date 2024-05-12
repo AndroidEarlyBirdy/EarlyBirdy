@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.firestore.AggregateSource
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -69,7 +71,12 @@ class BoardAdapter(context: Context) : RecyclerView.Adapter<BoardAdapter.Holder>
             tvWriter.text = item.writer
             etContentsTitle.text = item.contentsTitle
 
-            Glide.with(bContext).load(item.contentsPhoto).fallback(R.drawable.ic_logo).error(R.drawable.ic_logo).into(ivContentsPoto)
+            val requestOptions = RequestOptions()
+                .placeholder(R.drawable.ic_logo) // Placeholder while loading
+                .error(R.drawable.ic_logo)
+
+            Glide.with(bContext).load(item.contentsPhoto).apply(requestOptions)
+                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC).into(ivContentsPoto)
 
             Firebase.firestore.collection("BoardDto").document(item.bid).collection("CommentDto")
                 .count().get(
@@ -82,6 +89,5 @@ class BoardAdapter(context: Context) : RecyclerView.Adapter<BoardAdapter.Holder>
 
         }
     }
-
 
 }

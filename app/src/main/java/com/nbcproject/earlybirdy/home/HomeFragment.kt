@@ -15,6 +15,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.nbcproject.earlybirdy.create_plan.CreatePlanActivity
@@ -41,7 +43,7 @@ import java.util.UUID
 
 
 class HomeFragment : Fragment() {
-
+    private lateinit var homeViewModel: HomeViewModel
     // 파이어스토어
     private var firestore: FirebaseFirestore? = null
 
@@ -99,8 +101,27 @@ class HomeFragment : Fragment() {
             startActivity(intent)
         }
 
+
+        homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+
+        // LiveData를 위한 Observer 설정
+        val emptyListObserver = Observer<Int> { visibility ->
+            binding.tvEmptyListMessage.visibility = visibility
+        }
+        val leftArrowObserver = Observer<Int> { visibility ->
+            binding.btnLeftArrow.visibility = visibility
+        }
+        val rightArrowObserver = Observer<Int> { visibility ->
+            binding.btnRightArrow.visibility = visibility
+        }
+
+        homeViewModel.emptyListMessageVisibility.observe(viewLifecycleOwner, emptyListObserver)
+        homeViewModel.leftArrowVisibility.observe(viewLifecycleOwner, leftArrowObserver)
+        homeViewModel.rightArrowVisibility.observe(viewLifecycleOwner, rightArrowObserver)
+
         return binding.root
     }
+
 
     inner class HomeFragmentAdapter : RecyclerView.Adapter<HomeFragmentAdapter.ViewHolder>() {
         private var list = ArrayList<MyGoal>()
@@ -121,9 +142,10 @@ class HomeFragment : Fragment() {
 
         override fun getItemCount(): Int {
             val itemCount = list.size
-            binding.tvEmptyListMessage.visibility = if (itemCount == 0) View.VISIBLE else View.GONE
+            homeViewModel.updateEmptyListMessageVisibility(if (itemCount == 0) View.VISIBLE else View.GONE)
             return itemCount
         }
+
 
         inner class ViewHolder(private val binding: ItemTodoMainBinding) :
             RecyclerView.ViewHolder(binding.root) {
@@ -222,13 +244,13 @@ class HomeFragment : Fragment() {
                     }
 
                     if (totalGoals == 0) {
-                        // RecyclerView 내용이 없을 때 화살표를 숨김
-                        binding.btnLeftArrow.visibility = View.GONE
-                        binding.btnRightArrow.visibility = View.GONE
+                        homeViewModel.updateEmptyListMessageVisibility(View.VISIBLE)
+                        homeViewModel.updateLeftArrowVisibility(View.GONE)
+                        homeViewModel.updateRightArrowVisibility(View.GONE)
                     } else {
-                        // RecyclerView 내용이 있을 때 화살표를 표시
-                        binding.btnLeftArrow.visibility = View.VISIBLE
-                        binding.btnRightArrow.visibility = View.VISIBLE
+                        homeViewModel.updateEmptyListMessageVisibility(View.GONE)
+                        homeViewModel.updateLeftArrowVisibility(View.VISIBLE)
+                        homeViewModel.updateRightArrowVisibility(View.VISIBLE)
                     }
 
                     updateProgress()
